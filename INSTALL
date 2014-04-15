@@ -1,0 +1,9 @@
+Building Ecoin
+
+See doc/readme-qt.rst for instructions on building Ecoin-Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of Ecoin.
+
+See doc/build-*.txt for instructions on building ecoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of Ecoin.
