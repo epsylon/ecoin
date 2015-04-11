@@ -34,8 +34,6 @@ Default RPC Port: 7474
 
 It is recomended that you use the official builds, only from the official Github repository to minimize the chance of malware, and ensure you are using the correct dependencies.
 
-All binaries built using gitian builder on custom Ubuntu 12 VM's for consistency of versions.
-
 If you wish to build manually:
 
 Build Dependencies - Please to not use other versions
