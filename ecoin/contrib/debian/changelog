@@ -1,0 +1,6 @@
+ecoin-qt (7.5.15) unstable; urgency=low
+
+  [ Shaun Mcbride ]
+  * Testing the building on Ubuntu.
+
+ -- Shaun Mcbride <shaun.mcbride@gmail.com>  Mon, 22 Dec 2014 22:53:22 -0600

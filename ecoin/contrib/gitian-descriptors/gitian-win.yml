@@ -1,0 +1,84 @@
+---
+name: "ecoin"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages:
+- "mingw-w64"
+- "g++-mingw-w64"
+- "git-core"
+- "unzip"
+- "nsis"
+- "faketime"
+
+reference_datetime: "2013-06-01 00:00:00"
+remotes: []
+files:
+- "qt-win32-4.8.3-gitian-r2.zip"
+- "qt-win64-4.8.3-gitian-r2.zip"
+- "boost-win32-1.55.0-gitian-r6.zip"
+- "boost-win64-1.55.0-gitian-r6.zip"
+- "ecoin-deps-win32-gitian-r11.zip"
+- "ecoin-deps-win64-gitian-r11.zip"
+- "protobuf-win32-2.5.0-gitian-r4.zip"
+- "protobuf-win64-2.5.0-gitian-r4.zip"
+- "ecoin-src.zip"
+script: |
+  #
+  export QT_RCC_TEST=1
+  NEEDDIST=1
+  for BITS in 32 64; do # for architectures
+    #
+    STAGING=$HOME/staging${BITS}
+    if [ "$BITS" == "32" ]; then
+      HOST=i686-w64-mingw32
+    else
+      HOST=x86_64-w64-mingw32
+    fi
+    mkdir -p $STAGING
+    cd $STAGING
+    unzip ../build/qt-win${BITS}-4.8.3-gitian-r2.zip
+    unzip ../build/boost-win${BITS}-1.55.0-gitian-r6.zip
+    unzip ../build/ecoin-deps-win${BITS}-gitian-r11.zip
+    unzip ../build/ecoin-src.zip
+    export PATH=$STAGING/host/bin:$PATH
+    cp -Rf $STAGING/ecoin $HOME/build/ecoin${BITS}
+    cd $HOME/build/ecoin${BITS}
+    if [ "$NEEDDIST" == "1" ]; then     
+      #  
+      mkdir -p $OUTDIR/src
+      git archive HEAD | tar -x -C $OUTDIR/src
+      cp $OUTDIR/src/doc/README_windows.txt $OUTDIR/readme.txt
+      cp $OUTDIR/src/COPYING $OUTDIR/COPYING.txt
+      NEEDDIST=0
+    fi
+    export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    export FAKETIME=$REFERENCE_DATETIME
+    export TZ=UTC
+    ln -s $STAGING $HOME/qt
+    $STAGING/host/bin/qmake -spec unsupported/win32-g++-cross MINIUPNPC_LIB_PATH=$STAGING MINIUPNPC_INCLUDE_PATH=$STAGING BDB_LIB_PATH=$STAGING BDB_INCLUDE_PATH=$STAGING BOOST_LIB_PATH=$STAGING BOOST_INCLUDE_PATH=$STAGING BOOST_LIB_SUFFIX=-mt-s BOOST_THREAD_LIB_SUFFIX=_win32-mt-s OPENSSL_LIB_PATH=$STAGING OPENSSL_INCLUDE_PATH=$STAGING QRENCODE_LIB_PATH=$STAGING QRENCODE_INCLUDE_PATH=$STAGING USE_QRCODE=1 INCLUDEPATH=$STAGING DEFINES=BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 QMAKE_LRELEASE=lrelease QMAKE_CXXFLAGS=-frandom-seed=ecoin USE_BUILD_INFO=1 USE_SSE2=1
+    make $MAKEOPTS
+    $HOST-strip release/ecoin-qt.exe
+    mkdir -p $OUTDIR/${BITS}
+    cp release/ecoin-qt.exe $OUTDIR/${BITS}
+    #
+    cd src
+    export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    export FAKETIME=$REFERENCE_DATETIME
+    export TZ=UTC
+    make -f makefile.linux${BITS}-mingw $MAKEOPTS DEPSDIR=$STAGING ecoind.exe USE_UPNP=0 DEBUGFLAGS="-frandom-seed=ecoin" USE_SSE2=1
+    $HOST-strip ecoind.exe
+    cp ecoind.exe $OUTDIR/${BITS}
+    cd ..
+    mkdir nsis${BITS}
+    git archive HEAD | tar -x -C nsis${BITS}
+    cd nsis${BITS}/src
+    mkdir ../release
+    cp ../../release/* ../release/
+    cp ../../src/*.exe .
+    makensis ../share/setup.nsi
+    cp ../share/ecoin-*-win32-setup.exe $OUTDIR/$BITS
+    unlink $HOME/qt
+    rm -f $HOME/build/ecoin${BITS}/build/*
+  done # for BITS in

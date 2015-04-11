@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Ecoin
+Comment=Ecoin P2P Cryptocurrency
+Exec=/usr/bin/ecoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/ecoin-48.png
+MimeType=x-scheme-handler/ecoin;
+Categories=Office;
+Name[en_US]=ecoin-qt.desktop

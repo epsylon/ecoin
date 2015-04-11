@@ -1,0 +1,91 @@
+---
+name: "qt"
+suites:
+- "precise"
+architectures:
+- "amd64"
+packages: 
+- "mingw-w64"
+- "g++-mingw-w64"
+- "zip"
+- "unzip"
+- "faketime"
+- "libz-dev"
+reference_datetime: "2011-01-30 00:00:00"
+remotes: []
+files:
+- "qt-everywhere-opensource-src-4.8.3.tar.gz"
+- "ecoin-deps-win32-gitian-r11.zip"
+- "ecoin-deps-win64-gitian-r11.zip"
+script: |
+  # Defines
+  export TZ=UTC
+  INDIR=$HOME/build
+  # Qt: workaround for determinism in resource ordering
+  #  Qt5's rcc uses a QHash to store the files for the resource.
+  #  A security fix in QHash makes the ordering of keys to be different on every run
+  #  (https://qt.gitorious.org/qt/qtbase/commit/c01eaa438200edc9a3bbcd8ae1e8ded058bea268).
+  #  This is good in general but qrc shouldn't be doing a traversal over a randomized container.
+  #  The thorough solution would be to use QMap instead of QHash, but this requires patching Qt.
+  #  For now luckily there is a test mode that forces a fixed seed.
+  export QT_RCC_TEST=1
+  # Integrity Check
+  echo "f1f72974f924861be04019f49f07cd43ab3c95056db2ba8f34b283487cccc728  qt-everywhere-opensource-src-4.8.3.tar.gz" | sha256sum -c
+
+  for BITS in 32 64; do # for architectures
+    #
+    INSTALLPREFIX=$HOME/staging${BITS}
+    BUILDDIR=$HOME/build${BITS}
+    DEPSDIR=$HOME/deps${BITS}
+    if [ "$BITS" == "32" ]; then
+      HOST=i686-w64-mingw32
+    else
+      HOST=x86_64-w64-mingw32
+    fi
+    #
+    mkdir -p $INSTALLPREFIX $INSTALLPREFIX/host/bin $DEPSDIR $BUILDDIR
+    #
+    # Need mingw-compiled openssl from ecoin-deps:
+    cd $DEPSDIR
+    unzip $INDIR/ecoin-deps-win${BITS}-gitian-r11.zip
+    #
+    cd $BUILDDIR
+    #
+    tar xzf $INDIR/qt-everywhere-opensource-src-4.8.3.tar.gz
+    cd qt-everywhere-opensource-src-4.8.3
+    SPECNAME="win32-g++"
+    SPECFILE="mkspecs/${SPECNAME}/qmake.conf"
+    sed 's/$TODAY/2011-01-30/' -i configure
+    sed "s/i686-pc-mingw32-/$HOST-/" -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    sed --posix "s|QMAKE_CFLAGS\t\t= -pipe|QMAKE_CFLAGS\t\t= -pipe -isystem /usr/$HOST/include/ -frandom-seed=qtbuild|" -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    sed 's/QMAKE_CXXFLAGS_EXCEPTIONS_ON = -fexceptions -mthreads/QMAKE_CXXFLAGS_EXCEPTIONS_ON = -fexceptions/' -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    sed 's/QMAKE_LFLAGS_EXCEPTIONS_ON = -mthreads/QMAKE_LFLAGS_EXCEPTIONS_ON = -lmingwthrd/' -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    sed --posix "s/QMAKE_MOC\t\t= $HOST-moc/QMAKE_MOC\t\t= moc/" -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    sed --posix "s/QMAKE_RCC\t\t= $HOST-rcc/QMAKE_RCC\t\t= rcc/" -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    sed --posix "s/QMAKE_UIC\t\t= $HOST-uic/QMAKE_UIC\t\t= uic/" -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    # ar adds timestamps to every object file included in the static library
+    # providing -D as ar argument is supposed to solve it, but doesn't work as qmake strips off the arguments and adds -M to pass a script...
+    # which somehow cannot be combined with other flags.
+    # use faketime only for ar, as it confuses make/qmake into hanging sometimes
+    sed --posix "s|QMAKE_LIB\t\t= $HOST-ar -ru|QMAKE_LIB\t\t= $HOME/ar -Dr|" -i mkspecs/unsupported/win32-g++-cross/qmake.conf
+    echo '#!/bin/bash' > $HOME/ar
+    echo 'export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1' >> $HOME/ar
+    echo "$HOST-ar \"\$@\"" >> $HOME/ar
+    chmod +x $HOME/ar
+    # Don't load faketime while compiling Qt, qmake will get stuck in nearly infinite loops
+    #export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    export FAKETIME=$REFERENCE_DATETIME
+    # 
+    # Compile static libraries, and use statically linked openssl (-openssl-linked):
+    OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32 -lcrypt32" ./configure -prefix $INSTALLPREFIX -bindir $INSTALLPREFIX/host/bin -I $DEPSDIR/include  -confirm-license -release -opensource -static -no-qt3support -xplatform unsupported/win32-g++-cross -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-declarative -no-script -no-scripttools -no-javascript-jit -no-webkit -no-svg -no-xmlpatterns -no-sql-sqlite -no-nis -no-cups -no-iconv -no-dbus -no-gif -no-libtiff -no-opengl -nomake examples -nomake demos -nomake docs -no-feature-style-plastique -no-feature-style-cleanlooks -no-feature-style-motif -no-feature-style-cde -no-feature-style-windowsce -no-feature-style-windowsmobile -no-feature-style-s60 -openssl-linked
+    find . -name *.prl | xargs -l sed 's|/\.||' -i
+    find . -name *.prl | xargs -l sed 's|/$||' -i
+    make $MAKEOPTS install
+    #
+    cd $INSTALLPREFIX
+    # as zip stores file timestamps, use faketime to intercept stat calls to set dates for all files to reference date
+    export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    zip -r $OUTDIR/qt-win${BITS}-4.8.3-gitian-r2.zip *
+    unset LD_PRELOAD
+    unset FAKETIME
+  done # for BITS in

@@ -1,0 +1,55 @@
+---
+name: "ecoin"
+suites:
+- "precise"
+architectures:
+- "amd64"
+- "i386"
+packages: 
+- "g++"
+- "libqt4-dev"
+- "git-core"
+- "unzip"
+- "pkg-config"
+- "autoconf2.13"
+- "libtool"
+- "automake"
+- "faketime"
+- "bsdmainutils"
+- "zlib1g-dev"
+reference_datetime: "2013-06-01 00:00:00"
+remotes: []
+files:
+- "ecoin-deps-linux32-gitian-r3.zip"
+- "ecoin-deps-linux64-gitian-r3.zip"
+- "boost-linux32-1.55.0-gitian-r1.zip"
+- "boost-linux64-1.55.0-gitian-r1.zip"
+- "ecoin-src.zip"
+script: |
+  STAGING="$HOME/install"
+  OPTFLAGS='-O2'
+  BINDIR="${OUTDIR}/bin/${GBUILD_BITS}" # 32/64 bit build specific output directory
+  export LIBRARY_PATH="${STAGING}/lib"
+  mkdir -p ${BINDIR}
+  #
+  mkdir -p $STAGING
+  cd $STAGING
+  unzip ../build/ecoin-deps-linux${GBUILD_BITS}-gitian-r3.zip
+  unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
+  unzip ../build/ecoin-src.zip
+  #
+  cp -Rf $STAGING/ecoin $HOME/build/ecoin${GBUILD_BITS}
+  cd ../build
+  cd ecoin${GBUILD_BITS}
+  mkdir -p $OUTDIR/src
+  git archive HEAD | tar -x -C ${OUTDIR}/src
+  cp ${OUTDIR}/src/doc/README.md ${OUTDIR}
+  cp ${OUTDIR}/src/COPYING ${OUTDIR}
+  cd src
+  make -f makefile.unix STATIC=1 OPENSSL_INCLUDE_PATH="${STAGING}/include" OPENSSL_LIB_PATH="${STAGING}/lib" BDB_LIB_PATH="${STAGING}/lib" BDB_INCLUDE_PATH="${STAGING}/include" BOOST_LIB_PATH="${STAGING}/lib" BOOST_INCLUDE_PATH="${STAGING}/include" $MAKEOPTS ecoind USE_UPNP=1 DEBUGFLAGS=
+  mkdir -p $OUTDIR/bin/$GBUILD_BITS
+  install -s ecoind $OUTDIR/bin/$GBUILD_BITS
+  cd ..
+  qmake INCLUDEPATH="$STAGING/include" LIBS="-L$STAGING/lib" BOOST_LIB_SUFFIX=-mt BOOST_THREAD_LIB_SUFFIX=-mt RELEASE=1 USE_QRCODE=1
+  make $MAKEOPTS
+  install ecoin-qt $OUTDIR/bin/$GBUILD_BITS

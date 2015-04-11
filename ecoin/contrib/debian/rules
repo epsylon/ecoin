@@ -1,0 +1,38 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+
+#DEB_MAKE_CHECK_TARGET = test_bitcoin
+#build/bitcoind::
+#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_bitcoin)
+
+DEB_INSTALL_EXAMPLES_ecoind += debian/examples/*
+DEB_INSTALL_MANPAGES_ecoind += debian/manpages/*
+
+%:
+	dh $@  --with bash-completion 
+
+override_dh_auto_build:
+	cd src; $(MAKE) -f makefile.linux ecoind
+	$(MAKE)
+
+override_dh_auto_clean:
+	rm -f src/ecoind
+	rm -f src/obj/*.o
+	rm -f src/obj/zerocoin/*.o
+	rm -f src/obj/*.P
+	rm -f src/obj/zerocoin/*.P
+	rm -f src/obj/build.h
+
+
+override_dh_auto_configure:
+	qmake ecoin-qt.pro USE_QRCODE=1
+
+#override_dh_auto_test:
+#	cd src; $(MAKE) -f makefile.linux test_ecoin
+#	src/test_ecoin
+
+# Ensure wrapper is set executable
+binary-post-install/ecoind:
+	chmod +x $(cdbs_curdestdir)usr/bin/ecoind
+binary-post-install/ecoin-qt:
+	chmod +x $(cdbs_curdestdir)usr/bin/ecoin-qt
