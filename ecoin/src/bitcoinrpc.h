@@ -128,8 +128,8 @@ extern int64 AmountFromValue(const json_spirit::Value& value);
 extern json_spirit::Value ValueFromAmount(int64 amount);
 extern double GetDifficulty(const CBlockIndex* blockindex = NULL);
 
-extern double GetPoWMHashPS(const CBlockIndex* blockindex = NULL);
-extern double GetPoSKernelPS(const CBlockIndex* blockindex = NULL);
+extern double GetPoWMHashPS();
+extern double GetPoSKernelPS();
 
 extern std::string HexBits(unsigned int nBits);
 extern std::string HelpRequiringPassphrase();
@@ -146,17 +146,12 @@ extern std::vector<unsigned char> ParseHexO(const json_spirit::Object& o, std::s
 
 extern json_spirit::Value getconnectioncount(const json_spirit::Array& params, bool fHelp); // in rpcnet.cpp
 extern json_spirit::Value getpeerinfo(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value addnode(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value getaddednodeinfo(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value getnettotals(const json_spirit::Array& params, bool fHelp);
-
 extern json_spirit::Value dumpwallet(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value importwallet(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value dumpprivkey(const json_spirit::Array& params, bool fHelp); // in rpcdump.cpp
 extern json_spirit::Value importprivkey(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value sendalert(const json_spirit::Array& params, bool fHelp);
 
-extern json_spirit::Value ecoinshare(const json_spirit::Array& params, bool fHelp);// Credit Tranz5 (HBN and CAP)
+extern json_spirit::Value sendalert(const json_spirit::Array& params, bool fHelp);
 
 extern json_spirit::Value getsubsidy(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getmininginfo(const json_spirit::Array& params, bool fHelp);
@@ -189,7 +184,6 @@ extern json_spirit::Value listaddressgroupings(const json_spirit::Array& params,
 extern json_spirit::Value listaccounts(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value listsinceblock(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value gettransaction(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value deleteaddress(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value backupwallet(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value keypoolrefill(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value walletpassphrase(const json_spirit::Array& params, bool fHelp);
@@ -224,17 +218,4 @@ extern json_spirit::Value getblock(const json_spirit::Array& params, bool fHelp)
 extern json_spirit::Value getblockbynumber(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getcheckpoint(const json_spirit::Array& params, bool fHelp);
 
-extern json_spirit::Value smsgenable(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgdisable(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsglocalkeys(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgoptions(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgscanchain(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgscanbuckets(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgaddkey(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsggetpubkey(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgsend(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgsendanon(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsginbox(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgoutbox(const json_spirit::Array& params, bool fHelp);
-extern json_spirit::Value smsgbuckets(const json_spirit::Array& params, bool fHelp);
 #endif

@@ -13,7 +13,9 @@ packages:
 - "faketime"
 
 reference_datetime: "2013-06-01 00:00:00"
-remotes: []
+remotes:
+- "url": "https://github.com/epsylon/ecoin.git"
+  "dir": "ecoin"
 files:
 - "qt-win32-4.8.3-gitian-r2.zip"
 - "qt-win64-4.8.3-gitian-r2.zip"
@@ -23,7 +25,6 @@ files:
 - "ecoin-deps-win64-gitian-r11.zip"
 - "protobuf-win32-2.5.0-gitian-r4.zip"
 - "protobuf-win64-2.5.0-gitian-r4.zip"
-- "ecoin-src.zip"
 script: |
   #
   export QT_RCC_TEST=1
@@ -41,9 +42,8 @@ script: |
     unzip ../build/qt-win${BITS}-4.8.3-gitian-r2.zip
     unzip ../build/boost-win${BITS}-1.55.0-gitian-r6.zip
     unzip ../build/ecoin-deps-win${BITS}-gitian-r11.zip
-    unzip ../build/ecoin-src.zip
     export PATH=$STAGING/host/bin:$PATH
-    cp -Rf $STAGING/ecoin $HOME/build/ecoin${BITS}
+    cp -Rf $HOME/build/ecoin $HOME/build/ecoin${BITS}
     cd $HOME/build/ecoin${BITS}
     if [ "$NEEDDIST" == "1" ]; then     
       #  

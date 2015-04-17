@@ -86,7 +86,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Spendable:</string>
+             <string>Balance:</string>
             </property>
            </widget>
           </item>
@@ -102,7 +102,7 @@
              <cursorShape>IBeamCursor</cursorShape>
             </property>
             <property name="toolTip">
-             <string>Your current spendable balance</string>
+             <string>Your current balance</string>
             </property>
             <property name="text">
              <string notr="true">0 ECO</string>
@@ -196,39 +196,20 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0" colspan="2">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="labelTotalText">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Total:</string>
+             <string>Number of transactions:</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QLabel" name="labelTotal">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
+          <item row="4" column="1">
+           <widget class="QLabel" name="labelNumTransactions">
             <property name="toolTip">
-             <string>Your current total balance</string>
+             <string>Total number of transactions in wallet</string>
             </property>
             <property name="text">
-             <string notr="true">0 BTC</string>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+             <string notr="true">0</string>
             </property>
            </widget>
           </item>

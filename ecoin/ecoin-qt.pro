@@ -5,14 +5,6 @@ INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
-CONFIG += static
-
-QT += network core gui
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
-    DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
-}
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -24,21 +16,6 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
-# Slax0r - Added for Max OS X Mavericks/Homebrew build
-macx: {
-BDB_LIB_SUFFIX = -5.3
-BOOST_INCLUDE_PATH=/usr/local/include
-BOOST_LIB_PATH=/usr/local/lib
-BDB_INCLUDE_PATH=/usr/local/include
-BDB_LIB_PATH=/usr/local/lib
-OPENSSL_INCLUDE_PATH=/usr/local/opt/openssl/include
-OPENSSL_LIB_PATH=/usr/local/opt/openssl/lib
-MINIUPNPC_INCLUDE_PATH=/usr/local/include
-MINIUPNPC_LIB_PATH=/usr/local/lib
-QRENCODE_INCLUDE_PATH=/usr/local/include
-QRENCODE_LIB_PATH=/usr/local/lib
-}
-
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
@@ -46,11 +23,7 @@ UI_DIR = build
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
     # Mac: compile for maximum compatibility (10.5, 32-bit)
-    #macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk
-
-# Slaxor - Replaced the line above because version-min is 10.7 as this version of the SDK isnt even available anymore
-# and the removed arguments arent needed in modern build environments (ie the last 3 years)
-    macx:QMAKE_CXXFLAGS += -arch x86_64
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk
 
     !windows:!macx {
         # Linux: static link
@@ -121,7 +94,6 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
 SOURCES += src/txdb-leveldb.cpp
-
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
@@ -247,11 +219,9 @@ HEADERS += src/qt/bitcoingui.h \
     src/crypter.h \
     src/qt/sendcoinsentry.h \
     src/qt/qvalidatedlineedit.h \
-    src/qt/qvalidatedtextedit.h \
     src/qt/bitcoinunits.h \
     src/qt/qvaluecombobox.h \
     src/qt/askpassphrasedialog.h \
-    src/qt/trafficgraphwidget.h \
     src/protocol.h \
     src/qt/notificator.h \
     src/qt/qtipcserver.h \
@@ -260,20 +230,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/rpcconsole.h \
     src/version.h \
     src/netbase.h \
-    src/qt/savingsdialog.h \
-    src/clientversion.h\
-    src/qt/sendmessagesdialog.h \
-    src/qt/sendmessagesentry.h \
-    src/qt/messagemodel.h \
-    src/qt/messagepage.h \
-    src/smessage.h \
-    src/lz4/lz4.h \
-    src/xxhash/xxhash.h \
-    src/qt/newversion.h \
-    src/qt/ecoinspeed.h \
-    src/qt/blockbrowser.h \
-    src/qt/tail.h \
-    src/qt/debugdialog.h
+    src/clientversion.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -287,7 +244,6 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
-    src/qt/trafficgraphwidget.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -330,7 +286,6 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/crypter.cpp \
     src/qt/sendcoinsentry.cpp \
     src/qt/qvalidatedlineedit.cpp \
-    src/qt/qvalidatedtextedit.cpp \
     src/qt/bitcoinunits.cpp \
     src/qt/qvaluecombobox.cpp \
     src/qt/askpassphrasedialog.cpp \
@@ -338,19 +293,12 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/notificator.cpp \
     src/qt/qtipcserver.cpp \
     src/qt/rpcconsole.cpp \
-    src/qt/sendmessagesdialog.cpp \
-    src/qt/sendmessagesentry.cpp \
-    src/qt/messagemodel.cpp \
-    src/qt/messagepage.cpp \
-    src/rpcsmessage.cpp \
-    src/smessage.cpp \
     src/noui.cpp \
     src/kernel.cpp \
     src/scrypt-arm.S \
     src/scrypt-x86.S \
     src/scrypt-x86_64.S \
     src/scrypt.cpp \
-    src/qt/savingsdialog.cpp \
     src/pbkdf2.cpp \
     src/zerocoin/Accumulator.cpp \
     src/zerocoin/AccumulatorProofOfKnowledge.cpp \
@@ -361,14 +309,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/zerocoin/Params.cpp \
     src/zerocoin/SerialNumberSignatureOfKnowledge.cpp \
     src/zerocoin/SpendMetaData.cpp \
-    src/zerocoin/ZeroTest.cpp \
-    src/lz4/lz4.c \
-    src/xxhash/xxhash.c \
-    src/qt/newversion.cpp \
-    src/qt/ecoinspeed.cpp \
-    src/qt/blockbrowser.cpp \
-    src/qt/tail.cpp \
-    src/qt/debugdialog.cpp
+    src/zerocoin/ZeroTest.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -381,19 +322,11 @@ FORMS += \
     src/qt/forms/aboutdialog.ui \
     src/qt/forms/editaddressdialog.ui \
     src/qt/forms/transactiondescdialog.ui \
-    src/qt/forms/savingsdialog.ui \
     src/qt/forms/overviewpage.ui \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-    src/qt/forms/optionsdialog.ui \
-    src/qt/forms/newversion.ui \
-    src/qt/forms/ecoinspeed.ui \
-    src/qt/forms/blockbrowser.ui \
-    src/qt/forms/sendmessagesdialog.ui \
-    src/qt/forms/sendmessagesentry.ui \
-    src/qt/forms/messagepage.ui \
-    src/qt/forms/debugdialog.ui
+    src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -422,7 +355,7 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc src/lz4/LICENSE
+    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
@@ -435,7 +368,6 @@ isEmpty(BOOST_THREAD_LIB_SUFFIX) {
 }
 
 isEmpty(BDB_LIB_PATH) {
-    macx:BDB_LIB_PATH = /opt/local/lib/db48
     macx:BDB_LIB_PATH = /opt/local/lib/db48
 }
 
@@ -478,14 +410,11 @@ macx:HEADERS += src/qt/macdockiconhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-# Slax0r  - changed from "bitcoin" to "ecoin" to pick up the correct icon
-macx:ICON = src/qt/res/icons/ecoin.icns
+macx:ICON = src/qt/res/icons/bitcoin.icns
 macx:TARGET = "Ecoin-Qt"
-
-# Slax0r -- no longer necessary on Mavericks
-#macx:QMAKE_CFLAGS_THREAD += -pthread
-#macx:QMAKE_LFLAGS_THREAD += -pthread
-#macx:QMAKE_CXXFLAGS_THREAD += -pthread
+macx:QMAKE_CFLAGS_THREAD += -pthread
+macx:QMAKE_LFLAGS_THREAD += -pthread
+macx:QMAKE_CXXFLAGS_THREAD += -pthread
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH

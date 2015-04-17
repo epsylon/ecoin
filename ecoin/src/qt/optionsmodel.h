@@ -31,12 +31,13 @@ public:
         DetachDatabases,   // bool
         Language,          // QString
         CoinControlFeatures, // bool
-	CheckOnlineUpdate,   // bool
-	DownloadChain,	   //bool
         OptionIDRowCount,
     };
 
     void Init();
+
+    /* Migrate settings from wallet.dat after app initialization */
+    bool Upgrade(); /* returns true if settings upgraded */
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
@@ -49,9 +50,6 @@ public:
     int getDisplayUnit();
     bool getDisplayAddresses();
     bool getCoinControlFeatures();
-    bool getCheckOnlineUpdate();
-    void setDownloadChain();
-    void clearDownloadChain();
     QString getLanguage() { return language; }
 
 private:
@@ -60,8 +58,6 @@ private:
     bool fMinimizeToTray;
     bool fMinimizeOnClose;
     bool fCoinControlFeatures;
-    bool fCheckOnlineUpdate;
-    bool fDownloadChain;
     QString language;
 
 signals:

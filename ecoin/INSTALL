@@ -1,9 +1,9 @@
-Building Ecoin [ECO]
+Building Bitcoin
 
-See doc/readme-qt.rst for instructions on building Ecoin QT,
+See doc/readme-qt.rst for instructions on building Bitcoin QT,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Ecoin.
+implementation of Bitcoin.
 
-See doc/build-*.txt for instructions on building ecoind,
+See doc/build-*.txt for instructions on building bitcoind,
 the intended-for-services, no-graphical-interface, reference
-implementation of Ecoin.
+implementation of Bitcoin.

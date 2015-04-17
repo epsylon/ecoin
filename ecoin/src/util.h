@@ -122,15 +122,6 @@ inline void Sleep(int64 n)
 }
 #endif
 
-inline void MilliSleep(int64_t n)
-{
-#if BOOST_VERSION >= 105000
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
-#else
-    boost::this_thread::sleep(boost::posix_time::milliseconds(n));
-#endif
-}
-
 /* This GNU C extension enables the compiler to check the format string against the parameters provided.
  * X is the number of the "format string" parameter, and Y is the number of the first variadic parameter.
  * Parameters count from 1.
@@ -152,8 +143,6 @@ extern std::map<std::string, std::string> mapArgs;
 extern std::map<std::string, std::vector<std::string> > mapMultiArgs;
 extern bool fDebug;
 extern bool fDebugNet;
-extern bool fDebugSmsg;
-extern bool fNoSmsg;
 extern bool fPrintToConsole;
 extern bool fPrintToDebugger;
 extern bool fRequestShutdown;
@@ -365,11 +354,7 @@ inline int64 GetTimeMillis()
     return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
             boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
 }
-inline int64 GetTimeMicros()
-{
-return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
-boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_microseconds();
-}
+
 inline std::string DateTimeStrFormat(const char* pszFormat, int64 nTime)
 {
     time_t n = nTime;

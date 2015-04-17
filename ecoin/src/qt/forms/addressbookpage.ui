@@ -56,13 +56,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="deleteCheckBox">
-     <property name="text">
-      <string>Enable Deletion of Receiving Address - WARNING YOU WILL LOSE KEYS TO ANY COINS AT THE ADDRESS, BACK UP WALLET FIRST!</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="newAddressButton">
@@ -128,20 +121,6 @@
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/transaction_0</normaloff>:/icons/transaction_0</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="autoSavingsPushButton">
-       <property name="toolTip">
-        <string>Send a percentage of stake to a specified Ecoin address</string>
-       </property>
-       <property name="text">
-        <string>&amp;EcoinShare</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
        </property>
       </widget>
      </item>

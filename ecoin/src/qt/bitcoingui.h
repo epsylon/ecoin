@@ -4,22 +4,16 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
-#include "util.h" // for uint64
-
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
-class MessageModel;
 class TransactionView;
 class OverviewPage;
 class AddressBookPage;
-class MessagePage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
-class AutoSavingsDialog;
-class BlockBrowser;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -52,10 +46,6 @@ public:
         functionality.
     */
     void setWalletModel(WalletModel *walletModel);
-    /** Set the message model.
-        The message model represents encryption message database, and offers access to the list of messages, address book and sending functionality.
-    */
-        void setMessageModel(MessageModel *messageModel);
 
 protected:
     void changeEvent(QEvent *e);
@@ -66,7 +56,6 @@ protected:
 private:
     ClientModel *clientModel;
     WalletModel *walletModel;
-    MessageModel *messageModel;
 
     QStackedWidget *centralWidget;
 
@@ -74,12 +63,8 @@ private:
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
-    MessagePage *messagePage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
-
-    AutoSavingsDialog *autoSavingsDialog;
-    BlockBrowser *blockBrowser;
 
     QLabel *labelEncryptionIcon;
     QLabel *labelStakingIcon;
@@ -92,7 +77,6 @@ private:
     QAction *overviewAction;
     QAction *historyAction;
     QAction *quitAction;
-    QAction *messageAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
     QAction *signMessageAction;
@@ -105,19 +89,9 @@ private:
     QAction *encryptWalletAction;
     QAction *backupWalletAction;
     QAction *changePassphraseAction;
-    QAction *lockWalletAction;
     QAction *unlockWalletAction;
     QAction *aboutQtAction;
-    QAction *themeDefaultAction;
-    QAction *themeCustomAction;
     QAction *openRPCConsoleAction;
-    QAction *openTrafficAction;
-
-    QAction *ecoinSpeedAction;
-    QAction *savingsAction;
-    QAction *blockAction;
-    QAction *websiteAction;
-    QAction *forumAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -125,18 +99,6 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
-    QMovie *stakingIconMovie;
-
-    uint64 nWeight;
-    uint64 nHoursToMaturity;
-
-    /* Themes support */
-    QString selectedTheme;
-    QStringList themesList;
-    // Path to directory where all themes are (usable for some common images?...)
-    QString themesDir;
-    QAction *customActions[100];
-    /* /Themes support */
 
     /** Create the main UI actions. */
     void createActions();
@@ -182,8 +144,6 @@ private slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
-    /** Switch to message page */
-    void gotoMessagePage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -203,47 +163,21 @@ private slots:
         The new items are those between start and end inclusive, under the given parent item.
     */
     void incomingTransaction(const QModelIndex & parent, int start, int end);
-
-    /** Show incoming message notification for new messages.
-
-        The new items are those between start and end inclusive, under the given parent item.
-    */
-    void incomingMessage(const QModelIndex & parent, int start, int end);
-
     /** Encrypt the wallet */
     void encryptWallet(bool status);
     /** Backup the wallet */
     void backupWallet();
     /** Change encrypted wallet passphrase */
     void changePassphrase();
-    /** Lock the wallet */
-    void lockWallet();
     /** Ask for passphrase to unlock wallet temporarily */
     void unlockWallet();
-    /** Ask for passphrase to unlock wallet for staking */
-    void unlockWalletStaking();
-
-    /** Switch to EcoinShare page */
-    void savingsClicked(QString addr = "");
-    /** Switch to block browser page */
-    void gotoBlockBrowser(QString transactionId = "");
 
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
     void showNormalIfMinimized(bool fToggleHidden = false);
     /** simply calls showNormalIfMinimized(true) for use in SLOT() macro */
     void toggleHidden();
 
-    void updateWeight();
     void updateStakingIcon();
-    void ecoinSpeedClicked();
-    void websiteClicked();
-    void forumClicked();
-
-    /** Load external QSS stylesheet */
-    void changeTheme(QString theme);
-    void loadTheme(QString theme);
-    void listThemes(QStringList& themes);
-    void keyPressEvent(QKeyEvent * e);
 };
 
 #endif

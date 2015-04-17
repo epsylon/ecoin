@@ -377,7 +377,7 @@ bool AddressTableModel::removeRows(int row, int count, const QModelIndex &parent
 {
     Q_UNUSED(parent);
     AddressTableEntry *rec = priv->index(row);
-    if(count != 1 || !rec)
+    if(count != 1 || !rec || rec->type == AddressTableEntry::Receiving)
     {
         // Can only remove one row at a time, and cannot remove rows not in model.
         // Also refuse to remove receiving addresses.
@@ -386,10 +386,6 @@ bool AddressTableModel::removeRows(int row, int count, const QModelIndex &parent
     {
         LOCK(wallet->cs_wallet);
         wallet->DelAddressBookName(CBitcoinAddress(rec->address.toStdString()).Get());
-        if(rec->type == AddressTableEntry::Receiving)
-        {
-            wallet->TopUpKeyPool(); //mark existing keypool as used and refill keypool
-        }
     }
     return true;
 }

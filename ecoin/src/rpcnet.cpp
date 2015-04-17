@@ -55,149 +55,14 @@ Value getpeerinfo(const Array& params, bool fHelp)
         obj.push_back(Pair("services", strprintf("%08"PRI64x, stats.nServices)));
         obj.push_back(Pair("lastsend", (boost::int64_t)stats.nLastSend));
         obj.push_back(Pair("lastrecv", (boost::int64_t)stats.nLastRecv));
-        obj.push_back(Pair("bytessent", (boost::int64_t)stats.nSendBytes));
-        obj.push_back(Pair("bytesrecv", (boost::int64_t)stats.nRecvBytes));
         obj.push_back(Pair("conntime", (boost::int64_t)stats.nTimeConnected));
         obj.push_back(Pair("version", stats.nVersion));
         obj.push_back(Pair("subver", stats.strSubVer));
         obj.push_back(Pair("inbound", stats.fInbound));
+        obj.push_back(Pair("releasetime", (boost::int64_t)stats.nReleaseTime));
         obj.push_back(Pair("startingheight", stats.nStartingHeight));
         obj.push_back(Pair("banscore", stats.nMisbehavior));
 
-        ret.push_back(obj);
-    }
-
-    return ret;
-}
-
-Value addnode(const Array& params, bool fHelp)
-{
-    string strCommand;
-    if (params.size() == 2)
-        strCommand = params[1].get_str();
-    if (fHelp || params.size() != 2 ||
-        (strCommand != "onetry" && strCommand != "add" && strCommand != "remove"))
-        throw runtime_error(
-            "addnode <node> <add|remove|onetry>\n"
-            "Attempts add or remove <node> from the addnode list or try a connection to <node> once.");
-
-    string strNode = params[0].get_str();
-
-    if (strCommand == "onetry")
-    {
-        CAddress addr;
-        ConnectNode(addr, strNode.c_str());
-        return Value::null;
-    }
-
-    LOCK(cs_vAddedNodes);
-    vector<string>::iterator it = vAddedNodes.begin();
-    for(; it != vAddedNodes.end(); it++)
-        if (strNode == *it)
-            break;
-
-    if (strCommand == "add")
-    {
-        if (it != vAddedNodes.end())
-            throw JSONRPCError(-23, "Error: Node already added");
-        vAddedNodes.push_back(strNode);
-    }
-    else if(strCommand == "remove")
-    {
-        if (it == vAddedNodes.end())
-            throw JSONRPCError(-24, "Error: Node has not been added.");
-        vAddedNodes.erase(it);
-    }
-
-    return Value::null;
-}
-
-Value getaddednodeinfo(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "getaddednodeinfo <dns> [node]\n"
-            "Returns information about the given added node, or all added nodes\n"
-            "(note that onetry addnodes are not listed here)\n"
-            "If dns is false, only a list of added nodes will be provided,\n"
-            "otherwise connected information will also be available.");
-
-    bool fDns = params[0].get_bool();
-
-    list<string> laddedNodes(0);
-    if (params.size() == 1)
-    {
-        LOCK(cs_vAddedNodes);
-        BOOST_FOREACH(string& strAddNode, vAddedNodes)
-            laddedNodes.push_back(strAddNode);
-    }
-    else
-    {
-        string strNode = params[1].get_str();
-        LOCK(cs_vAddedNodes);
-        BOOST_FOREACH(string& strAddNode, vAddedNodes)
-            if (strAddNode == strNode)
-            {
-                laddedNodes.push_back(strAddNode);
-                break;
-            }
-        if (laddedNodes.size() == 0)
-            throw JSONRPCError(-24, "Error: Node has not been added.");
-    }
-
-    if (!fDns)
-    {
-        Object ret;
-        BOOST_FOREACH(string& strAddNode, laddedNodes)
-            ret.push_back(Pair("addednode", strAddNode));
-        return ret;
-    }
-
-    Array ret;
-
-    list<pair<string, vector<CService> > > laddedAddreses(0);
-    BOOST_FOREACH(string& strAddNode, laddedNodes)
-    {
-        vector<CService> vservNode(0);
-        if(Lookup(strAddNode.c_str(), vservNode, GetDefaultPort(), fNameLookup, 0))
-            laddedAddreses.push_back(make_pair(strAddNode, vservNode));
-        else
-        {
-            Object obj;
-            obj.push_back(Pair("addednode", strAddNode));
-            obj.push_back(Pair("connected", false));
-            Array addresses;
-            obj.push_back(Pair("addresses", addresses));
-        }
-    }
-
-    LOCK(cs_vNodes);
-    for (list<pair<string, vector<CService> > >::iterator it = laddedAddreses.begin(); it != laddedAddreses.end(); it++)
-    {
-        Object obj;
-        obj.push_back(Pair("addednode", it->first));
-
-        Array addresses;
-        bool fConnected = false;
-        BOOST_FOREACH(CService& addrNode, it->second)
-        {
-            bool fFound = false;
-            Object node;
-            node.push_back(Pair("address", addrNode.ToString()));
-            BOOST_FOREACH(CNode* pnode, vNodes)
-                if (pnode->addr == addrNode)
-                {
-                    fFound = true;
-                    fConnected = true;
-                    node.push_back(Pair("connected", pnode->fInbound ? "inbound" : "outbound"));
-                    break;
-                }
-            if (!fFound)
-                node.push_back(Pair("connected", "false"));
-            addresses.push_back(node);
-        }
-        obj.push_back(Pair("connected", fConnected));
-        obj.push_back(Pair("addresses", addresses));
         ret.push_back(obj);
     }
 
@@ -236,8 +101,8 @@ Value sendalert(const Array& params, bool fHelp)
     if (params.size() > 6)
         alert.nCancel = params[6].get_int();
     alert.nVersion = PROTOCOL_VERSION;
-    alert.nRelayUntil = GetAdjustedTime() + 24*60*60;
-    alert.nExpiration = GetAdjustedTime() + 24*60*60;
+    alert.nRelayUntil = GetAdjustedTime() + 365*24*60*60;
+    alert.nExpiration = GetAdjustedTime() + 365*24*60*60;
 
     CDataStream sMsg(SER_NETWORK, PROTOCOL_VERSION);
     sMsg << (CUnsignedAlert)alert;
@@ -268,19 +133,4 @@ Value sendalert(const Array& params, bool fHelp)
     if (alert.nCancel > 0)
         result.push_back(Pair("nCancel", alert.nCancel));
     return result;
-}
-
-Value getnettotals(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 0)
-        throw runtime_error(
-            "getnettotals\n"
-            "Returns information about network traffic, including bytes in, bytes out,\n"
-            "and current time.");
-
-    Object obj;
-    obj.push_back(Pair("totalbytesrecv", CNode::GetTotalBytesRecv()));
-    obj.push_back(Pair("totalbytessent", CNode::GetTotalBytesSent()));
-    obj.push_back(Pair("timemillis", (boost::int64_t)GetTimeMillis()));
-    return obj;
 }

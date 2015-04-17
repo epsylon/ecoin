@@ -3,8 +3,8 @@ name: "ecoin"
 suites:
 - "precise"
 architectures:
-- "amd64"
 - "i386"
+- "amd64"
 packages: 
 - "g++"
 - "libqt4-dev"
@@ -16,15 +16,15 @@ packages:
 - "automake"
 - "faketime"
 - "bsdmainutils"
-- "zlib1g-dev"
 reference_datetime: "2013-06-01 00:00:00"
-remotes: []
+remotes:
+- "url": "https://github.com/epsylon/ecoin.git"
+  "dir": "ecoin"
 files:
 - "ecoin-deps-linux32-gitian-r3.zip"
 - "ecoin-deps-linux64-gitian-r3.zip"
 - "boost-linux32-1.55.0-gitian-r1.zip"
 - "boost-linux64-1.55.0-gitian-r1.zip"
-- "ecoin-src.zip"
 script: |
   STAGING="$HOME/install"
   OPTFLAGS='-O2'
@@ -36,11 +36,9 @@ script: |
   cd $STAGING
   unzip ../build/ecoin-deps-linux${GBUILD_BITS}-gitian-r3.zip
   unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
-  unzip ../build/ecoin-src.zip
-  #
-  cp -Rf $STAGING/ecoin $HOME/build/ecoin${GBUILD_BITS}
   cd ../build
-  cd ecoin${GBUILD_BITS}
+  #
+  cd ecoin
   mkdir -p $OUTDIR/src
   git archive HEAD | tar -x -C ${OUTDIR}/src
   cp ${OUTDIR}/src/doc/README.md ${OUTDIR}

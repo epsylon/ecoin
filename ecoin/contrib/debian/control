@@ -1,16 +1,16 @@
-Source: ecoin-qt
+Source: ecoin
 Section: utils
 Priority: optional
-Maintainer: Shaun Mcbride <shaun.mcbride@gmail.com>
-Uploaders: Shaun Mcbride <shaun.mcbride@gmail.com>
+Maintainer: Jonas Smedegaard <dr@jones.dk>
+Uploaders: Micah Anderson <micah@debian.org>
 Build-Depends: debhelper,
  devscripts,
  bash-completion,
  libboost-system-dev (>> 1.35) | libboost-system1.35-dev,
- libdb6.0++-dev,
+ libdb4.8++-dev,
  libssl-dev,
  pkg-config,
- libminiupnpc-dev,
+ libminiupnpc8-dev,
  libboost-filesystem-dev (>> 1.35) | libboost-filesystem1.35-dev,
  libboost-program-options-dev (>> 1.35) | libboost-program-options1.35-dev,
  libboost-thread-dev (>> 1.35) | libboost-thread1.35-dev,
@@ -19,9 +19,9 @@ Build-Depends: debhelper,
  libqt4-dev,
  libqrencode-dev
 Standards-Version: 3.9.2
-Homepage: http://www.myecoin.net/
-Vcs-Git: git://github.com/ofeefee/ecoin.git
-Vcs-Browser: http://github.com/ofeefee/ecoin
+Homepage: http://www.ecoin.su/
+Vcs-Git: git://github.com/CryptoManiac/ecoin.git
+Vcs-Browser: http://github.com/CryptoManiac/ecoin
 
 Package: ecoind
 Architecture: any
@@ -33,9 +33,10 @@ Description: peer-to-peer network based digital currency - daemon
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
  .
+ By default connects to an IRC network to discover other peers.
  .
  Full transaction history is stored locally at each client.  This
- requires 500MB+ of space, slowly growing.
+ requires 2+ GB of space, slowly growing.
  .
  This package provides ecoind, a combined daemon and CLI tool to
  interact with the daemon.
@@ -50,8 +51,9 @@ Description: peer-to-peer network based digital currency - Qt GUI
  transact directly with each other, with the help of a P2P network to
  check for double-spending.
  .
+ By default connects to an IRC network to discover other peers.
  .
  Full transaction history is stored locally at each client.  This
- requires 500MB+ of space, slowly growing.
+ requires 2+ GB of space, slowly growing.
  .
- This package provides Ecoin-Qt, a GUI for Ecoin based on Qt.
+ This package provides Ecoin-Qt, a GUI for Novacoin based on Qt.

@@ -379,7 +379,7 @@
         <height>41</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayoutPanel" stretch="0,0,0,0,0,0,0">
+      <layout class="QHBoxLayout" name="horizontalLayoutPanel" stretch="0,0,0,0,0">
        <property name="spacing">
         <number>14</number>
        </property>
@@ -407,6 +407,9 @@
          <property name="text">
           <string>Tree mode</string>
          </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -420,40 +423,8 @@
          <property name="text">
           <string>List mode</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
         </widget>
        </item>
-       <item>
-       <widget class="QPushButton" name="pushButtonCustomCC">
-        <property name="text">
-         <string>Select Coins</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="QComboBoxFilterCoins"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditCustomCC">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="baseSize">
-         <size>
-          <width>50</width>
-          <height>0</height>
-         </size>
-        </property>
-       </widget>
-      </item>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -480,7 +451,7 @@
       <bool>false</bool>
      </property>
      <property name="columnCount">
-      <number>16</number>
+      <number>11</number>
      </property>
      <attribute name="headerShowSortIndicator" stdset="0">
       <bool>true</bool>
@@ -490,18 +461,13 @@
      </attribute>
      <column>
       <property name="text">
-       <string>Select</string>
+       <string/>
       </property>
      </column>
      <column>
       <property name="text">
        <string>Amount</string>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Potential Stake</string>
-       </property>
      </column>
      <column>
       <property name="text">
@@ -528,27 +494,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Age</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Weight</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>Priority</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string/>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string/>
       </property>
      </column>
      <column>

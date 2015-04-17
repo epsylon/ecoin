@@ -12,8 +12,6 @@
 #include <QTimer>
 
 static const int64 nClientStartupTime = GetTime();
-double GetPoWMHashPS(const CBlockIndex* blockindex = NULL);
-double GetPoSKernelPS(const CBlockIndex* blockindex = NULL);
 
 ClientModel::ClientModel(OptionsModel *optionsModel, QObject *parent) :
     QObject(parent), optionsModel(optionsModel),
@@ -34,18 +32,9 @@ ClientModel::~ClientModel()
     unsubscribeFromCoreSignals();
 }
 
-int ClientModel::getNumConnections(unsigned int flags) const
+int ClientModel::getNumConnections() const
 {
-    LOCK(cs_vNodes);
-    if (flags == CONNECTIONS_ALL) // Shortcut if we want total
-        return vNodes.size();
-
-    int nNum = 0;
-    BOOST_FOREACH(CNode* pnode, vNodes)
-    if (flags & (pnode->fInbound ? CONNECTIONS_IN : CONNECTIONS_OUT))
-        nNum++;
-
-    return nNum;
+    return vNodes.size();
 }
 
 int ClientModel::getNumBlocks() const
@@ -58,18 +47,6 @@ int ClientModel::getNumBlocksAtStartup()
     if (numBlocksAtStartup == -1) numBlocksAtStartup = getNumBlocks();
     return numBlocksAtStartup;
 }
-
-quint64 ClientModel::getTotalBytesRecv() const
-{
-    return CNode::GetTotalBytesRecv();
-}
-
-quint64 ClientModel::getTotalBytesSent() const
-{
-    return CNode::GetTotalBytesSent();
-}
-
-
 
 QDateTime ClientModel::getLastBlockDate() const
 {
@@ -93,8 +70,6 @@ void ClientModel::updateTimer()
 
         emit numBlocksChanged(newNumBlocks, newNumBlocksOfPeers);
     }
-
-    emit bytesChanged(getTotalBytesRecv(), getTotalBytesSent());
 }
 
 void ClientModel::updateNumConnections(int numConnections)

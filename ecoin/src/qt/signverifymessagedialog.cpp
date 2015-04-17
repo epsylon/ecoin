@@ -24,10 +24,10 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget *parent) :
 
 #if (QT_VERSION >= 0x040700)
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    ui->addressIn_SM->setPlaceholderText(tr("Enter a Ecoin address (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)"));
+    ui->addressIn_SM->setPlaceholderText(tr("Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)"));
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 
-    ui->addressIn_VM->setPlaceholderText(tr("Enter a Ecoin address (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)"));
+    ui->addressIn_VM->setPlaceholderText(tr("Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)"));
     ui->signatureIn_VM->setPlaceholderText(tr("Enter Ecoin signature"));
 #endif
 

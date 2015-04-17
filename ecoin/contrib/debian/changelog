@@ -1,6 +1,6 @@
-ecoin-qt (7.5.15) unstable; urgency=low
+ecoin (0.4.0~dfsg-1) unstable; urgency=low
 
-  [ Shaun Mcbride ]
-  * Testing the building on Ubuntu.
+  [ Balthazar ]
+  * Initial release.
 
- -- Shaun Mcbride <shaun.mcbride@gmail.com>  Mon, 22 Dec 2014 22:53:22 -0600
+ -- Balthazar <balthazar@yandex.ru>  Mon, 15 Apr 2013 22:15:22 +0100

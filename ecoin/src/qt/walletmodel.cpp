@@ -129,7 +129,7 @@ bool WalletModel::validateAddress(const QString &address)
     return addressParsed.IsValid();
 }
 
-WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, int nSplitBlock, const CCoinControl *coinControl)
+WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
 {
     qint64 total = 0;
     QSet<QString> setAddress;
@@ -193,7 +193,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         CWalletTx wtx;
         CReserveKey keyChange(wallet);
         int64 nFeeRequired = 0;
-        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, nSplitBlock, false, coinControl);
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
 
         if(!fCreated)
         {
@@ -306,74 +306,9 @@ bool WalletModel::changePassphrase(const SecureString &oldPass, const SecureStri
     return retval;
 }
 
-void WalletModel::getStakeWeightFromValue(const int64& nTime, const int64& nValue, uint64& nWeight)
-{
-    wallet->GetStakeWeightFromValue(nTime, nValue, nWeight);
-}
-
-void WalletModel::setSplitBlock(bool fSplitBlock)
-{
-	wallet->fSplitBlock = fSplitBlock;
-}
-
-bool WalletModel::getSplitBlock()
-{
-	return wallet->fSplitBlock;
-}
-
 bool WalletModel::backupWallet(const QString &filename)
 {
     return BackupWallet(*wallet, filename.toLocal8Bit().data());
-}
-
-void WalletModel::setAutoSavings(bool fAutoSavings, int& nAutoSavingsPercent,
-                                 CBitcoinAddress& strAutoSavingsAddress,
-                                 CBitcoinAddress& strAutoSavingsChangeAddress,
-                                 int64& nAutoSavingsMin, int64& nAutoSavingsMax)
-{
-    // This function assumes the values were checked before being called
-    if (wallet->fFileBacked) // Tranz add option to not save.
-    {
-        CWalletDB walletdb(wallet->strWalletFile);
-        if (fAutoSavings) {
-            walletdb.EraseAutoSavings(wallet->strAutoSavingsAddress.ToString());
-            walletdb.WriteAutoSavings(strAutoSavingsAddress.ToString(),
-                                      nAutoSavingsPercent,
-                                      strAutoSavingsChangeAddress.ToString(),
-                                      nAutoSavingsMin,
-                                      nAutoSavingsMax);
-        }
-        else {
-            walletdb.EraseAutoSavings(wallet->strAutoSavingsAddress.ToString());
-            walletdb.EraseAutoSavings(strAutoSavingsAddress.ToString());
-        }
-
-        if(fDebug)
-          printf("setAutoSavings: %s %d\n", strAutoSavingsAddress.ToString().c_str(), nAutoSavingsPercent);
-    }
-
-    {
-        LOCK(wallet->cs_wallet);
-        wallet->fAutoSavings = fAutoSavings;
-        wallet->nAutoSavingsPercent = nAutoSavingsPercent;
-        wallet->strAutoSavingsAddress = strAutoSavingsAddress;
-        wallet->strAutoSavingsChangeAddress = strAutoSavingsChangeAddress;
-        wallet->nAutoSavingsMin = nAutoSavingsMin;
-        wallet->nAutoSavingsMax = nAutoSavingsMax;
-    }
-}
-
-void WalletModel::getAutoSavings(int& nAutoSavingsPercent,
-                                 CBitcoinAddress& strAutoSavingsAddress,
-                                 CBitcoinAddress& strAutoSavingsChangeAddress,
-                                 int64& nAutoSavingsMin,
-                                 int64& nAutoSavingsMax)
-{
-      nAutoSavingsPercent = wallet->nAutoSavingsPercent;
-      strAutoSavingsAddress = wallet->strAutoSavingsAddress;
-      strAutoSavingsChangeAddress = wallet->strAutoSavingsChangeAddress;
-      nAutoSavingsMin = wallet->nAutoSavingsMin;
-      nAutoSavingsMax = wallet->nAutoSavingsMax;
 }
 
 // Handlers for core signals
@@ -472,9 +407,7 @@ void WalletModel::getOutputs(const std::vector<COutPoint>& vOutpoints, std::vect
     BOOST_FOREACH(const COutPoint& outpoint, vOutpoints)
     {
         if (!wallet->mapWallet.count(outpoint.hash)) continue;
-        int nDepth = wallet->mapWallet[outpoint.hash].GetDepthInMainChain();
-        if (nDepth < 0) continue;
-        COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, nDepth);
+        COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, wallet->mapWallet[outpoint.hash].GetDepthInMainChain());
         vOutputs.push_back(out);
     }
 }
@@ -490,9 +423,7 @@ void WalletModel::listCoins(std::map<QString, std::vector<COutput> >& mapCoins) 
     BOOST_FOREACH(const COutPoint& outpoint, vLockedCoins)
     {
         if (!wallet->mapWallet.count(outpoint.hash)) continue;
-        int nDepth = wallet->mapWallet[outpoint.hash].GetDepthInMainChain();
-        if (nDepth < 0) continue;
-        COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, nDepth);
+        COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, wallet->mapWallet[outpoint.hash].GetDepthInMainChain());
         vCoins.push_back(out);
     }
 
@@ -530,9 +461,4 @@ void WalletModel::unlockCoin(COutPoint& output)
 void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 {
     return;
-}
-
-bool WalletModel::isMine(const CBitcoinAddress &address)
-{
-    return IsMine(*wallet, address.Get());
 }

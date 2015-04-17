@@ -1,4 +1,5 @@
 ecoin-qt usr/bin
-src/qt/res/icons/ecoin-48.png usr/share/pixmaps
+share/pixmaps/bitcoin32.xpm usr/share/pixmaps
+share/pixmaps/bitcoin80.xpm usr/share/pixmaps
 debian/ecoin-qt.desktop usr/share/applications
 debian/ecoin-qt.protocol usr/share/kde4/services/

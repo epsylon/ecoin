@@ -28,7 +28,7 @@ script: |
   INDIR=$HOME/build
   # Input Integrity Check
   echo "53cb818c3b90e507a8348f4f5eaedb05d8bfe5358aabb508b7263cc670c3e028  openssl-1.0.1g.tar.gz"  | sha256sum -c
-  echo "2fde80b4fcb06620e91325bcabe9d09336a7d0fb28b98971de1df1b5b3fd99dd  db-6.0.20.NC.tar.gz"    | sha256sum -c
+  echo "bbf7752f1a64514bf7b8b37bd451a3af7d691d1f96829d54fa6e8cf2d786dfe5  db-6.0.20.NC.tar.gz"    | sha256sum -c
   echo "bc5f73c7b0056252c1888a80e6075787a1e1e9112b808f863a245483ff79859c  miniupnpc-1.8.tar.gz"   | sha256sum -c
   echo "36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d  zlib-1.2.8.tar.gz"      | sha256sum -c
   echo "32c7acf1608b9c8b71b743b9780adb7a7b347563dbfb4a5263761056da44cc96  libpng-1.6.8.tar.gz"    | sha256sum -c
@@ -60,7 +60,6 @@ script: |
     cd ..
     #
     tar xzf $INDIR/db-6.0.20.NC.tar.gz
-    sed -i 's/WinIoCtl\.h/winioctl\.h/g' db-6.0.20.NC/src/dbinc/win_db.h
     cd db-6.0.20.NC/build_unix
     ../dist/configure --prefix=$INSTALLPREFIX --enable-mingw --enable-cxx --host=$HOST --disable-shared
     make $MAKEOPTS library_build

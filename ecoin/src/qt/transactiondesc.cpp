@@ -21,9 +21,7 @@ QString TransactionDesc::FormatTxStatus(const CWalletTx& wtx)
     else
     {
         int nDepth = wtx.GetDepthInMainChain();
-        if (nDepth < 0)
-            return tr("conflicted");
-        else if (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0)
+        if (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0)
             return tr("%1/offline").arg(nDepth);
         else if (nDepth < 6)
             return tr("%1/unconfirmed").arg(nDepth);
@@ -62,7 +60,7 @@ QString TransactionDesc::toHTML(CWallet *wallet, CWalletTx &wtx)
         //
         // From
         //
-        if (wtx.IsCoinBase() || wtx.IsCoinStake())
+        if (wtx.IsCoinBase())
         {
             strHTML += "<b>" + tr("Source") + ":</b> " + tr("Generated") + "<br>";
         }
@@ -132,27 +130,6 @@ QString TransactionDesc::toHTML(CWallet *wallet, CWalletTx &wtx)
                 strHTML += BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, nUnmatured)+ " (" + tr("matures in %n more block(s)", "", wtx.GetBlocksToMaturity()) + ")";
             else
                 strHTML += "(" + tr("not accepted") + ")";
-            strHTML += "<br>";
-        }
-        else if (wtx.IsCoinStake() && nCredit == 0) //fix details for PoS blocks --ofeefee
-        {
-            //
-            // Coinstake
-            //
-            int64 nUnmatured = 0;
-            BOOST_FOREACH(const CTxOut& txout, wtx.vout)
-                nUnmatured += wallet->GetCredit(txout);
-            strHTML += "<b>" + tr("Credit") + ":</b> ";
-            if (wtx.IsInMainChain())
-            {
-                strHTML += BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, (nUnmatured - nDebit))+ " (" + tr("matures in %n more block(s)", "", wtx.GetBlocksToMaturity()) + ")";
-                nNet = nUnmatured - nDebit;
-            }
-            else
-            {
-                strHTML += "(" + tr("not accepted") + ")";
-                nNet = 0;
-            }
             strHTML += "<br>";
         }
         else if (nNet > 0)
@@ -239,7 +216,7 @@ QString TransactionDesc::toHTML(CWallet *wallet, CWalletTx &wtx)
         strHTML += "<b>" + tr("Transaction ID") + ":</b> " + wtx.GetHash().ToString().c_str() + "<br>";
 
         if (wtx.IsCoinBase() || wtx.IsCoinStake())
-            strHTML += "<br>" + tr("Generated coins must mature 32 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to \"not accepted\" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.") + "<br>";
+            strHTML += "<br>" + tr("Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to \"not accepted\" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.") + "<br>";
 
         //
         // Debug view

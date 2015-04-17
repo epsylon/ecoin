@@ -54,14 +54,10 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
         ui->labelExplanation->setVisible(false);
         ui->deleteButton->setVisible(true);
         ui->signMessage->setVisible(false);
-        ui->autoSavingsPushButton->setVisible(true);
-        ui->deleteCheckBox->setVisible(false);
         break;
     case ReceivingTab:
         ui->deleteButton->setVisible(false);
         ui->signMessage->setVisible(true);
-        ui->autoSavingsPushButton->setVisible(false);
-        ui->deleteCheckBox->setVisible(true);
         break;
     }
 
@@ -72,7 +68,6 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     QAction *showQRCodeAction = new QAction(ui->showQRCode->text(), this);
     QAction *signMessageAction = new QAction(ui->signMessage->text(), this);
     QAction *verifyMessageAction = new QAction(ui->verifyMessage->text(), this);
-    QAction *autoSavingsAction = new QAction(ui->autoSavingsPushButton->text(), this);
     deleteAction = new QAction(ui->deleteButton->text(), this);
 
     // Build context menu
@@ -86,10 +81,8 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     contextMenu->addAction(showQRCodeAction);
     if(tab == ReceivingTab)
         contextMenu->addAction(signMessageAction);
-    else if(tab == SendingTab) {
+    else if(tab == SendingTab)
         contextMenu->addAction(verifyMessageAction);
-        contextMenu->addAction(autoSavingsAction);
-    }
 
     // Connect signals for context menu actions
     connect(copyAddressAction, SIGNAL(triggered()), this, SLOT(on_copyToClipboard_clicked()));
@@ -99,7 +92,6 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     connect(showQRCodeAction, SIGNAL(triggered()), this, SLOT(on_showQRCode_clicked()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(on_signMessage_clicked()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(on_verifyMessage_clicked()));
-    connect(autoSavingsAction, SIGNAL(triggered()), this, SLOT(on_autoSavingsPushButton_clicked()));
 
     connect(ui->tableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextualMenu(QPoint)));
 
@@ -160,22 +152,6 @@ void AddressBookPage::setOptionsModel(OptionsModel *optionsModel)
     this->optionsModel = optionsModel;
 }
 
-void AddressBookPage::on_deleteCheckBox_clicked()
-{
-	if(ui->deleteCheckBox->checkState() == Qt::Checked)
-	{
-		ui->deleteButton->setEnabled(true);
-		ui->deleteButton->setVisible(true);
-		deleteAction->setEnabled(true);
-	}
-	else
-	{
-		ui->deleteButton->setEnabled(false);
-		ui->deleteButton->setVisible(false);
-		deleteAction->setEnabled(false);
-	}
-}
-
 void AddressBookPage::on_copyToClipboard_clicked()
 {
     GUIUtil::copyEntryData(ui->tableView, AddressTableModel::Address);
@@ -234,21 +210,6 @@ void AddressBookPage::on_verifyMessage_clicked()
     emit verifyMessage(addr);
 }
 
-void AddressBookPage::on_autoSavingsPushButton_clicked()
-{
-    QTableView *table = ui->tableView;
-    QModelIndexList indexes = table->selectionModel()->selectedRows(AddressTableModel::Address);
-    QString addr;
-
-    foreach (QModelIndex index, indexes)
-    {
-        QVariant address = index.data();
-        addr = address.toString();
-    }
-
-    emit autoSavingsSignal(addr);
-}
-
 void AddressBookPage::on_newAddressButton_clicked()
 {
     if(!model)
@@ -296,11 +257,9 @@ void AddressBookPage::selectionChanged()
             ui->signMessage->setVisible(false);
             ui->verifyMessage->setEnabled(true);
             ui->verifyMessage->setVisible(true);
-            ui->autoSavingsPushButton->setEnabled(true);
-            ui->autoSavingsPushButton->setVisible(true);
             break;
         case ReceivingTab:
-            // Deleting receiving addresses is allowed if enabled on deleteCheckBox
+            // Deleting receiving addresses, however, is not allowed
             ui->deleteButton->setEnabled(false);
             ui->deleteButton->setVisible(false);
             deleteAction->setEnabled(false);
@@ -308,9 +267,6 @@ void AddressBookPage::selectionChanged()
             ui->signMessage->setVisible(true);
             ui->verifyMessage->setEnabled(false);
             ui->verifyMessage->setVisible(false);
-            ui->autoSavingsPushButton->setEnabled(false);
-            ui->autoSavingsPushButton->setVisible(false);
-            ui->deleteCheckBox->setVisible(true);
             break;
         }
         ui->copyToClipboard->setEnabled(true);
@@ -323,7 +279,6 @@ void AddressBookPage::selectionChanged()
         ui->copyToClipboard->setEnabled(false);
         ui->signMessage->setEnabled(false);
         ui->verifyMessage->setEnabled(false);
-        ui->autoSavingsPushButton->setEnabled(false);
     }
 }
 

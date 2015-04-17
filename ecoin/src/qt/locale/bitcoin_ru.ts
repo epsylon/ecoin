@@ -889,11 +889,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Приоритет</translation>
     </message>
     <message>
-        <location line="+344"/>
-        <source>Weight</source>
-        <translation>Вес</translation>
-    </message>
-    <message>
         <location line="-23"/>
         <source>Label</source>
         <translation>Метка</translation>
@@ -1665,8 +1660,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a Ecoin address (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</source>
-        <translation>Введите Ecoin-адрес (например EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</translation>
+        <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
+        <translation>Введите Ecoin-адрес (например EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+129"/>
@@ -1839,8 +1834,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</source>
-        <translation>Адрес получателя платежа (например EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</translation>
+        <source>The address to send the payment to  (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
+        <translation>Адрес получателя платежа (например EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1869,8 +1864,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Ecoin address (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</source>
-        <translation>Введите Ecoin-адрес (например EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</translation>
+        <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
+        <translation>Введите Ecoin-адрес (например EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
 </context>
 <context>
@@ -1893,8 +1888,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</source>
-        <translation>Адрес, которым вы хотите подписать сообщение  (напр. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</translation>
+        <source>The address to sign the message with (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
+        <translation>Адрес, которым вы хотите подписать сообщение  (напр. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1957,8 +1952,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</source>
-        <translation>Адрес, которым было подписано сообщение (напр. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</translation>
+        <source>The address the message was signed with (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
+        <translation>Адрес, которым было подписано сообщение (напр. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1973,8 +1968,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Ecoin address (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</source>
-        <translation>Введите адрес Ecoin (напр. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)</translation>
+        <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
+        <translation>Введите адрес Ecoin (напр. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2054,15 +2049,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
-    
-    <name>TrafficGraphWidget</name>
-    <message>
-        <source>KB/s</source>
-        <translation>??/???</translation>
-    </message>
-</context>
-<context>
-   <name>TransactionDesc</name>
+    <name>TransactionDesc</name>
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
         <source>Open until %1</source>

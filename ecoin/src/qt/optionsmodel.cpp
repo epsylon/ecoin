@@ -6,8 +6,6 @@
 #include "walletdb.h"
 #include "guiutil.h"
 
-#include <iostream>
-
 OptionsModel::OptionsModel(QObject *parent) :
     QAbstractListModel(parent)
 {
@@ -50,16 +48,9 @@ void OptionsModel::Init()
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
     nTransactionFee = settings.value("nTransactionFee").toLongLong();
     language = settings.value("language", "").toString();
-    fCheckOnlineUpdate = settings.value("fCheckOnlineUpdate", true).toBool();
-    fDownloadChain = settings.value("fDownloadChain", false).toBool();
 
     // These are shared with core Bitcoin; we want
     // command-line options to override the GUI settings:
-    if (settings.contains("fDownloadChain"))
-       SoftSetBoolArg("-download", settings.value("fDownloadChain").toBool());
-
-    if (settings.contains("fCheckOnlineUpdate"))
-       SoftSetBoolArg("-update", settings.value("fCheckOnlineUpdate").toBool());
     if (settings.contains("fUseUPnP"))
         SoftSetBoolArg("-upnp", settings.value("fUseUPnP").toBool());
     if (settings.contains("addrProxy") && settings.value("fUseProxy").toBool())
@@ -71,6 +62,66 @@ void OptionsModel::Init()
     if (!language.isEmpty())
         SoftSetArg("-lang", language.toStdString());
 }
+
+bool OptionsModel::Upgrade()
+{
+    QSettings settings;
+
+    if (settings.contains("bImportFinished"))
+        return false; // Already upgraded
+
+    settings.setValue("bImportFinished", true);
+
+    // Move settings from old wallet.dat (if any):
+    CWalletDB walletdb(strWalletFileName);
+
+    QList<QString> intOptions;
+    intOptions << "nDisplayUnit" << "nTransactionFee";
+    foreach(QString key, intOptions)
+    {
+        int value = 0;
+        if (walletdb.ReadSetting(key.toStdString(), value))
+        {
+            settings.setValue(key, value);
+            walletdb.EraseSetting(key.toStdString());
+        }
+    }
+    QList<QString> boolOptions;
+    boolOptions << "bDisplayAddresses" << "fMinimizeToTray" << "fMinimizeOnClose" << "fUseProxy" << "fUseUPnP";
+    foreach(QString key, boolOptions)
+    {
+        bool value = false;
+        if (walletdb.ReadSetting(key.toStdString(), value))
+        {
+            settings.setValue(key, value);
+            walletdb.EraseSetting(key.toStdString());
+        }
+    }
+    try
+    {
+        CAddress addrProxyAddress;
+        if (walletdb.ReadSetting("addrProxy", addrProxyAddress))
+        {
+            settings.setValue("addrProxy", addrProxyAddress.ToStringIPPort().c_str());
+            walletdb.EraseSetting("addrProxy");
+        }
+    }
+    catch (std::ios_base::failure &e)
+    {
+        // 0.6.0rc1 saved this as a CService, which causes failure when parsing as a CAddress
+        CService addrProxy;
+        if (walletdb.ReadSetting("addrProxy", addrProxy))
+        {
+            settings.setValue("addrProxy", addrProxy.ToStringIPPort().c_str());
+            walletdb.EraseSetting("addrProxy");
+        }
+    }
+    ApplyProxySettings();
+    Init();
+
+    return true;
+}
+
 
 int OptionsModel::rowCount(const QModelIndex & parent) const
 {
@@ -122,8 +173,6 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return settings.value("language", "");
         case CoinControlFeatures:
             return QVariant(fCoinControlFeatures);
-        case CheckOnlineUpdate:
-	    return QVariant(fCheckOnlineUpdate);
         default:
             return QVariant();
         }
@@ -219,10 +268,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             emit coinControlFeaturesChanged(fCoinControlFeatures);
             }
             break;
-        case CheckOnlineUpdate:
-            fCheckOnlineUpdate = value.toBool();
-            settings.setValue("fCheckOnlineUpdate", fCheckOnlineUpdate);
-            break;
         default:
             break;
         }
@@ -261,22 +306,3 @@ bool OptionsModel::getDisplayAddresses()
 {
     return bDisplayAddresses;
 }
-
-bool OptionsModel::getCheckOnlineUpdate()
-{
-    return fCheckOnlineUpdate;
-}
-
-void OptionsModel::setDownloadChain()
-{
-    QSettings settings;
-    settings.setValue("fDownloadChain", true);
-}
-
-
-void OptionsModel::clearDownloadChain()
-{
-    QSettings settings;
-    settings.setValue("fDownloadChain", false);
-}
-

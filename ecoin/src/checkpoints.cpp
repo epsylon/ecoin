@@ -24,19 +24,13 @@ namespace Checkpoints
     //
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0, std::make_pair(hashGenesisBlock, 1428771026) )
-        ( 45021, std::make_pair("0x00000000031e8a3eec9b6fd4c9812d0e7df9e0f9b69ad7264cf3455ae7c9c2db", 1399136736) )
-        ( 97660, std::make_pair("0x00000002c0a83ab78e18dfe3672e8d2ea9f01eb37bd59f669c0c7dbde93807f5", 1404748384) )
-        ( 125318, std::make_pair("0x0000000092268ab0ef695a9236833f6f4b5b9e4e8b02ec1204bf1ab4663270fb", 1407910411) )
-        ( 163757, std::make_pair("0x0000000014d5d7eda96cec818c1b83c0a34a20661bbe54c34e9d6f921ebc98cf", 1412128132) )
-        ( 229518, std::make_pair("0x0000000039d058ed561fbbdc4d12580f0f06869afc2b2428588b4c38dcf6cfcb", 1418765367) )
-        ( 291591, std::make_pair("0x00000000026018dcc1cec7f4d70aee2a64b9df7337cb7c432f07b2e73866d91f", 1424029843) )
+        ( 0, std::make_pair(hashGenesisBlock, 1429299546) )
     ;
 
     // TestNet has no checkpoints
     static MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
-        ( 0, std::make_pair(hashGenesisBlockTestNet, 1428771026) )
+        ( 0, std::make_pair(hashGenesisBlockTestNet, 1429299546) )
     ;
 
     bool CheckHardened(int nHeight, const uint256& hash)
@@ -45,16 +39,14 @@ namespace Checkpoints
 
         MapCheckpoints::const_iterator i = checkpoints.find(nHeight);
         if (i == checkpoints.end()) return true;
-        //return hash == i->second.first; // no-checkpoint
-        return true;
+        return hash == i->second.first;
     }
 
     int GetTotalBlocksEstimate()
     {
         MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
 
-        //return checkpoints.rbegin()->first; // no-checkpoint
-        return true;
+        return checkpoints.rbegin()->first;
     }
 
     int GetLastCheckpointTime()
@@ -73,8 +65,7 @@ namespace Checkpoints
             const uint256& hash = i.second.first;
             std::map<uint256, CBlockIndex*>::const_iterator t = mapBlockIndex.find(hash);
             if (t != mapBlockIndex.end())
-                //return t->second; // no-checkpoint
-                return NULL;
+                return t->second;
         }
         return NULL;
     }
@@ -362,11 +353,8 @@ namespace Checkpoints
     }
 }
 
-// ecoin: sync-checkpoint master key (OLD)
-// const std::string CSyncCheckpoint::strMasterPubKey = "04d70ff3dfafeab0cc45256df8752d06882e64f2a24f4e736d1cdda002ac8ca9d00ceda1865a45f2066b944b052884206f08390cd242644ab3babbcdb8d0d8a6aa";
-
-// ecoin: sync-checkpoint master key --ofeefee 2014-07-12 07:36:26
-const std::string CSyncCheckpoint::strMasterPubKey = "0438423fdb57912c58e1a31e387bb40da74531a99371a53e3f8e975c5f719d53ff890a2776a6a62d74b95ca538be922f97a0c639139753c19825c84b36328aa9c9";
+// ecoin: sync-checkpoint master key
+const std::string CSyncCheckpoint::strMasterPubKey = "04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f";
 
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 

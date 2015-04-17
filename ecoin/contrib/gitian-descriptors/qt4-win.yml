@@ -15,8 +15,8 @@ reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
 - "qt-everywhere-opensource-src-4.8.3.tar.gz"
-- "ecoin-deps-win32-gitian-r11.zip"
-- "ecoin-deps-win64-gitian-r11.zip"
+- "ecoin-deps-win32-gitian-r10.zip"
+- "ecoin-deps-win64-gitian-r10.zip"
 script: |
   # Defines
   export TZ=UTC
@@ -47,7 +47,7 @@ script: |
     #
     # Need mingw-compiled openssl from ecoin-deps:
     cd $DEPSDIR
-    unzip $INDIR/ecoin-deps-win${BITS}-gitian-r11.zip
+    unzip $INDIR/ecoin-deps-win${BITS}-gitian-r10.zip
     #
     cd $BUILDDIR
     #
@@ -77,7 +77,7 @@ script: |
     export FAKETIME=$REFERENCE_DATETIME
     # 
     # Compile static libraries, and use statically linked openssl (-openssl-linked):
-    OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32 -lcrypt32" ./configure -prefix $INSTALLPREFIX -bindir $INSTALLPREFIX/host/bin -I $DEPSDIR/include  -confirm-license -release -opensource -static -no-qt3support -xplatform unsupported/win32-g++-cross -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-declarative -no-script -no-scripttools -no-javascript-jit -no-webkit -no-svg -no-xmlpatterns -no-sql-sqlite -no-nis -no-cups -no-iconv -no-dbus -no-gif -no-libtiff -no-opengl -nomake examples -nomake demos -nomake docs -no-feature-style-plastique -no-feature-style-cleanlooks -no-feature-style-motif -no-feature-style-cde -no-feature-style-windowsce -no-feature-style-windowsmobile -no-feature-style-s60 -openssl-linked
+    OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32" ./configure -prefix $INSTALLPREFIX -bindir $INSTALLPREFIX/host/bin -I $DEPSDIR/include  -confirm-license -release -opensource -static -no-qt3support -xplatform unsupported/win32-g++-cross -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-declarative -no-script -no-scripttools -no-javascript-jit -no-webkit -no-svg -no-xmlpatterns -no-sql-sqlite -no-nis -no-cups -no-iconv -no-dbus -no-gif -no-libtiff -no-opengl -nomake examples -nomake demos -nomake docs -no-feature-style-plastique -no-feature-style-cleanlooks -no-feature-style-motif -no-feature-style-cde -no-feature-style-windowsce -no-feature-style-windowsmobile -no-feature-style-s60 -openssl-linked
     find . -name *.prl | xargs -l sed 's|/\.||' -i
     find . -name *.prl | xargs -l sed 's|/$||' -i
     make $MAKEOPTS install

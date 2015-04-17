@@ -137,7 +137,6 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->proxyIp, OptionsModel::ProxyIP);
     mapper->addMapping(ui->proxyPort, OptionsModel::ProxyPort);
     mapper->addMapping(ui->socksVersion, OptionsModel::ProxySocksVersion);
-    mapper->addMapping(ui->checkOnlineUpdate, OptionsModel::CheckOnlineUpdate);
 
     /* Window */
 #ifndef Q_OS_MAC

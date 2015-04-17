@@ -5,22 +5,19 @@
 
 # Mac OS X makefile for bitcoin
 # Originally by Laszlo Hanyecz (solar@heliacal.net)
-# Edited by Ofeefee - Edited for HomeBrew build - 8/4/2014
-# Tested on Maverick 10.9.4
-# Latest Xcode 5.1, latest CLI tools
-# Homebrew with boost and berkeley-db --build-from-source option
-# Homebrew other dependencies as needed
 
 CXX=llvm-g++
-DEPSDIR=/usr/local
+DEPSDIR=/opt/local
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
- -I"$(DEPSDIR)/include"
+ -I"$(DEPSDIR)/include" \
+ -I"$(DEPSDIR)/include/db48"
 
 LIBPATHS= \
- -L"$(DEPSDIR)/lib"
+ -L"$(DEPSDIR)/lib" \
+ -L"$(DEPSDIR)/lib/db48"
 
 USE_UPNP:=1
 USE_IPV6:=1
@@ -30,7 +27,7 @@ LIBS= -dead_strip
 ifdef STATIC
 # Build STATIC if you are redistributing the bitcoind binary
 LIBS += \
- $(DEPSDIR)/lib/libdb_cxx-5.3.a \
+ $(DEPSDIR)/lib/db48/libdb_cxx-4.8.a \
  $(DEPSDIR)/lib/libboost_system-mt.a \
  $(DEPSDIR)/lib/libboost_filesystem-mt.a \
  $(DEPSDIR)/lib/libboost_program_options-mt.a \
@@ -40,7 +37,7 @@ LIBS += \
  -lz
 else
 LIBS += \
- -ldb_cxx-5.3 \
+ -ldb_cxx-4.8 \
  -lboost_system-mt \
  -lboost_filesystem-mt \
  -lboost_program_options-mt \
@@ -133,7 +130,7 @@ DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/helpers)
 OBJS += obj/txdb-leveldb.o
 leveldb/libleveldb.a:
-	@echo "Building LevelDB ..."; cd leveldb; make libleveldb.a libmemenv.a; cd ..
+	@echo "Building LevelDB ..."; cd leveldb; make; cd ..
 obj/txdb-leveldb.o: leveldb/libleveldb.a
 
 # auto-generated dependencies:

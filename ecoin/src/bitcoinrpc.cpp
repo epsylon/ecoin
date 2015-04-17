@@ -20,6 +20,7 @@
 #include <boost/iostreams/concepts.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/shared_ptr.hpp>
@@ -242,9 +243,6 @@ static const CRPCCommand vRPCCommands[] =
     { "getblockcount",          &getblockcount,          true,   false },
     { "getconnectioncount",     &getconnectioncount,     true,   false },
     { "getpeerinfo",            &getpeerinfo,            true,   false },
-    { "addnode",                &addnode,                true,   true  },
-    { "getaddednodeinfo",       &getaddednodeinfo,       true,   true  },
-    { "getnettotals",           &getnettotals,           true,   true  },
     { "getdifficulty",          &getdifficulty,          true,   false },
     { "getinfo",                &getinfo,                true,   false },
     { "getsubsidy",             &getsubsidy,             true,   false },
@@ -280,7 +278,6 @@ static const CRPCCommand vRPCCommands[] =
     { "getblockbynumber",       &getblockbynumber,       false,  false },
     { "getblockhash",           &getblockhash,           false,  false },
     { "gettransaction",         &gettransaction,         false,  false },
-    { "deleteaddress",          &deleteaddress,          false,  false },
     { "listtransactions",       &listtransactions,       false,  false },
     { "listaddressgroupings",   &listaddressgroupings,   false,  false },
     { "signmessage",            &signmessage,            false,  false },
@@ -304,26 +301,12 @@ static const CRPCCommand vRPCCommands[] =
     { "signrawtransaction",     &signrawtransaction,     false,  false },
     { "sendrawtransaction",     &sendrawtransaction,     false,  false },
     { "getcheckpoint",          &getcheckpoint,          true,   false },
-    { "reservebalance",         &reservebalance,         false,  true },
-    { "checkwallet",            &checkwallet,            false,  true },
-    { "repairwallet",           &repairwallet,           false,  true },
-    { "resendtx",               &resendtx,               false,  true },
-    { "makekeypair",            &makekeypair,            false,  true },
-    { "sendalert",              &sendalert,              false,  false },
-    { "smsgenable",             &smsgenable,             false,  false},
-    { "smsgdisable",            &smsgdisable,            false,  false},
-    { "smsglocalkeys",          &smsglocalkeys,          false,  false},
-    { "smsgoptions",            &smsgoptions,            false,  false},
-    { "smsgscanchain",          &smsgscanchain,          false,  false},
-    { "smsgscanbuckets",        &smsgscanbuckets,        false,  false},
-    { "smsgaddkey",             &smsgaddkey,             false,  false},
-    { "smsggetpubkey",          &smsggetpubkey,          false,  false},
-    { "smsgsend",               &smsgsend,               false,  false},
-    { "smsgsendanon",           &smsgsendanon,           false,  false},
-    { "smsginbox",              &smsginbox,              false,  false},
-    { "smsgoutbox",             &smsgoutbox,             false,  false},
-    { "smsgbuckets",            &smsgbuckets,            false,  false},
-    { "ecoinshare",           &ecoinshare,           false,  false },
+    { "reservebalance",         &reservebalance,         false,  true},
+    { "checkwallet",            &checkwallet,            false,  true},
+    { "repairwallet",           &repairwallet,           false,  true},
+    { "resendtx",               &resendtx,               false,  true},
+    { "makekeypair",            &makekeypair,            false,  true},
+    { "sendalert",              &sendalert,              false,  false},
 };
 
 CRPCTable::CRPCTable()
@@ -797,7 +780,7 @@ void ThreadRPCServer2(void* parg)
         uiInterface.ThreadSafeMessageBox(strprintf(
             _("%s, you must set a rpcpassword in the configuration file:\n %s\n"
               "It is recommended you use the following random password:\n"
-              "rpcuser=bitcoinrpc\n"
+              "rpcuser=ecoinrpc\n"
               "rpcpassword=%s\n"
               "(you do not need to remember this password)\n"
               "If the file does not exist, create it with owner-readable-only file permissions.\n"),
@@ -1201,7 +1184,6 @@ Array RPCConvertValues(const std::string &strMethod, const std::vector<std::stri
     // Special case non-string parameter types
     //
     if (strMethod == "stop"                   && n > 0) ConvertTo<bool>(params[0]);
-    if (strMethod == "getaddednodeinfo"       && n > 0) ConvertTo<bool>(params[0]);
     if (strMethod == "sendtoaddress"          && n > 1) ConvertTo<double>(params[1]);
     if (strMethod == "settxfee"               && n > 0) ConvertTo<double>(params[0]);
     if (strMethod == "getreceivedbyaddress"   && n > 1) ConvertTo<boost::int64_t>(params[1]);
@@ -1232,10 +1214,6 @@ Array RPCConvertValues(const std::string &strMethod, const std::vector<std::stri
     if (strMethod == "sendalert"              && n > 4) ConvertTo<boost::int64_t>(params[4]);
     if (strMethod == "sendalert"              && n > 5) ConvertTo<boost::int64_t>(params[5]);
     if (strMethod == "sendalert"              && n > 6) ConvertTo<boost::int64_t>(params[6]);
-
-    if (strMethod == "ecoinshare"            && n > 1) ConvertTo<int>(params[1]);
-    if (strMethod == "ecoinshare"            && n > 3) ConvertTo<double>(params[3]);
-    if (strMethod == "ecoinshare"            && n > 4) ConvertTo<double>(params[4]);
 
     if (strMethod == "sendmany"               && n > 1) ConvertTo<Object>(params[1]);
     if (strMethod == "sendmany"               && n > 2) ConvertTo<boost::int64_t>(params[2]);

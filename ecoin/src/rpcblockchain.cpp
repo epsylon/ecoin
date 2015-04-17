@@ -43,7 +43,7 @@ double GetDifficulty(const CBlockIndex* blockindex)
     return dDiff;
 }
 
-double GetPoWMHashPS(const CBlockIndex* blockindex)
+double GetPoWMHashPS()
 {
     int nPoWInterval = 72;
     int64 nTargetSpacingWorkMin = 30, nTargetSpacingWork = 30;
@@ -67,17 +67,14 @@ double GetPoWMHashPS(const CBlockIndex* blockindex)
     return GetDifficulty() * 4294.967296 / nTargetSpacingWork;
 }
 
-double GetPoSKernelPS(const CBlockIndex* blockindex)
+double GetPoSKernelPS()
 {
     int nPoSInterval = 72;
     double dStakeKernelsTriedAvg = 0;
     int nStakesHandled = 0, nStakesTime = 0;
 
-    const CBlockIndex* pindex = pindexBest;
-    const CBlockIndex* pindexPrevStake = NULL;
-
-    if (blockindex != NULL)
-        pindex = blockindex;
+    CBlockIndex* pindex = pindexBest;;
+    CBlockIndex* pindexPrevStake = NULL;
 
     while (pindex && nStakesHandled < nPoSInterval)
     {
@@ -121,10 +118,6 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool fPri
     result.push_back(Pair("flags", strprintf("%s%s", blockindex->IsProofOfStake()? "proof-of-stake" : "proof-of-work", blockindex->GeneratedStakeModifier()? " stake-modifier": "")));
 
     if (!blockindex->IsProofOfStake() && block.vtx[0].vout.size() > 1)
-        result.push_back(Pair("extraflags", "proof-of-transaction"));
-    else if (blockindex->IsProofOfStake() && block.vtx[1].vout.size() == 4) //split stake with ProofOfTx
-        result.push_back(Pair("extraflags", "proof-of-transaction"));
-    else if (blockindex->IsProofOfStake() && block.vtx[1].vout.size() == 3 && block.vtx[1].vout[1].nValue / 2 > block.vtx[1].vout[2].nValue) //single stake with ProofOfTx
         result.push_back(Pair("extraflags", "proof-of-transaction"));
     else
         result.push_back(Pair("extraflags", "none"));

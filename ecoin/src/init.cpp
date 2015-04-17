@@ -5,14 +5,11 @@
 #include "txdb.h"
 #include "walletdb.h"
 #include "bitcoinrpc.h"
-#include "base58.h"
-#include "key.h"
 #include "net.h"
 #include "init.h"
 #include "util.h"
 #include "ui_interface.h"
 #include "checkpoints.h"
-#include "smessage.h"
 #include "zerocoin/ZeroTest.h"
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -20,12 +17,6 @@
 #include <boost/interprocess/sync/file_lock.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <openssl/crypto.h>
-#include "blockdl.h"
-
-#ifdef QT_GUI
-#include "optionsmodel.h"
-#include <QSettings>
-#endif
 
 #ifndef WIN32
 #include <signal.h>
@@ -92,9 +83,6 @@ void Shutdown(void* parg)
     if (fFirstThread)
     {
         fShutdown = true;
-
-        SecureMsgShutdown();
-
         nTransactionsUpdated++;
 //        CTxDB().Close();
         bitdb.Flush(false);
@@ -246,7 +234,7 @@ std::string HelpMessage()
         "  -conf=<file>           " + _("Specify configuration file (default: ecoin.conf)") + "\n" +
         "  -pid=<file>            " + _("Specify pid file (default: ecoind.pid)") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
-        "  -wallet=<file>          " + _("Specify wallet file (within data directory)") + "\n" +
+        "  -wallet=<dir>          " + _("Specify wallet file (within data directory)") + "\n" +
         "  -dbcache=<n>           " + _("Set database cache size in megabytes (default: 25)") + "\n" +
         "  -dblogsize=<n>         " + _("Set database disk log size in megabytes (default: 100)") + "\n" +
         "  -timeout=<n>           " + _("Specify connection timeout in milliseconds (default: 5000)") + "\n" +
@@ -262,19 +250,16 @@ std::string HelpMessage()
         "  -externalip=<ip>       " + _("Specify your own public address") + "\n" +
         "  -onlynet=<net>         " + _("Only connect to nodes in network <net> (IPv4, IPv6 or Tor)") + "\n" +
         "  -discover              " + _("Discover own IP address (default: 1 when listening and no -externalip)") + "\n" +
-        "  -irc                   " + _("Find peers using internet relay chat (default: 0)") + "\n" +
+        "  -irc                   " + _("Find peers using internet relay chat (default: 1)") + "\n" +
         "  -listen                " + _("Accept connections from outside (default: 1 if no -proxy or -connect)") + "\n" +
         "  -bind=<addr>           " + _("Bind to given address. Use [host]:port notation for IPv6") + "\n" +
         "  -dnsseed               " + _("Find peers using DNS lookup (default: 1)") + "\n" +
         "  -staking               " + _("Stake your coins to support network and gain reward (default: 1)") + "\n" +
-        "  -synctime              " + _("Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)") + "\n" +
         "  -cppolicy              " + _("Sync checkpoints policy (default: strict)") + "\n" +
         "  -banscore=<n>          " + _("Threshold for disconnecting misbehaving peers (default: 100)") + "\n" +
         "  -bantime=<n>           " + _("Number of seconds to keep misbehaving peers from reconnecting (default: 86400)") + "\n" +
         "  -maxreceivebuffer=<n>  " + _("Maximum per-connection receive buffer, <n>*1000 bytes (default: 5000)") + "\n" +
         "  -maxsendbuffer=<n>     " + _("Maximum per-connection send buffer, <n>*1000 bytes (default: 1000)") + "\n" +
-        "  -download              " + _("Download blockchain files from HTTP server (removes current files)") + "\n" +
-        "  -update=<n>            " + _("Bypass online checking of new versions 0 or 1 (Settings -> Options -> Network)") + "\n" +
 #ifdef USE_UPNP
 #if USE_UPNP
         "  -upnp                  " + _("Use UPnP to map the listening port (default: 1 when listening)") + "\n" +
@@ -307,7 +292,6 @@ std::string HelpMessage()
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
         "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
         "  -walletnotify=<cmd>    " + _("Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)") + "\n" +
-        "  -change=<address>      " + _("Send change only to the specified address(es)") + "\n" +
         "  -confchange            " + _("Require a confirmations for change (default: 0)") + "\n" +
         "  -enforcecanonical      " + _("Enforce transaction scripts to use canonical PUSH operators (default: 1)") + "\n" +
         "  -upgradewallet         " + _("Upgrade wallet to latest format") + "\n" +
@@ -327,11 +311,7 @@ std::string HelpMessage()
         "  -rpcssl                                  " + _("Use OpenSSL (https) for JSON-RPC connections") + "\n" +
         "  -rpcsslcertificatechainfile=<file.cert>  " + _("Server certificate file (default: server.cert)") + "\n" +
         "  -rpcsslprivatekeyfile=<file.pem>         " + _("Server private key (default: server.pem)") + "\n" +
-        "  -rpcsslciphers=<ciphers>                 " + _("Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)") + "\n" +
-        "\n" + _("Secure messaging options:") + "\n" +
-        "  -nosmsg                                  " + _("Disable secure messaging.") + "\n" +
-        "  -debugsmsg                               " + _("Log extra debug messages.") + "\n" +
-        "  -smsgscanchain                           " + _("Scan the block chain for public key addresses on startup.") + "\n";
+        "  -rpcsslciphers=<ciphers>                 " + _("Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)") + "\n";
 
     return strUsage;
 }
@@ -384,14 +364,6 @@ bool AppInit2()
 #endif
 
     // ********************************************************* Step 2: parameter interactions
-
-if (firstRunCheck() == 0)
-	{// check to see if any of the chain files exist if not redownload them
-        boost::filesystem::path fileList = GetDataDir() / "filelist.lst";
-        boost::filesystem::remove(fileList);
-	downloadAndReplaceBlockchain();
-	}
-
 
     nNodeLifespan = GetArg("-addrlifespan", 7);
     fUseFastIndex = GetBoolArg("-fastindex", true);
@@ -449,34 +421,15 @@ if (firstRunCheck() == 0)
         SoftSetBoolArg("-rescan", true);
     }
 
-    if (GetBoolArg("-download"))
-    {
-
-#ifdef QT_GUI
-	OptionsModel om;
-	om.clearDownloadChain();
-#endif
-        boost::filesystem::path fileList = GetDataDir() / "filelist.lst";
-        boost::filesystem::remove(fileList);
-	downloadAndReplaceBlockchain();
-
-    }
     // ********************************************************* Step 3: parameter-to-internal-flags
 
     fDebug = GetBoolArg("-debug");
 
     // -debug implies fDebug*
     if (fDebug)
-    {
-        fDebugNet  = true;
-        fDebugSmsg = true;
-    }
+        fDebugNet = true;
     else
-    {
-        fDebugNet  = GetBoolArg("-debugnet");
-        fDebugSmsg = GetBoolArg("-debugsmsg");
-    }
-    fNoSmsg = GetBoolArg("-nosmsg");
+        fDebugNet = GetBoolArg("-debugnet");
 
     bitdb.SetDetach(GetBoolArg("-detachdb", false));
 
@@ -519,17 +472,6 @@ if (firstRunCheck() == 0)
             return InitError(strprintf(_("Invalid amount for -paytxfee=<amount>: '%s'"), mapArgs["-paytxfee"].c_str()));
         if (nTransactionFee > 0.25 * COIN)
             InitWarning(_("Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction."));
-    }
-
-    if (mapArgs.count("-change"))
-    {
-        BOOST_FOREACH(std::string strChange, mapMultiArgs["-change"]) {
-            CBitcoinAddress address(strChange);
-            CKeyID keyID;
-            if (!address.GetKeyID(keyID))
-                return InitError(strprintf(_("Bad -change address: '%s'"), strChange.c_str()));
-            AddFixedChangeAddress(keyID);
-        }
     }
 
     fConfChange = GetBoolArg("-confchange", false);
@@ -582,7 +524,7 @@ if (firstRunCheck() == 0)
 
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
-    printf("\n-------------------------------------------------------\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("Ecoin version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
@@ -950,10 +892,6 @@ if (firstRunCheck() == 0)
 
     printf("Loaded %i addresses from peers.dat  %"PRI64d"ms\n",
            addrman.size(), GetTimeMillis() - nStart);
-
-    // ********************************************************* Step 10.1: startup secure messaging
-
-    SecureMsgStart(fNoSmsg, GetBoolArg("-smsgscanchain"));
 
     // ********************************************************* Step 11: start node
 

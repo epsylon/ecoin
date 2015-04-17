@@ -5,15 +5,12 @@
 #include "clientmodel.h"
 #include "walletmodel.h"
 #include "optionsmodel.h"
-#include "messagemodel.h"
 #include "guiutil.h"
 #include "guiconstants.h"
 
 #include "init.h"
 #include "ui_interface.h"
 #include "qtipcserver.h"
-#include "newversion.h"
-#include "getwebversion.h"
 
 #include <QApplication>
 #include <QMessageBox>
@@ -86,7 +83,7 @@ static void InitMessage(const std::string &message)
 {
     if(splashref)
     {
-        splashref->showMessage(QString::fromStdString(message), Qt::AlignBottom | Qt::AlignHCenter, QColor(46,162,200));
+        splashref->showMessage(QString::fromStdString(message), Qt::AlignBottom|Qt::AlignHCenter, QColor(255,255,200));
         QApplication::instance()->processEvents();
     }
 }
@@ -112,16 +109,6 @@ static void handleRunawayException(std::exception *e)
     QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. Ecoin can no longer continue safely and will quit.") + QString("\n\n") + QString::fromStdString(strMiscWarning));
     exit(1);
 }
-void checkVersion()
-{
-   if(DISPLAY_VERSION < getWebVersion()) //add more stuff to do here
-        {
-                cout << "New version out " << getWebVersion() << "\n"; // print one line to console 
-                printf("getWebVersion: New version out\n"); // print one line to debug
-	        NewVersion newVersionDLG;
-                newVersionDLG.exec();
-        }
-}
 
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char *argv[])
@@ -129,11 +116,9 @@ int main(int argc, char *argv[])
     // Do this early as we don't want to bother initializing if we are just calling IPC
     ipcScanRelay(argc, argv);
 
-#if QT_VERSION < 0x050000
     // Internal string conversion is all UTF-8
     QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
-#endif
 
     Q_INIT_RESOURCE(bitcoin);
     QApplication app(argc, argv);
@@ -215,7 +200,7 @@ int main(int argc, char *argv[])
     if (GetBoolArg("-splash", true) && !GetBoolArg("-min"))
     {
         splash.show();
-        splash.setAutoFillBackground(false);
+        splash.setAutoFillBackground(true);
         splashref = &splash;
     }
 
@@ -237,16 +222,16 @@ int main(int argc, char *argv[])
                 // Put this in a block, so that the Model objects are cleaned up before
                 // calling Shutdown().
 
+                optionsModel.Upgrade(); // Must be done after AppInit2
+
                 if (splashref)
                     splash.finish(&window);
 
                 ClientModel clientModel(&optionsModel);
                 WalletModel walletModel(pwalletMain, &optionsModel);
-                MessageModel messageModel(pwalletMain, &walletModel);
 
                 window.setClientModel(&clientModel);
                 window.setWalletModel(&walletModel);
-                window.setMessageModel(&messageModel);
 
                 // If -min option passed, start window minimized.
                 if(GetBoolArg("-min"))
@@ -256,9 +241,7 @@ int main(int argc, char *argv[])
                 else
                 {
                     window.show();
-		    if(GetBoolArg("-update"))
-		    	checkVersion();
-		}
+                }
 
                 // Place this here as guiref has to be defined if we don't want to lose URIs
                 ipcInit(argc, argv);
@@ -268,7 +251,6 @@ int main(int argc, char *argv[])
                 window.hide();
                 window.setClientModel(0);
                 window.setWalletModel(0);
-                window.setMessageModel(0);
                 guiref = 0;
             }
             // Shutdown the core and its threads, but don't exit Bitcoin-Qt here
@@ -285,6 +267,4 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-
-
 #endif // BITCOIN_QT_TEST

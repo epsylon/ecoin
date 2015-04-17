@@ -354,13 +354,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkOnlineUpdate">
-         <property name="text">
-          <string>Check for updates online</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_Display">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

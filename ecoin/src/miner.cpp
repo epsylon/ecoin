@@ -7,7 +7,6 @@
 #include "txdb.h"
 #include "miner.h"
 #include "kernel.h"
-#include "util.h"
 #include <iostream>
 
 using namespace std;
@@ -156,15 +155,9 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-
-                           string addrString(CBitcoinAddress(addr).ToString().c_str());
-                           vector<unsigned char> addrVec(addrString.begin(), addrString.end());
-
-                           string addrHex = HexStr(addrVec.begin(), addrVec.end(), false);
-
-                           //const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
-                           //CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-                           string strSearch = SearchTermV2(addrHex.c_str());
+					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
+					       string strSearch = SearchTermV2(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
@@ -203,13 +196,9 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-                           string addrString(CBitcoinAddress(addr).ToString().c_str());
-                           vector<unsigned char> addrVec(addrString.begin(), addrString.end());
-
-                           string addrHex = HexStr(addrVec.begin(), addrVec.end(), false);
-                           //const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
-                           //CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-                           string strSearch = SearchTerm(addrHex.c_str());
+					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
+					       string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
@@ -256,13 +245,9 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-                           string addrString(CBitcoinAddress(addr).ToString().c_str());
-                           vector<unsigned char> addrVec(addrString.begin(), addrString.end());
-
-                           string addrHex = HexStr(addrVec.begin(), addrVec.end(), false);
-                           //const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
-                           //CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-                           string strSearch = SearchTerm(addrHex.c_str());
+					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
+					       string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
@@ -295,13 +280,9 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-                           string addrString(CBitcoinAddress(addr).ToString().c_str());
-                           vector<unsigned char> addrVec(addrString.begin(), addrString.end());
-
-                           string addrHex = HexStr(addrVec.begin(), addrVec.end(), false);
-                           //const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
-                           //CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-                           string strSearch = SearchTerm(addrHex.c_str());
+					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
+					       string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
@@ -352,13 +333,9 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 			        BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 			        {
-                        string addrString(CBitcoinAddress(addr).ToString().c_str());
-                        vector<unsigned char> addrVec(addrString.begin(), addrString.end());
-
-                        string addrHex = HexStr(addrVec.begin(), addrVec.end(), false);
-                        //const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
-                        //CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-                        string strSearch = SearchTerm(addrHex.c_str());
+				        const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+				        CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
+				        string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 				        if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 			 	        {
@@ -394,14 +371,9 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 			        BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 			        {
-                        string addrString(CBitcoinAddress(addr).ToString().c_str());
-                        vector<unsigned char> addrVec(addrString.begin(), addrString.end());
-
-                        string addrHex = HexStr(addrVec.begin(), addrVec.end(), false);
-                        //const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
-                        //CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-                        //string strSearch = SearchTerm(addrHex.ToString().c_str());
-                        string strSearch = SearchTerm(addrHex.c_str());
+				        const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+				        CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
+				        string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 				        if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 			 	        {
@@ -880,8 +852,6 @@ void StakeMiner(CWallet *pwallet)
     // Each thread has its own counter
     unsigned int nExtraNonce = 0;
 
-    bool fTryToSync = true;
-
     while (true)
     {
         if (fShutdown)
@@ -889,7 +859,7 @@ void StakeMiner(CWallet *pwallet)
 
         while (pwallet->IsLocked())
         {
-            nLastCoinStakeSearchInterval = 0;
+            //strMintWarning = strMintMessage;
             Sleep(1000);
             if (fShutdown)
                 return;
@@ -897,22 +867,12 @@ void StakeMiner(CWallet *pwallet)
 
         while (vNodes.empty() || IsInitialBlockDownload())
         {
-            nLastCoinStakeSearchInterval = 0;
-            fTryToSync = true;
             Sleep(1000);
             if (fShutdown)
                 return;
         }
 
-        if (fTryToSync)
-        {
-            fTryToSync = false;
-            if (vNodes.size() < 3 || nBestHeight < GetNumBlocksOfPeers())
-            {
-                MilliSleep(60000);
-                continue;
-            }
-        }
+        //strMintWarning = "";
 
         //
         // Create new block

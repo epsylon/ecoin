@@ -30,7 +30,7 @@ script: |
   echo "bc5f73c7b0056252c1888a80e6075787a1e1e9112b808f863a245483ff79859c  miniupnpc-1.8.tar.gz"   | sha256sum -c
   echo "dfd71487513c871bad485806bfd1fdb304dedc84d2b01a8fb8e0940b50597a98  qrencode-3.4.3.tar.bz2" | sha256sum -c
   echo "13bfc5ae543cf3aa180ac2485c0bc89495e3ae711fc6fab4f8ffe90dfb4bb677  protobuf-2.5.0.tar.bz2" | sha256sum -c
-  echo "2fde80b4fcb06620e91325bcabe9d09336a7d0fb28b98971de1df1b5b3fd99dd  db-6.0.20.NC.tar.gz"    | sha256sum -c
+  echo "bbf7752f1a64514bf7b8b37bd451a3af7d691d1f96829d54fa6e8cf2d786dfe5  db-6.0.20.NC.tar.gz"    | sha256sum -c
 
     #
     tar xzf openssl-1.0.1g.tar.gz

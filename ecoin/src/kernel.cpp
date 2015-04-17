@@ -18,12 +18,12 @@ typedef std::map<int, unsigned int> MapModifierCheckpoints;
 static std::map<int, unsigned int> mapStakeModifierCheckpoints =
     boost::assign::map_list_of
         ( 0, 0xfd11f4e7u )
+        ( 1600, 0xf9007bccu )
+        ( 3200, 0xbd7e3fb6u )
+        ( 5454, 0x4fa51317u )
+        ( 24000, 0x23d9737eu )
         ( 45021, 0xdcf53d39u )
-        ( 97660, 0xe303c3f4u )
-        ( 125318, 0x58e46c99 )
-        ( 163757, 0x4977a253 )
-        ( 229518, 0xfaccf096 )
-        ( 291591, 0x4ae55050 )
+
     ;
 
 // Hard checkpoints of stake modifiers to ensure they are deterministic (testNet)
@@ -394,7 +394,7 @@ bool CheckStakeModifierCheckpoints(int nHeight, unsigned int nStakeModifierCheck
     MapModifierCheckpoints& checkpoints = (fTestNet ? mapStakeModifierCheckpointsTestNet : mapStakeModifierCheckpoints);
 
     if (checkpoints.count(nHeight)){
-        //cout << nStakeModifierChecksum << " == or != " << checkpoints[nHeight] << endl; // thekidcoin
+        //cout << nStakeModifierChecksum << " == or != " << checkpoints[nHeight] << endl; // epsylon
         return nStakeModifierChecksum == checkpoints[nHeight];
     }
     return true;

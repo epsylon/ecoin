@@ -35,13 +35,12 @@ bool GetMyExternalIP(CNetAddr& ipRet);
 void AddressCurrentlyConnected(const CService& addr);
 CNode* FindNode(const CNetAddr& ip);
 CNode* FindNode(const CService& ip);
-CNode* ConnectNode(CAddress addrConnect, const char *strDest = NULL);
+CNode* ConnectNode(CAddress addrConnect, const char *strDest = NULL, int64 nTimeout=0);
 void MapPort();
 unsigned short GetListenPort();
 bool BindListenPort(const CService &bindAddr, std::string& strError=REF(std::string()));
 void StartNode(void* parg);
 bool StopNode();
-void SocketSendData(CNode *pnode);
 
 enum
 {
@@ -122,12 +121,13 @@ extern CAddrMan addrman;
 
 extern std::vector<CNode*> vNodes;
 extern CCriticalSection cs_vNodes;
-extern std::vector<std::string> vAddedNodes;
-extern CCriticalSection cs_vAddedNodes;
 extern std::map<CInv, CDataStream> mapRelay;
 extern std::deque<std::pair<int64, CInv> > vRelayExpiration;
 extern CCriticalSection cs_mapRelay;
 extern std::map<CInv, int64> mapAlreadyAskedFor;
+
+
+
 
 class CNodeStats
 {
@@ -140,72 +140,14 @@ public:
     int nVersion;
     std::string strSubVer;
     bool fInbound;
+    int64 nReleaseTime;
     int nStartingHeight;
     int nMisbehavior;
-    uint64 nSendBytes;
-    uint64 nRecvBytes;
 };
 
-class CNetMessage {
-public:
-    bool in_data;                   // parsing header (false) or data (true)
 
-    CDataStream hdrbuf;             // partially received header
-    CMessageHeader hdr;             // complete header
-    unsigned int nHdrPos;
 
-    CDataStream vRecv;              // received message data
-    unsigned int nDataPos;
 
-    int64_t nTime;                  // time (in microseconds) of message receipt.
-
-    CNetMessage(int nTypeIn, int nVersionIn) : hdrbuf(nTypeIn, nVersionIn), vRecv(nTypeIn, nVersionIn) {
-        hdrbuf.resize(24);
-        in_data = false;
-        nHdrPos = 0;
-        nDataPos = 0;
-        nTime = 0;
-    }
-
-    bool complete() const
-    {
-        if (!in_data)
-            return false;
-        return (hdr.nMessageSize == nDataPos);
-    }
-
-    void SetVersion(int nVersionIn)
-    {
-        hdrbuf.SetVersion(nVersionIn);
-        vRecv.SetVersion(nVersionIn);
-    }
-
-    int readHeader(const char *pch, unsigned int nBytes);
-    int readData(const char *pch, unsigned int nBytes);
-};
-
-class SecMsgNode
-{
-public:
-    SecMsgNode()
-    {
-        lastSeen        = 0;
-        lastMatched     = 0;
-        ignoreUntil     = 0;
-        nWakeCounter    = 0;
-        nPeerId         = 0;
-        fEnabled        = false;
-    };
-    
-    ~SecMsgNode() {};
-    
-    int64_t                     lastSeen;
-    int64_t                     lastMatched;
-    int64_t                     ignoreUntil;
-    uint32_t                    nWakeCounter;
-    uint32_t                    nPeerId;
-    bool                        fEnabled;
-};
 
 /** Information about a peer */
 class CNode
@@ -216,8 +158,6 @@ public:
     SOCKET hSocket;
     CDataStream vSend;
     CDataStream vRecv;
-    uint64 nSendBytes;
-    uint64 nRecvBytes;
     CCriticalSection cs_vSend;
     CCriticalSection cs_vRecv;
     int64 nLastSend;
@@ -238,9 +178,9 @@ public:
     bool fSuccessfullyConnected;
     bool fDisconnect;
     CSemaphoreGrant grantOutbound;
+protected:
     int nRefCount;
 
-protected:
     // Denial-of-service detection/prevention
     // Key is IP address, value is banned-until-time
     static std::map<CNetAddr, int64> setBanned;
@@ -248,6 +188,7 @@ protected:
     int nMisbehavior;
 
 public:
+    int64 nReleaseTime;
     std::map<uint256, CRequestTracker> mapRequests;
     CCriticalSection cs_mapRequests;
     uint256 hashContinue;
@@ -268,16 +209,12 @@ public:
     CCriticalSection cs_inventory;
     std::multimap<int64, CInv> mapAskFor;
 
-    SecMsgNode smsgData;
-
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : vSend(SER_NETWORK, MIN_PROTO_VERSION), vRecv(SER_NETWORK, MIN_PROTO_VERSION)
     {
         nServices = 0;
         hSocket = hSocketIn;
         nLastSend = 0;
         nLastRecv = 0;
-        nSendBytes = 0;
-        nRecvBytes = 0;
         nLastSendEmpty = GetTime();
         nTimeConnected = GetTime();
         nHeaderStart = -1;
@@ -293,6 +230,7 @@ public:
         fSuccessfullyConnected = false;
         fDisconnect = false;
         nRefCount = 0;
+        nReleaseTime = 0;
         hashContinue = 0;
         pindexLastGetBlocksBegin = 0;
         hashLastGetBlocksEnd = 0;
@@ -317,11 +255,6 @@ public:
     }
 
 private:
-    // Network usage totals
-    static CCriticalSection cs_totalBytesRecv;
-    static CCriticalSection cs_totalBytesSent;
-    static uint64_t nTotalBytesRecv;
-    static uint64_t nTotalBytesSent;
     CNode(const CNode&);
     void operator=(const CNode&);
 public:
@@ -329,13 +262,15 @@ public:
 
     int GetRefCount()
     {
-        assert(nRefCount >= 0);
-        return nRefCount;
+        return std::max(nRefCount, 0) + (GetTime() < nReleaseTime ? 1 : 0);
     }
 
-    CNode* AddRef()
+    CNode* AddRef(int64 nTimeout=0)
     {
-        nRefCount++;
+        if (nTimeout != 0)
+            nReleaseTime = std::max(nReleaseTime, GetTime() + nTimeout);
+        else
+            nRefCount++;
         return this;
     }
 
@@ -451,10 +386,6 @@ public:
         if (fDebug) {
             printf("(%d bytes)\n", nSize);
         }
-
-        // If write queue empty, attempt "optimistic write"
-        if (nHeaderStart == 0)
-            SocketSendData(this);
 
         nHeaderStart = -1;
         nMessageStart = -1;
@@ -708,13 +639,6 @@ public:
     static bool IsBanned(CNetAddr ip);
     bool Misbehaving(int howmuch); // 1 == a little, 100 == a lot
     void copyStats(CNodeStats &stats);
-    // Network stats
-    static void RecordBytesRecv(uint64_t bytes);
-    static void RecordBytesSent(uint64_t bytes);
-
-    static uint64_t GetTotalBytesRecv();
-    static uint64_t GetTotalBytesSent();
-
 };
 
 inline void RelayInventory(const CInv& inv)

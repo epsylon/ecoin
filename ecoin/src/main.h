@@ -55,9 +55,8 @@ static const int fHaveUPnP = true;
 static const int fHaveUPnP = false;
 #endif
 
-static const uint256 hashGenesisBlock("0x75e1a29f244491c22116faa063f1dc246a6145911498297025073f64bfcd9c00");
-static const uint256 hashGenesisBlockTestNet("0x000074e6ba00a73a1ab0a802b1665107690a23d2b1b2363a83f102aaa78a8708");
-static const uint256 hashBadBlock15553("0x000000000141634a8cd6b9ab39c21447a41eeaf76f5a0fc98bafc2757bb42e3c");
+static const uint256 hashGenesisBlock("0xd43d676c4db74c391f6b074254553ada3c9335166544e3531681aa819175d706");
+static const uint256 hashGenesisBlockTestNet("0xba1cd2277133e4f79fe8405c27ebfb99f505c32879b16a64e99a9f53a73d5ec0");
 
 inline int64 PastDrift(int64 nTime)   { return nTime - 2 * 60 * 60; } // up to 2 hours from the past
 inline int64 FutureDrift(int64 nTime) { return nTime + 2 * 60 * 60; } // up to 2 hours from the future
@@ -716,8 +715,6 @@ protected:
 /** A transaction with a merkle branch linking it to the block chain. */
 class CMerkleTx : public CTransaction
 {
-private:
-    int GetDepthInMainChainINTERNAL(CBlockIndex* &pindexRet) const;
 public:
     uint256 hashBlock;
     std::vector<uint256> vMerkleBranch;
@@ -756,14 +753,9 @@ public:
 
 
     int SetMerkleBranch(const CBlock* pblock=NULL);
-
-    // Return depth of transaction in blockchain:
-    // -1  : not in blockchain, and not in memory pool (conflicted transaction)
-    //  0  : in memory pool, waiting to be included in a block
-    // >=1 : this many blocks deep in the main chain
     int GetDepthInMainChain(CBlockIndex* &pindexRet) const;
     int GetDepthInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChain(pindexRet); }
-    bool IsInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChainINTERNAL(pindexRet) > 0; }
+    bool IsInMainChain() const { return GetDepthInMainChain() > 0; }
     int GetBlocksToMaturity() const;
     bool AcceptToMemoryPool(CTxDB& txdb, bool fCheckInputs=true);
     bool AcceptToMemoryPool();

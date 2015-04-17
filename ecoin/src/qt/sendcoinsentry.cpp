@@ -23,7 +23,7 @@ SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
-    ui->payTo->setPlaceholderText(tr("Enter a Ecoin address (e.g. EgAiyRYKKsQEDsbkYuML9d48WUm5DMTdAw)"));
+    ui->payTo->setPlaceholderText(tr("Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)"));
 #endif
     setFocusPolicy(Qt::TabFocus);
     setFocusProxy(ui->payTo);
@@ -46,26 +46,12 @@ void SendCoinsEntry::on_addressBookButton_clicked()
 {
     if(!model)
         return;
-    if (model->getSplitBlock())
+    AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::SendingTab, this);
+    dlg.setModel(model->getAddressTableModel());
+    if(dlg.exec())
     {
-        AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::ReceivingTab, this);
-        dlg.setModel(model->getAddressTableModel());
-        if(dlg.exec())
-        {
-            ui->payTo->setText(dlg.getReturnValue());
-            ui->payAmount->setFocus();
-        }
-
-    }
-    else
-    {
-        AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::SendingTab, this);
-        dlg.setModel(model->getAddressTableModel());
-        if(dlg.exec())
-        {
-            ui->payTo->setText(dlg.getReturnValue());
-            ui->payAmount->setFocus();
-        }
+        ui->payTo->setText(dlg.getReturnValue());
+        ui->payAmount->setFocus();
     }
 }
 

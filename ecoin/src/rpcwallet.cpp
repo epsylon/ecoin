@@ -38,7 +38,7 @@ void WalletTxToJSON(const CWalletTx& wtx, Object& entry)
     entry.push_back(Pair("confirmations", confirms));
     if (wtx.IsCoinBase() || wtx.IsCoinStake())
         entry.push_back(Pair("generated", true));
-    if (confirms > 0)
+    if (confirms)
     {
         entry.push_back(Pair("blockhash", wtx.hashBlock.GetHex()));
         entry.push_back(Pair("blockindex", wtx.nIndex));
@@ -211,107 +211,7 @@ Value getaccountaddress(const Array& params, bool fHelp)
     return ret;
 }
 
-Value ecoinshare(const Array &params, bool fHelp)
-{
-    if (fHelp || params.size() < 2 || params.size() > 5)
-        throw runtime_error(
-            "ecoinshare <ecoinaddress> <percent> [Change Address] [min amount] [max amount]\n"
-            "Gives a percentage of a found stake to a different address, after stake matures\n"
-            "Percent is a whole number 1 to 50.\n"
-            "Change Address, Min and Max Amount are optional\n"
-            "Set percentage to zero to turn off"
-            + HelpRequiringPassphrase());
 
-    CBitcoinAddress address(params[0].get_str());
-    if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Ecoin address");
-
-    if (params[1].get_int() < 0)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected valid percentage");
-
-    if (pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
-
-    unsigned int nPer = (unsigned int) params[1].get_int();
-
-    int64 nMinAmount = MIN_TXOUT_AMOUNT;
-    int64 nMaxAmount = MAX_MONEY;
-
-    // Optional Change Address
-    CBitcoinAddress changeAddress;
-    if (params.size() > 2) {
-        changeAddress = params[2].get_str();
-        if (!changeAddress.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Ecoin change address");
-        else {
-            if(!IsMine(*pwalletMain, changeAddress.Get()))
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Ecoin change address not owned");
-        }
-    }
-
-    // Optional Min Amount
-    if (params.size() > 3)
-    {
-        int64 nAmount = AmountFromValue(params[3]);
-        if (nAmount < MIN_TXOUT_AMOUNT)
-            throw JSONRPCError(-101, "Send amount too small");
-        else
-            nMinAmount = nAmount;
-    }
-
-    // Optional Max Amount
-    if (params.size() > 4)
-    {
-        int64 nAmount = AmountFromValue(params[4]);
-        if (nAmount < MIN_TXOUT_AMOUNT)
-            throw JSONRPCError(-101, "Send amount too small");
-        else
-            nMaxAmount = nAmount;
-    }
-
-    CWalletDB walletdb(pwalletMain->strWalletFile);
-
-    LOCK(pwalletMain->cs_wallet);
-    {
-        bool fFileBacked = pwalletMain->fFileBacked;
-        //Turn off if we set to zero.
-        //Future: After we allow multiple addresses, only turn of this address
-        if(nPer == 0)
-        {
-            pwalletMain->fAutoSavings = false;
-            pwalletMain->nAutoSavingsPercent = 0;
-            pwalletMain->nAutoSavingsMin = nMinAmount;
-            pwalletMain->nAutoSavingsMax = nMaxAmount;
-
-            if(fFileBacked)
-                walletdb.EraseAutoSavings(pwalletMain->strAutoSavingsAddress.ToString());
-
-            pwalletMain->strAutoSavingsAddress = "";
-            pwalletMain->strAutoSavingsChangeAddress = "";
-
-            return Value::null;
-        }
-
-          //For now max percentage is 50.
-          if (nPer > 50 )
-             nPer = 50;
-
-          if(fFileBacked)
-              walletdb.EraseAutoSavings(pwalletMain->strAutoSavingsAddress.ToString());
-
-          pwalletMain->strAutoSavingsAddress = address;
-          pwalletMain->nAutoSavingsPercent = nPer;
-          pwalletMain->strAutoSavingsChangeAddress = changeAddress;
-          pwalletMain->fAutoSavings = true;
-          pwalletMain->nAutoSavingsMin = nMinAmount;
-          pwalletMain->nAutoSavingsMax = nMaxAmount;
-
-          if(fFileBacked)
-              walletdb.WriteAutoSavings(address.ToString(), nPer, changeAddress.ToString(), nMinAmount, nMaxAmount);
-    }
-
-    return Value::null;
-}
 
 Value setaccount(const Array& params, bool fHelp)
 {
@@ -411,7 +311,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
     if (pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
-    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx, false, false);
+    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx);
     if (strError != "")
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
@@ -617,15 +517,15 @@ int64 GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMinD
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-        if (!wtx.IsFinal() || wtx.GetDepthInMainChain() < 0)
+        if (!wtx.IsFinal())
             continue;
 
-        int64 nReceived, nSent, nFee;
-        wtx.GetAccountAmounts(strAccount, nReceived, nSent, nFee);
+        int64 nGenerated, nReceived, nSent, nFee;
+        wtx.GetAccountAmounts(strAccount, nGenerated, nReceived, nSent, nFee);
 
-        if (nReceived != 0 && wtx.GetDepthInMainChain() >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
+        if (nReceived != 0 && wtx.GetDepthInMainChain() >= nMinDepth)
             nBalance += nReceived;
-        nBalance -= nSent + nFee;
+        nBalance += nGenerated - nSent - nFee;
     }
 
     // Tally internal accounting entries
@@ -667,12 +567,14 @@ Value getbalance(const Array& params, bool fHelp)
             if (!wtx.IsTrusted())
                 continue;
 
-            int64 allFee;
+            int64 allGeneratedImmature, allGeneratedMature, allFee;
+            allGeneratedImmature = allGeneratedMature = allFee = 0;
+
             string strSentAccount;
             list<pair<CTxDestination, int64> > listReceived;
             list<pair<CTxDestination, int64> > listSent;
-            wtx.GetAmounts(listReceived, listSent, allFee, strSentAccount);
-            if (wtx.GetDepthInMainChain() >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
+            wtx.GetAmounts(allGeneratedImmature, allGeneratedMature, listReceived, listSent, allFee, strSentAccount);
+            if (wtx.GetDepthInMainChain() >= nMinDepth)
             {
                 BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64)& r, listReceived)
                     nBalance += r.second;
@@ -680,6 +582,7 @@ Value getbalance(const Array& params, bool fHelp)
             BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64)& r, listSent)
                 nBalance -= r.second;
             nBalance -= allFee;
+            nBalance += allGeneratedMature;
         }
         return  ValueFromAmount(nBalance);
     }
@@ -782,7 +685,7 @@ Value sendfrom(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Account has insufficient funds");
 
     // Send
-    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx, false, false);
+    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx);
     if (strError != "")
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
@@ -845,7 +748,7 @@ Value sendmany(const Array& params, bool fHelp)
     // Send
     CReserveKey keyChange(pwalletMain);
     int64 nFeeRequired = 0;
-    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, 1);
+    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired);
     if (!fCreated)
     {
         if (totalAmount + nFeeRequired > pwalletMain->GetBalance())
@@ -1093,24 +996,50 @@ static void MaybePushAddress(Object & entry, const CTxDestination &dest)
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, Array& ret)
 {
-    int64 nFee;
+    int64 nGeneratedImmature, nGeneratedMature, nFee;
     string strSentAccount;
     list<pair<CTxDestination, int64> > listReceived;
     list<pair<CTxDestination, int64> > listSent;
 
-    wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
+    wtx.GetAmounts(nGeneratedImmature, nGeneratedMature, listReceived, listSent, nFee, strSentAccount);
 
     bool fAllAccounts = (strAccount == string("*"));
 
+    // Generated blocks assigned to account ""
+    if ((nGeneratedMature+nGeneratedImmature) != 0 && (fAllAccounts || strAccount == ""))
+    {
+        Object entry;
+        entry.push_back(Pair("account", string("")));
+        if (nGeneratedImmature)
+        {
+            entry.push_back(Pair("category", wtx.GetDepthInMainChain() ? "immature" : "orphan"));
+            entry.push_back(Pair("amount", ValueFromAmount(nGeneratedImmature)));
+        }
+        else
+        {
+            entry.push_back(Pair("category", "generate"));
+            entry.push_back(Pair("amount", ValueFromAmount(nGeneratedMature)));
+        }
+        if (fLong)
+            WalletTxToJSON(wtx, entry);
+        ret.push_back(entry);
+    }
+
     // Sent
-    if ((!wtx.IsCoinStake()) && (!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount))
+    if ((!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount))
     {
         BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64)& s, listSent)
         {
             Object entry;
             entry.push_back(Pair("account", strSentAccount));
             MaybePushAddress(entry, s.first);
-            entry.push_back(Pair("category", "send"));
+
+            if (wtx.GetDepthInMainChain() < 0) {
+                entry.push_back(Pair("category", "conflicted"));
+            } else {
+                entry.push_back(Pair("category", "send"));
+		    }
+
             entry.push_back(Pair("amount", ValueFromAmount(-s.second)));
             entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
             if (fLong)
@@ -1132,7 +1061,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                 Object entry;
                 entry.push_back(Pair("account", account));
                 MaybePushAddress(entry, r.first);
-                if (wtx.IsCoinBase() || wtx.IsCoinStake())
+                if (wtx.IsCoinBase())
                 {
                     if (wtx.GetDepthInMainChain() < 1)
                         entry.push_back(Pair("category", "orphan"));
@@ -1142,9 +1071,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                         entry.push_back(Pair("category", "generate"));
                 }
                 else
-                {
                     entry.push_back(Pair("category", "receive"));
-                }
                 entry.push_back(Pair("amount", ValueFromAmount(r.second)));
                 if (fLong)
                     WalletTxToJSON(wtx, entry);
@@ -1249,19 +1176,17 @@ Value listaccounts(const Array& params, bool fHelp)
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-        int64 nFee;
+        int64 nGeneratedImmature, nGeneratedMature, nFee;
         string strSentAccount;
         list<pair<CTxDestination, int64> > listReceived;
         list<pair<CTxDestination, int64> > listSent;
-        int nDepth = wtx.GetDepthInMainChain();
-        if (nDepth < 0)
-            continue;
-        wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
+        wtx.GetAmounts(nGeneratedImmature, nGeneratedMature, listReceived, listSent, nFee, strSentAccount);
         mapAccountBalances[strSentAccount] -= nFee;
         BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64)& s, listSent)
             mapAccountBalances[strSentAccount] -= s.second;
-        if (nDepth >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
+        if (wtx.GetDepthInMainChain() >= nMinDepth)
         {
+            mapAccountBalances[""] += nGeneratedMature;
             BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64)& r, listReceived)
                 if (pwalletMain->mapAddressBook.count(r.first))
                     mapAccountBalances[pwalletMain->mapAddressBook[r.first]] += r.second;
@@ -1280,23 +1205,6 @@ Value listaccounts(const Array& params, bool fHelp)
         ret.push_back(Pair(accountBalance.first, ValueFromAmount(accountBalance.second)));
     }
     return ret;
-}
-
-Value deleteaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 2)
-        throw runtime_error(
-            "delete <address>\n"
-            "Deletes an address from wallet.dat, use with caution. Cannot be restored.");
-
-
-	string strAdd = params[0].get_str();
-
-	CWalletDB(pwalletMain->strWalletFile).EraseName(strAdd);
-        pwalletMain->TopUpKeyPool();
-
-	string ret = "Success, please restart wallet if using QT";
-	return ret;
 }
 
 Value listsinceblock(const Array& params, bool fHelp)

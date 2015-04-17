@@ -17,7 +17,6 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "walletdb.h"
-#include "smessage.h"
 
 extern bool fWalletUnlockStakingOnly;
 extern bool fConfChange;
@@ -88,14 +87,6 @@ public:
     bool fFileBacked;
     std::string strWalletFile;
 
-    bool fAutoSavings;
-    int nAutoSavingsPercent;
-    int64 nAutoSavingsMin;
-    int64 nAutoSavingsMax;
-    CBitcoinAddress strAutoSavingsAddress;
-    CBitcoinAddress strAutoSavingsChangeAddress;
-    bool fSplitBlock;
-
     std::set<int64> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
 
@@ -112,13 +103,6 @@ public:
         nMasterKeyMaxID = 0;
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
-        fAutoSavings = false;
-        nAutoSavingsPercent = 0;
-        strAutoSavingsAddress = "";
-        strAutoSavingsChangeAddress = "";
-        nAutoSavingsMin = 0;
-        nAutoSavingsMax = 0;
-        fSplitBlock = false;
     }
     CWallet(std::string strWalletFileIn)
     {
@@ -129,13 +113,6 @@ public:
         nMasterKeyMaxID = 0;
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
-        fAutoSavings = false;
-        nAutoSavingsPercent = 0;
-        strAutoSavingsAddress = "";
-        strAutoSavingsChangeAddress = "";
-        nAutoSavingsMin = MIN_TXOUT_AMOUNT;
-        nAutoSavingsMax = MAX_MONEY;
-        fSplitBlock = false;
     }
 
     std::map<uint256, CWalletTx> mapWallet;
@@ -208,17 +185,15 @@ public:
     int64 GetImmatureBalance() const;
     int64 GetStake() const;
     int64 GetNewMint() const;
-    bool AutoSavings();
-    bool CreateTransaction(const std::vector<std::pair<CScript, int64> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64& nFeeRet, int nSplitBlock, bool fAllowAutoSavings=false, const CCoinControl *coinControl=NULL);
-    bool CreateTransaction(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64& nFeeRet, bool fAllowAutoSavings=false, const CCoinControl *coinControl=NULL);
+    bool CreateTransaction(const std::vector<std::pair<CScript, int64> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64& nFeeRet, const CCoinControl *coinControl=NULL);
+    bool CreateTransaction(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64& nFeeRet, const CCoinControl *coinControl=NULL);
     bool CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey);
 
-    bool GetStakeWeight(const CKeyStore& keystore, uint64& nMinWeight, uint64& nMaxWeight, uint64& nWeight, uint64& nHoursToMaturity);
-    void GetStakeWeightFromValue(const int64& nTime, const int64& nValue, uint64& nWeight);
+    bool GetStakeWeight(const CKeyStore& keystore, uint64_t& nMinWeight, uint64_t& nMaxWeight, uint64_t& nWeight);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64 nSearchInterval, CTransaction& txNew, CKey& key);
 
-    std::string SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew, bool fAskFee=false, bool fAllowAutoSavings=false);
-    std::string SendMoneyToDestination(const CTxDestination &address, int64 nValue, CWalletTx& wtxNew, bool fAskFee=false, bool fAllowAutoSavings=false);
+    std::string SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew, bool fAskFee=false);
+    std::string SendMoneyToDestination(const CTxDestination &address, int64 nValue, CWalletTx& wtxNew, bool fAskFee=false);
 
     bool NewKeyPool();
     bool TopUpKeyPool(unsigned int nSize = 0);
@@ -396,13 +371,6 @@ static void WriteOrderPos(const int64& nOrderPos, mapValue_t& mapValue)
         return;
     mapValue["n"] = i64tostr(nOrderPos);
 }
-
-// Add an address to the list of fixed change addresses to use.
-void AddFixedChangeAddress(const CKeyID &changeAddress);
-
-// ProofOfTx Coinstake --ofeefee
-typedef boost::tuple<bool, CBitcoinAddress> ProofOfTx;
-ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight);
 
 
 /** A transaction with a bunch of additional info that only the owner cares about.
@@ -664,10 +632,10 @@ public:
         return nChangeCached;
     }
 
-    void GetAmounts(std::list<std::pair<CTxDestination, int64> >& listReceived,
+    void GetAmounts(int64& nGeneratedImmature, int64& nGeneratedMature, std::list<std::pair<CTxDestination, int64> >& listReceived,
                     std::list<std::pair<CTxDestination, int64> >& listSent, int64& nFee, std::string& strSentAccount) const;
 
-    void GetAccountAmounts(const std::string& strAccount, int64& nReceived,
+    void GetAccountAmounts(const std::string& strAccount, int64& nGenerated, int64& nReceived,
                            int64& nSent, int64& nFee) const;
 
     bool IsFromMe() const
@@ -680,11 +648,8 @@ public:
         // Quick answer in most cases
         if (!IsFinal())
             return false;
-        int nDepth = GetDepthInMainChain();
-        if (nDepth >= 1)
+        if (GetDepthInMainChain() >= 1)
             return true;
-        if (nDepth < 0)
-            return false;
         if (fConfChange || !IsFromMe()) // using wtx's cached debit
             return false;
 
@@ -700,11 +665,8 @@ public:
 
             if (!ptx->IsFinal())
                 return false;
-            int nPDepth = ptx->GetDepthInMainChain();
-            if (nPDepth >= 1)
+            if (ptx->GetDepthInMainChain() >= 1)
                 continue;
-            if (nPDepth < 0)
-                return false;
             if (!pwallet->IsFromMe(*ptx))
                 return false;
 

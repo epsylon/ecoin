@@ -9,27 +9,22 @@ DEB_INSTALL_EXAMPLES_ecoind += debian/examples/*
 DEB_INSTALL_MANPAGES_ecoind += debian/manpages/*
 
 %:
-	dh $@  --with bash-completion 
+	dh --with bash-completion $@
 
 override_dh_auto_build:
-	cd src; $(MAKE) -f makefile.linux ecoind
+	cd src; $(MAKE) -f makefile.unix ecoind
 	$(MAKE)
 
 override_dh_auto_clean:
-	rm -f src/ecoind
-	rm -f src/obj/*.o
-	rm -f src/obj/zerocoin/*.o
-	rm -f src/obj/*.P
-	rm -f src/obj/zerocoin/*.P
-	rm -f src/obj/build.h
-
+	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f ecoin-qt; fi
+	cd src; $(MAKE) -f makefile.unix clean
 
 override_dh_auto_configure:
 	qmake ecoin-qt.pro USE_QRCODE=1
 
-#override_dh_auto_test:
-#	cd src; $(MAKE) -f makefile.linux test_ecoin
-#	src/test_ecoin
+override_dh_auto_test:
+	cd src; $(MAKE) -f makefile.unix test_ecoin
+	src/test_ecoin
 
 # Ensure wrapper is set executable
 binary-post-install/ecoind:

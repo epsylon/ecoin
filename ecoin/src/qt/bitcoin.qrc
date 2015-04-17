@@ -12,7 +12,6 @@
         <file alias="connect_4">res/icons/connect4_16.png</file>
         <file alias="transaction_0">res/icons/transaction0.png</file>
         <file alias="transaction_confirmed">res/icons/transaction2.png</file>
-        <file alias="transaction_conflicted">res/icons/transaction_conflicted.png</file>
         <file alias="transaction_1">res/icons/clock1.png</file>
         <file alias="transaction_2">res/icons/clock2.png</file>
         <file alias="transaction_3">res/icons/clock3.png</file>
@@ -41,22 +40,15 @@
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
         <file alias="debugwindow">res/icons/debugwindow.png</file>
-        <file alias="blexp">res/icons/blexp.png</file>
-        <file alias="info">res/icons/info.png</file>
-        <file alias="traffic">res/icons/traffic.png</file>
         <file alias="staking_off">res/icons/staking_off.png</file>
         <file alias="staking_on">res/icons/staking_on.png</file>
-        <file alias="smessage">res/icons/smessage.png</file>
-        <file alias="back">res/icons/back.png</file>
     </qresource>
     <qresource prefix="/images">
-        <file alias="about">res/images/about2a.png</file>
-        <file alias="splash">res/images/splash2b.png</file>
-        <file alias="header">res/images/header.png</file>
+        <file alias="about">res/images/about.png</file>
+        <file alias="splash">res/images/splash2.jpg</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>
-        <file alias="staking_spinner">res/movies/staking_spinner.mng</file>
     </qresource>
     <qresource prefix="/translations">
         <file alias="en">locale/bitcoin_en.qm</file>
