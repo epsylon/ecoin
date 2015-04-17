@@ -3179,10 +3179,31 @@ bool LoadBlockIndex(bool fAllowNew)
         block.nTime    = 1429299546;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
         //block.nBits = 0x1e0ffff0;
-        block.nNonce   = !fTestNet ? 392686 : 392686;
+        //block.nNonce   = !fTestNet ? 392686 : 392686;
+        block.nNonce   = 0;
 
+        if (fTestNet)
+        {
+            block.nTime    = 1429299546;
+            block.nNonce   = 122894938;
+        }
+
+        // search genesis
+        CBigNum bnTarget;
+        bnTarget.SetCompact(block.nBits);
+
+        while (block.GetHash() > bnTarget.getuint256())
+        {
+            if (block.nNonce % 1048576 == 0)
+                printf("n=%dM hash=%s\n", block.nNonce / 1048576,
+                       block.GetHash().ToString().c_str());
+            block.nTime = GetAdjustedTime();
+            block.nNonce++;
+        }
+     
         //// debug print
         uint256 hash = block.GetHash();
+        printf("Ecoin Found Genesis Block:\n");
         printf("Hash: %s\n", hash.ToString().c_str());
         printf("GenesisBlock: %s\n", hashGenesisBlock.ToString().c_str());
         printf("MerkleHash: %s\n", block.hashMerkleRoot.ToString().c_str());
@@ -3191,9 +3212,9 @@ bool LoadBlockIndex(bool fAllowNew)
         // hash.Merkle
         assert(block.hashMerkleRoot == uint256("0xa7f05a77262d2f40000d03d3ce26732b2a84fd9acc2baaa895cab9465ffe87ec"));
         block.print();
-        //assert(hash == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
+        assert(hash == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());
-        assert(hash == hashGenesisBlock);
+//        assert(hash == hashGenesisBlock);
 
         // Start new block file
         unsigned int nFile;
