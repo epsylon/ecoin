@@ -3177,8 +3177,8 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
         block.nTime    = 1429299546;
-        block.nBits    = bnProofOfWorkLimit.GetCompact();
-        //block.nBits = 0x1e0ffff0;
+        //block.nBits    = bnProofOfWorkLimit.GetCompact();
+        block.nBits = 0x1e0ffff0;
         block.nNonce   = !fTestNet ? 392686 : 392686;
 
         //// debug print
@@ -3191,7 +3191,7 @@ bool LoadBlockIndex(bool fAllowNew)
         assert(block.hashMerkleRoot == uint256("0xa7f05a77262d2f40000d03d3ce26732b2a84fd9acc2baaa895cab9465ffe87ec"));
         block.print();
         //assert(hash == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
-        //assert(block.CheckBlock());
+        assert(block.CheckBlock());
         assert(hash == hashGenesisBlock);
 
         // Start new block file
