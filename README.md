@@ -108,10 +108,8 @@ addnode = 176.28.23.46 #myecoin.net
 
 ==================================================================
 
-Contact: epsylon[ AT ]riseup.net
+Contact: epsylon [@] riseup.net
 
-GPG Key: 
-
-https://github.com/epsylon/ecoin/blob/master/ecoin/contrib/gitian-keys/epsylon.asc
+GPG Key: https://github.com/epsylon/ecoin/blob/master/ecoin/contrib/gitian-keys/epsylon.asc
 
 ==================================================================
