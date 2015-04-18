@@ -2481,7 +2481,9 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos)
     pindexNew->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);
     pindexNew->nStakeModifierChecksum = GetStakeModifierChecksum(pindexNew);
     if (!CheckStakeModifierCheckpoints(pindexNew->nHeight, pindexNew->nStakeModifierChecksum))
-        return error("AddToBlockIndex() : Rejected by stake modifier checkpoint height=%d, modifier=0x%016"PRI64x, pindexNew->nHeight, nStakeModifier);
+        // ECO: added some code to dump StakeModifierChecksum (kernel.cpp)
+        //return error("AddToBlockIndex() : Rejected by stake modifier checkpoint height=%d, modifier=0x%016"PRI64x, pindexNew->nHeight, nStakeModifier);
+        return error("AddToBlockIndex() : Rejected by stake modifier checkpoint height=%d, modifier=0x%016"PRI64x" pindexNew->nStakeModifierChecksum=0x%08"PRI64x, pindexNew->nHeight, nStakeModifier, pindexNew->nStakeModifierChecksum);
 
     // Add to mapBlockIndex
     map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.insert(make_pair(hash, pindexNew)).first;
@@ -3164,9 +3166,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.nNonce = 55213
 */
 
-        const char* pszTimestamp = "17042015: ECO - P2P Crypto Currency Network";
+        const char* pszTimestamp = "18042015 - ECO: P2P Crypto Network";
         CTransaction txNew;
-        txNew.nTime = 1429299546;
+        txNew.nTime = 1429316424;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(9999) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -3176,29 +3178,15 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1429299546;
+        block.nTime    = 1429316424;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
         //block.nBits = 0x1e0ffff0;
         //block.nNonce   = !fTestNet ? 392686 : 392686;
-        block.nNonce   = 0;
-
+        block.nNonce   = 2087185175;
         if (fTestNet)
         {
-            block.nTime    = 1429299546;
-            block.nNonce   = 122894938;
-        }
-
-        // search genesis
-        CBigNum bnTarget;
-        bnTarget.SetCompact(block.nBits);
-
-        while (block.GetHash() > bnTarget.getuint256())
-        {
-            if (block.nNonce % 1048576 == 0)
-                printf("n=%dM hash=%s\n", block.nNonce / 1048576,
-                       block.GetHash().ToString().c_str());
-            block.nTime = GetAdjustedTime();
-            block.nNonce++;
+            block.nTime    = 1429316424;
+            block.nNonce   = 2087185175;
         }
      
         //// debug print
@@ -3210,11 +3198,42 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("Min nBit:  %08x\n", bnProofOfWorkLimit.GetCompact());
 
         // hash.Merkle
-        assert(block.hashMerkleRoot == uint256("0xa7f05a77262d2f40000d03d3ce26732b2a84fd9acc2baaa895cab9465ffe87ec"));
+        assert(block.hashMerkleRoot == uint256("0xaf59d7bf5364f36bd5c2eb3147e523ca82857bfdaad5becf9a43f2cded20d901"));
+
+        // ECOIN: If genesis block hash does not match, then generate new genesis hash.
+        if (block.GetHash() != hashGenesisBlock)
+        {
+        printf("Searching for genesis block...\n");
+        // This will figure out a valid hash and Nonce if you're
+        // creating a different genesis block:
+        uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
+        uint256 thash;
+        while(true)
+        {
+            thash = scrypt_blockhash(BEGIN(block.nVersion));
+            //static char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+            //scrypt_1024_1_1_256_sp(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
+            if (thash <= hashTarget)
+                break;
+            if ((block.nNonce & 0xFFF) == 0)
+            {
+                printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+            }
+            ++block.nNonce;
+            if (block.nNonce == 0)
+            {
+                printf("NONCE WRAPPED, incrementing time\n");
+                ++block.nTime;
+            }
+        }
+        printf("block.nTime = %u \n", block.nTime);
+        printf("block.nNonce = %u \n", block.nNonce);
+        printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
+        }
         block.print();
-        assert(hash == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
-        assert(block.CheckBlock());
-//        assert(hash == hashGenesisBlock);
+        // assert(hash == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
+        // assert(block.CheckBlock());
+        assert(hash == hashGenesisBlock);
 
         // Start new block file
         unsigned int nFile;

@@ -67,27 +67,20 @@ NOTE: For building on Linux, use the file makefile.linux (not the traditional ma
 To build daemon:
 
 cd src/
-
 makefile.linux USE_UPNP=- (or USE_UPNP=0)
-
 strip ecoind
 
 To launch it:
-
 ./ecoind
 
 ---------------------------------
 
 To build wallet:
-
 cd ..
-
 qmake USE_UPNP=- (or USE_UPNP=0)
-
 make
 
 To launch it:
-
 ./ecoin-qt
 
 -------------------------------------------------
@@ -95,15 +88,10 @@ To launch it:
 Configuration example (/home/$USER/.ecoin/ecoin.conf)
 
 rpcuser = ecoinrpc
-
 rpcpassword = <your password here>
-
 noirc = 1
-
 listen = 1
-
 server = 1
-
 addnode = 176.28.23.46 #myecoin.net
 
 ==================================================================
