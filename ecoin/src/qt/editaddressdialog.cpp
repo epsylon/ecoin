@@ -1,8 +1,8 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "editaddressdialog.h"
 #include "ui_editaddressdialog.h"
 #include "addresstablemodel.h"
 #include "guiutil.h"
-
 #include <QDataWidgetMapper>
 #include <QMessageBox>
 
@@ -99,7 +99,7 @@ void EditAddressDialog::accept()
             break;
         case AddressTableModel::INVALID_ADDRESS:
             QMessageBox::warning(this, windowTitle(),
-                tr("The entered address \"%1\" is not a valid NovaCoin address.").arg(ui->addressEdit->text()),
+                tr("The entered address \"%1\" is not a valid Ecoin address.").arg(ui->addressEdit->text()),
                 QMessageBox::Ok, QMessageBox::Ok);
             break;
         case AddressTableModel::DUPLICATE_ADDRESS:

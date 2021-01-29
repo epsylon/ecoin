@@ -1,16 +1,9 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef JSON_SPIRIT_READER_TEMPLATE
 #define JSON_SPIRIT_READER_TEMPLATE
 
-//          Copyright John W. Wilkinson 2007 - 2009.
-// Distributed under the MIT License, see accompanying file LICENSE.txt
-
-// json spirit version 4.03
-
 #include "json_spirit_value.h"
 #include "json_spirit_error_position.h"
-
-//#define BOOST_SPIRIT_THREADSAFE  // uncomment for multithreaded use, requires linking to boost.thread
-
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/version.hpp>
@@ -187,11 +180,6 @@ namespace json_spirit
         return get_str( tmp.begin(), tmp.end() );
     }
 
-    // this class's methods get called by the spirit parse resulting
-    // in the creation of a JSON object or array
-    //
-    // NB Iter_type could be a std::string iterator, wstring iterator, a position iterator or a multipass iterator
-    //
     template< class Value_type, class Iter_type >
     class Semantic_actions 
     {
@@ -287,8 +275,7 @@ namespace json_spirit
 
     private:
 
-        Semantic_actions& operator=( const Semantic_actions& ); 
-                                    // to prevent "assignment operator could not be generated" warning
+        Semantic_actions& operator=( const Semantic_actions& ); // to prevent "assignment operator could not be generated" warning
 
         Value_type* add_first( const Value_type& value )
         {
@@ -364,8 +351,6 @@ namespace json_spirit
        throw reason;
     }
 
-    // the spirit grammer 
-    //
     template< class Value_type, class Iter_type >
     class Json_grammer : public spirit_namespace::grammar< Json_grammer< Value_type, Iter_type > >
     {
@@ -419,9 +404,6 @@ namespace json_spirit
 
                 typedef typename Value_type::String_type::value_type Char_type;
 
-                // first we convert the semantic action class methods to functors with the 
-                // parameter signature expected by spirit
-
                 typedef boost::function< void( Char_type )            > Char_action;
                 typedef boost::function< void( Iter_type, Iter_type ) > Str_action;
                 typedef boost::function< void( double )               > Real_action;
@@ -440,8 +422,6 @@ namespace json_spirit
                 Real_action   new_real   ( boost::bind( &Semantic_actions_t::new_real,    &self.actions_, _1 ) );
                 Int_action    new_int    ( boost::bind( &Semantic_actions_t::new_int,     &self.actions_, _1 ) );
                 Uint64_action new_uint64 ( boost::bind( &Semantic_actions_t::new_uint64,  &self.actions_, _1 ) );
-
-                // actual grammer
 
                 json_
                     = value_ | eps_p[ &throw_not_value ]

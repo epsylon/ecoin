@@ -1,3 +1,5 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 /*-
  * Copyright 2009 Colin Percival, 2011 ArtForz, 2011 pooler, 2013 Balthazar
  * All rights reserved.
@@ -29,10 +31,8 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-
 #include "scrypt.h"
 #include "pbkdf2.h"
-
 #include "util.h"
 #include "net.h"
 

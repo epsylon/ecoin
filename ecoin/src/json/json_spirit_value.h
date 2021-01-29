@@ -1,10 +1,6 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef JSON_SPIRIT_VALUE
 #define JSON_SPIRIT_VALUE
-
-//          Copyright John W. Wilkinson 2007 - 2009.
-// Distributed under the MIT License, see accompanying file LICENSE.txt
-
-// json spirit version 4.03
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
 # pragma once
@@ -90,8 +86,6 @@ namespace json_spirit
         bool is_uint64_;
     };
 
-    // vector objects
-
     template< class Config >
     struct Pair_impl
     {
@@ -133,16 +127,11 @@ namespace json_spirit
         }
     };
 
-    // typedefs for ASCII
-
     typedef Config_vector< std::string > Config;
-
     typedef Config::Value_type  Value;
     typedef Config::Pair_type   Pair;
     typedef Config::Object_type Object;
     typedef Config::Array_type  Array;
-
-    // typedefs for Unicode
 
 #ifndef BOOST_NO_STD_WSTRING
 
@@ -153,8 +142,6 @@ namespace json_spirit
     typedef wConfig::Object_type wObject;
     typedef wConfig::Array_type  wArray;
 #endif
-
-    // map objects
 
     template< class String >
     struct Config_map
@@ -181,15 +168,10 @@ namespace json_spirit
         }
     };
 
-    // typedefs for ASCII
-
     typedef Config_map< std::string > mConfig;
-
     typedef mConfig::Value_type  mValue;
     typedef mConfig::Object_type mObject;
     typedef mConfig::Array_type  mArray;
-
-    // typedefs for Unicode
 
 #ifndef BOOST_NO_STD_WSTRING
 
@@ -200,10 +182,6 @@ namespace json_spirit
     typedef wmConfig::Array_type  wmArray;
 
 #endif
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // implementation
 
     template< class Config >
     const Value_impl< Config > Value_impl< Config >::null;
@@ -342,7 +320,6 @@ namespace json_spirit
         {
             std::ostringstream os;
 
-            ///// Bitcoin: Tell the types by name instead of by number
             os << "value is type " << Value_type_name[type()] << ", expected " << Value_type_name[vtype];
 
             throw std::runtime_error( os.str() );
@@ -450,8 +427,6 @@ namespace json_spirit
         return ( name_ == lhs.name_ ) && ( value_ == lhs.value_ );
     }
 
-    // converts a C string, ie. 8 bit char array, to a string object
-    //
     template < class String_type >
     String_type to_str( const char* c_str )
     {
@@ -464,8 +439,6 @@ namespace json_spirit
 
         return result;
     }
-
-    //
 
     namespace internal_
     {

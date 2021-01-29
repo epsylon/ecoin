@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef QRCODEDIALOG_H
 #define QRCODEDIALOG_H
 
@@ -25,7 +26,6 @@ private slots:
     void on_lnMessage_textChanged();
     void on_btnSaveAs_clicked();
     void on_chkReqPayment_toggled(bool fChecked);
-
     void updateDisplayUnit();
 
 private:
@@ -33,7 +33,6 @@ private:
     OptionsModel *model;
     QString address;
     QImage myImage;
-
     void genCode();
     QString getURI();
 };

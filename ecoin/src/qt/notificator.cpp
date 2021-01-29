@@ -1,5 +1,5 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "notificator.h"
-
 #include <QMetaType>
 #include <QVariant>
 #include <QIcon>
@@ -21,7 +21,6 @@
 extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
 #endif
 
-// https://wiki.ubuntu.com/NotificationDevelopmentGuidelines recommends at least 128
 const int FREEDESKTOP_NOTIFICATION_ICON_SIZE = 128;
 
 Notificator::Notificator(const QString &programName, QSystemTrayIcon *trayicon, QWidget *parent):
@@ -73,7 +72,6 @@ Notificator::~Notificator()
 
 #ifdef USE_DBUS
 
-// Loosely based on http://www.qtcentre.org/archive/index.php/t-25879.html
 class FreedesktopImage
 {
 public:

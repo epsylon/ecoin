@@ -1,9 +1,7 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_UTIL_H
-#define BITCOIN_UTIL_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
+#ifndef ECOIN_UTIL_H
+#define ECOIN_UTIL_H
 
 #include "uint256.h"
 
@@ -16,16 +14,13 @@
 #include <map>
 #include <vector>
 #include <string>
-
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
-
 #include <openssl/sha.h>
 #include <openssl/ripemd.h>
-
 #include "netbase.h" // for AddTimeData
 
 typedef long long  int64;
@@ -235,17 +230,9 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
 void AddTimeData(const CNetAddr& ip, int64 nTime);
 void runCommand(std::string strCommand);
 
-
-
-
-
-
-
-
-
 inline std::string i64tostr(int64 n)
 {
-    return strprintf("%"PRI64d, n);
+    return strprintf("%" PRI64d, n);
 }
 
 inline std::string itostr(int n)

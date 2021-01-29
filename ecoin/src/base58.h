@@ -1,19 +1,6 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin Developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-
-//
-// Why base-58 instead of standard base-64 encoding?
-// - Don't want 0OIl characters that look the same in some fonts and
-//      could be used to create visually identical looking account numbers.
-// - A string with non-alphanumeric characters is not as easily accepted as an account number.
-// - E-mail usually won't line-break if there's no punctuation to break at.
-// - Double-clicking selects the whole number as one word if it's all alphanumeric.
-//
-#ifndef BITCOIN_BASE58_H
-#define BITCOIN_BASE58_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_BASE58_H
+#define ECOIN_BASE58_H
 
 #include <string>
 #include <vector>
@@ -125,9 +112,6 @@ inline bool DecodeBase58(const std::string& str, std::vector<unsigned char>& vch
     return DecodeBase58(str.c_str(), vchRet);
 }
 
-
-
-
 // Encode a byte vector to a base58-encoded string, including checksum
 inline std::string EncodeBase58Check(const std::vector<unsigned char>& vchIn)
 {
@@ -165,10 +149,6 @@ inline bool DecodeBase58Check(const std::string& str, std::vector<unsigned char>
 {
     return DecodeBase58Check(str.c_str(), vchRet);
 }
-
-
-
-
 
 /** Base class for all base58-encoded data */
 class CBase58Data
@@ -253,25 +233,19 @@ public:
     bool operator> (const CBase58Data& b58) const { return CompareTo(b58) >  0; }
 };
 
-/** base58-encoded Bitcoin addresses.
- * Public-key-hash-addresses have version 0 (or 111 testnet).
- * The data vector contains RIPEMD160(SHA256(pubkey)), where pubkey is the serialized public key.
- * Script-hash-addresses have version 5 (or 196 testnet).
- * The data vector contains RIPEMD160(SHA256(cscript)), where cscript is the serialized redemption script.
- */
-class CBitcoinAddress;
-class CBitcoinAddressVisitor : public boost::static_visitor<bool>
+class CEcoinAddress;
+class CEcoinAddressVisitor : public boost::static_visitor<bool>
 {
 private:
-    CBitcoinAddress *addr;
+    CEcoinAddress *addr;
 public:
-    CBitcoinAddressVisitor(CBitcoinAddress *addrIn) : addr(addrIn) { }
+    CEcoinAddressVisitor(CEcoinAddress *addrIn) : addr(addrIn) { }
     bool operator()(const CKeyID &id) const;
     bool operator()(const CScriptID &id) const;
     bool operator()(const CNoDestination &no) const;
 };
 
-class CBitcoinAddress : public CBase58Data
+class CEcoinAddress : public CBase58Data
 {
 public:
     enum
@@ -294,7 +268,7 @@ public:
 
     bool Set(const CTxDestination &dest)
     {
-        return boost::apply_visitor(CBitcoinAddressVisitor(this), dest);
+        return boost::apply_visitor(CEcoinAddressVisitor(this), dest);
     }
 
     bool IsValid() const
@@ -327,21 +301,21 @@ public:
         return fExpectTestNet == fTestNet && vchData.size() == nExpectedSize;
     }
 
-    CBitcoinAddress()
+    CEcoinAddress()
     {
     }
 
-    CBitcoinAddress(const CTxDestination &dest)
+    CEcoinAddress(const CTxDestination &dest)
     {
         Set(dest);
     }
 
-    CBitcoinAddress(const std::string& strAddress)
+    CEcoinAddress(const std::string& strAddress)
     {
         SetString(strAddress);
     }
 
-    CBitcoinAddress(const char* pszAddress)
+    CEcoinAddress(const char* pszAddress)
     {
         SetString(pszAddress);
     }
@@ -394,18 +368,18 @@ public:
     }
 };
 
-bool inline CBitcoinAddressVisitor::operator()(const CKeyID &id) const         { return addr->Set(id); }
-bool inline CBitcoinAddressVisitor::operator()(const CScriptID &id) const      { return addr->Set(id); }
-bool inline CBitcoinAddressVisitor::operator()(const CNoDestination &id) const { return false; }
+bool inline CEcoinAddressVisitor::operator()(const CKeyID &id) const         { return addr->Set(id); }
+bool inline CEcoinAddressVisitor::operator()(const CScriptID &id) const      { return addr->Set(id); }
+bool inline CEcoinAddressVisitor::operator()(const CNoDestination &id) const { return false; }
 
 /** A base58-encoded secret key */
-class CBitcoinSecret : public CBase58Data
+class CEcoinSecret : public CBase58Data
 {
 public:
     void SetSecret(const CSecret& vchSecret, bool fCompressed)
     {
         assert(vchSecret.size() == 32);
-        SetData(128 + (fTestNet ? CBitcoinAddress::PUBKEY_ADDRESS_TEST : CBitcoinAddress::PUBKEY_ADDRESS), &vchSecret[0], vchSecret.size());
+        SetData(128 + (fTestNet ? CEcoinAddress::PUBKEY_ADDRESS_TEST : CEcoinAddress::PUBKEY_ADDRESS), &vchSecret[0], vchSecret.size());
         if (fCompressed)
             vchData.push_back(1);
     }
@@ -424,10 +398,10 @@ public:
         bool fExpectTestNet = false;
         switch(nVersion)
         {
-            case (128 + CBitcoinAddress::PUBKEY_ADDRESS):
+            case (128 + CEcoinAddress::PUBKEY_ADDRESS):
                 break;
 
-            case (128 + CBitcoinAddress::PUBKEY_ADDRESS_TEST):
+            case (128 + CEcoinAddress::PUBKEY_ADDRESS_TEST):
                 fExpectTestNet = true;
                 break;
 
@@ -447,12 +421,12 @@ public:
         return SetString(strSecret.c_str());
     }
 
-    CBitcoinSecret(const CSecret& vchSecret, bool fCompressed)
+    CEcoinSecret(const CSecret& vchSecret, bool fCompressed)
     {
         SetSecret(vchSecret, fCompressed);
     }
 
-    CBitcoinSecret()
+    CEcoinSecret()
     {
     }
 };

@@ -1,10 +1,6 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Copyright (c) 2013 The Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef COMPCOIN_MINER_H
-#define COMPCOIN_MINER_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_MINER_H
+#define ECOIN_MINER_H
 
 #include "main.h"
 #include "wallet.h"
@@ -27,4 +23,4 @@ bool CheckStake(CBlock* pblock, CWallet& wallet);
 /** Base sha256 mining transform */
 void SHA256Transform(void* pstate, void* pinput, const void* pinit);
 
-#endif // COMPCOIN_MINER_H
+#endif // ECOIN_MINER_H

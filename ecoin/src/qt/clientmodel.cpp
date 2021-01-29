@@ -1,13 +1,12 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "clientmodel.h"
 #include "guiconstants.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 #include "transactiontablemodel.h"
-
 #include "alert.h"
 #include "main.h"
 #include "ui_interface.h"
-
 #include <QDateTime>
 #include <QTimer>
 
@@ -18,12 +17,10 @@ ClientModel::ClientModel(OptionsModel *optionsModel, QObject *parent) :
     cachedNumBlocks(0), cachedNumBlocksOfPeers(0), pollTimer(0)
 {
     numBlocksAtStartup = -1;
-
     pollTimer = new QTimer(this);
     pollTimer->setInterval(MODEL_UPDATE_DELAY);
     pollTimer->start();
     connect(pollTimer, SIGNAL(timeout()), this, SLOT(updateTimer()));
-
     subscribeToCoreSignals();
 }
 
@@ -58,8 +55,6 @@ QDateTime ClientModel::getLastBlockDate() const
 
 void ClientModel::updateTimer()
 {
-    // Some quantities (such as number of blocks) change so fast that we don't want to be notified for each change.
-    // Periodically check and update with a timer.
     int newNumBlocks = getNumBlocks();
     int newNumBlocksOfPeers = getNumBlocksOfPeers();
 
@@ -91,8 +86,6 @@ void ClientModel::updateAlert(const QString &hash, int status)
         }
     }
 
-    // Emit a numBlocksChanged when the status message changes,
-    // so that the view recomputes and updates the status bar.
     emit numBlocksChanged(getNumBlocks(), getNumBlocksOfPeers());
 }
 
@@ -144,13 +137,11 @@ QString ClientModel::formatClientStartupTime() const
 // Handlers for core signals
 static void NotifyBlocksChanged(ClientModel *clientmodel)
 {
-    // This notification is too frequent. Don't trigger a signal.
     // Don't remove it, though, as it might be useful later.
 }
 
 static void NotifyNumConnectionsChanged(ClientModel *clientmodel, int newNumConnections)
 {
-    // Too noisy: OutputDebugStringF("NotifyNumConnectionsChanged %i\n", newNumConnections);
     QMetaObject::invokeMethod(clientmodel, "updateNumConnections", Qt::QueuedConnection,
                               Q_ARG(int, newNumConnections));
 }

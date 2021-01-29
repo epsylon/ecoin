@@ -1,8 +1,7 @@
-// Copyright (c) 2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_VERSION_H
-#define BITCOIN_VERSION_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
+#ifndef ECOIN_VERSION_H
+#define ECOIN_VERSION_H
 
 #include "clientversion.h"
 #include <string>

@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef ASKPASSPHRASEDIALOG_H
 #define ASKPASSPHRASEDIALOG_H
 
@@ -8,9 +9,6 @@ namespace Ui {
 }
 
 class WalletModel;
-
-/** Multifunctional dialog to ask for passphrases. Used for encryption, unlocking, and changing the passphrase.
- */
 class AskPassphraseDialog : public QDialog
 {
     Q_OBJECT
@@ -26,9 +24,7 @@ public:
 
     explicit AskPassphraseDialog(Mode mode, QWidget *parent = 0);
     ~AskPassphraseDialog();
-
     void accept();
-
     void setModel(WalletModel *model);
 
 private:

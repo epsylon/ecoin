@@ -1,32 +1,15 @@
-// Copyright (c) 2009-2012 The Bitcoin Developers.
-// Authored by Google, Inc.
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
-#ifndef BITCOIN_LEVELDB_H
-#define BITCOIN_LEVELDB_H
+#ifndef ECOIN_LEVELDB_H
+#define ECOIN_LEVELDB_H
 
 #include "main.h"
-
 #include <map>
 #include <string>
 #include <vector>
-
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-// Class that provides access to a LevelDB. Note that this class is frequently
-// instantiated on the stack and then destroyed again, so instantiation has to
-// be very cheap. Unfortunately that means, a CTxDB instance is actually just a
-// wrapper around some global state.
-//
-// A LevelDB is a key/value store that is optimized for fast usage on hard
-// disks. It prefers long read/writes to seeks and is based on a series of
-// sorted key/value mapping files that are stacked on top of each other, with
-// newer files overriding older files. A background thread compacts them
-// together when too many files stack up.
-//
-// Learn more: http://code.google.com/p/leveldb/
 class CTxDB
 {
 public:
@@ -207,4 +190,4 @@ private:
 };
 
 
-#endif // BITCOIN_DB_H
+#endif // ECOIN_DB_H

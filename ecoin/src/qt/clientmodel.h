@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef CLIENTMODEL_H
 #define CLIENTMODEL_H
 
@@ -13,7 +14,6 @@ class QDateTime;
 class QTimer;
 QT_END_NAMESPACE
 
-/** Model for Bitcoin network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT
@@ -37,7 +37,6 @@ public:
     int getNumBlocksOfPeers() const;
     //! Return warnings to be displayed in status bar
     QString getStatusBarWarnings() const;
-
     QString formatFullVersion() const;
     QString formatBuildDate() const;
     QString clientName() const;

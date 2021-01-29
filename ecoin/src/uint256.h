@@ -1,9 +1,7 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_UINT256_H
-#define BITCOIN_UINT256_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
+#ifndef ECOIN_UINT256_H
+#define ECOIN_UINT256_H
 
 #include <limits.h>
 #include <stdio.h>
@@ -14,14 +12,8 @@
 typedef long long  int64;
 typedef unsigned long long  uint64;
 
-
 inline int Testuint256AdHoc(std::vector<std::string> vArg);
 
-
-
-/** Base class without constructors for uint256 and uint160.
- * This makes the compiler let u use it in a union.
- */
 template<unsigned int BITS>
 class base_uint
 {
@@ -389,19 +381,6 @@ public:
 typedef base_uint<160> base_uint160;
 typedef base_uint<256> base_uint256;
 
-//
-// uint160 and uint256 could be implemented as templates, but to keep
-// compile errors and debugging cleaner, they're copy and pasted.
-//
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
-// uint160
-//
-
-/** 160-bit unsigned integer */
 class uint160 : public base_uint160
 {
 public:
@@ -507,16 +486,6 @@ inline const uint160 operator+(const uint160& a, const uint160& b)      { return
 inline const uint160 operator-(const uint160& a, const uint160& b)      { return (base_uint160)a -  (base_uint160)b; }
 
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
-// uint256
-//
-
-/** 256-bit unsigned integer */
 class uint256 : public base_uint256
 {
 public:
@@ -620,15 +589,6 @@ inline const uint256 operator&(const uint256& a, const uint256& b)      { return
 inline const uint256 operator|(const uint256& a, const uint256& b)      { return (base_uint256)a |  (base_uint256)b; }
 inline const uint256 operator+(const uint256& a, const uint256& b)      { return (base_uint256)a +  (base_uint256)b; }
 inline const uint256 operator-(const uint256& a, const uint256& b)      { return (base_uint256)a -  (base_uint256)b; }
-
-
-
-
-
-
-
-
-
 
 #ifdef TEST_UINT256
 

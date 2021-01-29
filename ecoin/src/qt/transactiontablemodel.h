@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef TRANSACTIONTABLEMODEL_H
 #define TRANSACTIONTABLEMODEL_H
 
@@ -8,9 +9,6 @@ class CWallet;
 class TransactionTablePriv;
 class TransactionRecord;
 class WalletModel;
-
-/** UI model for the transaction table of a wallet.
- */
 class TransactionTableModel : public QAbstractTableModel
 {
     Q_OBJECT
@@ -26,9 +24,6 @@ public:
         Amount = 4
     };
 
-    /** Roles to get specific information from a transaction row.
-        These are independent of column.
-    */
     enum RoleIndex {
         /** Type of transaction */
         TypeRole = Qt::UserRole,

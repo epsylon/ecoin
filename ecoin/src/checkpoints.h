@@ -1,9 +1,6 @@
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_CHECKPOINT_H
-#define  BITCOIN_CHECKPOINT_H
-
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_CHECKPOINT_H
+#define  ECOIN_CHECKPOINT_H
 #include <map>
 #include "net.h"
 #include "util.h"
@@ -20,12 +17,8 @@ class uint256;
 class CBlockIndex;
 class CSyncCheckpoint;
 
-/** Block-chain checkpoints are compiled-in sanity checks.
- * They are updated every release or three.
- */
 namespace Checkpoints
 {
-    /** Checkpointing mode */
     enum CPMode
     {
         // Scrict checkpoints policy, perform conflicts verification and resolve conflicts

@@ -1,8 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "transactionfilterproxy.h"
 #include "transactiontablemodel.h"
-
 #include <QDateTime>
-
 #include <cstdlib>
 
 // Earliest date that can be represented (far in the past)

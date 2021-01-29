@@ -1,10 +1,7 @@
-// Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
-#ifndef _BITCOINALERT_H_
-#define _BITCOINALERT_H_ 1
+#ifndef _ECOINALERT_H_
+#define _ECOINALERT_H_ 1
 
 #include <set>
 #include <string>
@@ -13,13 +10,6 @@
 #include "util.h"
 
 class CNode;
-
-/** Alerts are for notifying old versions if they become too obsolete and
- * need to upgrade.  The message is displayed in the status bar.
- * Alert messages are broadcast as a vector of signed data.  Unserializing may
- * not read the entire buffer if the alert is for a newer version, but older
- * versions can still relay the original data.
- */
 class CUnsignedAlert
 {
 public:
@@ -64,7 +54,6 @@ public:
     void print() const;
 };
 
-/** An alert is a combination of a serialized CUnsignedAlert and a signature. */
 class CAlert : public CUnsignedAlert
 {
 public:
@@ -93,9 +82,6 @@ public:
     bool CheckSignature() const;
     bool ProcessAlert();
 
-    /*
-     * Get copy of (active) alert object by hash. Returns a null alert if it is not found.
-     */
     static CAlert getAlertByHash(const uint256 &hash);
 };
 

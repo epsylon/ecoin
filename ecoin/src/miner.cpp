@@ -1,9 +1,4 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Copyright (c) 2013 The Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "txdb.h"
 #include "miner.h"
 #include "kernel.h"
@@ -11,12 +6,6 @@
 
 using namespace std;
 
-//////////////////////////////////////////////////////////////////////////////
-//
-// BitcoinMiner
-//
-
-//string strMintMessage = "Stake miner suspended due to locked wallet.";
 string strMintWarning;
 
 extern unsigned int nMinerSleep;
@@ -57,10 +46,6 @@ void SHA256Transform(void* pstate, void* pinput, const void* pinit)
         ((uint32_t*)pstate)[i] = ctx.h[i];
 }
 
-
-
-
-// Some explaining would be appreciated
 class COrphan
 {
 public:
@@ -84,17 +69,10 @@ public:
     }
 };
 
-
-
-
 uint64 nLastBlockTx = 0;
 uint64 nLastBlockSize = 0;
 int64 nLastCoinStakeSearchInterval = 0;
 
-
-
-
-// We want to sort transactions by priority and fee, so:
 typedef boost::tuple<double, double, CTransaction*> TxPriority;
 class TxPriorityCompare
 {
@@ -118,15 +96,12 @@ public:
     }
 };
 
-
-
-
-typedef boost::tuple<bool, CBitcoinAddress> ProofOfTx;
+typedef boost::tuple<bool, CEcoinAddress> ProofOfTx;
 
 ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 {
 	bool fMatch = false;
-	CBitcoinAddress addrMiner;
+	CEcoinAddress addrMiner;
 	CBlock block;
 	CBlockIndex* pblockindex = FindBlockByHeight(nBlockHeight);
 	uint256 hashLastBlock = pblockindex->GetBlockHash();
@@ -155,13 +130,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
 					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
 					       string strSearch = SearchTermV2(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
-							   addrMiner = CBitcoinAddress(addr);
+							   addrMiner = CEcoinAddress(addr);
 						       fMatch = true;
 						   }
 					       else
@@ -196,13 +171,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
 					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
 					       string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
-							   addrMiner = CBitcoinAddress(addr);
+							   addrMiner = CEcoinAddress(addr);
 						       fMatch = true;
 						   }
 					       else
@@ -245,13 +220,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
 					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
 					       string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
-							   addrMiner = CBitcoinAddress(addr);
+							   addrMiner = CEcoinAddress(addr);
 						       fMatch = true;
 						   }
 					       else
@@ -280,13 +255,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 				       BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 				       {
-					       const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+					       const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
 					       CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
 					       string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 					       if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 				 	       {
-							   addrMiner = CBitcoinAddress(addr);
+							   addrMiner = CEcoinAddress(addr);
 						       fMatch = true;
 						   }
 					       else
@@ -333,13 +308,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 			        BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 			        {
-				        const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+				        const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
 				        CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
 				        string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 				        if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 			 	        {
-						    addrMiner = CBitcoinAddress(addr);
+						    addrMiner = CEcoinAddress(addr);
 					        fMatch = true;
 					    }
 				        else
@@ -371,13 +346,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 			        BOOST_FOREACH(const CTxDestination& addr, vAddresses)
 			        {
-				        const char* pszAddress = CBitcoinAddress(addr).ToString().c_str();
+				        const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
 				        CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
 				        string strSearch = SearchTerm(addrHex.ToString().c_str());
 
 				        if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
 			 	        {
-						    addrMiner = CBitcoinAddress(addr);
+						    addrMiner = CEcoinAddress(addr);
 					        fMatch = true;
 					    }
 				        else
@@ -396,16 +371,13 @@ ProofOfTx ProofOfTxSearch(unsigned int nBlockHeight, CReserveKey pubKey)
 
 }
 
-
-
-
 // CreateNewBlock: create new block (without proof-of-work/proof-of-stake)
 CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
 {
 
 	bool fMatch = false;
 	CBlockIndex* pindexPrev = pindexBest;
-	CBitcoinAddress addrMiner;
+	CEcoinAddress addrMiner;
 	CReserveKey reservekey(pwallet);
 
     // Create new block
@@ -444,38 +416,22 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
     }
 
 
-    // Add our coinbase tx as first transaction
     pblock->vtx.push_back(txNew);
-
-    // Largest block you're willing to create:
     unsigned int nBlockMaxSize = GetArg("-blockmaxsize", MAX_BLOCK_SIZE_GEN/2);
-    // Limit to betweeen 1K and MAX_BLOCK_SIZE-1K for sanity:
     nBlockMaxSize = std::max((unsigned int)1000, std::min((unsigned int)(MAX_BLOCK_SIZE-1000), nBlockMaxSize));
 
-    // How much of the block should be dedicated to high-priority transactions,
-    // included regardless of the fees they pay
     unsigned int nBlockPrioritySize = GetArg("-blockprioritysize", 27000);
     nBlockPrioritySize = std::min(nBlockMaxSize, nBlockPrioritySize);
 
-    // Minimum block size you want to create; block will be filled with free transactions
-    // until there are no more or the block reaches this size:
     unsigned int nBlockMinSize = GetArg("-blockminsize", 0);
     nBlockMinSize = std::min(nBlockMaxSize, nBlockMinSize);
 
-    // Fee-per-kilobyte amount considered the same as "free"
-    // Be careful setting this: if you set it to zero then
-    // a transaction spammer can cheaply fill blocks using
-    // 1-satoshi-fee transactions. It should be set above the real
-    // cost to you of processing a transaction.
     int64 nMinTxFee = MIN_TX_FEE;
     if (mapArgs.count("-mintxfee"))
         ParseMoney(mapArgs["-mintxfee"], nMinTxFee);
 
-    //CBlockIndex* pindexPrev = pindexBest;
-
     pblock->nBits = GetNextTargetRequired(pindexPrev, fProofOfStake);
 
-    // Collect memory pool transactions into the block
     int64 nFees = 0;
     {
         LOCK2(cs_main, mempool.cs);
@@ -539,13 +495,9 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
             }
             if (fMissingInputs) continue;
 
-            // Priority is sum(valuein * age) / txsize
             unsigned int nTxSize = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
             dPriority /= nTxSize;
 
-            // This is a more accurate fee-per-kilobyte than is used by the client code, because the
-            // client code rounds up the size to the nearest 1K. That's good, because it gives an
-            // incentive to create smaller transactions.
             double dFeePerKb =  double(nTotalIn-tx.GetValueOut()) / (double(nTxSize)/1000.0);
 
             if (porphan)
@@ -598,8 +550,6 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
             if (fSortedByFee && (dFeePerKb < nMinTxFee) && (nBlockSize + nTxSize >= nBlockMinSize))
                 continue;
 
-            // Prioritize by fee once past the priority size or we run out of high-priority
-            // transactions:
             if (!fSortedByFee &&
                 ((nBlockSize + nTxSize >= nBlockPrioritySize) || (dPriority < COIN * 144 / 250)))
             {
@@ -608,8 +558,6 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
                 std::make_heap(vecPriority.begin(), vecPriority.end(), comparer);
             }
 
-            // Connecting shouldn't fail due to dependency on other memory pool transactions
-            // because we're already processing them in order of dependency
             map<uint256, CTxIndex> mapTestPoolTmp(mapTestPool);
             MapPrevTx mapInputs;
             bool fInvalid;
@@ -629,7 +577,6 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
             mapTestPoolTmp[tx.GetHash()] = CTxIndex(CDiskTxPos(1,1,1), tx.vout.size());
             swap(mapTestPool, mapTestPoolTmp);
 
-            // Added
             pblock->vtx.push_back(tx);
             nBlockSize += nTxSize;
             ++nBlockTx;
@@ -642,7 +589,6 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
                        dPriority, dFeePerKb, tx.GetHash().ToString().c_str());
             }
 
-            // Add transactions that depend on this one to the priority queue
             uint256 hash = tx.GetHash();
             if (mapDependers.count(hash))
             {
@@ -665,7 +611,7 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
         nLastBlockSize = nBlockSize;
 
         if (fDebug && GetBoolArg("-printpriority"))
-            printf("CreateNewBlock(): total size %"PRI64u"\n", nBlockSize);
+            printf("CreateNewBlock(): total size %" PRI64u"\n", nBlockSize);
 
         if (!fProofOfStake && nBlockHeight+1 <= 57000)
         {
@@ -688,7 +634,6 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
 			}
 		}
 
-        // Fill in header
         pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
         pblock->nTime          = max(pindexPrev->GetMedianTimePast()+1, pblock->GetMaxTransactionTime());
         pblock->nTime          = max(pblock->GetBlockTime(), PastDrift(pindexPrev->GetBlockTime()));
@@ -700,10 +645,8 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
     return pblock.release();
 }
 
-
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce)
 {
-    // Update nExtraNonce
     static uint256 hashPrevBlock;
     if (hashPrevBlock != pblock->hashPrevBlock)
     {
@@ -719,12 +662,8 @@ void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& 
     pblock->hashMerkleRoot = pblock->BuildMerkleTree();
 }
 
-
 void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash1)
 {
-    //
-    // Pre-build hash buffers
-    //
     struct
     {
         struct unnamed2
@@ -765,7 +704,6 @@ void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash
     memcpy(phash1, &tmp.hash1, 64);
 }
 
-
 bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 {
     uint256 hashBlock = pblock->GetHash();
@@ -777,27 +715,22 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     if (hashBlock > hashTarget)
         return error("CheckWork() : proof-of-work not meeting target");
 
-    //// debug print
     printf("CheckWork() : new proof-of-work block found  \n  hash: %s  \ntarget: %s\n", hashBlock.GetHex().c_str(), hashTarget.GetHex().c_str());
     pblock->print();
     printf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue).c_str());
 
-    // Found a solution
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != hashBestChain)
             return error("CheckWork() : generated block is stale");
 
-        // Remove key from key pool
         reservekey.KeepKey();
 
-        // Track how many getdata requests this block gets
         {
             LOCK(wallet.cs_wallet);
             wallet.mapRequestCount[hashBlock] = 0;
         }
 
-        // Process this block the same as if we had received it from another node
         if (!ProcessBlock(NULL, pblock))
             return error("CheckWork() : ProcessBlock, block not accepted");
     }
@@ -817,24 +750,20 @@ bool CheckStake(CBlock* pblock, CWallet& wallet)
     if (!CheckProofOfStake(pblock->vtx[1], pblock->nBits, proofHash, hashTarget))
         return error("CheckStake() : proof-of-stake checking failed");
 
-    //// debug print
     printf("CheckStake() : new proof-of-stake block found  \n  hash: %s \nproofhash: %s  \ntarget: %s\n", hashBlock.GetHex().c_str(), proofHash.GetHex().c_str(), hashTarget.GetHex().c_str());
     pblock->print();
     printf("out %s\n", FormatMoney(pblock->vtx[1].GetValueOut()).c_str());
 
-    // Found a solution
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != hashBestChain)
             return error("CheckStake() : generated block is stale");
 
-        // Track how many getdata requests this block gets
         {
             LOCK(wallet.cs_wallet);
             wallet.mapRequestCount[hashBlock] = 0;
         }
 
-        // Process this block the same as if we had received it from another node
         if (!ProcessBlock(NULL, pblock))
             return error("CheckStake() : ProcessBlock, block not accepted");
     }
@@ -872,11 +801,6 @@ void StakeMiner(CWallet *pwallet)
                 return;
         }
 
-        //strMintWarning = "";
-
-        //
-        // Create new block
-        //
         CBlockIndex* pindexPrev = pindexBest;
 
         auto_ptr<CBlock> pblock(CreateNewBlock(pwallet, true));

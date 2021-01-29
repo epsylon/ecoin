@@ -1,10 +1,8 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "transactionrecord.h"
-
 #include "wallet.h"
 #include "base58.h"
 
-/* Return positive answer if transaction should be shown in list.
- */
 bool TransactionRecord::showTransaction(const CWalletTx &wtx)
 {
     if (wtx.IsCoinBase())
@@ -18,9 +16,6 @@ bool TransactionRecord::showTransaction(const CWalletTx &wtx)
     return true;
 }
 
-/*
- * Decompose CWallet transaction to model transaction records.
- */
 QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *wallet, const CWalletTx &wtx)
 {
     QList<TransactionRecord> parts;
@@ -33,9 +28,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
 
     if (nNet > 0 || wtx.IsCoinBase() || wtx.IsCoinStake())
     {
-        //
         // Credit
-        //
         BOOST_FOREACH(const CTxOut& txout, wtx.vout)
         {
             if(wallet->IsMine(txout))
@@ -46,9 +39,9 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 sub.credit = txout.nValue;
                 if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*wallet, address))
                 {
-                    // Received by Bitcoin Address
+                    // Received by Ecoin Address
                     sub.type = TransactionRecord::RecvWithAddress;
-                    sub.address = CBitcoinAddress(address).ToString();
+                    sub.address = CEcoinAddress(address).ToString();
                 }
                 else
                 {
@@ -97,9 +90,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
         }
         else if (fAllFromMe)
         {
-            //
             // Debit
-            //
             int64 nTxFee = nDebit - wtx.GetValueOut();
 
             for (unsigned int nOut = 0; nOut < wtx.vout.size(); nOut++)
@@ -110,17 +101,15 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
 
                 if(wallet->IsMine(txout))
                 {
-                    // Ignore parts sent to self, as this is usually the change
-                    // from a transaction sent back to our own address.
                     continue;
                 }
 
                 CTxDestination address;
                 if (ExtractDestination(txout.scriptPubKey, address))
                 {
-                    // Sent to Bitcoin Address
+                    // Sent to Ecoin Address
                     sub.type = TransactionRecord::SendToAddress;
-                    sub.address = CBitcoinAddress(address).ToString();
+                    sub.address = CEcoinAddress(address).ToString();
                 }
                 else
                 {
@@ -143,9 +132,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
         }
         else
         {
-            //
             // Mixed debit transaction, can't break down payees
-            //
             parts.append(TransactionRecord(hash, nTime, TransactionRecord::Other, "", nNet, 0));
         }
     }
@@ -156,8 +143,6 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
 void TransactionRecord::updateStatus(const CWalletTx &wtx)
 {
     // Determine transaction status
-
-    // Find the block the tx is in
     CBlockIndex* pindex = NULL;
     std::map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(wtx.hashBlock);
     if (mi != mapBlockIndex.end())

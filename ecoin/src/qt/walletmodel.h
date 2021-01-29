@@ -1,10 +1,10 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef WALLETMODEL_H
 #define WALLETMODEL_H
 
 #include <QObject>
 #include <vector>
 #include <map>
-
 #include "allocators.h" /* for SecureString */
 
 class OptionsModel;
@@ -30,7 +30,7 @@ public:
     qint64 amount;
 };
 
-/** Interface to Bitcoin wallet from Qt view code. */
+/** Interface to Ecoin wallet from Qt view code. */
 class WalletModel : public QObject
 {
     Q_OBJECT
@@ -130,7 +130,6 @@ private:
     CWallet *wallet;
 
     // Wallet has an options model for wallet-specific options
-    // (transaction fee, for example)
     OptionsModel *optionsModel;
 
     AddressTableModel *addressTableModel;

@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -11,7 +12,6 @@
 #include "json/json_spirit_reader_template.h"
 #include "json/json_spirit_writer_template.h"
 #include "json/json_spirit_utils.h"
-
 #include "main.h"
 #include "wallet.h"
 

@@ -1,3 +1,5 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 /*
  * Copyright (c) 1998 Todd C. Miller <Todd.Miller@courtesan.com>
  *
@@ -13,8 +15,8 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-#ifndef BITCOIN_STRLCPY_H
-#define BITCOIN_STRLCPY_H
+#ifndef ECOIN_STRLCPY_H
+#define ECOIN_STRLCPY_H
 
 #include <stdlib.h>
 #include <string.h>

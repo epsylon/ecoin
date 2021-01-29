@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef COINCONTROLDIALOG_H
 #define COINCONTROLDIALOG_H
 
@@ -42,9 +43,6 @@ private:
     QMenu *contextMenu;
     QTreeWidgetItem *contextMenuItem;
     QAction *copyTransactionHashAction;
-    //QAction *lockAction;
-    //QAction *unlockAction;
-
     QString strPad(QString, int, QString);
     void sortView(int, Qt::SortOrder);
     void updateView();
@@ -70,8 +68,6 @@ private slots:
     void copyLabel();
     void copyAddress();
     void copyTransactionHash();
-    //void lockCoin();
-    //void unlockCoin();
     void clipboardQuantity();
     void clipboardAmount();
     void clipboardFee();
@@ -86,7 +82,6 @@ private slots:
     void headerSectionClicked(int);
     void buttonBoxClicked(QAbstractButton*);
     void buttonSelectAllClicked();
-    //void updateLabelLocked();
 };
 
 #endif // COINCONTROLDIALOG_H

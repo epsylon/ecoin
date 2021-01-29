@@ -1,9 +1,8 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "askpassphrasedialog.h"
 #include "ui_askpassphrasedialog.h"
-
 #include "guiconstants.h"
 #include "walletmodel.h"
-
 #include <QMessageBox>
 #include <QPushButton>
 #include <QKeyEvent>
@@ -21,8 +20,6 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
     ui->passEdit1->setMaxLength(MAX_PASSPHRASE_SIZE);
     ui->passEdit2->setMaxLength(MAX_PASSPHRASE_SIZE);
     ui->passEdit3->setMaxLength(MAX_PASSPHRASE_SIZE);
-
-    // Setup Caps Lock detection.
     ui->passEdit1->installEventFilter(this);
     ui->passEdit2->installEventFilter(this);
     ui->passEdit3->installEventFilter(this);
@@ -38,7 +35,6 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
         case UnlockStaking:
 		    ui->stakingCheckBox->setChecked(true);
             ui->stakingCheckBox->show();
-            // fallthru
         case Unlock: // Ask passphrase
             ui->warningLabel->setText(tr("This operation needs your wallet passphrase to unlock the wallet."));
             ui->passLabel2->hide();
@@ -89,8 +85,6 @@ void AskPassphraseDialog::accept()
     oldpass.reserve(MAX_PASSPHRASE_SIZE);
     newpass1.reserve(MAX_PASSPHRASE_SIZE);
     newpass2.reserve(MAX_PASSPHRASE_SIZE);
-    // TODO: get rid of this .c_str() by implementing SecureString::operator=(std::string)
-    // Alternately, find a way to make this input mlock()'d to begin with.
     oldpass.assign(ui->passEdit1->text().toStdString().c_str());
     newpass1.assign(ui->passEdit2->text().toStdString().c_str());
     newpass2.assign(ui->passEdit3->text().toStdString().c_str());
@@ -232,12 +226,6 @@ bool AskPassphraseDialog::event(QEvent *event)
 
 bool AskPassphraseDialog::eventFilter(QObject *object, QEvent *event)
 {
-    /* Detect Caps Lock.
-     * There is no good OS-independent way to check a key state in Qt, but we
-     * can detect Caps Lock by checking for the following condition:
-     * Shift key is down and the result is a lower case character, or
-     * Shift key is not down and the result is an upper case character.
-     */
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         QString str = ke->text();

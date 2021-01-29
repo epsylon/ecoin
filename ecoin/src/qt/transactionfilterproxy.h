@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef TRANSACTIONFILTERPROXY_H
 #define TRANSACTIONFILTERPROXY_H
 
@@ -22,9 +23,6 @@ public:
 
     void setDateRange(const QDateTime &from, const QDateTime &to);
     void setAddressPrefix(const QString &addrPrefix);
-    /**
-      @note Type filter takes a bit field created with TYPE() or ALL_TYPES
-     */
     void setTypeFilter(quint32 modes);
     void setMinAmount(qint64 minimum);
 

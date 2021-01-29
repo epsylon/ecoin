@@ -1,17 +1,11 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_SYNC_H
-#define BITCOIN_SYNC_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_SYNC_H
+#define ECOIN_SYNC_H
 
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/recursive_mutex.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/thread/condition_variable.hpp>
-
-
-
 
 /** Wrapped boost mutex: supports recursive locking, but no waiting  */
 typedef boost::recursive_mutex CCriticalSection;

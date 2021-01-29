@@ -1,13 +1,12 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "addressbookpage.h"
 #include "ui_addressbookpage.h"
-
 #include "addresstablemodel.h"
 #include "optionsmodel.h"
-#include "bitcoingui.h"
+#include "ecoingui.h"
 #include "editaddressdialog.h"
 #include "csvmodelwriter.h"
 #include "guiutil.h"
-
 #include <QSortFilterProxyModel>
 #include <QClipboard>
 #include <QMessageBox>

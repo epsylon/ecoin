@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef NOTIFICATOR_H
 #define NOTIFICATOR_H
 
@@ -11,14 +12,10 @@ class QDBusInterface;
 #endif
 QT_END_NAMESPACE
 
-/** Cross-platform desktop notification client. */
 class Notificator: public QObject
 {
     Q_OBJECT
 public:
-    /** Create a new notificator.
-       @note Ownership of trayIcon is not transferred to this object.
-    */
     Notificator(const QString &programName=QString(), QSystemTrayIcon *trayIcon=0, QWidget *parent=0);
     ~Notificator();
 
@@ -32,14 +29,6 @@ public:
 
 public slots:
 
-    /** Show notification message.
-       @param[in] cls    general message class
-       @param[in] title  title shown with message
-       @param[in] text   message content
-       @param[in] icon   optional icon to show with message
-       @param[in] millisTimeout notification timeout in milliseconds (defaults to 10 seconds)
-       @note Platform implementations are free to ignore any of the provided fields except for \a text.
-     */
     void notify(Class cls, const QString &title, const QString &text,
                 const QIcon &icon = QIcon(), int millisTimeout = 10000);
 

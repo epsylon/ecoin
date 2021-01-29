@@ -1,9 +1,6 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_MAIN_H
-#define BITCOIN_MAIN_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_MAIN_H
+#define ECOIN_MAIN_H
 
 #include "bignum.h"
 #include "sync.h"
@@ -12,7 +9,6 @@
 #include "scrypt.h"
 #include "zerocoin/Zerocoin.h"
 #include "base58.h"
-
 #include <list>
 
 class CWallet;
@@ -46,7 +42,6 @@ string SearchTermV2(const char *chAddress);
 bool fAddrMiner (const char *chHash, const char *chTerm);
 
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
-// Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
 #ifdef USE_UPNP
@@ -55,8 +50,8 @@ static const int fHaveUPnP = true;
 static const int fHaveUPnP = false;
 #endif
 
-static const uint256 hashGenesisBlock("0x000006363f53970de4da935e7ee7243fba1d28fc86e09351444416c67abcea2b");
-static const uint256 hashGenesisBlockTestNet("0xba1cd2277133e4f79fe8405c27ebfb99f505c32879b16a64e99a9f53a73d5ec0");
+static const uint256 hashGenesisBlock("0x000003e158b5cdd1a1bf05dac19d9c171998f9a9c62307adac2cb842029b0dbd"); // ECOIN - Genesis Hash
+static const uint256 hashGenesisBlockTestNet("0x0000568ef00493151a15b68b6d12713ec52df65077d4bdd8235f98420da6cc33"); // ECOIN - TestNet Genesis Hash
 
 inline int64 PastDrift(int64 nTime)   { return nTime - 2 * 60 * 60; } // up to 2 hours from the past
 inline int64 FutureDrift(int64 nTime) { return nTime + 2 * 60 * 60; } // up to 2 hours from the future
@@ -184,9 +179,6 @@ public:
     }
 };
 
-
-
-/** An inpoint - a combination of a transaction and an index n into its vin */
 class CInPoint
 {
 public:
@@ -199,10 +191,6 @@ public:
     bool IsNull() const { return (ptx == NULL && n == (unsigned int) -1); }
 };
 
-
-
-
-/** An outpoint - a combination of a transaction hash and an index n into its vout */
 class COutPoint
 {
 public:
@@ -241,13 +229,6 @@ public:
     }
 };
 
-
-
-
-/** An input of a transaction.  It contains the location of the previous
- * transaction's output that it claims and a signature that matches the
- * output's public key.
- */
 class CTxIn
 {
 public:
@@ -324,12 +305,6 @@ public:
     }
 };
 
-
-
-
-/** An output of a transaction.  It contains the public key that the next input
- * must be able to sign with to claim it.
- */
 class CTxOut
 {
 public:
@@ -420,14 +395,8 @@ enum GetMinFee_mode
     GMF_SEND,
 };
 
-
-
-
 typedef std::map<uint256, std::pair<CTxIndex, CTransaction> > MapPrevTx;
 
-/** The basic transaction that is broadcasted on the network and contained in
- * blocks.  A transaction can contain multiple inputs and outputs.
- */
 class CTransaction
 {
 public:
@@ -438,7 +407,6 @@ public:
     std::vector<CTxOut> vout;
     unsigned int nLockTime;
 
-    // Denial-of-service detection:
     mutable int nDoS;
     bool DoS(int nDoSIn, bool fIn) const { nDoS += nDoSIn; return fIn; }
 
@@ -479,7 +447,6 @@ public:
 
     bool IsFinal(int nBlockHeight=0, int64 nBlockTime=0) const
     {
-        // Time based nLockTime implemented in 0.1.6
         if (nLockTime == 0)
             return true;
         if (nBlockHeight == 0)
@@ -534,35 +501,14 @@ public:
         return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
     }
 
-    /** Check for standard transaction types
-        @return True if all outputs (scriptPubKeys) use only standard transaction forms
-    */
     bool IsStandard() const;
 
-    /** Check for standard transaction types
-        @param[in] mapInputs	Map of previous transactions that have outputs we're spending
-        @return True if all inputs (scriptSigs) use only standard transaction forms
-        @see CTransaction::FetchInputs
-    */
     bool AreInputsStandard(const MapPrevTx& mapInputs) const;
 
-    /** Count ECDSA signature operations the old-fashioned (pre-0.6) way
-        @return number of sigops this transaction's outputs will produce when spent
-        @see CTransaction::FetchInputs
-    */
     unsigned int GetLegacySigOpCount() const;
 
-    /** Count ECDSA signature operations in pay-to-script-hash inputs.
-
-        @param[in] mapInputs	Map of previous transactions that have outputs we're spending
-        @return maximum number of sigops required to validate this transaction's inputs
-        @see CTransaction::FetchInputs
-     */
     unsigned int GetP2SHSigOpCount(const MapPrevTx& mapInputs) const;
 
-    /** Amount of bitcoins spent by this transaction.
-        @return sum of all outputs (note: does not include fees)
-     */
     int64 GetValueOut() const
     {
         int64 nValueOut = 0;
@@ -575,20 +521,10 @@ public:
         return nValueOut;
     }
 
-    /** Amount of bitcoins coming in to this transaction
-        Note that lightweight clients may not know anything besides the hash of previous transactions,
-        so may not be able to calculate this.
-
-        @param[in] mapInputs	Map of previous transactions that have outputs we're spending
-        @return	Sum of value of all inputs (scriptSigs)
-        @see CTransaction::FetchInputs
-     */
     int64 GetValueIn(const MapPrevTx& mapInputs) const;
 
     static bool AllowFree(double dPriority)
     {
-        // Large (in bytes) low-priority (new, small-coin) transactions
-        // need a fee.
         return dPriority > COIN * 720 / 250;
     }
 
@@ -646,7 +582,7 @@ public:
     {
         std::string str;
         str += IsCoinBase()? "Coinbase" : (IsCoinStake()? "Coinstake" : "CTransaction");
-        str += strprintf("(hash=%s, nTime=%d, ver=%d, vin.size=%"PRIszu", vout.size=%"PRIszu", nLockTime=%d)\n",
+        str += strprintf("(hash=%s, nTime=%d, ver=%d, vin.size=%" PRIszu", vout.size=%" PRIszu", nLockTime=%d)\n",
             GetHash().ToString().substr(0,10).c_str(),
             nTime,
             nVersion,
@@ -671,31 +607,9 @@ public:
     bool ReadFromDisk(COutPoint prevout);
     bool DisconnectInputs(CTxDB& txdb);
 
-    /** Fetch from memory and/or disk. inputsRet keys are transaction hashes.
-
-     @param[in] txdb	Transaction database
-     @param[in] mapTestPool	List of pending changes to the transaction index database
-     @param[in] fBlock	True if being called to add a new best-block to the chain
-     @param[in] fMiner	True if being called by CreateNewBlock
-     @param[out] inputsRet	Pointers to this transaction's inputs
-     @param[out] fInvalid	returns true if transaction is invalid
-     @return	Returns true if all inputs are in txdb or mapTestPool
-     */
     bool FetchInputs(CTxDB& txdb, const std::map<uint256, CTxIndex>& mapTestPool,
                      bool fBlock, bool fMiner, MapPrevTx& inputsRet, bool& fInvalid);
 
-    /** Sanity check previous transactions, then, if all checks succeed,
-        mark them as spent by this transaction.
-
-        @param[in] inputs	Previous transactions (from FetchInputs)
-        @param[out] mapTestPool	Keeps track of inputs that need to be updated on disk
-        @param[in] posThisTx	Position of this transaction on disk
-        @param[in] pindexBlock
-        @param[in] fBlock	true if called from ConnectBlock
-        @param[in] fMiner	true if called from CreateNewBlock
-        @param[in] fStrictPayToScriptHash	true if fully validating p2sh transactions
-        @return Returns true if all checks succeed
-     */
     bool ConnectInputs(CTxDB& txdb, MapPrevTx inputs,
                        std::map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
                        const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, bool fStrictPayToScriptHash=true);
@@ -708,11 +622,6 @@ protected:
     const CTxOut& GetOutputFor(const CTxIn& input, const MapPrevTx& inputs) const;
 };
 
-
-
-
-
-/** A transaction with a merkle branch linking it to the block chain. */
 class CMerkleTx : public CTransaction
 {
 public:
@@ -720,9 +629,7 @@ public:
     std::vector<uint256> vMerkleBranch;
     int nIndex;
 
-    // memory only
     mutable bool fMerkleVerified;
-
 
     CMerkleTx()
     {
@@ -751,7 +658,6 @@ public:
         READWRITE(nIndex);
     )
 
-
     int SetMerkleBranch(const CBlock* pblock=NULL);
     int GetDepthInMainChain(CBlockIndex* &pindexRet) const;
     int GetDepthInMainChain() const { CBlockIndex *pindexRet; return GetDepthInMainChain(pindexRet); }
@@ -760,14 +666,6 @@ public:
     bool AcceptToMemoryPool(CTxDB& txdb, bool fCheckInputs=true);
     bool AcceptToMemoryPool();
 };
-
-
-
-
-/**  A txdb record that contains the disk location of a transaction and the
- * locations of transactions that spend its outputs.  vSpent is really only
- * used as a flag, but having the location is very helpful for debugging.
- */
 class CTxIndex
 {
 public:
@@ -817,21 +715,6 @@ public:
     int GetDepthInMainChain() const;
 
 };
-
-
-
-
-
-/** Nodes collect new transactions into a block, hash them into a hash tree,
- * and scan through nonce values to make the block's hash satisfy proof-of-work
- * requirements.  When they solve the proof-of-work, they broadcast the block
- * to everyone and the block is added to the block chain.  The first transaction
- * in the block is a special one that creates a new coin owned by the creator
- * of the block.
- *
- * Blocks are appended to blk0001.dat files on disk.  Their location on disk
- * is indexed by CBlockIndex objects in memory.
- */
 class CBlock
 {
 public:
@@ -1001,7 +884,6 @@ public:
         return hash;
     }
 
-
     bool WriteToDisk(unsigned int& nFileRet, unsigned int& nBlockPosRet)
     {
         // Open history file to append
@@ -1054,11 +936,9 @@ public:
         return true;
     }
 
-
-
     void print() const
     {
-        printf("CBlock(hash=%s, ver=%d, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%"PRIszu", vchBlockSig=%s)\n",
+        printf("CBlock(hash=%s, ver=%d, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%" PRIszu", vchBlockSig=%s)\n",
             GetHash().ToString().c_str(),
             nVersion,
             hashPrevBlock.ToString().c_str(),
@@ -1077,7 +957,6 @@ public:
         printf("\n");
     }
 
-
     bool DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex);
     bool ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck=false);
     bool ReadFromDisk(const CBlockIndex* pindex, bool fReadTransactions=true);
@@ -1093,18 +972,6 @@ private:
     bool SetBestChainInner(CTxDB& txdb, CBlockIndex *pindexNew);
 };
 
-
-
-
-
-
-/** The block chain is a tree shaped structure starting with the
- * genesis block at the root, with each block potentially having multiple
- * candidates to be the next block.  pprev and pnext link a path through the
- * main/longest chain.  A blockindex may have multiple pprev pointing back
- * to it, but pnext will only point forward to the longest branch, or will
- * be null if the block is not part of the longest chain.
- */
 class CBlockIndex
 {
 public:
@@ -1128,7 +995,7 @@ public:
     };
 
     uint64 nStakeModifier; // hash modifier for proof-of-stake
-    unsigned int nStakeModifierChecksum; // checksum of index; in-memeory only
+    unsigned int nStakeModifierChecksum; // checksum of index; in-memory only
 
     // proof-of-stake specific fields
     COutPoint prevoutStake;
@@ -1264,13 +1131,8 @@ public:
         return pindex->GetMedianTimePast();
     }
 
-    /**
-     * Returns true if there are nRequired or more blocks of minVersion or above
-     * in the last nToCheck blocks, starting at pstart and going backwards.
-     */
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,
                                 unsigned int nRequired, unsigned int nToCheck);
-
 
     bool IsProofOfWork() const
     {
@@ -1314,7 +1176,7 @@ public:
 
     std::string ToString() const
     {
-        return strprintf("CBlockIndex(nprev=%p, pnext=%p, nFile=%u, nBlockPos=%-6d nHeight=%d, nMint=%s, nMoneySupply=%s, nFlags=(%s)(%d)(%s), nStakeModifier=%016"PRI64x", nStakeModifierChecksum=%08x, hashProofOfStake=%s, prevoutStake=(%s), nStakeTime=%d merkle=%s, hashBlock=%s)",
+        return strprintf("CBlockIndex(nprev=%p, pnext=%p, nFile=%u, nBlockPos=%-6d nHeight=%d, nMint=%s, nMoneySupply=%s, nFlags=(%s)(%d)(%s), nStakeModifier=%016" PRI64x", nStakeModifierChecksum=%08x, hashProofOfStake=%s, prevoutStake=(%s), nStakeTime=%d merkle=%s, hashBlock=%s)",
             pprev, pnext, nFile, nBlockPos, nHeight,
             FormatMoney(nMint).c_str(), FormatMoney(nMoneySupply).c_str(),
             GeneratedStakeModifier() ? "MOD" : "-", GetStakeEntropyBit(), IsProofOfStake()? "PoS" : "PoW",
@@ -1331,9 +1193,6 @@ public:
     }
 };
 
-
-
-/** Used to marshal pointers into hashes for db storage. */
 class CDiskBlockIndex : public CBlockIndex
 {
 private:
@@ -1427,17 +1286,6 @@ public:
     }
 };
 
-
-
-
-
-
-
-
-/** Describes a place in the block chain to another node such that if the
- * other node doesn't have the same branch, it can find a recent common trunk.
- * The further back it is, the further before the fork it may be.
- */
 class CBlockLocator
 {
 protected:
@@ -1560,13 +1408,6 @@ public:
         return pindex->nHeight;
     }
 };
-
-
-
-
-
-
-
 
 class CTxMemPool
 {

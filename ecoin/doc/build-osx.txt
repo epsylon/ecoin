@@ -1,54 +1,85 @@
-Copyright (c) 2009-2012 Bitcoin Developers
-Distributed under the MIT/X11 software license, see the accompanying file
-license.txt or http://www.opensource.org/licenses/mit-license.php.  This
-product includes software developed by the OpenSSL Project for use in the
-OpenSSL Toolkit (http://www.openssl.org/).  This product includes cryptographic
-software written by Eric Young (eay@cryptsoft.com) and UPnP software written by
-Thomas Bernard.
 
+ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
-Mac OS X bitcoind build instructions
-Laszlo Hanyecz <solar@heliacal.net>
-Douglas Huff <dhuff@jrbobdobbs.org>
+===============================
+# SOURCES for ECOin (MacOS X) #
+===============================
 
+All of the commands should be executed in Terminal.app
 
-See readme-qt.rst for instructions on building Bitcoin QT, the
-graphical user interface.
+------------------------------
 
-Tested on 10.5 and 10.6 intel.  PPC is not supported because it's big-endian.
+(0.) Clone the github tree to get the source code:
 
-All of the commands should be executed in Terminal.app.. it's in
-/Applications/Utilities
+  + Official:
 
-You need to install XCode with all the options checked so that the compiler and
-everything is available in /usr not just /Developer I think it comes on the DVD
-but you can get the current version from http://developer.apple.com
+	git clone http://code.03c8.net:3000/epsylon/ecoin
 
+  + Mirror:
 
-1.  Clone the github tree to get the source code:
+	git clone https://github.com/epsylon/ecoin
 
-git clone git@github.com:bitcoin/bitcoin.git bitcoin
+------------------------------
 
-2.  Download and install MacPorts from http://www.macports.org/
+=======================================
+# DAEMON -ecoind- for ECOin (MacOS X) #
+=======================================
 
-2a. (for 10.7 Lion)
-    Edit /opt/local/etc/macports/macports.conf and uncomment "build_arch i386"
+(1.) Download and install MacPorts from: http://www.macports.org/
 
-3.  Install dependencies from MacPorts
+(2.) Install dependencies:
 
-sudo port install boost db48 openssl miniupnpc
+ Library     Purpose           Description
+ -------     -------           -----------
+ libssl      SSL Support       Secure communications
+ libdb5.3    Berkeley DB       Blockchain & wallet storage
+ libboost    Boost             C++ Library
+ miniupnpc   UPnP Support      Optional firewall-jumping support
+ libqrencode QRCode generation Optional QRCode generation
 
-Optionally install qrencode (and set USE_QRCODE=1):
-sudo port install qrencode
+    + From MacPorts:
+	
+ 	sudo port install boost db53 openssl miniupnpc
 
-4.  Now you should be able to build bitcoind:
+	+ Optionally install qrencode (and set USE_QRCODE=1):
 
-cd bitcoin/src
-make -f makefile.osx
+             sudo port install qrencode
 
-Run:
-  ./bitcoind --help  # for a list of command-line options.
-Run
-  ./bitcoind -daemon # to start the bitcoin daemon.
-Run
-  ./bitcoind help # When the daemon is running, to get a list of RPC commands
+(3.) Now you should be able to build ecoind:
+
+	cd ecoin/src
+	make -f makefile.osx
+
+     An executable named 'ecoind' will be built.
+
+===============================
+# Qt4 GUI for ECOin (MacOS X) #
+===============================
+
+(1.) Download and install MacPorts from: http://www.macports.org/
+
+(2.) Execute the following commands in a terminal to get the dependencies:
+
+        sudo port selfupdate
+        sudo port install qt4-mac qt4-creator-mac boost db53 miniupnpc
+
+(3.) Open the .pro file in Qt Creator (with Desktop kit) and build as normal (cmd-B)
+
+	An executable named 'ecoin-qt' will be built.
+
+===============================
+
+For a list of command-line options:
+
+  ./ecoind --help
+
+To start the ECOin daemon:
+
+  ./ecoind -daemon
+
+For ECOin-QT Wallet
+
+  ./ecoin-qt
+
+===============================
+

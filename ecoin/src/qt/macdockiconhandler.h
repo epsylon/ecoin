@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef MACDOCKICONHANDLER_H
 #define MACDOCKICONHANDLER_H
 
@@ -13,8 +14,6 @@ class QWidget;
 class DockIconClickEventHandler;
 #endif
 
-/** Macintosh-specific dock icon handler.
- */
 class MacDockIconHandler : public QObject
 {
     Q_OBJECT
@@ -35,7 +34,6 @@ public slots:
 
 private:
     MacDockIconHandler();
-
     DockIconClickEventHandler *m_dockIconClickEventHandler;
     QWidget *m_dummyWidget;
     QMenu *m_dockMenu;

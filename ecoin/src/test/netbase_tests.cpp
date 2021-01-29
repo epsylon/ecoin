@@ -1,8 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/test/unit_test.hpp>
-
 #include <string>
 #include <vector>
-
 #include "netbase.h"
 
 using namespace std;
@@ -52,10 +51,10 @@ bool static TestSplitHost(string test, string host, int port)
 
 BOOST_AUTO_TEST_CASE(netbase_splithost)
 {
-    BOOST_CHECK(TestSplitHost("www.bitcoin.org", "www.bitcoin.org", -1));
-    BOOST_CHECK(TestSplitHost("[www.bitcoin.org]", "www.bitcoin.org", -1));
-    BOOST_CHECK(TestSplitHost("www.bitcoin.org:80", "www.bitcoin.org", 80));
-    BOOST_CHECK(TestSplitHost("[www.bitcoin.org]:80", "www.bitcoin.org", 80));
+    BOOST_CHECK(TestSplitHost("03c8.net", "03c8.net", -1));
+    BOOST_CHECK(TestSplitHost("[03c8.net]", "03c8.net", -1));
+    BOOST_CHECK(TestSplitHost("03c8.net:80", "03c8.net", 80));
+    BOOST_CHECK(TestSplitHost("[03c8.net]:80", "03c8.net", 80));
     BOOST_CHECK(TestSplitHost("127.0.0.1", "127.0.0.1", -1));
     BOOST_CHECK(TestSplitHost("127.0.0.1:7408", "127.0.0.1", 7408));
     BOOST_CHECK(TestSplitHost("[127.0.0.1]", "127.0.0.1", -1));

@@ -1,11 +1,9 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef QVALIDATEDLINEEDIT_H
 #define QVALIDATEDLINEEDIT_H
 
 #include <QLineEdit>
 
-/** Line edit that can be marked as "invalid" to show input validation feedback. When marked as invalid,
-   it will get a red background until it is focused.
- */
 class QValidatedLineEdit : public QLineEdit
 {
     Q_OBJECT

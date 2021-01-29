@@ -1,8 +1,4 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "irc.h"
 #include "db.h"
 #include "net.h"
@@ -37,15 +33,12 @@ void ThreadMapPort2(void* parg);
 void ThreadDNSAddressSeed2(void* parg);
 bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOutbound = NULL, const char *strDest = NULL, bool fOneShot = false);
 
-
 struct LocalServiceInfo {
     int nScore;
     int nPort;
 };
 
-//
 // Global state variables
-//
 bool fClient = false;
 bool fDiscover = true;
 bool fUseUPnP = false;
@@ -57,7 +50,7 @@ static bool vfLimited[NET_MAX] = {};
 static CNode* pnodeLocalHost = NULL;
 CAddress addrSeenByPeer(CService("0.0.0.0", 0), nLocalServices);
 uint64 nLocalHostNonce = 0;
-array<int, THREAD_MAX> vnThreadsRunning;
+boost::array<int, THREAD_MAX> vnThreadsRunning;
 static std::vector<SOCKET> vhListenSocket;
 CAddrMan addrman;
 
@@ -98,7 +91,6 @@ void CNode::PushGetBlocks(CBlockIndex* pindexBegin, uint256 hashEnd)
     PushMessage("getblocks", CBlockLocator(pindexBegin), hashEnd);
 }
 
-// find 'best' local address for a particular peer
 bool GetLocal(CService& addr, const CNetAddr *paddrPeer)
 {
     if (fNoListen)
@@ -123,7 +115,6 @@ bool GetLocal(CService& addr, const CNetAddr *paddrPeer)
     return nBestScore >= 0;
 }
 
-// get best local address for a particular peer as a CAddress
 CAddress GetLocalAddress(const CNetAddr *paddrPeer)
 {
     CAddress ret(CService("0.0.0.0",0),0);
@@ -188,8 +179,6 @@ bool RecvLine(SOCKET hSocket, string& strLine)
     }
 }
 
-// used when scores of local addresses may have changed
-// pushes better local address to peers
 void static AdvertizeLocal()
 {
     LOCK(cs_vNodes);
@@ -215,7 +204,6 @@ void SetReachable(enum Network net, bool fFlag)
         vfReachable[NET_IPV4] = true;
 }
 
-// learn a new local address
 bool AddLocal(const CService& addr, int nScore)
 {
     if (!addr.IsRoutable())
@@ -250,7 +238,6 @@ bool AddLocal(const CNetAddr &addr, int nScore)
     return AddLocal(CService(addr, GetListenPort()), nScore);
 }
 
-/** Make a particular network entirely off-limits (no automatic connects to it) */
 void SetLimited(enum Network net, bool fLimited)
 {
     if (net == NET_UNROUTABLE)
@@ -270,7 +257,6 @@ bool IsLimited(const CNetAddr &addr)
     return IsLimited(addr.GetNetwork());
 }
 
-/** vote for a local address */
 bool SeenLocal(const CService& addr)
 {
     {
@@ -285,14 +271,12 @@ bool SeenLocal(const CService& addr)
     return true;
 }
 
-/** check whether a given address is potentially local */
 bool IsLocal(const CService& addr)
 {
     LOCK(cs_mapLocalHost);
     return mapLocalHost.count(addr) > 0;
 }
 
-/** check whether a given address is in a network we can probably connect to */
 bool IsReachable(const CNetAddr& addr)
 {
     LOCK(cs_mapLocalHost);
@@ -346,7 +330,6 @@ bool GetMyExternalIP2(const CService& addrConnect, const char* pszGet, const cha
     return error("GetMyExternalIP() : connection closed");
 }
 
-// We now get our external IP from the IRC server first and only use this as a backup
 bool GetMyExternalIP(CNetAddr& ipRet)
 {
     CService addrConnect;
@@ -356,13 +339,9 @@ bool GetMyExternalIP(CNetAddr& ipRet)
     for (int nLookup = 0; nLookup <= 1; nLookup++)
     for (int nHost = 1; nHost <= 2; nHost++)
     {
-        // We should be phasing out our use of sites like these.  If we need
-        // replacements, we should ask for volunteers to put this simple
-        // php file on their web server that prints the client IP:
-        //  <?php echo $_SERVER["REMOTE_ADDR"]; ?>
         if (nHost == 1)
         {
-            addrConnect = CService("91.198.22.70",80); // checkip.dyndns.org
+            addrConnect = CService("131.186.113.70",80); // checkip.dyndns.org:80 (11/01/2021)
 
             if (nLookup == 1)
             {
@@ -381,11 +360,11 @@ bool GetMyExternalIP(CNetAddr& ipRet)
         }
         else if (nHost == 2)
         {
-            addrConnect = CService("74.208.43.192", 80); // www.showmyip.com
+            addrConnect = CService("104.18.59.232", 443); // www.showmyip.com:443 (11/01/2021)
 
             if (nLookup == 1)
             {
-                CService addrIP("www.showmyip.com", 80, true);
+                CService addrIP("www.showmyip.com", 443, true);
                 if (addrIP.IsValid())
                     addrConnect = addrIP;
             }
@@ -408,8 +387,7 @@ bool GetMyExternalIP(CNetAddr& ipRet)
 
 void ThreadGetMyExternalIP(void* parg)
 {
-    // Make this thread recognisable as the external IP detection thread
-    RenameThread("bitcoin-ext-ip");
+    RenameThread("ecoin-ext-ip");
 
     CNetAddr addrLocalHost;
     if (GetMyExternalIP(addrLocalHost))
@@ -419,20 +397,10 @@ void ThreadGetMyExternalIP(void* parg)
     }
 }
 
-
-
-
-
 void AddressCurrentlyConnected(const CService& addr)
 {
     addrman.Connected(addr);
 }
-
-
-
-
-
-
 
 CNode* FindNode(const CNetAddr& ip)
 {
@@ -471,7 +439,6 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, int64 nTimeout)
         if (IsLocal(addrConnect))
             return NULL;
 
-        // Look for an existing connection
         CNode* pnode = FindNode((CService)addrConnect);
         if (pnode)
         {
@@ -483,22 +450,17 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, int64 nTimeout)
         }
     }
 
-
-    /// debug print
     printf("trying connection %s lastseen=%.1fhrs\n",
         pszDest ? pszDest : addrConnect.ToString().c_str(),
         pszDest ? 0 : (double)(GetAdjustedTime() - addrConnect.nTime)/3600.0);
 
-    // Connect
     SOCKET hSocket;
     if (pszDest ? ConnectSocketByName(addrConnect, hSocket, pszDest, GetDefaultPort()) : ConnectSocket(addrConnect, hSocket))
     {
         addrman.Attempt(addrConnect);
 
-        /// debug print
         printf("connected %s\n", pszDest ? pszDest : addrConnect.ToString().c_str());
 
-        // Set to non-blocking
 #ifdef WIN32
         u_long nOne = 1;
         if (ioctlsocket(hSocket, FIONBIO, &nOne) == SOCKET_ERROR)
@@ -508,7 +470,6 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, int64 nTimeout)
             printf("ConnectSocket() : fcntl non-blocking setting failed, error %d\n", errno);
 #endif
 
-        // Add node
         CNode* pnode = new CNode(hSocket, addrConnect, pszDest ? pszDest : "", false);
         if (nTimeout != 0)
             pnode->AddRef(nTimeout);
@@ -548,7 +509,6 @@ void CNode::Cleanup()
 
 void CNode::PushVersion()
 {
-    /// when NTP implemented, change to just nTime = GetAdjustedTime()
     int64 nTime = (fInbound ? GetAdjustedTime() : GetTime());
     CAddress addrYou = (addr.IsRoutable() && !IsProxy(addr) ? addr : CAddress(CService("0.0.0.0",0)));
     CAddress addrMe = GetLocalAddress(&addr);
@@ -557,10 +517,6 @@ void CNode::PushVersion()
     PushMessage("version", PROTOCOL_VERSION, nLocalServices, nTime, addrYou, addrMe,
                 nLocalHostNonce, FormatSubVersion(CLIENT_NAME, CLIENT_VERSION, std::vector<string>()), nBestHeight);
 }
-
-
-
-
 
 std::map<CNetAddr, int64> CNode::setBanned;
 CCriticalSection CNode::cs_setBanned;
@@ -629,19 +585,10 @@ void CNode::copyStats(CNodeStats &stats)
 }
 #undef X
 
-
-
-
-
-
-
-
-
-
 void ThreadSocketHandler(void* parg)
 {
     // Make this thread recognisable as the networking thread
-    RenameThread("bitcoin-net");
+    RenameThread("ecoin-net");
 
     try
     {
@@ -667,19 +614,14 @@ void ThreadSocketHandler2(void* parg)
 
     while (true)
     {
-        //
-        // Disconnect nodes
-        //
         {
             LOCK(cs_vNodes);
-            // Disconnect unused nodes
             vector<CNode*> vNodesCopy = vNodes;
             BOOST_FOREACH(CNode* pnode, vNodesCopy)
             {
                 if (pnode->fDisconnect ||
                     (pnode->GetRefCount() <= 0 && pnode->vRecv.empty() && pnode->vSend.empty()))
                 {
-                    // remove from vNodes
                     vNodes.erase(remove(vNodes.begin(), vNodes.end(), pnode), vNodes.end());
 
                     // release outbound grant (if any)
@@ -736,10 +678,7 @@ void ThreadSocketHandler2(void* parg)
             uiInterface.NotifyNumConnectionsChanged(vNodes.size());
         }
 
-
-        //
         // Find which sockets have data to receive
-        //
         struct timeval timeout;
         timeout.tv_sec  = 0;
         timeout.tv_usec = 50000; // frequency to poll pnode->vSend
@@ -796,10 +735,7 @@ void ThreadSocketHandler2(void* parg)
             Sleep(timeout.tv_usec/1000);
         }
 
-
-        //
         // Accept new connections
-        //
         BOOST_FOREACH(SOCKET hListenSocket, vhListenSocket)
         if (hListenSocket != INVALID_SOCKET && FD_ISSET(hListenSocket, &fdsetRecv))
         {
@@ -854,11 +790,7 @@ void ThreadSocketHandler2(void* parg)
                 }
             }
         }
-
-
-        //
         // Service each socket
-        //
         vector<CNode*> vNodesCopy;
         {
             LOCK(cs_vNodes);
@@ -870,10 +802,7 @@ void ThreadSocketHandler2(void* parg)
         {
             if (fShutdown)
                 return;
-
-            //
             // Receive
-            //
             if (pnode->hSocket == INVALID_SOCKET)
                 continue;
             if (FD_ISSET(pnode->hSocket, &fdsetRecv) || FD_ISSET(pnode->hSocket, &fdsetError))
@@ -886,7 +815,7 @@ void ThreadSocketHandler2(void* parg)
 
                     if (nPos > ReceiveBufferSize()) {
                         if (!pnode->fDisconnect)
-                            printf("socket recv flood control disconnect (%"PRIszu" bytes)\n", vRecv.size());
+                            printf("socket recv flood control disconnect (%" PRIszu" bytes)\n", vRecv.size());
                         pnode->CloseSocketDisconnect();
                     }
                     else {
@@ -921,9 +850,7 @@ void ThreadSocketHandler2(void* parg)
                 }
             }
 
-            //
             // Send
-            //
             if (pnode->hSocket == INVALID_SOCKET)
                 continue;
             if (FD_ISSET(pnode->hSocket, &fdsetSend))
@@ -954,9 +881,7 @@ void ThreadSocketHandler2(void* parg)
                 }
             }
 
-            //
             // Inactivity checking
-            //
             if (pnode->vSend.empty())
                 pnode->nLastSendEmpty = GetTime();
             if (GetTime() - pnode->nTimeConnected > 60)
@@ -988,19 +913,11 @@ void ThreadSocketHandler2(void* parg)
     }
 }
 
-
-
-
-
-
-
-
-
 #ifdef USE_UPNP
 void ThreadMapPort(void* parg)
 {
     // Make this thread recognisable as the UPnP thread
-    RenameThread("bitcoin-UPnP");
+    RenameThread("ecoin-UPnP");
 
     try
     {
@@ -1029,10 +946,8 @@ void ThreadMapPort2(void* parg)
     char lanaddr[64];
 
 #ifndef UPNPDISCOVER_SUCCESS
-    /* miniupnpc 1.5 */
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0);
 #else
-    /* miniupnpc 1.6 */
     int error = 0;
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, &error);
 #endif
@@ -1063,11 +978,9 @@ void ThreadMapPort2(void* parg)
 
         string strDesc = "Ecoin " + FormatFullVersion();
 #ifndef UPNPDISCOVER_SUCCESS
-        /* miniupnpc 1.5 */
         r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
                             port.c_str(), port.c_str(), lanaddr, strDesc.c_str(), "TCP", 0);
 #else
-        /* miniupnpc 1.6 */
         r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
                             port.c_str(), port.c_str(), lanaddr, strDesc.c_str(), "TCP", 0, "0");
 #endif
@@ -1091,11 +1004,9 @@ void ThreadMapPort2(void* parg)
             if (i % 600 == 0) // Refresh every 20 minutes
             {
 #ifndef UPNPDISCOVER_SUCCESS
-                /* miniupnpc 1.5 */
                 r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
                                     port.c_str(), port.c_str(), lanaddr, strDesc.c_str(), "TCP", 0);
 #else
-                /* miniupnpc 1.6 */
                 r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
                                     port.c_str(), port.c_str(), lanaddr, strDesc.c_str(), "TCP", 0, "0");
 #endif
@@ -1138,26 +1049,15 @@ void MapPort()
 }
 #endif
 
-
-
-
-
-
-
-
-
 // DNS seeds
-// Each pair gives a source name and a seed name.
-// The first name is used as information source for addrman.
-// The second name should resolve to a list of seed addresses.
 static const char *strDNSSeed[][2] = {
-    {"node1.myecoin.net", "dnsseed.myecoin.net"},
+    {"ecoinseed.03c8.net", "dnsecoin.03c8.net"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
 {
     // Make this thread recognisable as the DNS seeding thread
-    RenameThread("bitcoin-dnsseed");
+    RenameThread("ecoin-dnsseed");
 
     try
     {
@@ -1209,16 +1109,10 @@ void ThreadDNSAddressSeed2(void* parg)
     printf("%d addresses found from DNS seeds\n", found);
 }
 
-
-
-
 unsigned int pnSeed[] =
 {
     0x36CBF4AA, 0x36CBF41B,
 };
-
-
-
 
 void DumpAddresses()
 {
@@ -1227,12 +1121,9 @@ void DumpAddresses()
     CAddrDB adb;
     adb.Write(addrman);
 
-    printf("Flushed %d addresses to peers.dat  %"PRI64d"ms\n",
+    printf("Flushed %d addresses to peers.dat  %" PRI64d"ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 }
-
-
-
 
 void ThreadDumpAddress2(void* parg)
 {
@@ -1250,7 +1141,7 @@ void ThreadDumpAddress2(void* parg)
 void ThreadDumpAddress(void* parg)
 {
     // Make this thread recognisable as the address dumping thread
-    RenameThread("bitcoin-adrdump");
+    RenameThread("ecoin-adrdump");
 
     try
     {
@@ -1265,7 +1156,7 @@ void ThreadDumpAddress(void* parg)
 void ThreadOpenConnections(void* parg)
 {
     // Make this thread recognisable as the connection opening thread
-    RenameThread("bitcoin-opencon");
+    RenameThread("ecoin-opencon");
 
     try
     {
@@ -1301,7 +1192,6 @@ void static ProcessOneShot()
     }
 }
 
-// ecoin: stake minter thread
 void static ThreadStakeMinter(void* parg)
 {
     printf("ThreadStakeMinter started\n");
@@ -1372,10 +1262,6 @@ void ThreadOpenConnections2(void* parg)
             std::vector<CAddress> vAdd;
             for (unsigned int i = 0; i < ARRAYLEN(pnSeed); i++)
             {
-                // It'll only connect to one or two seed nodes because once it connects,
-                // it'll get a pile of addresses with newer timestamps.
-                // Seed nodes are given a random 'last seen time' of between one and two
-                // weeks ago.
                 const int64 nOneWeek = 7*24*60*60;
                 struct in_addr ip;
                 memcpy(&ip, &pnSeed[i], sizeof(ip));
@@ -1386,13 +1272,8 @@ void ThreadOpenConnections2(void* parg)
             addrman.Add(vAdd, CNetAddr("127.0.0.1"));
         }
 
-        //
-        // Choose an address to connect to based on most recently seen
-        //
         CAddress addrConnect;
 
-        // Only connect out to one peer per network group (/16 for IPv4).
-        // Do this here so we don't have to critsect vNodes inside mapAddresses critsect.
         int nOutbound = 0;
         set<vector<unsigned char> > setConnected;
         {
@@ -1417,9 +1298,6 @@ void ThreadOpenConnections2(void* parg)
             if (!addr.IsValid() || setConnected.count(addr.GetGroup()) || IsLocal(addr))
                 break;
 
-            // If we didn't find an appropriate destination after trying 100 addresses fetched from addrman,
-            // stop this loop, and let the outer loop run again (which sleeps, adds seed nodes, recalculates
-            // already-connected network ranges, ...) before trying new addrman addresses.
             nTries++;
             if (nTries > 100)
                 break;
@@ -1427,11 +1305,9 @@ void ThreadOpenConnections2(void* parg)
             if (IsLimited(addr))
                 continue;
 
-            // only consider very recently tried nodes after 30 failed attempts
             if (nANow - addr.nLastTry < 600 && nTries < 30)
                 continue;
 
-            // do not allow non-default ports, unless after 50 invalid addresses selected already
             if (addr.GetPort() != GetDefaultPort() && nTries < 50)
                 continue;
 
@@ -1446,8 +1322,7 @@ void ThreadOpenConnections2(void* parg)
 
 void ThreadOpenAddedConnections(void* parg)
 {
-    // Make this thread recognisable as the connection opening thread
-    RenameThread("bitcoin-opencon");
+    RenameThread("ecoin-opencon");
 
     try
     {
@@ -1504,8 +1379,6 @@ void ThreadOpenAddedConnections2(void* parg)
     while (true)
     {
         vector<vector<CService> > vservConnectAddresses = vservAddressesToAdd;
-        // Attempt to connect to each IP for each addnode entry until at least one is successful per addnode entry
-        // (keeping in mind that addnode entries can have many IPs if fNameLookup)
         {
             LOCK(cs_vNodes);
             BOOST_FOREACH(CNode* pnode, vNodes)
@@ -1536,12 +1409,9 @@ void ThreadOpenAddedConnections2(void* parg)
     }
 }
 
-// if successful, this moves the passed grant to the constructed node
 bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOutbound, const char *strDest, bool fOneShot)
 {
-    //
     // Initiate outbound network connection
-    //
     if (fShutdown)
         return false;
     if (!strDest)
@@ -1568,12 +1438,10 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
     return true;
 }
 
-
-
 void ThreadMessageHandler(void* parg)
 {
     // Make this thread recognisable as the message handling thread
-    RenameThread("bitcoin-msghand");
+    RenameThread("ecoin-msghand");
 
     try
     {
@@ -1636,9 +1504,6 @@ void ThreadMessageHandler2(void* parg)
                 pnode->Release();
         }
 
-        // Wait and allow messages to bunch up.
-        // Reduce vnThreadsRunning so StopNode has permission to exit while
-        // we're sleeping, but we must always check fShutdown after doing this.
         vnThreadsRunning[THREAD_MESSAGEHANDLER]--;
         Sleep(100);
         if (fRequestShutdown)
@@ -1648,11 +1513,6 @@ void ThreadMessageHandler2(void* parg)
             return;
     }
 }
-
-
-
-
-
 
 bool BindListenPort(const CService &addrBind, string& strError)
 {
@@ -1699,11 +1559,8 @@ bool BindListenPort(const CService &addrBind, string& strError)
 #endif
 
 #ifndef WIN32
-    // Allow binding if the port is still in TIME_WAIT state after
-    // the program was closed and restarted.  Not an issue on windows.
     setsockopt(hListenSocket, SOL_SOCKET, SO_REUSEADDR, (void*)&nOne, sizeof(int));
 #endif
-
 
 #ifdef WIN32
     // Set to non-blocking, incoming connections will also inherit this
@@ -1718,8 +1575,6 @@ bool BindListenPort(const CService &addrBind, string& strError)
     }
 
 #ifdef USE_IPV6
-    // some systems don't have IPV6_V6ONLY but are always v6only; others do have the option
-    // and enable it by default or not. Try to enable it, if possible.
     if (addrBind.IsIPv6()) {
 #ifdef IPV6_V6ONLY
 #ifdef WIN32
@@ -1824,7 +1679,7 @@ void static Discover()
 void StartNode(void* parg)
 {
     // Make this thread recognisable as the startup thread
-    RenameThread("bitcoin-start");
+    RenameThread("ecoin-start");
 
     if (semOutbound == NULL) {
         // initialize semaphore
@@ -1837,10 +1692,7 @@ void StartNode(void* parg)
 
     Discover();
 
-    //
     // Start threads
-    //
-
     if (!GetBoolArg("-dnsseed", true))
         printf("DNS seeding disabled\n");
     else

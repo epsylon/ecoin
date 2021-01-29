@@ -1,0 +1,87 @@
+
+ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
+======================================
+# SOURCES for ECOin (Unix/GNU-Linux) #
+======================================
+
+All of the commands should be executed in a shell.
+
+------------------------------
+
+(0.) Clone the github tree to get the source code:
+
+  + Official:
+
+	git clone http://code.03c8.net:3000/epsylon/ecoin
+
+  + Mirror:
+
+	git clone https://github.com/epsylon/ecoin
+
+------------------------------
+
+==============================================
+# Daemon -ecoind- for ECOin (Unix/GNU-Linux) #
+==============================================
+
+(1.) Install dependencies:
+
+ Library       Purpose           Description
+ -------       -------           -----------
+ libssl1.0-dev SSL Support       Secure communications
+ libdb5.3      Berkeley DB       Blockchain & wallet storage
+ libboost      Boost             C++ Library
+ miniupnpc     UPnP Support      Optional firewall-jumping support
+ libqrencode   QRCode generation Optional QRCode generation
+
+    + From Debian/Ubuntu:
+  
+        sudo apt-get install build-essential libssl1.0-dev libssl1.0.2 libdb5.3-dev libdb5.3++-dev libboost-all-dev miniupnpc libminiupnpc-dev
+
+        + Optionally install qrencode (and set USE_QRCODE=1):
+
+       	    sudo apt-get install libqrencode-dev
+
+(2.) Now you should be able to build ecoind:
+
+	cd src/
+	make -f makefile.linux
+	strip ecoind
+
+     An executable named 'ecoind' will be built.
+
+------------------------------
+
+======================================
+# Qt4 GUI for ECOin (Unix/GNU-Linux) #
+======================================
+
+(1.) First, make sure that the required packages for Qt4 development of your distribution are installed, for Debian and Ubuntu these are:
+
+        sudo apt-get install qt4-qmake libqt4-dev build-essential libboost-dev libboost-system-dev miniupnpc libminiupnpc-dev \
+             libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libssl1.0-dev libssl1.0.2 libdb5.3++-dev
+
+(2.) Then execute the following:
+
+        qmake
+        make
+
+     An executable named 'ecoin-qt' will be built.
+
+======================================
+
+For a list of command-line options:
+
+  ./ecoind --help
+
+To start the ECOin daemon:
+
+  ./ecoind -daemon
+
+For ECOin-QT Wallet
+
+  ./ecoin-qt
+
+======================================
+

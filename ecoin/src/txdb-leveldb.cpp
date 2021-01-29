@@ -1,19 +1,13 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file license.txt or http://www.opensource.org/licenses/mit-license.php.
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <map>
-
 #include <boost/version.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
-
 #include <leveldb/env.h>
 #include <leveldb/cache.h>
 #include <leveldb/filter_policy.h>
 #include <memenv/memenv.h>
-
 #include "kernel.h"
 #include "checkpoints.h"
 #include "txdb.h"
@@ -63,8 +57,6 @@ void init_blockindex(leveldb::Options& options, bool fRemoveOld = false) {
     }
 }
 
-// CDB subclasses are created and destroyed VERY OFTEN. That's why
-// we shouldn't treat this as a free operations.
 CTxDB::CTxDB(const char* pszMode)
 {
     assert(pszMode);
@@ -177,11 +169,6 @@ public:
     }
 };
 
-// When performing a read, if we have an active batch we need to check it first
-// before reading from the database, as the rest of the code assumes that once
-// a database transaction begins reads are consistent with it. It would be good
-// to change that assumption in future and avoid the performance hit, though in
-// practice it does not appear to be large.
 bool CTxDB::ScanBatch(const CDataStream &key, string *value, bool *deleted) const {
     assert(activeBatch);
     *deleted = false;
@@ -331,9 +318,6 @@ bool CTxDB::LoadBlockIndex()
         // from BDB.
         return true;
     }
-    // The block index is an in-memory structure that maps hashes to on-disk
-    // locations where the contents of the block can be found. Here, we scan it
-    // out of the DB and into mapBlockIndex.
     leveldb::Iterator *iterator = pdb->NewIterator(leveldb::ReadOptions());
     // Seek to start key.
     CDataStream ssStartKey(SER_DISK, CLIENT_VERSION);
@@ -413,7 +397,7 @@ bool CTxDB::LoadBlockIndex()
         // Ecoin: calculate stake modifier checksum
         pindex->nStakeModifierChecksum = GetStakeModifierChecksum(pindex);
         if (!CheckStakeModifierCheckpoints(pindex->nHeight, pindex->nStakeModifierChecksum))
-            return error("CTxDB::LoadBlockIndex() : Failed stake modifier checkpoint height=%d, modifier=0x%016"PRI64x, pindex->nHeight, pindex->nStakeModifier);
+            return error("CTxDB::LoadBlockIndex() : Failed stake modifier checkpoint height=%d, modifier=0x%016" PRI64x, pindex->nHeight, pindex->nStakeModifier);
     }
 
     // Load hashBestChain pointer to end of best chain

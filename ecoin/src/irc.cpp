@@ -1,8 +1,4 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "irc.h"
 #include "net.h"
 #include "strlcpy.h"
@@ -15,17 +11,14 @@ int nGotIRCAddresses = 0;
 
 void ThreadIRCSeed2(void* parg);
 
-
-
-
 #pragma pack(push, 1)
 struct ircaddr
 {
     struct in_addr ip;
     short port;
 };
-#pragma pack(pop)
 
+#pragma pack(pop)
 string EncodeAddress(const CService& addr)
 {
     struct ircaddr tmp;
@@ -53,11 +46,6 @@ bool DecodeAddress(string str, CService& addr)
     addr = CService(tmp.ip, ntohs(tmp.port));
     return true;
 }
-
-
-
-
-
 
 static bool Send(SOCKET hSocket, const char* pszSend)
 {
@@ -173,8 +161,6 @@ bool GetIPFromIRC(SOCKET hSocket, string strMyName, CNetAddr& ipRet)
         return false;
     string strHost = str.substr(str.rfind("@")+1);
 
-    // Hybrid IRC used by lfnet always returns IP when you userhost yourself,
-    // but in case another IRC is ever used this should work.
     printf("GetIPFromIRC() got userhost %s\n", strHost.c_str());
     CNetAddr addr(strHost, true);
     if (!addr.IsValid())
@@ -185,11 +171,9 @@ bool GetIPFromIRC(SOCKET hSocket, string strMyName, CNetAddr& ipRet)
 }
 
 
-
 void ThreadIRCSeed(void* parg)
 {
-    // Make this thread recognisable as the IRC seeding thread
-    RenameThread("bitcoin-ircseed");
+    RenameThread("ecoin-ircseed");
 
     try
     {
@@ -205,15 +189,12 @@ void ThreadIRCSeed(void* parg)
 
 void ThreadIRCSeed2(void* parg)
 {
-    // Don't connect to IRC if we won't use IPv4 connections.
     if (IsLimited(NET_IPV4))
         return;
 
-    // ... or if we won't make outbound connections and won't accept inbound ones.
     if (mapArgs.count("-connect") && fNoListen)
         return;
 
-    // ... or if IRC is not enabled.
     if (!GetBoolArg("-irc", true))
         return;
 
@@ -224,9 +205,9 @@ void ThreadIRCSeed2(void* parg)
 
     while (!fShutdown)
     {
-        CService addrConnect("92.243.23.21", 6667); // irc.lfnet.org
+        CService addrConnect("162.213.39.42", 6697); // irc.freenode.net (10/01/2021)
 
-        CService addrIRC("irc.lfnet.org", 6667, true);
+        CService addrIRC("irc.freenode.net", 6697, true);
         if (addrIRC.IsValid())
             addrConnect = addrIRC;
 
@@ -255,16 +236,12 @@ void ThreadIRCSeed2(void* parg)
         CNetAddr addrIPv4("1.2.3.4"); // arbitrary IPv4 address to make GetLocal prefer IPv4 addresses
         CService addrLocal;
         string strMyName;
-        // Don't use our IP as our nick if we're not listening
-        // or if it keeps failing because the nick is already in use.
         if (!fNoListen && GetLocal(addrLocal, &addrIPv4) && nNameRetry<3)
             strMyName = EncodeAddress(GetLocalAddress(&addrConnect));
         if (strMyName == "")
-            strMyName = strprintf("x%"PRI64u"", GetRand(1000000000));
-
+            strMyName = strprintf("x%" PRI64u"", GetRand(1000000000));
         Send(hSocket, strprintf("NICK %s\r", strMyName.c_str()).c_str());
         Send(hSocket, strprintf("USER %s 8 * : %s\r", strMyName.c_str(), strMyName.c_str()).c_str());
-
         int nRet = RecvUntil(hSocket, " 004 ", " 433 ");
         if (nRet != 1)
         {
@@ -286,7 +263,6 @@ void ThreadIRCSeed2(void* parg)
         nNameRetry = 0;
         Sleep(500);
 
-        // Get our external IP from the IRC server and re-nick before joining the channel
         CNetAddr addrFromIRC;
         if (GetIPFromIRC(hSocket, strMyName, addrFromIRC))
         {
@@ -305,9 +281,6 @@ void ThreadIRCSeed2(void* parg)
             Send(hSocket, "JOIN #ecoinTEST2\r");
             Send(hSocket, "WHO #ecoinTEST2\r");
         } else {
-            // randomly join #ecoin00-#ecoin05
-            // int channel_number = GetRandInt(5);
-
             // Channel number is always 0 for initial release
             int channel_number = 0;
             Send(hSocket, strprintf("JOIN #ecoin%02d\r", channel_number).c_str());
@@ -332,15 +305,12 @@ void ThreadIRCSeed2(void* parg)
 
             if (vWords[1] == "352" && vWords.size() >= 8)
             {
-                // index 7 is limited to 16 characters
-                // could get full length name at index 10, but would be different from join messages
                 strlcpy(pszName, vWords[7].c_str(), sizeof(pszName));
                 printf("IRC got who\n");
             }
 
             if (vWords[1] == "JOIN" && vWords[0].size() > 1)
             {
-                // :username!username@50000007.F000000B.90000002.IP JOIN :#channelname
                 strlcpy(pszName, vWords[0].c_str() + 1, sizeof(pszName));
                 if (strchr(pszName, '!'))
                     *strchr(pszName, '!') = '\0';
@@ -378,15 +348,6 @@ void ThreadIRCSeed2(void* parg)
     }
 }
 
-
-
-
-
-
-
-
-
-
 #ifdef TEST
 int main(int argc, char *argv[])
 {
@@ -396,9 +357,7 @@ int main(int argc, char *argv[])
         printf("Error at WSAStartup()\n");
         return false;
     }
-
     ThreadIRCSeed(NULL);
-
     WSACleanup();
     return 0;
 }

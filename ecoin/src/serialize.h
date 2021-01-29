@@ -1,9 +1,6 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_SERIALIZE_H
-#define BITCOIN_SERIALIZE_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_SERIALIZE_H
+#define ECOIN_SERIALIZE_H
 
 #include <string>
 #include <vector>
@@ -13,12 +10,10 @@
 #include <limits>
 #include <cstring>
 #include <cstdio>
-
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 #include <boost/tuple/tuple_io.hpp>
-
 #include "allocators.h"
 #include "version.h"
 
@@ -37,12 +32,6 @@ inline T& REF(const T& val)
 {
     return const_cast<T&>(val);
 }
-
-/////////////////////////////////////////////////////////////////
-//
-// Templates for serializing to anything that looks like a stream,
-// i.e. anything that supports .read(char*, int) and .write(char*, int)
-//
 
 enum
 {
@@ -96,14 +85,7 @@ enum
 
 #define READWRITE(obj)      (nSerSize += ::SerReadWrite(s, (obj), nType, nVersion, ser_action))
 
-
-
-
-
-
-//
 // Basic types
-//
 #define WRITEDATA(s, obj)   s.write((char*)&(obj), sizeof(obj))
 #define READDATA(s, obj)    s.read((char*)&(obj), sizeof(obj))
 
@@ -163,13 +145,11 @@ template<typename Stream> inline void Unserialize(Stream& s, bool& a, int, int=0
 void LogStackTrace();
 #endif
 
-//
 // Compact size
 //  size <  253        -- 1 byte
 //  size <= USHRT_MAX  -- 3 bytes  (253 + 2 bytes)
 //  size <= UINT_MAX   -- 5 bytes  (254 + 4 bytes)
 //  size >  UINT_MAX   -- 9 bytes  (255 + 8 bytes)
-//
 inline unsigned int GetSizeOfCompactSize(uint64 nSize)
 {
     if (nSize < 253)             return sizeof(unsigned char);
@@ -247,8 +227,6 @@ uint64 ReadCompactSize(Stream& is)
 
 #define FLATDATA(obj)   REF(CFlatData((char*)&(obj), (char*)&(obj) + sizeof(obj)))
 
-/** Wrapper for serializing arrays and POD.
- */
 class CFlatData
 {
 protected:
@@ -279,9 +257,7 @@ public:
     }
 };
 
-//
 // Forward declarations
-//
 
 // string
 template<typename C> unsigned int GetSerializeSize(const std::basic_string<C>& str, int, int=0);
@@ -329,16 +305,6 @@ template<typename K, typename Pred, typename A> unsigned int GetSerializeSize(co
 template<typename Stream, typename K, typename Pred, typename A> void Serialize(Stream& os, const std::set<K, Pred, A>& m, int nType, int nVersion);
 template<typename Stream, typename K, typename Pred, typename A> void Unserialize(Stream& is, std::set<K, Pred, A>& m, int nType, int nVersion);
 
-
-
-
-
-//
-// If none of the specialized versions above matched, default to calling member function.
-// "int nType" is changed to "long nType" to keep from getting an ambiguous overload error.
-// The compiler will only cast int to long if none of the other templates matched.
-// Thanks to Boost serialization for this idea.
-//
 template<typename T>
 inline unsigned int GetSerializeSize(const T& a, long nType, int nVersion)
 {
@@ -357,13 +323,7 @@ inline void Unserialize(Stream& is, T& a, long nType, int nVersion)
     a.Unserialize(is, (int)nType, nVersion);
 }
 
-
-
-
-
-//
 // string
-//
 template<typename C>
 unsigned int GetSerializeSize(const std::basic_string<C>& str, int, int)
 {
@@ -387,11 +347,7 @@ void Unserialize(Stream& is, std::basic_string<C>& str, int, int)
         is.read((char*)&str[0], nSize * sizeof(str[0]));
 }
 
-
-
-//
 // vector
-//
 template<typename T, typename A>
 unsigned int GetSerializeSize_impl(const std::vector<T, A>& v, int nType, int nVersion, const boost::true_type&)
 {
@@ -477,11 +433,7 @@ inline void Unserialize(Stream& is, std::vector<T, A>& v, int nType, int nVersio
     Unserialize_impl(is, v, nType, nVersion, boost::is_fundamental<T>());
 }
 
-
-
-//
 // others derived from vector
-//
 inline unsigned int GetSerializeSize(const CScript& v, int nType, int nVersion)
 {
     return GetSerializeSize((const std::vector<unsigned char>&)v, nType, nVersion);
@@ -499,11 +451,7 @@ void Unserialize(Stream& is, CScript& v, int nType, int nVersion)
     Unserialize(is, (std::vector<unsigned char>&)v, nType, nVersion);
 }
 
-
-
-//
 // pair
-//
 template<typename K, typename T>
 unsigned int GetSerializeSize(const std::pair<K, T>& item, int nType, int nVersion)
 {
@@ -524,11 +472,7 @@ void Unserialize(Stream& is, std::pair<K, T>& item, int nType, int nVersion)
     Unserialize(is, item.second, nType, nVersion);
 }
 
-
-
-//
 // 3 tuple
-//
 template<typename T0, typename T1, typename T2>
 unsigned int GetSerializeSize(const boost::tuple<T0, T1, T2>& item, int nType, int nVersion)
 {
@@ -555,11 +499,7 @@ void Unserialize(Stream& is, boost::tuple<T0, T1, T2>& item, int nType, int nVer
     Unserialize(is, boost::get<2>(item), nType, nVersion);
 }
 
-
-
-//
 // 4 tuple
-//
 template<typename T0, typename T1, typename T2, typename T3>
 unsigned int GetSerializeSize(const boost::tuple<T0, T1, T2, T3>& item, int nType, int nVersion)
 {
@@ -589,11 +529,7 @@ void Unserialize(Stream& is, boost::tuple<T0, T1, T2, T3>& item, int nType, int 
     Unserialize(is, boost::get<3>(item), nType, nVersion);
 }
 
-
-
-//
 // map
-//
 template<typename K, typename T, typename Pred, typename A>
 unsigned int GetSerializeSize(const std::map<K, T, Pred, A>& m, int nType, int nVersion)
 {
@@ -625,11 +561,7 @@ void Unserialize(Stream& is, std::map<K, T, Pred, A>& m, int nType, int nVersion
     }
 }
 
-
-
-//
 // set
-//
 template<typename K, typename Pred, typename A>
 unsigned int GetSerializeSize(const std::set<K, Pred, A>& m, int nType, int nVersion)
 {
@@ -661,11 +593,7 @@ void Unserialize(Stream& is, std::set<K, Pred, A>& m, int nType, int nVersion)
     }
 }
 
-
-
-//
 // Support for IMPLEMENT_SERIALIZE and READWRITE macro
-//
 class CSerActionGetSerializeSize { };
 class CSerActionSerialize { };
 class CSerActionUnserialize { };
@@ -697,21 +625,6 @@ struct ser_streamplaceholder
 };
 
 
-
-
-
-
-
-
-
-
-
-
-/** Double ended buffer combining vector and stream-like interfaces.
- *
- * >> and << read and write unformatted data using the above serialization templates.
- * Fills with data in linear time; some stringstream implementations take N^2 time.
- */
 class CDataStream
 {
 protected:
@@ -793,10 +706,7 @@ public:
         return (std::string(begin(), end()));
     }
 
-
-    //
     // Vector subset
-    //
     const_iterator begin() const                     { return vch.begin() + nReadPos; }
     iterator begin()                                 { return vch.begin() + nReadPos; }
     const_iterator end() const                       { return vch.end(); }
@@ -904,10 +814,7 @@ public:
         return true;
     }
 
-
-    //
     // Stream subset
-    //
     void setstate(short bits, const char* psz)
     {
         state |= bits;
@@ -1014,21 +921,6 @@ public:
     }
 };
 
-
-
-
-
-
-
-
-
-
-/** RAII wrapper for FILE*.
- *
- * Will automatically close the file when it goes out of scope if not null.
- * If you're returning the file pointer, return file.release().
- * If you need to close the file early, use file.fclose() instead of fclose(file).
- */
 class CAutoFile
 {
 protected:
@@ -1068,10 +960,7 @@ public:
     FILE* operator=(FILE* pnew) { return file = pnew; }
     bool operator!()            { return (file == NULL); }
 
-
-    //
     // Stream subset
-    //
     void setstate(short bits, const char* psz)
     {
         state |= bits;

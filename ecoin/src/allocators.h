@@ -1,15 +1,11 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_ALLOCATORS_H
-#define BITCOIN_ALLOCATORS_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef ECOIN_ALLOCATORS_H
+#define ECOIN_ALLOCATORS_H
 
 #include <string.h>
 #include <string>
 #include <boost/thread/mutex.hpp>
 #include <map>
-
 #ifdef WIN32
 #ifdef _WIN32_WINNT
 #undef _WIN32_WINNT
@@ -20,27 +16,11 @@
 #define NOMINMAX
 #endif
 #include <windows.h>
-// This is used to attempt to keep keying material out of swap
-// Note that VirtualLock does not provide this as a guarantee on Windows,
-// but, in practice, memory that has been VirtualLock'd almost never gets written to
-// the pagefile except in rare circumstances where memory is extremely low.
 #else
 #include <sys/mman.h>
 #include <limits.h> // for PAGESIZE
 #include <unistd.h> // for sysconf
 #endif
-
-/**
- * Thread-safe class to keep track of locked (ie, non-swappable) memory pages.
- *
- * Memory locks do not stack, that is, pages which have been locked several times by calls to mlock()
- * will be unlocked by a single call to munlock(). This can result in keying material ending up in swap when
- * those functions are used naively. This class simulates stacking memory locks by keeping a counter per page.
- *
- * @note By using a map from each page base address to lock count, this class is optimized for
- * small objects that span up to a few pages, mostly smaller than a page. To support large allocations,
- * something like an interval tree would be the preferred data structure.
- */
 template <class Locker> class LockedPageManagerBase
 {
 public:
@@ -129,17 +109,9 @@ static inline size_t GetSystemPageSize()
 #endif
     return page_size;
 }
-
-/**
- * OS-dependent memory page locking/unlocking.
- * Defined as policy class to make stubbing for test possible.
- */
 class MemoryPageLocker
 {
 public:
-    /** Lock memory pages.
-     * addr and len must be a multiple of the system page size
-     */
     bool Lock(const void *addr, size_t len)
     {
 #ifdef WIN32
@@ -148,9 +120,6 @@ public:
         return mlock(addr, len) == 0;
 #endif
     }
-    /** Unlock memory pages.
-     * addr and len must be a multiple of the system page size
-     */
     bool Unlock(const void *addr, size_t len)
     {
 #ifdef WIN32
@@ -161,10 +130,6 @@ public:
     }
 };
 
-/**
- * Singleton class to keep track of locked (ie, non-swappable) memory pages, for use in
- * std::allocator templates.
- */
 class LockedPageManager: public LockedPageManagerBase<MemoryPageLocker>
 {
 public:
@@ -175,14 +140,9 @@ private:
     {}
 };
 
-//
-// Allocator that locks its contents from being paged
-// out of memory and clears its contents before deletion.
-//
 template<typename T>
 struct secure_allocator : public std::allocator<T>
 {
-    // MSVC8 default copy constructor is broken
     typedef std::allocator<T> base;
     typedef typename base::size_type size_type;
     typedef typename base::difference_type  difference_type;
@@ -219,14 +179,9 @@ struct secure_allocator : public std::allocator<T>
     }
 };
 
-
-//
-// Allocator that clears its contents before deletion.
-//
 template<typename T>
 struct zero_after_free_allocator : public std::allocator<T>
 {
-    // MSVC8 default copy constructor is broken
     typedef std::allocator<T> base;
     typedef typename base::size_type size_type;
     typedef typename base::difference_type  difference_type;
@@ -251,7 +206,6 @@ struct zero_after_free_allocator : public std::allocator<T>
     }
 };
 
-// This is exactly like std::string, but with a custom allocator.
 typedef std::basic_string<char, std::char_traits<char>, secure_allocator<char> > SecureString;
 
 #endif

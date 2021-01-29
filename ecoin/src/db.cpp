@@ -1,7 +1,4 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "db.h"
 #include "net.h"
@@ -18,14 +15,7 @@
 using namespace std;
 using namespace boost;
 
-
 unsigned int nWalletDBUpdated;
-
-
-
-//
-// CDB
-//
 
 CDBEnv bitdb;
 
@@ -84,8 +74,6 @@ bool CDBEnv::Open(boost::filesystem::path pathEnv_)
     dbenv.set_lg_bsize(1048576);
     dbenv.set_lg_max(10485760);
 
-    // Bugfix: Bump lk_max_locks default to 537000, to safely handle reorgs with up to 5 blocks reversed
-    // dbenv.set_lk_max_locks(10000);
     dbenv.set_lk_max_locks(537000);
 
     dbenv.set_lk_max_objects(10000);
@@ -185,14 +173,6 @@ bool CDBEnv::Salvage(std::string strFile, bool fAggressive,
         return false;
     }
 
-    // Format of bdb dump is ascii lines:
-    // header lines...
-    // HEADER=END
-    // hexadecimal key
-    // hexadecimal value
-    // ... repeated
-    // DATA=END
-
     string strLine;
     while (!strDump.eof() && strLine != "HEADER=END")
         getline(strDump, strLine); // Skip past header
@@ -210,7 +190,6 @@ bool CDBEnv::Salvage(std::string strFile, bool fAggressive,
 
     return (result == 0);
 }
-
 
 void CDBEnv::CheckpointLSN(std::string strFile)
 {
@@ -301,7 +280,6 @@ void CDB::Close()
     activeTxn = NULL;
     pdb = NULL;
 
-    // Flush database activity from memory pool to disk log
     unsigned int nMinutes = 0;
     if (fReadOnly)
         nMinutes = 1;
@@ -324,7 +302,6 @@ void CDBEnv::CloseDb(const string& strFile)
         LOCK(cs_db);
         if (mapDb[strFile] != NULL)
         {
-            // Close the database handle
             Db* pdb = mapDb[strFile];
             pdb->close(0);
             delete pdb;
@@ -350,7 +327,6 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
             LOCK(bitdb.cs_db);
             if (!bitdb.mapFileUseCount.count(strFile) || bitdb.mapFileUseCount[strFile] == 0)
             {
-                // Flush log data to the dat file
                 bitdb.CloseDb(strFile);
                 bitdb.CheckpointLSN(strFile);
                 bitdb.mapFileUseCount.erase(strFile);
@@ -435,12 +411,9 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
     return false;
 }
 
-
 void CDBEnv::Flush(bool fShutdown)
 {
     int64 nStart = GetTimeMillis();
-    // Flush log data to the actual data file
-    //  on all files that are not in use
     printf("Flush(%s)%s\n", fShutdown ? "true" : "false", fDbEnvInit ? "" : " db not started");
     if (!fDbEnvInit)
         return;
@@ -454,7 +427,6 @@ void CDBEnv::Flush(bool fShutdown)
             printf("%s refcount=%d\n", strFile.c_str(), nRefCount);
             if (nRefCount == 0)
             {
-                // Move log data to the dat file
                 CloseDb(strFile);
                 printf("%s checkpoint\n", strFile.c_str());
                 dbenv.txn_checkpoint(0, 0, 0);
@@ -469,7 +441,7 @@ void CDBEnv::Flush(bool fShutdown)
             else
                 mi++;
         }
-        printf("DBFlush(%s)%s ended %15"PRI64d"ms\n", fShutdown ? "true" : "false", fDbEnvInit ? "" : " db not started", GetTimeMillis() - nStart);
+        printf("DBFlush(%s)%s ended %15" PRI64d"ms\n", fShutdown ? "true" : "false", fDbEnvInit ? "" : " db not started", GetTimeMillis() - nStart);
         if (fShutdown)
         {
             char** listp;
@@ -482,12 +454,6 @@ void CDBEnv::Flush(bool fShutdown)
     }
 }
 
-
-//
-// CAddrDB
-//
-
-
 CAddrDB::CAddrDB()
 {
     pathAddr = GetDataDir() / "peers.dat";
@@ -495,7 +461,7 @@ CAddrDB::CAddrDB()
 
 bool CAddrDB::Write(const CAddrMan& addr)
 {
-    // Generate random temporary filename
+    // generate random temporary filename
     unsigned short randv = 0;
     RAND_bytes((unsigned char *)&randv, sizeof(randv));
     std::string tmpfn = strprintf("peers.dat.%04x", randv);
@@ -514,7 +480,7 @@ bool CAddrDB::Write(const CAddrMan& addr)
     if (!fileout)
         return error("CAddrman::Write() : open failed");
 
-    // Write and commit header, data
+    // write and commit header, data
     try {
         fileout << ssPeers;
     }
@@ -542,7 +508,6 @@ bool CAddrDB::Read(CAddrMan& addr)
     // use file size to size memory buffer
     int fileSize = GetFilesize(filein);
     int dataSize = fileSize - sizeof(uint256);
-    //Don't try to resize to a negative number if file is small
     if ( dataSize < 0 ) dataSize = 0;
     vector<unsigned char> vchData;
     vchData.resize(dataSize);

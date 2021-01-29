@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef EDITADDRESSDIALOG_H
 #define EDITADDRESSDIALOG_H
 
@@ -12,8 +13,6 @@ namespace Ui {
 }
 class AddressTableModel;
 
-/** Dialog for editing an address and associated information.
- */
 class EditAddressDialog : public QDialog
 {
     Q_OBJECT

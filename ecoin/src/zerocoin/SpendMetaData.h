@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 /**
 * @file       SpendMetaData.h
 *
@@ -19,7 +20,7 @@
 using namespace std;
 namespace libzerocoin {
 
-/** Any meta data needed for actual bitcoin integration.
+/** Any meta data needed for actual ecoin integration.
  * Can extended provided the getHash() function is updated
  */
 class SpendMetaData {

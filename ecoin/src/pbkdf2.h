@@ -1,4 +1,5 @@
-// Copyright (c) 2013 Ecoin Developers
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// Copyright (c) 2009-2010 Satoshi Nakamoto
 
 #ifndef PBKDF2_H
 #define PBKDF2_H

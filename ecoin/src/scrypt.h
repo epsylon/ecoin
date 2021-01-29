@@ -1,9 +1,9 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef SCRYPT_MINE_H
 #define SCRYPT_MINE_H
 
 #include <stdint.h>
 #include <stdlib.h>
-
 #include "util.h"
 #include "net.h"
 

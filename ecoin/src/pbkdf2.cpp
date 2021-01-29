@@ -1,4 +1,5 @@
-// Copyright (c) 2013 Ecoin Developers
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// Copyright (c) 2009-2010 Satoshi Nakamoto
 
 #include <string.h>
 #include "pbkdf2.h"
@@ -22,8 +23,6 @@ be32enc(void *pp, uint32_t x)
     p[1] = (x >> 16) & 0xff;
     p[0] = (x >> 24) & 0xff;
 }
-
-
 
 /* Initialize an HMAC-SHA256 operation with the given key. */
 void
@@ -89,11 +88,6 @@ HMAC_SHA256_Final(unsigned char digest[32], HMAC_SHA256_CTX * ctx)
     memset(ihash, 0, 32);
 }
 
-/**
- * PBKDF2_SHA256(passwd, passwdlen, salt, saltlen, c, buf, dkLen):
- * Compute PBKDF2(passwd, salt, c, dkLen) using HMAC-SHA256 as the PRF, and
- * write the output to buf.  The value dkLen must be at most 32 * (2^32 - 1).
- */
 void
 PBKDF2_SHA256(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
     size_t saltlen, uint64_t c, uint8_t * buf, size_t dkLen)

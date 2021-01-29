@@ -1,7 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "optionsmodel.h"
-#include "bitcoinunits.h"
+#include "ecoinunits.h"
 #include <QSettings>
-
 #include "init.h"
 #include "walletdb.h"
 #include "guiutil.h"
@@ -41,7 +41,7 @@ void OptionsModel::Init()
     QSettings settings;
 
     // These are Qt-only settings:
-    nDisplayUnit = settings.value("nDisplayUnit", BitcoinUnits::BTC).toInt();
+    nDisplayUnit = settings.value("nDisplayUnit", EcoinUnits::ECO).toInt();
     bDisplayAddresses = settings.value("bDisplayAddresses", false).toBool();
     fMinimizeToTray = settings.value("fMinimizeToTray", false).toBool();
     fMinimizeOnClose = settings.value("fMinimizeOnClose", false).toBool();
@@ -49,7 +49,7 @@ void OptionsModel::Init()
     nTransactionFee = settings.value("nTransactionFee").toLongLong();
     language = settings.value("language", "").toString();
 
-    // These are shared with core Bitcoin; we want
+    // These are shared with core Ecoin; we want
     // command-line options to override the GUI settings:
     if (settings.contains("fUseUPnP"))
         SoftSetBoolArg("-upnp", settings.value("fUseUPnP").toBool());
@@ -108,7 +108,6 @@ bool OptionsModel::Upgrade()
     }
     catch (std::ios_base::failure &e)
     {
-        // 0.6.0rc1 saved this as a CService, which causes failure when parsing as a CAddress
         CService addrProxy;
         if (walletdb.ReadSetting("addrProxy", addrProxy))
         {

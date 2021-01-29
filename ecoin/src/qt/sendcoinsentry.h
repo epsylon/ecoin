@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef SENDCOINSENTRY_H
 #define SENDCOINSENTRY_H
 
@@ -9,7 +10,7 @@ namespace Ui {
 class WalletModel;
 class SendCoinsRecipient;
 
-/** A single entry in the dialog for sending bitcoins. */
+/** A single entry in the dialog for sending ecoins. */
 class SendCoinsEntry : public QFrame
 {
     Q_OBJECT
@@ -27,8 +28,6 @@ public:
 
     void setValue(const SendCoinsRecipient &value);
 
-    /** Set up the tab chain manually, as Qt messes up the tab chain by default in some cases (issue https://bugreports.qt-project.org/browse/QTBUG-10907).
-     */
     QWidget *setupTabChain(QWidget *prev);
 
     void setFocus();

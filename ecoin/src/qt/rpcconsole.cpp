@@ -1,10 +1,9 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "rpcconsole.h"
 #include "ui_rpcconsole.h"
-
 #include "clientmodel.h"
-#include "bitcoinrpc.h"
+#include "ecoinrpc.h"
 #include "guiutil.h"
-
 #include <QTime>
 #include <QTimer>
 #include <QThread>
@@ -12,11 +11,7 @@
 #include <QKeyEvent>
 #include <QUrl>
 #include <QScrollBar>
-
 #include <openssl/crypto.h>
-
-// TODO: make it possible to filter out categories (esp debug messages when implemented)
-// TODO: receive errors and debug messages through ClientModel
 
 const int CONSOLE_SCROLLBACK = 50;
 const int CONSOLE_HISTORY = 50;
@@ -34,8 +29,6 @@ const struct {
     {NULL, NULL}
 };
 
-/* Object for executing console RPC commands in a separate thread.
-*/
 class RPCExecutor: public QObject
 {
     Q_OBJECT
@@ -53,20 +46,6 @@ void RPCExecutor::start()
    // Nothing to do
 }
 
-/**
- * Split shell command line into a list of arguments. Aims to emulate \c bash and friends.
- *
- * - Arguments are delimited with whitespace
- * - Extra whitespace at the beginning and end and between arguments will be ignored
- * - Text can be "double" or 'single' quoted
- * - The backslash \c \ is used as escape character
- *   - Outside quotes, any character can be escaped
- *   - Within double quotes, only escape \c " and backslashes before a \c " or another backslash
- *   - Within single quotes, no escaping is possible and no special interpretation takes place
- *
- * @param[out]   args        Parsed arguments will be appended to this list
- * @param[in]    strCommand  Command line to split
- */
 bool parseCommandLine(std::vector<std::string> &args, const std::string &strCommand)
 {
     enum CmdParseState

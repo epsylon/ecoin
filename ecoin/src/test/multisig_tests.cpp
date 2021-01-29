@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/assert.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/assign/list_inserter.hpp>
@@ -5,10 +6,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/foreach.hpp>
 #include <boost/tuple/tuple.hpp>
-
 #include <openssl/ec.h>
 #include <openssl/err.h>
-
 #include "keystore.h"
 #include "main.h"
 #include "script.h"

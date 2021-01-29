@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef ADDRESSBOOKPAGE_H
 #define ADDRESSBOOKPAGE_H
 
@@ -17,8 +18,6 @@ class QMenu;
 class QModelIndex;
 QT_END_NAMESPACE
 
-/** Widget that shows a list of sending or receiving addresses.
-  */
 class AddressBookPage : public QDialog
 {
     Q_OBJECT

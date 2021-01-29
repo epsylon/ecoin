@@ -1,7 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <vector>
 #include <boost/test/unit_test.hpp>
 #include <boost/foreach.hpp>
-
 #include "script.h"
 #include "key.h"
 

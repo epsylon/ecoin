@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef TRANSACTIONVIEW_H
 #define TRANSACTIONVIEW_H
 
@@ -16,9 +17,6 @@ class QFrame;
 class QDateTimeEdit;
 QT_END_NAMESPACE
 
-/** Widget showing the transaction list for a wallet, including a filter row.
-    Using the filter row, the user can view or export a subset of the transactions.
-  */
 class TransactionView : public QWidget
 {
     Q_OBJECT

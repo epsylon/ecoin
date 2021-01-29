@@ -1,14 +1,12 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "qrcodedialog.h"
 #include "ui_qrcodedialog.h"
-
-#include "bitcoinunits.h"
+#include "ecoinunits.h"
 #include "guiconstants.h"
 #include "guiutil.h"
 #include "optionsmodel.h"
-
 #include <QPixmap>
 #include <QUrl>
-
 #include <qrencode.h>
 
 QRCodeDialog::QRCodeDialog(const QString &addr, const QString &label, bool enableReq, QWidget *parent) :
@@ -44,7 +42,7 @@ void QRCodeDialog::setModel(OptionsModel *model)
     if (model)
         connect(model, SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
 
-    // update the display unit, to not use the default ("BTC")
+    // update the display unit, to not use the default ("ECO")
     updateDisplayUnit();
 }
 
@@ -92,8 +90,8 @@ QString QRCodeDialog::getURI()
     {
         if (ui->lnReqAmount->validate())
         {
-            // even if we allow a non BTC unit input in lnReqAmount, we generate the URI with BTC as unit (as defined in BIP21)
-            ret += QString("?amount=%1").arg(BitcoinUnits::format(BitcoinUnits::BTC, ui->lnReqAmount->value()));
+            // even if we allow a non ECO unit input in lnReqAmount, we generate the URI with ECO as unit (as defined in BIP21)
+            ret += QString("?amount=%1").arg(EcoinUnits::format(EcoinUnits::ECO, ui->lnReqAmount->value()));
             paramCount++;
         }
         else

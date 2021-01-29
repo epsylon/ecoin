@@ -1,10 +1,7 @@
-//
-// Alert system
-//
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <boost/foreach.hpp>
 #include <map>
-
 #include "alert.h"
 #include "key.h"
 #include "net.h"
@@ -16,9 +13,7 @@ using namespace std;
 map<uint256, CAlert> mapAlerts;
 CCriticalSection cs_mapAlerts;
 
-static const char* pszMainKey = "049b3c00249474820bc073896202bf04448e4391e445149b077d6eacccb9902d1b15e891fd8d24bfa43ccef05707797c6871292e145acbec6017d7d818b3748579";
-
-// TestNet alerts pubKey
+static const char* pszMainKey = "045d0773e7224ee40c6e69755c0343022b8f125f218a5ec5f6e57b31c00e182e048807d7e66548148795c1dfa4c972b6792ad41efea33111c5fc0d6c86fc0383f1";
 static const char* pszTestKey = "044d5253cb7c6fcb7b790365ac5aeeef359fc52de23f1ce9bffc092c16dd0372444b75ba328ddf4ebb73257e7c882c9bf81d86d1938ad36ac280214ba72aa9aca6";
 
 void CUnsignedAlert::SetNull()
@@ -50,8 +45,8 @@ std::string CUnsignedAlert::ToString() const
     return strprintf(
         "CAlert(\n"
         "    nVersion     = %d\n"
-        "    nRelayUntil  = %"PRI64d"\n"
-        "    nExpiration  = %"PRI64d"\n"
+        "    nRelayUntil  = %" PRI64d"\n"
+        "    nExpiration  = %" PRI64d"\n"
         "    nID          = %d\n"
         "    nCancel      = %d\n"
         "    setCancel    = %s\n"
@@ -112,7 +107,6 @@ bool CAlert::Cancels(const CAlert& alert) const
 
 bool CAlert::AppliesTo(int nVersion, std::string strSubVerIn) const
 {
-    // TODO: rework for client-version-embedded-in-strSubVer ?
     return (IsInEffect() &&
             nMinVer <= nVersion && nVersion <= nMaxVer &&
             (setSubVer.empty() || setSubVer.count(strSubVerIn)));
@@ -174,13 +168,6 @@ bool CAlert::ProcessAlert()
     if (!IsInEffect())
         return false;
 
-    // alert.nID=max is reserved for if the alert key is
-    // compromised. It must have a pre-defined message,
-    // must never expire, must apply to all versions,
-    // and must cancel all previous
-    // alerts or it will be ignored (so an attacker can't
-    // send an "everything is OK, don't panic" version that
-    // cannot be overridden):
     int maxInt = std::numeric_limits<int>::max();
     if (nID == maxInt)
     {

@@ -1,5 +1,5 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "monitoreddatamapper.h"
-
 #include <QWidget>
 #include <QMetaObject>
 #include <QMetaProperty>
@@ -8,7 +8,6 @@ MonitoredDataMapper::MonitoredDataMapper(QObject *parent) :
     QDataWidgetMapper(parent)
 {
 }
-
 
 void MonitoredDataMapper::addMapping(QWidget *widget, int section)
 {
@@ -24,8 +23,6 @@ void MonitoredDataMapper::addMapping(QWidget *widget, int section, const QByteAr
 
 void MonitoredDataMapper::addChangeMonitor(QWidget *widget)
 {
-    // Watch user property of widget for changes, and connect
-    //  the signal to our viewModified signal.
     QMetaProperty prop = widget->metaObject()->userProperty();
     int signal = prop.notifySignalIndex();
     int method = this->metaObject()->indexOfMethod("viewModified()");

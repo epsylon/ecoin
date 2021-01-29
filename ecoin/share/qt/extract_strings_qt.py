@@ -1,34 +1,25 @@
 #!/usr/bin/python
-'''
-Extract _("...") strings for translation and convert to Qt4 stringdefs so that
-they can be picked up by Qt linguist.
-'''
+# ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 from subprocess import Popen, PIPE
 import glob
 
-OUT_CPP="src/qt/bitcoinstrings.cpp"
+OUT_CPP="src/qt/ecoinstrings.cpp"
 EMPTY=['""']
 
 def parse_po(text):
-    """
-    Parse 'po' format produced by xgettext.
-    Return a list of (msgid,msgstr) tuples.
-    """
     messages = []
     msgid = []
     msgstr = []
     in_msgid = False
     in_msgstr = False
-
     for line in text.split('\n'):
         line = line.rstrip('\r')
         if line.startswith('msgid '):
             if in_msgstr:
                 messages.append((msgid, msgstr))
                 in_msgstr = False
-            # message start
             in_msgid = True
-            
             msgid = [line[6:]]
         elif line.startswith('msgstr '):
             in_msgid = False
@@ -39,15 +30,12 @@ def parse_po(text):
                 msgid.append(line)
             if in_msgstr:
                 msgstr.append(line)
-
     if in_msgstr:
         messages.append((msgid, msgstr))
-
     return messages
 
 files = glob.glob('src/*.cpp') + glob.glob('src/*.h') 
 
-# xgettext -n --keyword=_ $FILES
 child = Popen(['xgettext','--output=-','-n','--keyword=_'] + files, stdout=PIPE)
 (out, err) = child.communicate()
 
@@ -62,9 +50,9 @@ f.write("""#include <QtGlobal>
 #define UNUSED
 #endif
 """)
-f.write('static const char UNUSED *bitcoin_strings[] = {')
+f.write('static const char UNUSED *ecoin_strings[] = {')
 for (msgid, msgstr) in messages:
     if msgid != EMPTY:
-        f.write('QT_TRANSLATE_NOOP("bitcoin-core", %s),\n' % ('\n'.join(msgid)))
+        f.write('QT_TRANSLATE_NOOP("ecoin-core", %s),\n' % ('\n'.join(msgid)))
 f.write('};')
 f.close()

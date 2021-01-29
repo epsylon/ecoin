@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "transactiontablemodel.h"
 #include "guiutil.h"
 #include "transactionrecord.h"
@@ -6,11 +7,9 @@
 #include "walletmodel.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
-#include "bitcoinunits.h"
-
+#include "ecoinunits.h"
 #include "wallet.h"
 #include "ui_interface.h"
-
 #include <QLocale>
 #include <QList>
 #include <QColor>
@@ -57,14 +56,8 @@ public:
     CWallet *wallet;
     TransactionTableModel *parent;
 
-    /* Local cache of wallet.
-     * As it is in the same order as the CWallet, by definition
-     * this is sorted by sha256.
-     */
     QList<TransactionRecord> cachedWallet;
 
-    /* Query entire wallet anew from core.
-     */
     void refreshWallet()
     {
         OutputDebugStringF("refreshWallet\n");
@@ -79,11 +72,6 @@ public:
         }
     }
 
-    /* Update our model of the wallet incrementally, to synchronize our model of the wallet
-       with that of the core.
-
-       Call with transaction that was added, removed or changed.
-     */
     void updateWallet(const uint256 &hash, int status)
     {
         OutputDebugStringF("updateWallet %s %i\n", hash.ToString().c_str(), status);
@@ -160,8 +148,6 @@ public:
                 parent->endRemoveRows();
                 break;
             case CT_UPDATED:
-                // Miscellaneous updates -- nothing to do, status update will take care of this, and is only computed for
-                // visible transactions.
                 break;
             }
         }
@@ -178,9 +164,6 @@ public:
         {
             TransactionRecord *rec = &cachedWallet[idx];
 
-            // If a status update is needed (blocks came in since last check),
-            //  update the status of this transaction from the wallet. Otherwise,
-            // simply re-use the cached status.
             if(rec->statusUpdateNeeded())
             {
                 {
@@ -252,10 +235,6 @@ void TransactionTableModel::updateConfirmations()
     if(nBestHeight != cachedNumBlocks)
     {
         cachedNumBlocks = nBestHeight;
-        // Blocks came in since last poll.
-        // Invalidate status (number of confirmations) and (possibly) description
-        //  for all rows. Qt is smart enough to only actually request the data for the
-        //  visible rows.
         emit dataChanged(index(0, Status), index(priv->size()-1, Status));
         emit dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
     }
@@ -329,9 +308,6 @@ QString TransactionTableModel::formatTxDate(const TransactionRecord *wtx) const
     }
 }
 
-/* Look up address in address book, if found return label (address)
-   otherwise just return (address)
- */
 QString TransactionTableModel::lookupAddress(const std::string &address, bool tooltip) const
 {
     QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(address));
@@ -426,7 +402,7 @@ QVariant TransactionTableModel::addressColor(const TransactionRecord *wtx) const
 
 QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed) const
 {
-    QString str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
+    QString str = EcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
     if(showUnconfirmed)
     {
         if(!wtx->status.confirmed || wtx->status.maturity != TransactionStatus::Mature)

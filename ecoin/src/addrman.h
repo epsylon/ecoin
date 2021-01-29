@@ -1,20 +1,14 @@
-// Copyright (c) 2012 Pieter Wuille
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef _BITCOIN_ADDRMAN
-#define _BITCOIN_ADDRMAN 1
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef _ECOIN_ADDRMAN
+#define _ECOIN_ADDRMAN 1
 
 #include "netbase.h"
 #include "protocol.h"
 #include "util.h"
 #include "sync.h"
-
-
 #include <map>
 #include <vector>
-
 #include <openssl/rand.h>
-
 
 /** Extended statistics about a CAddress */
 class CAddrInfo : public CAddress
@@ -93,32 +87,6 @@ public:
 
 };
 
-// Stochastic address manager
-//
-// Design goals:
-//  * Only keep a limited number of addresses around, so that addr.dat and memory requirements do not grow without bound.
-//  * Keep the address tables in-memory, and asynchronously dump the entire to able in addr.dat.
-//  * Make sure no (localized) attacker can fill the entire table with his nodes/addresses.
-//
-// To that end:
-//  * Addresses are organized into buckets.
-//    * Address that have not yet been tried go into 256 "new" buckets.
-//      * Based on the address range (/16 for IPv4) of source of the information, 32 buckets are selected at random
-//      * The actual bucket is chosen from one of these, based on the range the address itself is located.
-//      * One single address can occur in up to 4 different buckets, to increase selection chances for addresses that
-//        are seen frequently. The chance for increasing this multiplicity decreases exponentially.
-//      * When adding a new address to a full bucket, a randomly chosen entry (with a bias favoring less recently seen
-//        ones) is removed from it first.
-//    * Addresses of nodes that are known to be accessible go into 64 "tried" buckets.
-//      * Each address range selects at random 4 of these buckets.
-//      * The actual bucket is chosen from one of these, based on the full address.
-//      * When adding a new good address to a full bucket, a randomly chosen entry (with a bias favoring less recently
-//        tried ones) is evicted from it, back to the "new" buckets.
-//    * Bucket selection is based on cryptographic hashing, using a randomly-generated 256-bit key, which should not
-//      be observable by adversaries.
-//    * Several indexes are kept for high performance. Defining DEBUG_ADDRMAN will introduce frequent (and expensive)
-//      consistency checks for the entire data structure.
-
 // total number of buckets for tried addresses
 #define ADDRMAN_TRIED_BUCKET_COUNT 64
 
@@ -196,7 +164,6 @@ private:
     std::vector<std::set<int> > vvNew;
 
 protected:
-
     // Find an entry.
     CAddrInfo* Find(const CNetAddr& addr, int *pnId = NULL);
 
@@ -244,29 +211,8 @@ protected:
     void Connected_(const CService &addr, int64 nTime);
 
 public:
-
     IMPLEMENT_SERIALIZE
     (({
-        // serialized format:
-        // * version byte (currently 0)
-        // * nKey
-        // * nNew
-        // * nTried
-        // * number of "new" buckets
-        // * all nNew addrinfos in vvNew
-        // * all nTried addrinfos in vvTried
-        // * for each bucket:
-        //   * number of elements
-        //   * for each element: index
-        //
-        // Notice that vvTried, mapAddr and vVector are never encoded explicitly;
-        // they are instead reconstructed from the other information.
-        //
-        // vvNew is serialized, but only used if ADDRMAN_UNKOWN_BUCKET_COUNT didn't change,
-        // otherwise it is reconstructed as well.
-        //
-        // This format is more complex, but significantly smaller (at most 1.5 MiB), and supports
-        // changes to the ADDRMAN_ parameters without breaking the on-disk structure.
         {
             LOCK(cs);
             unsigned char nVersion = 0;

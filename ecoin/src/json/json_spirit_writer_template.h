@@ -1,13 +1,8 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef JSON_SPIRIT_WRITER_TEMPLATE
 #define JSON_SPIRIT_WRITER_TEMPLATE
 
-//          Copyright John W. Wilkinson 2007 - 2009.
-// Distributed under the MIT License, see accompanying file LICENSE.txt
-
-// json spirit version 4.03
-
 #include "json_spirit_value.h"
-
 #include <cassert>
 #include <sstream>
 #include <iomanip>
@@ -90,9 +85,6 @@ namespace json_spirit
         return result;
     }
 
-    // this class generates the JSON text,
-    // it keeps track of the indentation level etc.
-    //
     template< class Value_type, class Ostream_type >
     class Generator
     {
@@ -124,8 +116,6 @@ namespace json_spirit
                 case str_type:   output( value.get_str() );   break;
                 case bool_type:  output( value.get_bool() );  break;
                 case int_type:   output_int( value );         break;
-
-                /// Bitcoin: Added std::fixed and changed precision from 16 to 8
                 case real_type:  os_ << std::showpoint << std::fixed << std::setprecision(8)
                                      << value.get_real();     break;
 

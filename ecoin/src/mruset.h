@@ -1,13 +1,11 @@
-// Copyright (c) 2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_MRUSET_H
-#define BITCOIN_MRUSET_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+#ifndef ECOIN_MRUSET_H
+#define ECOIN_MRUSET_H
 
 #include <set>
 #include <deque>
 
-/** STL-like set container that only keeps the most recent N elements. */
 template <typename T> class mruset
 {
 public:

@@ -1,12 +1,10 @@
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_NETBASE_H
-#define BITCOIN_NETBASE_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+#ifndef ECOIN_NETBASE_H
+#define ECOIN_NETBASE_H
 
 #include <string>
 #include <vector>
-
 #include "serialize.h"
 #include "compat.h"
 
@@ -31,7 +29,6 @@ enum Network
 extern int nConnectTimeout;
 extern bool fNameLookup;
 
-/** IP address (IPv6, or IPv4 using mapped IPv6 range (::FFFF:0:0/96)) */
 class CNetAddr
 {
     protected:
@@ -88,7 +85,6 @@ class CNetAddr
             )
 };
 
-/** A combination of a network address (CNetAddr) and a (TCP) port */
 class CService : public CNetAddr
 {
     protected:

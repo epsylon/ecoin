@@ -1,4 +1,5 @@
 #!/bin/sh
+# ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 if [ $# -gt 0 ]; then
     FILE="$1"
@@ -12,13 +13,8 @@ else
 fi
 
 if [ -e "$(which git)" ]; then
-    # clean 'dirty' status of touched files that haven't been modified
     git diff >/dev/null 2>/dev/null 
-
-    # get a string like "v0.6.0-66-g59887e8-dirty"
     DESC="$(git describe --dirty 2>/dev/null)"
-
-    # get a string like "2012-04-10 16:27:19 +0200"
     TIME="$(git log -n 1 --format="%ci")"
 fi
 
@@ -28,7 +24,6 @@ else
     NEWINFO="// No build information available"
 fi
 
-# only update build.h if necessary
 if [ "$INFO" != "$NEWINFO" ]; then
     echo "$NEWINFO" >"$FILE"
     echo "#define BUILD_DATE \"$TIME\"" >>"$FILE"

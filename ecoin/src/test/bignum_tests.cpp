@@ -1,6 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include <boost/test/unit_test.hpp>
 #include <limits>
-
 #include "bignum.h"
 #include "util.h"
 

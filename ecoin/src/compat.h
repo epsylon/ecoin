@@ -1,9 +1,6 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef _BITCOIN_COMPAT_H
-#define _BITCOIN_COMPAT_H 1
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+#ifndef _ECOIN_COMPAT_H
+#define _ECOIN_COMPAT_H 1
 
 #ifdef WIN32
 #define _WIN32_WINNT 0x0501
@@ -26,7 +23,6 @@
 
 typedef u_int SOCKET;
 #endif
-
 
 #ifdef WIN32
 #define MSG_NOSIGNAL        0
@@ -60,6 +56,5 @@ inline int myclosesocket(SOCKET& hSocket)
     return ret;
 }
 #define closesocket(s)      myclosesocket(s)
-
 
 #endif

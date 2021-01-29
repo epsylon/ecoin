@@ -1,8 +1,8 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <map>
 #include <string>
 #include <boost/test/unit_test.hpp>
 #include "json/json_spirit_writer_template.h"
-
 #include "main.h"
 #include "wallet.h"
 

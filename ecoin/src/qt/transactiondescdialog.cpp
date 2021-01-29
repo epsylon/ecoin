@@ -1,8 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "transactiondescdialog.h"
 #include "ui_transactiondescdialog.h"
-
 #include "transactiontablemodel.h"
-
 #include <QModelIndex>
 
 TransactionDescDialog::TransactionDescDialog(const QModelIndex &idx, QWidget *parent) :

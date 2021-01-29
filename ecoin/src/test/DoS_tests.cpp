@@ -1,18 +1,14 @@
-//
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 // Unit tests for denial-of-service detection/prevention code
-//
 #include <algorithm>
-
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/foreach.hpp>
-
 #include "main.h"
 #include "wallet.h"
 #include "net.h"
 #include "util.h"
-
 #include <stdint.h>
 
 // Tests this internal-to-main.cpp method:
@@ -99,7 +95,7 @@ BOOST_AUTO_TEST_CASE(DoS_checknbits)
 {
     using namespace boost::assign; // for 'map_list_of()'
 
-    // Timestamps,nBits from the bitcoin blockchain.
+    // Timestamps,nBits from the ecoin blockchain.
     // These are the block-chain checkpoint blocks
     typedef std::map<int64, unsigned int> BlockData;
     BlockData chainData =

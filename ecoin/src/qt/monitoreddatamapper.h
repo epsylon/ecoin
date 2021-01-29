@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef MONITOREDDATAMAPPER_H
 #define MONITOREDDATAMAPPER_H
 
@@ -7,9 +8,6 @@ QT_BEGIN_NAMESPACE
 class QWidget;
 QT_END_NAMESPACE
 
-/** Data to Widget mapper that watches for edits and notifies listeners when a field is edited.
-   This can be used, for example, to enable a commit/apply button in a configuration dialog.
- */
 class MonitoredDataMapper : public QDataWidgetMapper
 {
     Q_OBJECT
@@ -25,7 +23,5 @@ signals:
     void viewModified();
 
 };
-
-
 
 #endif // MONITOREDDATAMAPPER_H

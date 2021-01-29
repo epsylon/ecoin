@@ -1,7 +1,4 @@
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/version.hpp>
 #if defined(WIN32) && BOOST_VERSION == 104900
 #define BOOST_INTERPROCESS_HAS_WINDOWS_KERNEL_BOOTTIME
@@ -12,7 +9,6 @@
 #include "guiconstants.h"
 #include "ui_interface.h"
 #include "util.h"
-
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/interprocess/ipc/message_queue.hpp>
@@ -46,7 +42,7 @@ static bool ipcScanCmd(int argc, char *argv[], bool fRelay)
         {
             const char *strURI = argv[i];
             try {
-                boost::interprocess::message_queue mq(boost::interprocess::open_only, BITCOINURI_QUEUE_NAME);
+                boost::interprocess::message_queue mq(boost::interprocess::open_only, ECOINURI_QUEUE_NAME);
                 if (mq.try_send(strURI, strlen(strURI), 0))
                     fSent = true;
                 else if (fRelay)
@@ -75,7 +71,7 @@ void ipcScanRelay(int argc, char *argv[])
 static void ipcThread(void* pArg)
 {
     // Make this thread recognisable as the GUI-IPC thread
-    RenameThread("bitcoin-gui-ipc");
+    RenameThread("ecoin-gui-ipc");
 	
     try
     {
@@ -112,7 +108,7 @@ static void ipcThread2(void* pArg)
     }
 
     // Remove message queue
-    message_queue::remove(BITCOINURI_QUEUE_NAME);
+    message_queue::remove(ECOINURI_QUEUE_NAME);
     // Cleanup allocated memory
     delete mq;
 }
@@ -125,9 +121,9 @@ void ipcInit(int argc, char *argv[])
     unsigned int nPriority = 0;
 
     try {
-        mq = new message_queue(open_or_create, BITCOINURI_QUEUE_NAME, 2, MAX_URI_LENGTH);
+        mq = new message_queue(open_or_create, ECOINURI_QUEUE_NAME, 2, MAX_URI_LENGTH);
 
-        // Make sure we don't lose any bitcoin: URIs
+        // Make sure we don't lose any ecoin: URIs
         for (int i = 0; i < 2; i++)
         {
             ptime d = boost::posix_time::microsec_clock::universal_time() + millisec(1);
@@ -139,11 +135,11 @@ void ipcInit(int argc, char *argv[])
                 break;
         }
 
-        // Make sure only one bitcoin instance is listening
-        message_queue::remove(BITCOINURI_QUEUE_NAME);
+        // Make sure only one ecoin instance is listening
+        message_queue::remove(ECOINURI_QUEUE_NAME);
         delete mq;
 
-        mq = new message_queue(open_or_create, BITCOINURI_QUEUE_NAME, 2, MAX_URI_LENGTH);
+        mq = new message_queue(open_or_create, ECOINURI_QUEUE_NAME, 2, MAX_URI_LENGTH);
     }
     catch (interprocess_exception &ex) {
         printf("ipcInit() - boost interprocess exception #%d: %s\n", ex.get_error_code(), ex.what());

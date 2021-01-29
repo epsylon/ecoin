@@ -41,7 +41,7 @@ public:
 	/**Generates a proof spending a zerocoin.
 	 *
 	 * To use this, provide an unspent PrivateCoin, the latest Accumulator
-	 * (e.g from the most recent Bitcoin block) containing the public part
+	 * (e.g from the most recent Ecoin block) containing the public part
 	 * of the coin, a witness to that, and whatever medeta data is needed.
 	 *
 	 * Once constructed, this proof can be serialized and sent.
@@ -58,7 +58,7 @@ public:
 	 * @param coin The coin to be spend
 	 * @param a The current accumulator containing the coin
 	 * @param witness The witness showing that the accumulator contains the coin
-	 * @param m arbitrary meta data related to the spend that might be needed by Bitcoin
+	 * @param m arbitrary meta data related to the spend that might be needed by Ecoin
 	 * 			(i.e. the transaction hash)
 	 * @throw ZerocoinException if the process fails
 	 */

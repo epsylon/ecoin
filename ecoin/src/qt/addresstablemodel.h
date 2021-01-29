@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef ADDRESSTABLEMODEL_H
 #define ADDRESSTABLEMODEL_H
 
@@ -8,9 +9,6 @@ class AddressTablePriv;
 class CWallet;
 class WalletModel;
 
-/**
-   Qt model of the address book in the core. This allows views to access and modify the address book.
- */
 class AddressTableModel : public QAbstractTableModel
 {
     Q_OBJECT
@@ -20,7 +18,7 @@ public:
 
     enum ColumnIndex {
         Label = 0,   /**< User specified label */
-        Address = 1  /**< Bitcoin address */
+        Address = 1  /**< Ecoin address */
     };
 
     enum RoleIndex {
@@ -40,8 +38,6 @@ public:
     static const QString Send;      /**< Specifies send address */
     static const QString Receive;   /**< Specifies receive address */
 
-    /** @name Methods overridden from QAbstractTableModel
-        @{*/
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
@@ -50,22 +46,9 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const;
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
     Qt::ItemFlags flags(const QModelIndex &index) const;
-    /*@}*/
-
-    /* Add an address to the model.
-       Returns the added address on success, and an empty string otherwise.
-     */
     QString addRow(const QString &type, const QString &label, const QString &address);
-
-    /* Look up label for address in address book, if not found return empty string.
-     */
     QString labelForAddress(const QString &address) const;
-
-    /* Look up row index of an address in the model.
-       Return -1 if not found.
-     */
     int lookupAddress(const QString &address) const;
-
     EditStatus getEditStatus() const { return editStatus; }
 
 private:
@@ -74,16 +57,12 @@ private:
     AddressTablePriv *priv;
     QStringList columns;
     EditStatus editStatus;
-
-    /** Notify listeners that data changed. */
     void emitDataChanged(int index);
 
 signals:
     void defaultAddressChanged(const QString &address);
 
 public slots:
-    /* Update address list from core.
-     */
     void updateEntry(const QString &address, const QString &label, bool isMine, int status);
 
     friend class AddressTablePriv;

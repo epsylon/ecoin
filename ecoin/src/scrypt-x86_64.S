@@ -1,3 +1,5 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 # Copyright 2011-2012 pooler@litecoinpool.org
 # All rights reserved.
 #

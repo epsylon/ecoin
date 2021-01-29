@@ -1,0 +1,23 @@
+
+ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
+=========================================================
+# TRANSLATIONS - ECOlogical P2P Crypto-Currency (ECOin) #
+=========================================================
+
+       ---------------------------------------------------
+	NAME	 		LANGUAGE
+       --------------------------------------------------
+	 en 			 English
+	 ru 		         Russian
+	 ca			 Catalan
+	 de			 German
+         es			 Spanish
+	 es_EU			 Basque
+         fr			 French
+         it			 Italian
+         pt			 Portuguese
+         zh_CN			 Chinese
+
+=========================================================
+

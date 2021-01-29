@@ -1,11 +1,10 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/test/unit_test.hpp>
-
 #include "main.h"
 #include "wallet.h"
 #include "util.h"
 
 BOOST_AUTO_TEST_SUITE(base64_tests)
-
 BOOST_AUTO_TEST_CASE(base64_testvectors)
 {
     static const std::string vstrIn[]  = {"","f","fo","foo","foob","fooba","foobar"};

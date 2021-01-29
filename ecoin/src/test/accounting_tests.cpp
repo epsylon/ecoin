@@ -1,7 +1,6 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/test/unit_test.hpp>
-
 #include <boost/foreach.hpp>
-
 #include "init.h"
 #include "wallet.h"
 #include "walletdb.h"
@@ -57,7 +56,6 @@ BOOST_AUTO_TEST_CASE(acc_orderupgrade)
     BOOST_CHECK(results[2].nTime == 1333333336);
     BOOST_CHECK(results[2].strOtherAccount == "c");
 
-
     ae.nTime = 1333333330;
     ae.strOtherAccount = "d";
     ae.nOrderPos = pwalletMain->IncOrderPosNext();
@@ -72,7 +70,6 @@ BOOST_AUTO_TEST_CASE(acc_orderupgrade)
     BOOST_CHECK(results[2].nTime == 1333333336);
     BOOST_CHECK(results[3].nTime == 1333333330);
     BOOST_CHECK(results[3].strComment.empty());
-
 
     wtx.mapValue["comment"] = "y";
     --wtx.nLockTime;  // Just to change the hash :)
@@ -98,7 +95,6 @@ BOOST_AUTO_TEST_CASE(acc_orderupgrade)
     BOOST_CHECK(results[4].nTime == 1333333330);
     BOOST_CHECK(results[4].strComment.empty());
     BOOST_CHECK(5 == vpwtx[1]->nOrderPos);
-
 
     ae.nTime = 1333333334;
     ae.strOtherAccount = "e";

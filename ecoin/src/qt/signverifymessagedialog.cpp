@@ -1,6 +1,6 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "signverifymessagedialog.h"
 #include "ui_signverifymessagedialog.h"
-
 #include "addressbookpage.h"
 #include "base58.h"
 #include "guiutil.h"
@@ -9,10 +9,8 @@
 #include "optionsmodel.h"
 #include "walletmodel.h"
 #include "wallet.h"
-
 #include <string>
 #include <vector>
-
 #include <QClipboard>
 
 SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget *parent) :
@@ -23,7 +21,6 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget *parent) :
     ui->setupUi(this);
 
 #if (QT_VERSION >= 0x040700)
-    /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->addressIn_SM->setPlaceholderText(tr("Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)"));
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 
@@ -41,8 +38,8 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget *parent) :
     ui->messageIn_VM->installEventFilter(this);
     ui->signatureIn_VM->installEventFilter(this);
 
-    ui->signatureOut_SM->setFont(GUIUtil::bitcoinAddressFont());
-    ui->signatureIn_VM->setFont(GUIUtil::bitcoinAddressFont());
+    ui->signatureOut_SM->setFont(GUIUtil::ecoinAddressFont());
+    ui->signatureIn_VM->setFont(GUIUtil::ecoinAddressFont());
 }
 
 SignVerifyMessageDialog::~SignVerifyMessageDialog()
@@ -105,7 +102,7 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     /* Clear old signature to ensure users don't get confused on error with an old signature displayed */
     ui->signatureOut_SM->clear();
 
-    CBitcoinAddress addr(ui->addressIn_SM->text().toStdString());
+    CEcoinAddress addr(ui->addressIn_SM->text().toStdString());
     if (!addr.IsValid())
     {
         ui->addressIn_SM->setValid(false);
@@ -186,7 +183,7 @@ void SignVerifyMessageDialog::on_addressBookButton_VM_clicked()
 
 void SignVerifyMessageDialog::on_verifyMessageButton_VM_clicked()
 {
-    CBitcoinAddress addr(ui->addressIn_VM->text().toStdString());
+    CEcoinAddress addr(ui->addressIn_VM->text().toStdString());
     if (!addr.IsValid())
     {
         ui->addressIn_VM->setValid(false);
@@ -227,7 +224,7 @@ void SignVerifyMessageDialog::on_verifyMessageButton_VM_clicked()
         return;
     }
 
-    if (!(CBitcoinAddress(key.GetPubKey().GetID()) == addr))
+    if (!(CEcoinAddress(key.GetPubKey().GetID()) == addr))
     {
         ui->statusLabel_VM->setStyleSheet("QLabel { color: red; }");
         ui->statusLabel_VM->setText(QString("<nobr>") + tr("Message verification failed.") + QString("</nobr>"));

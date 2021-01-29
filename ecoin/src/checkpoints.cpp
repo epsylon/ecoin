@@ -1,12 +1,7 @@
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/foreach.hpp>
-
 #include "checkpoints.h"
-
 #include "txdb.h"
 #include "main.h"
 #include "uint256.h"
@@ -15,22 +10,14 @@ namespace Checkpoints
 {
     typedef std::map<int, std::pair<uint256, unsigned int> > MapCheckpoints;
 
-    //
-    // What makes a good checkpoint block?
-    // + Is surrounded by blocks with reasonable timestamps
-    //   (no blocks before with a timestamp after, none after with
-    //    timestamp before)
-    // + Contains no strange transactions
-    //
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0, std::make_pair(hashGenesisBlock, 1429316424) )
+        ( 0, std::make_pair(hashGenesisBlock, 1610833657) )
     ;
 
-    // TestNet has no checkpoints
     static MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
-        ( 0, std::make_pair(hashGenesisBlockTestNet, 1429316424) )
+        ( 0, std::make_pair(hashGenesisBlockTestNet, 1610833657) )
     ;
 
     bool CheckHardened(int nHeight, const uint256& hash)
@@ -102,9 +89,6 @@ namespace Checkpoints
 
         if (pindexCheckpointRecv->nHeight <= pindexSyncCheckpoint->nHeight)
         {
-            // Received an older checkpoint, trace back from current checkpoint
-            // to the same height of the received checkpoint to verify
-            // that current checkpoint should be a descendant block
             CBlockIndex* pindex = pindexSyncCheckpoint;
             while (pindex->nHeight > pindexCheckpointRecv->nHeight)
                 if (!(pindex = pindex->pprev))
@@ -117,9 +101,6 @@ namespace Checkpoints
             return false; // ignore older checkpoint
         }
 
-        // Received checkpoint should be a descendant block of the current
-        // checkpoint. Trace back to the same height of current checkpoint
-        // to verify.
         CBlockIndex* pindex = pindexCheckpointRecv;
         while (pindex->nHeight > pindexSyncCheckpoint->nHeight)
             if (!(pindex = pindex->pprev))
@@ -354,7 +335,7 @@ namespace Checkpoints
 }
 
 // ecoin: sync-checkpoint master key
-const std::string CSyncCheckpoint::strMasterPubKey = "04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f";
+const std::string CSyncCheckpoint::strMasterPubKey = "045d0773e7224ee40c6e69755c0343022b8f125f218a5ec5f6e57b31c00e182e048807d7e66548148795c1dfa4c972b6792ad41efea33111c5fc0d6c86fc0383f1";
 
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 

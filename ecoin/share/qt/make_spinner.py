@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-# W.J. van der Laan, 2011
-# Make spinning .mng animation from a .png
+# ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 # Requires imagemagick 6.7+
 from __future__ import division
 from os import path

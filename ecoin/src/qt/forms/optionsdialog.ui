@@ -59,7 +59,7 @@
           </widget>
          </item>
          <item>
-          <widget class="BitcoinAmountField" name="transactionFee"/>
+          <widget class="EcoinAmountField" name="transactionFee"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_Main">
@@ -77,7 +77,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="bitcoinAtStartup">
+        <widget class="QCheckBox" name="ecoinAtStartup">
          <property name="toolTip">
           <string>Automatically start Ecoin after logging in to the system.</string>
          </property>
@@ -450,9 +450,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>BitcoinAmountField</class>
+   <class>EcoinAmountField</class>
    <extends>QSpinBox</extends>
-   <header>bitcoinamountfield.h</header>
+   <header>ecoinamountfield.h</header>
   </customwidget>
   <customwidget>
    <class>QValueComboBox</class>

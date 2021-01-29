@@ -1,3 +1,4 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #ifndef TRANSACTIONDESC_H
 #define TRANSACTIONDESC_H
 
@@ -8,8 +9,7 @@
 class CWallet;
 class CWalletTx;
 
-/** Provide a human-readable extended HTML description of a transaction.
- */
+/** Provide a human-readable extended HTML description of a transaction.*/
 class TransactionDesc: public QObject
 {
     Q_OBJECT

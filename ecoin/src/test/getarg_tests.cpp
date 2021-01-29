@@ -1,7 +1,7 @@
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
 #include <boost/test/unit_test.hpp>
-
 #include "util.h"
 
 BOOST_AUTO_TEST_SUITE(getarg_tests)
@@ -13,7 +13,7 @@ ResetArgs(const std::string& strArg)
     boost::split(vecArg, strArg, boost::is_space(), boost::token_compress_on);
 
     // Insert dummy executable name:
-    vecArg.insert(vecArg.begin(), "testbitcoin");
+    vecArg.insert(vecArg.begin(), "testecoin");
 
     // Convert to char*:
     std::vector<const char*> vecChar;

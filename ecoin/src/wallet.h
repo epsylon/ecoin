@@ -1,15 +1,11 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin, Novacoin, and Ecoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef BITCOIN_WALLET_H
-#define BITCOIN_WALLET_H
+// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
+#ifndef ECOIN_WALLET_H
+#define ECOIN_WALLET_H
 
 #include <string>
 #include <vector>
-
 #include <stdlib.h>
-
 #include "main.h"
 #include "key.h"
 #include "keystore.h"
@@ -156,19 +152,11 @@ public:
 
     void GetKeyBirthTimes(std::map<CKeyID, int64> &mapKeyBirth) const;
 
-
-    /** Increment the next transaction order id
-        @return next transaction order id
-     */
     int64 IncOrderPosNext(CWalletDB *pwalletdb = NULL);
 
     typedef std::pair<CWalletTx*, CAccountingEntry*> TxPair;
     typedef std::multimap<int64, TxPair > TxItems;
 
-    /** Get the wallet's activity log
-        @return multimap of ordered transactions and accounting entries
-        @warning Returned pointers are *only* valid within the scope of passed acentries
-     */
     TxItems OrderedTxItems(std::list<CAccountingEntry>& acentries, std::string strAccount = "");
 
     void MarkDirty();
@@ -314,14 +302,8 @@ public:
     void FixSpentCoins(int& nMismatchSpent, int64& nBalanceInQuestion, bool fCheckOnly = false);
     void DisableTransaction(const CTransaction &tx);
 
-    /** Address book entry changed.
-     * @note called with lock cs_wallet held.
-     */
     boost::signals2::signal<void (CWallet *wallet, const CTxDestination &address, const std::string &label, bool isMine, ChangeType status)> NotifyAddressBookChanged;
 
-    /** Wallet transaction added, removed or updated.
-     * @note called with lock cs_wallet held.
-     */
     boost::signals2::signal<void (CWallet *wallet, const uint256 &hashTx, ChangeType status)> NotifyTransactionChanged;
 };
 
@@ -373,9 +355,6 @@ static void WriteOrderPos(const int64& nOrderPos, mapValue_t& mapValue)
 }
 
 
-/** A transaction with a bunch of additional info that only the owner cares about.
- * It includes any unrecorded transactions needed to link it back to the block chain.
- */
 class CWalletTx : public CMerkleTx
 {
 private:
@@ -701,9 +680,6 @@ public:
     void RelayWalletTransaction();
 };
 
-
-
-
 class COutput
 {
 public:
@@ -728,8 +704,6 @@ public:
 };
 
 
-
-
 /** Private key that includes an expiration date in case it never gets used. */
 class CWalletKey
 {
@@ -738,8 +712,6 @@ public:
     int64 nTimeCreated;
     int64 nTimeExpires;
     std::string strComment;
-    //// todo: add something to note what created it (user, getnewaddress, change)
-    ////   maybe should have a map<string, string> property map
 
     CWalletKey(int64 nExpires=0)
     {
@@ -757,10 +729,6 @@ public:
         READWRITE(strComment);
     )
 };
-
-
-
-
 
 
 /** Account information.
