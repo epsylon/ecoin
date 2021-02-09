@@ -7,7 +7,7 @@
 
  + https://ecoin.03c8.net
 
-####  Blockchain:   
+####  Blockchain Explorer:   
 
  + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
 
@@ -17,9 +17,13 @@
 
 #### Description:
 
- ECOin is a P2P crypto-currency with the goal of providing a long-term energy-efficient digital economy strategy.
+ [ECOin](https://ecoin.03c8.net) is a P2P crypto-currency with the goal of providing a long-term energy-efficient digital economy strategy.
 
- It uses -[SCRYPT algorithm](https://en.wikipedia.org/wiki/Scrypt)- and implements 3 different mining systems: [Proof-Of-Work](https://en.wikipedia.org/wiki/Proof_of_work), [Proof-Of-Stake](https://en.wikipedia.org/wiki/Proof_of_stake) and [Proof-Of-Transaction](https://cryptoticker.io/en/proof-transaction/).
+ It uses -[SCRYPT algorithm](https://en.wikipedia.org/wiki/Scrypt)- and implements 3 different mining systems: 
+
+ + [Proof-Of-Work](https://en.wikipedia.org/wiki/Proof_of_work)
+ + [Proof-Of-Stake](https://en.wikipedia.org/wiki/Proof_of_stake) 
+ + [Proof-Of-Transaction](https://cryptoticker.io/en/proof-transaction/)
 
  There is no maximum number of coins, through the estimated coinbase size will be roughly [225 million ECO].
 
@@ -46,7 +50,7 @@
 
 #### License:
 
- ECOin is a free software released under the GPLv3.
+ [ECOin](https://ecoin.03c8.net) is a free software released under the [GPLv3](https://www.gnu.org/licenses/quick-guide-gplv3.en.html).
 
 ----------
 
