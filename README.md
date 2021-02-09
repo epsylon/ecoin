@@ -9,7 +9,7 @@
 
 ####  Blockchain:   
 
- + https://ecoin.03c8.net/#blockexplorer
+ + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
 
 ![c](https://ecoin.03c8.net/ecoin/ecoin-blockexplorer.png)
 
