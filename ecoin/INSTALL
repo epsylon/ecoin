@@ -79,7 +79,7 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
         server=1
         daemon=1
         testnet=0
-	addnode = 176.28.23.46 # 03c8.net
+	addnode = 46.163.118.220 # 03c8.net (turina.space)
 
      ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
 
