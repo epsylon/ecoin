@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
-* @file       Zerocoin.h
-*
-* @brief      Exceptions and constants for Zerocoin
-*
-* @author     Ian Miers, Christina Garman and Matthew Green
-* @date       June 2013
-*
-* @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-* @license    This project is released under the MIT license.
-**/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef ZEROCOIN_H_
 #define ZEROCOIN_H_

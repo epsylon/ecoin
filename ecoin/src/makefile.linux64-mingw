@@ -1,7 +1,4 @@
-# ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-# Copyright (c) 2009-2010 Satoshi Nakamoto
-# Distributed under the MIT/X11 software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+# ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #TARGET_PLATFORM:=i686
 TARGET_PLATFORM:=x86_64

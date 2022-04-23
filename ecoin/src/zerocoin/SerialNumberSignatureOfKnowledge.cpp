@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
-* @file       SerialNumberSignatureOfKnowledge.cpp
-*
-* @brief      SerialNumberSignatureOfKnowledge class for the Zerocoin library.
-*
-* @author     Ian Miers, Christina Garman and Matthew Green
-* @date       June 2013
-*
-* @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-* @license    This project is released under the MIT license.
-**/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "Zerocoin.h"
 
@@ -30,25 +19,25 @@ SerialNumberSignatureOfKnowledge::SerialNumberSignatureOfKnowledge(const
 		throw ZerocoinException("Groups are not structured correctly.");
 	}
 
-	Bignum a = params->coinCommitmentGroup.g;
-	Bignum b = params->coinCommitmentGroup.h;
-	Bignum g = params->serialNumberSoKCommitmentGroup.g;
-	Bignum h = params->serialNumberSoKCommitmentGroup.h;
+	CBigNum a = params->coinCommitmentGroup.g;
+	CBigNum b = params->coinCommitmentGroup.h;
+	CBigNum g = params->serialNumberSoKCommitmentGroup.g;
+	CBigNum h = params->serialNumberSoKCommitmentGroup.h;
 
 	CHashWriter hasher(0,0);
 	hasher << *params << commitmentToCoin.getCommitmentValue() << coin.getSerialNumber();
 
-	vector<Bignum> r(params->zkp_iterations);
-	vector<Bignum> v(params->zkp_iterations);
-	vector<Bignum> c(params->zkp_iterations);
+	vector<CBigNum> r(params->zkp_iterations);
+	vector<CBigNum> v(params->zkp_iterations);
+	vector<CBigNum> c(params->zkp_iterations);
 
 
 	for(uint32_t i=0; i < params->zkp_iterations; i++) {
 		//FIXME we really ought to use one BN_CTX for all of these
 		// operations for performance reasons, not the one that
 		// is created individually  by the wrapper
-		r[i] = Bignum::randBignum(params->coinCommitmentGroup.groupOrder);
-		v[i] = Bignum::randBignum(params->serialNumberSoKCommitmentGroup.groupOrder);
+		r[i] = CBigNum::randBignum(params->coinCommitmentGroup.groupOrder);
+		v[i] = CBigNum::randBignum(params->serialNumberSoKCommitmentGroup.groupOrder);
 	}
 
 	// Openssl's rng is not thread safe, so we don't call it in a parallel loop,
@@ -90,26 +79,26 @@ SerialNumberSignatureOfKnowledge::SerialNumberSignatureOfKnowledge(const
 	}
 }
 
-inline Bignum SerialNumberSignatureOfKnowledge::challengeCalculation(const Bignum& a_exp,const Bignum& b_exp,
-        const Bignum& h_exp) const {
+inline CBigNum SerialNumberSignatureOfKnowledge::challengeCalculation(const CBigNum& a_exp,const CBigNum& b_exp,
+        const CBigNum& h_exp) const {
 
-	Bignum a = params->coinCommitmentGroup.g;
-	Bignum b = params->coinCommitmentGroup.h;
-	Bignum g = params->serialNumberSoKCommitmentGroup.g;
-	Bignum h = params->serialNumberSoKCommitmentGroup.h;
+	CBigNum a = params->coinCommitmentGroup.g;
+	CBigNum b = params->coinCommitmentGroup.h;
+	CBigNum g = params->serialNumberSoKCommitmentGroup.g;
+	CBigNum h = params->serialNumberSoKCommitmentGroup.h;
 
-	Bignum exponent = (a.pow_mod(a_exp, params->serialNumberSoKCommitmentGroup.groupOrder)
+	CBigNum exponent = (a.pow_mod(a_exp, params->serialNumberSoKCommitmentGroup.groupOrder)
 	                   * b.pow_mod(b_exp, params->serialNumberSoKCommitmentGroup.groupOrder)) % params->serialNumberSoKCommitmentGroup.groupOrder;
 
 	return (g.pow_mod(exponent, params->serialNumberSoKCommitmentGroup.modulus) * h.pow_mod(h_exp, params->serialNumberSoKCommitmentGroup.modulus)) % params->serialNumberSoKCommitmentGroup.modulus;
 }
 
-bool SerialNumberSignatureOfKnowledge::Verify(const Bignum& coinSerialNumber, const Bignum& valueOfCommitmentToCoin,
+bool SerialNumberSignatureOfKnowledge::Verify(const CBigNum& coinSerialNumber, const CBigNum& valueOfCommitmentToCoin,
         const uint256 msghash) const {
-	Bignum a = params->coinCommitmentGroup.g;
-	Bignum b = params->coinCommitmentGroup.h;
-	Bignum g = params->serialNumberSoKCommitmentGroup.g;
-	Bignum h = params->serialNumberSoKCommitmentGroup.h;
+	CBigNum a = params->coinCommitmentGroup.g;
+	CBigNum b = params->coinCommitmentGroup.h;
+	CBigNum g = params->serialNumberSoKCommitmentGroup.g;
+	CBigNum h = params->serialNumberSoKCommitmentGroup.h;
 	CHashWriter hasher(0,0);
 	hasher << *params << valueOfCommitmentToCoin <<coinSerialNumber;
 
@@ -125,7 +114,7 @@ bool SerialNumberSignatureOfKnowledge::Verify(const Bignum& coinSerialNumber, co
 		if(challenge_bit) {
 			tprime[i] = challengeCalculation(coinSerialNumber, s_notprime[i], sprime[i]);
 		} else {
-			Bignum exp = b.pow_mod(s_notprime[i], params->serialNumberSoKCommitmentGroup.groupOrder);
+			CBigNum exp = b.pow_mod(s_notprime[i], params->serialNumberSoKCommitmentGroup.groupOrder);
 			tprime[i] = ((valueOfCommitmentToCoin.pow_mod(exp, params->serialNumberSoKCommitmentGroup.modulus) % params->serialNumberSoKCommitmentGroup.modulus) *
 			             (h.pow_mod(sprime[i], params->serialNumberSoKCommitmentGroup.modulus) % params->serialNumberSoKCommitmentGroup.modulus)) %
 			            params->serialNumberSoKCommitmentGroup.modulus;

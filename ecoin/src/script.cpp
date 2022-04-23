@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include <boost/foreach.hpp>
 #include <boost/tuple/tuple.hpp>
 
@@ -234,8 +235,6 @@ const char* GetOpName(opcodetype opcode)
     case OP_NOP8                   : return "OP_NOP8";
     case OP_NOP9                   : return "OP_NOP9";
     case OP_NOP10                  : return "OP_NOP10";
-
-
 
     // template matching params
     case OP_PUBKEYHASH             : return "OP_PUBKEYHASH";
@@ -1870,7 +1869,7 @@ bool CScript::IsPayToScriptHash() const
             this->at(22) == OP_EQUAL);
 }
 
-bool CScript::HasCanonicalPushes() const
+/**bool CScript::HasCanonicalPushes() const
 {
     const_iterator pc = begin();
     while (pc < end())
@@ -1895,7 +1894,7 @@ bool CScript::HasCanonicalPushes() const
             return false;
     }
     return true;
-}
+}*/
 
 class CScriptVisitor : public boost::static_visitor<bool>
 {

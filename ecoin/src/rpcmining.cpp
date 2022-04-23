@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "main.h"
 #include "db.h"
 #include "txdb.h"
@@ -56,7 +57,9 @@ Value getmininginfo(const Array& params, bool fHelp)
     obj.push_back(Pair("difficulty",    diff));
 
     obj.push_back(Pair("blockvalue",    (uint64_t)GetProofOfWorkReward(GetLastBlockIndex(pindexBest, false)->nHeight+1, GetLastBlockIndex(pindexBest, false)->GetBlockHash())));
-    obj.push_back(Pair("netmhashps",     GetPoWMHashPS()));
+    //obj.push_back(Pair("netmhashps",     GetPoWMHashPS()));
+    obj.push_back(Pair("netmhashps",     GetRandHash));
+
     obj.push_back(Pair("netstakeweight", GetPoSKernelPS()));
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
     obj.push_back(Pair("pooledtx",      (uint64_t)mempool.size()));

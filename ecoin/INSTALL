@@ -1,5 +1,5 @@
 
-ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 ===================================================
 # BUILDS - ECOlogical P2P Crypto-Currency (ECOin) #
@@ -13,7 +13,7 @@ cd ecoin/
 
   + GNU/Linux:
 
-	/usr/lib/x86_64-linux-gnu/qt4/bin/qmake USE_UPNP=0 -o Makefile ecoin-qt.pro
+	/usr/lib/x86_64-linux-gnu/qt4/bin/qmake USE_UPNP=0 USE_IPV6=0 -o Makefile ecoin-qt.pro
 
 ================
 + Build leveldb:
@@ -79,7 +79,7 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
         server=1
         daemon=1
         testnet=0
-	addnode = 46.163.118.220 # node -> turina.space
+	addnode = 176.28.23.46 # 03c8.net
 
      ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
 

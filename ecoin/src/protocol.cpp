@@ -1,5 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-// Copyright (c) 2009-2010 Satoshi Nakamoto
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "protocol.h"
 #include "util.h"

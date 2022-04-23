@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "irc.h"
 #include "db.h"
 #include "net.h"
@@ -946,10 +947,12 @@ void ThreadMapPort2(void* parg)
     char lanaddr[64];
 
 #ifndef UPNPDISCOVER_SUCCESS
+//    /* miniupnpc 1.5 */
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0);
 #else
+//    /* miniupnpc 1.9.20150730 */
     int error = 0;
-    devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, &error);
+    devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 2, &error);
 #endif
 
     struct UPNPUrls urls;

@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
-* @file       Tests.cpp
-*
-* @brief      Test routines for Zerocoin.
-*
-* @author     Ian Miers, Christina Garman and Matthew Green
-* @date       June 2013
-*
-* @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-* @license    This project is released under the MIT license.
-**/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 using namespace std;
 
@@ -62,20 +51,20 @@ LogTestResult(string testName, bool (*testPtr)())
 	gNumTests++;
 }
 
-Bignum
+CBigNum
 GetTestModulus()
 {
-	static Bignum testModulus(0);
+	static CBigNum testModulus(0);
 
 	// TODO: should use a hard-coded RSA modulus for testing
 	if (!testModulus) {
-		Bignum p, q;
+		CBigNum p, q;
 
 		// Note: we are NOT using safe primes for testing because
 		// they take too long to generate. Don't do this in real
 		// usage. See the paramgen utility for better code.
-		p = Bignum::generatePrime(1024, false);
-		q = Bignum::generatePrime(1024, false);
+		p = CBigNum::generatePrime(1024, false);
+		q = CBigNum::generatePrime(1024, false);
 		testModulus = p * q;
 	}
 
@@ -89,7 +78,7 @@ GetTestModulus()
 bool
 Test_GenRSAModulus()
 {
-	Bignum result = GetTestModulus();
+	CBigNum result = GetTestModulus();
 
 	if (!result) {
 		return false;
@@ -156,7 +145,7 @@ Test_GenerateGroupParams()
 			return false;
 		}
 
-		Bignum c = group.g.pow_mod(group.groupOrder, group.modulus);
+		CBigNum c = group.g.pow_mod(group.groupOrder, group.modulus);
 		if (!(c.isOne())) return false;
 
 		// Try at multiple parameter sizes
@@ -252,7 +241,7 @@ Test_EqualityPoK()
 	for (uint32_t i = 0; i < 10; i++) {
 		try {
 			// Generate a random integer "val"
-			Bignum val = Bignum::randBignum(g_Params->coinCommitmentGroup.groupOrder);
+			CBigNum val = CBigNum::randBignum(g_Params->coinCommitmentGroup.groupOrder);
 
 			// Manufacture two commitments to "val", both
 			// under different sets of parameters
@@ -367,7 +356,7 @@ Test_MintAndSpend()
 		bool ret =  newSpend.Verify(acc, m);
 		
 		// Extract the serial number
-		Bignum serialNumber = newSpend.getCoinSerialNumber();
+		CBigNum serialNumber = newSpend.getCoinSerialNumber();
 		gSerialNumberSize = ceil((double)serialNumber.bitSize() / 8.0);
 		
 		return ret;

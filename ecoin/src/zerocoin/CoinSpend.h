@@ -1,14 +1,4 @@
-/**
- * @file       CoinSpend.h
- *
- * @brief      CoinSpend class for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef COINSPEND_H_
 #define COINSPEND_H_
@@ -68,7 +58,7 @@ public:
 	 *
 	 * @return the coin's serial number
 	 */
-	const Bignum& getCoinSerialNumber();
+	const CBigNum& getCoinSerialNumber();
 
 	/**Gets the denomination of the coin spent in this proof.
 	 *
@@ -95,9 +85,9 @@ private:
 	// Denomination is stored as an INT because storing
 	// and enum raises amigiuities in the serialize code //FIXME if possible
 	int denomination;
-	Bignum accCommitmentToCoinValue;
-	Bignum serialCommitmentToCoinValue;
-	Bignum coinSerialNumber;
+	CBigNum accCommitmentToCoinValue;
+	CBigNum serialCommitmentToCoinValue;
+	CBigNum coinSerialNumber;
 	AccumulatorProofOfKnowledge accumulatorPoK;
 	SerialNumberSignatureOfKnowledge serialNumberSoK;
 	CommitmentProofOfKnowledge commitmentPoK;

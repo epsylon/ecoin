@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #ifndef ECOIN_NET_H
 #define ECOIN_NET_H
 
@@ -20,8 +21,6 @@ class CRequestTracker;
 class CNode;
 class CBlockIndex;
 extern int nBestHeight;
-
-
 
 inline unsigned int ReceiveBufferSize() { return 1000*GetArg("-maxreceivebuffer", 5*1000); }
 inline unsigned int SendBufferSize() { return 1000*GetArg("-maxsendbuffer", 1*1000); }

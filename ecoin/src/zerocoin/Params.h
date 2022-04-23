@@ -1,15 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
-* @file       Params.h
-*
-* @brief      Parameter classes for Zerocoin.
-*
-* @author     Ian Miers, Christina Garman and Matthew Green
-* @date       June 2013
-*
-* @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-* @license    This project is released under the MIT license.
-**/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #ifndef PARAMS_H_
 #define PARAMS_H_
 
@@ -27,30 +17,30 @@ public:
 	 * Generates a random group element
 	 * @return a random element in the group.
 	 */
-	Bignum randomElement() const;
+	CBigNum randomElement() const;
 	bool initialized;
 
 	/**
 	 * A generator for the group.
 	 */
-	Bignum g;
+	CBigNum g;
 
 	/**
 	 * A second generator for the group.
 	 * Note log_g(h) and log_h(g) must
 	 * be unknown.
 	 */
-	Bignum h;
+	CBigNum h;
 
 	/**
 	 * The modulus for the group.
 	 */
-	Bignum modulus;
+	CBigNum modulus;
 
 	/**
 	 * The order of the group
 	 */
-	Bignum groupOrder;
+	CBigNum groupOrder;
 
 	IMPLEMENT_SERIALIZE
 	(
@@ -82,7 +72,7 @@ public:
 	**/
 	AccumulatorAndProofParams();
 
-	//AccumulatorAndProofParams(Bignum accumulatorModulus);
+	//AccumulatorAndProofParams(CBigNum accumulatorModulus);
 
 	bool initialized;
 
@@ -90,25 +80,25 @@ public:
 	 * Modulus used for the accumulator.
 	 * Product of two safe primes who's factorization is unknown.
 	 */
-	Bignum accumulatorModulus;
+	CBigNum accumulatorModulus;
 
 	/**
 	 * The initial value for the accumulator
 	 * A random Quadratic residue mod n thats not 1
 	 */
-	Bignum accumulatorBase;
+	CBigNum accumulatorBase;
 
 	/**
 	 * Lower bound on the value for committed coin.
 	 * Required by the accumulator proof.
 	 */
-	Bignum minCoinValue;
+	CBigNum minCoinValue;
 
 	/**
 	 * Upper bound on the value for a comitted coin.
 	 * Required by the accumulator proof.
 	 */
-	Bignum maxCoinValue;
+	CBigNum maxCoinValue;
 
 	/**
 	 * The second of two groups used to form a commitment to
@@ -168,7 +158,7 @@ public:
 	* compromised. The integer "N" must be a MINIMUM of 1024
 	* in length. 3072 bits is strongly recommended.
 	**/
-	Params(Bignum accumulatorModulus,
+	Params(CBigNum accumulatorModulus,
 	       uint32_t securityLevel = ZEROCOIN_DEFAULT_SECURITYLEVEL);
 
 	bool initialized;

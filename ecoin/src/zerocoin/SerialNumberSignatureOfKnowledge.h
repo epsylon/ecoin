@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
-* @file       SerialNumberSignatureOfKnowledge.h
-*
-* @brief      SerialNumberSignatureOfKnowledge class for the Zerocoin library.
-*
-* @author     Ian Miers, Christina Garman and Matthew Green
-* @date       June 2013
-*
-* @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-* @license    This project is released under the MIT license.
-**/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef SERIALNUMBERPROOF_H_
 #define SERIALNUMBERPROOF_H_
@@ -49,7 +38,7 @@ public:
 	 * @param msghash hash of meta data to create a signature of knowledge on.
 	 * @return
 	 */
-	bool Verify(const Bignum& coinSerialNumber, const Bignum& valueOfCommitmentToCoin,const uint256 msghash) const;
+	bool Verify(const CBigNum& coinSerialNumber, const CBigNum& valueOfCommitmentToCoin,const uint256 msghash) const;
 
 	IMPLEMENT_SERIALIZE
 	(
@@ -66,10 +55,10 @@ private:
 	// this is s_notprime instead of s
 	// because the serialization macros
 	// define something named s and it conflicts
-	vector<Bignum> s_notprime;
-	vector<Bignum> sprime;
-	inline Bignum challengeCalculation(const Bignum& a_exp, const Bignum& b_exp,
-	                                   const Bignum& h_exp) const;
+	vector<CBigNum> s_notprime;
+	vector<CBigNum> sprime;
+	inline CBigNum challengeCalculation(const CBigNum& a_exp, const CBigNum& b_exp,
+	                                   const CBigNum& h_exp) const;
 };
 
 } /* namespace libzerocoin */

@@ -1,37 +1,27 @@
-/**
- * @file       AccumulatorProofOfKnowledge.h
- *
- * @brief      AccumulatorProofOfKnowledge class for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
-#ifndef ACCUMULATEPROOF_H_
-#define ACCUMULATEPROOF_H_
+	#ifndef ACCUMULATEPROOF_H_
+	#define ACCUMULATEPROOF_H_
 
-namespace libzerocoin {
+	namespace libzerocoin {
 
-/**A prove that a value insde the commitment commitmentToCoin is in an accumulator a.
- *
- */
-class AccumulatorProofOfKnowledge {
-public:
-	AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p);
-
-	/** Generates a proof that a commitment to a coin c was accumulated
-	 * @param p  Cryptographic parameters
-	 * @param commitmentToCoin commitment containing the coin we want to prove is accumulated
-	 * @param witness The witness to the accumulation of the coin
-	 * @param a
+	/**A prove that a value insde the commitment commitmentToCoin is in an accumulator a.
+	 *
 	 */
-	AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p, const Commitment& commitmentToCoin, const AccumulatorWitness& witness, Accumulator& a);
-	/** Verifies that  a commitment c is accumulated in accumulated a
-	 */
-	bool Verify(const Accumulator& a,const Bignum& valueOfCommitmentToCoin) const;
+	class AccumulatorProofOfKnowledge {
+	public:
+		AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p);
+
+		/** Generates a proof that a commitment to a coin c was accumulated
+		 * @param p  Cryptographic parameters
+		 * @param commitmentToCoin commitment containing the coin we want to prove is accumulated
+		 * @param witness The witness to the accumulation of the coin
+		 * @param a
+		 */
+		AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p, const Commitment& commitmentToCoin, const AccumulatorWitness& witness, Accumulator& a);
+		/** Verifies that  a commitment c is accumulated in accumulated a
+		 */
+		bool Verify(const Accumulator& a,const CBigNum& valueOfCommitmentToCoin) const;
 
 	IMPLEMENT_SERIALIZE
 	(
@@ -61,30 +51,30 @@ private:
 	const AccumulatorAndProofParams* params;
 
 	/* Return values for proof */
-	Bignum C_e;
-	Bignum C_u;
-	Bignum C_r;
+	CBigNum C_e;
+	CBigNum C_u;
+	CBigNum C_r;
 
-	Bignum st_1;
-	Bignum st_2;
-	Bignum st_3;
+	CBigNum st_1;
+	CBigNum st_2;
+	CBigNum st_3;
 
-	Bignum t_1;
-	Bignum t_2;
-	Bignum t_3;
-	Bignum t_4;
+	CBigNum t_1;
+	CBigNum t_2;
+	CBigNum t_3;
+	CBigNum t_4;
 
-	Bignum s_alpha;
-	Bignum s_beta;
-	Bignum s_zeta;
-	Bignum s_sigma;
-	Bignum s_eta;
-	Bignum s_epsilon;
-	Bignum s_delta;
-	Bignum s_xi;
-	Bignum s_phi;
-	Bignum s_gamma;
-	Bignum s_psi;
+	CBigNum s_alpha;
+	CBigNum s_beta;
+	CBigNum s_zeta;
+	CBigNum s_sigma;
+	CBigNum s_eta;
+	CBigNum s_epsilon;
+	CBigNum s_delta;
+	CBigNum s_xi;
+	CBigNum s_phi;
+	CBigNum s_gamma;
+	CBigNum s_psi;
 };
 
 } /* namespace libzerocoin */

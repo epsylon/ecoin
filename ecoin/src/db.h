@@ -1,8 +1,11 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #ifndef ECOIN_DB_H
 #define ECOIN_DB_H
 
 #include "main.h"
+#include <cstdlib>
+#include <cstring>
 #include <map>
 #include <string>
 #include <vector>
@@ -24,6 +27,7 @@ extern unsigned int nWalletDBUpdated;
 void ThreadFlushWalletDB(void* parg);
 bool BackupWallet(const CWallet& wallet, const std::string& strDest);
 
+
 class CDBEnv
 {
 private:
@@ -32,6 +36,7 @@ private:
     bool fMockDb;
     boost::filesystem::path pathEnv;
     std::string strPath;
+
     void EnvShutdown();
 
 public:
@@ -39,13 +44,27 @@ public:
     DbEnv dbenv;
     std::map<std::string, int> mapFileUseCount;
     std::map<std::string, Db*> mapDb;
+
     CDBEnv();
     ~CDBEnv();
     void MakeMock();
     bool IsMock() { return fMockDb; };
 
+    /*
+     * Verify that database file strFile is OK. If it is not,
+     * call the callback to try to recover.
+     * This must be called BEFORE strFile is opened.
+     * Returns true if strFile is OK.
+     */
     enum VerifyResult { VERIFY_OK, RECOVER_OK, RECOVER_FAIL };
     VerifyResult Verify(std::string strFile, bool (*recoverFunc)(CDBEnv& dbenv, std::string strFile));
+    /*
+     * Salvage data from a file that Verify says is bad.
+     * fAggressive sets the DB_AGGRESSIVE flag (see berkeley DB->verify() method documentation).
+     * Appends binary key/value pairs to vResult, returns true if successful.
+     * NOTE: reads the entire database into memory, so cannot be used
+     * for huge databases.
+     */
     typedef std::pair<std::vector<unsigned char>, std::vector<unsigned char> > KeyValPair;
     bool Salvage(std::string strFile, bool fAggressive, std::vector<KeyValPair>& vResult);
 
@@ -71,6 +90,8 @@ public:
 
 extern CDBEnv bitdb;
 
+
+/** RAII class that provides access to a Berkeley database */
 class CDB
 {
 protected:
@@ -78,6 +99,7 @@ protected:
     std::string strFile;
     DbTxn *activeTxn;
     bool fReadOnly;
+
     explicit CDB(const char* pszFile, const char* pszMode="r+");
     ~CDB() { Close(); }
 public:
@@ -93,18 +115,21 @@ protected:
         if (!pdb)
             return false;
 
+        // Key
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
         Dbt datKey(&ssKey[0], ssKey.size());
 
+        // Read
         Dbt datValue;
         datValue.set_flags(DB_DBT_MALLOC);
         int ret = pdb->get(activeTxn, &datKey, &datValue, 0);
-        memset(datKey.get_data(), 0, datKey.get_size());
+        std::memset(datKey.get_data(), 0, datKey.get_size());
         if (datValue.get_data() == NULL)
             return false;
 
+        // Unserialize value
         try {
             CDataStream ssValue((char*)datValue.get_data(), (char*)datValue.get_data() + datValue.get_size(), SER_DISK, CLIENT_VERSION);
             ssValue >> value;
@@ -113,8 +138,9 @@ protected:
             return false;
         }
 
-        memset(datValue.get_data(), 0, datValue.get_size());
-        free(datValue.get_data());
+        // Clear and free memory
+        std::memset(datValue.get_data(), 0, datValue.get_size());
+        std::free(datValue.get_data());
         return (ret == 0);
     }
 
@@ -126,20 +152,24 @@ protected:
         if (fReadOnly)
             assert(!"Write called on database in read-only mode");
 
+        // Key
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
         Dbt datKey(&ssKey[0], ssKey.size());
 
+        // Value
         CDataStream ssValue(SER_DISK, CLIENT_VERSION);
         ssValue.reserve(10000);
         ssValue << value;
         Dbt datValue(&ssValue[0], ssValue.size());
 
+        // Write
         int ret = pdb->put(activeTxn, &datKey, &datValue, (fOverwrite ? 0 : DB_NOOVERWRITE));
 
-        memset(datKey.get_data(), 0, datKey.get_size());
-        memset(datValue.get_data(), 0, datValue.get_size());
+        // Clear memory in case it was a private key
+        std::memset(datKey.get_data(), 0, datKey.get_size());
+        std::memset(datValue.get_data(), 0, datValue.get_size());
         return (ret == 0);
     }
 
@@ -151,14 +181,17 @@ protected:
         if (fReadOnly)
             assert(!"Erase called on database in read-only mode");
 
+        // Key
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
         Dbt datKey(&ssKey[0], ssKey.size());
 
+        // Erase
         int ret = pdb->del(activeTxn, &datKey, 0);
 
-        memset(datKey.get_data(), 0, datKey.get_size());
+        // Clear memory
+        std::memset(datKey.get_data(), 0, datKey.get_size());
         return (ret == 0 || ret == DB_NOTFOUND);
     }
 
@@ -168,14 +201,17 @@ protected:
         if (!pdb)
             return false;
 
+        // Key
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
         Dbt datKey(&ssKey[0], ssKey.size());
 
+        // Exists
         int ret = pdb->exists(activeTxn, &datKey, 0);
 
-        memset(datKey.get_data(), 0, datKey.get_size());
+        // Clear memory
+        std::memset(datKey.get_data(), 0, datKey.get_size());
         return (ret == 0);
     }
 
@@ -192,6 +228,7 @@ protected:
 
     int ReadAtCursor(Dbc* pcursor, CDataStream& ssKey, CDataStream& ssValue, unsigned int fFlags=DB_NEXT)
     {
+        // Read at cursor
         Dbt datKey;
         if (fFlags == DB_SET || fFlags == DB_SET_RANGE || fFlags == DB_GET_BOTH || fFlags == DB_GET_BOTH_RANGE)
         {
@@ -212,6 +249,7 @@ protected:
         else if (datKey.get_data() == NULL || datValue.get_data() == NULL)
             return 99999;
 
+        // Convert to streams
         ssKey.SetType(SER_DISK);
         ssKey.clear();
         ssKey.write((char*)datKey.get_data(), datKey.get_size());
@@ -219,10 +257,11 @@ protected:
         ssValue.clear();
         ssValue.write((char*)datValue.get_data(), datValue.get_size());
 
-        memset(datKey.get_data(), 0, datKey.get_size());
-        memset(datValue.get_data(), 0, datValue.get_size());
-        free(datKey.get_data());
-        free(datValue.get_data());
+        // Clear and free memory
+        std::memset(datKey.get_data(), 0, datKey.get_size());
+        std::memset(datValue.get_data(), 0, datValue.get_size());
+        std::free(datKey.get_data());
+        std::free(datValue.get_data());
         return 0;
     }
 
@@ -270,6 +309,50 @@ public:
     bool static Rewrite(const std::string& strFile, const char* pszSkip = NULL);
 };
 
+
+
+
+
+
+
+/** Access to the transaction database (blkindex.dat) */
+
+/**
+class CTxDB : public CDB
+{
+public:
+    CTxDB(const char* pszMode="r+") : CDB("blkindex.dat", pszMode) { }
+private:
+    CTxDB(const CTxDB&);
+    void operator=(const CTxDB&);
+public:
+    bool ReadTxIndex(uint256 hash, CTxIndex& txindex);
+    bool UpdateTxIndex(uint256 hash, const CTxIndex& txindex);
+    bool AddTxIndex(const CTransaction& tx, const CDiskTxPos& pos, int nHeight);
+    bool EraseTxIndex(const CTransaction& tx);
+    bool ContainsTx(uint256 hash);
+    bool ReadDiskTx(uint256 hash, CTransaction& tx, CTxIndex& txindex);
+    bool ReadDiskTx(uint256 hash, CTransaction& tx);
+    bool ReadDiskTx(COutPoint outpoint, CTransaction& tx, CTxIndex& txindex);
+    bool ReadDiskTx(COutPoint outpoint, CTransaction& tx);
+    bool WriteBlockIndex(const CDiskBlockIndex& blockindex);
+    bool ReadHashBestChain(uint256& hashBestChain);
+    bool WriteHashBestChain(uint256 hashBestChain);
+    bool ReadBestInvalidTrust(CBigNum& bnBestInvalidTrust);
+    bool WriteBestInvalidTrust(CBigNum bnBestInvalidTrust);
+    bool ReadSyncCheckpoint(uint256& hashCheckpoint);
+    bool WriteSyncCheckpoint(uint256 hashCheckpoint);
+    bool ReadCheckpointPubKey(std::string& strPubKey);
+    bool WriteCheckpointPubKey(const std::string& strPubKey);
+    bool LoadBlockIndex();
+private:
+    bool LoadBlockIndexGuts();
+};
+*/
+
+
+
+/** Access to the (IP) address database (peers.dat) */
 class CAddrDB
 {
 private:
@@ -279,5 +362,4 @@ public:
     bool Write(const CAddrMan& addr);
     bool Read(CAddrMan& addr);
 };
-
 #endif // ECOIN_DB_H

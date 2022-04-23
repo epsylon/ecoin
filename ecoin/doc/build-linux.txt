@@ -1,5 +1,5 @@
 
-ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 ======================================
 # SOURCES for ECOin (Unix/GNU-Linux) #
@@ -29,7 +29,8 @@ All of the commands should be executed in a shell.
 
  Library       Purpose           Description
  -------       -------           -----------
- libssl1.0-dev SSL Support       Secure communications
+ libssl-dev    SSL Support       Secure communications - development libraries
+ libssl1.1     SSL Support       Secure Sockets Layer toolkit - shared libraries
  libdb5.3      Berkeley DB       Blockchain & wallet storage
  libboost      Boost             C++ Library
  miniupnpc     UPnP Support      Optional firewall-jumping support
@@ -37,7 +38,7 @@ All of the commands should be executed in a shell.
 
     + From Debian/Ubuntu:
   
-        sudo apt-get install build-essential libssl1.0-dev libssl1.0.2 libdb5.3-dev libdb5.3++-dev libboost-all-dev miniupnpc libminiupnpc-dev
+        sudo apt-get install build-essential libssl-dev libssl1.1 libdb5.3-dev libdb5.3++-dev libboost-all-dev miniupnpc libminiupnpc-dev
 
         + Optionally install qrencode (and set USE_QRCODE=1):
 
@@ -60,7 +61,7 @@ All of the commands should be executed in a shell.
 (1.) First, make sure that the required packages for Qt4 development of your distribution are installed, for Debian and Ubuntu these are:
 
         sudo apt-get install qt4-qmake libqt4-dev build-essential libboost-dev libboost-system-dev miniupnpc libminiupnpc-dev \
-             libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libssl1.0-dev libssl1.0.2 libdb5.3++-dev
+             libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libssl-dev libssl1.1 libdb5.3++-dev
 
 (2.) Then execute the following:
 

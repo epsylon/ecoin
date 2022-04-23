@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
- * @file       Coin.cpp
- *
- * @brief      PublicCoin and PrivateCoin classes for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)º
 
 #include <stdexcept>
 #include "Zerocoin.h"
@@ -24,7 +13,7 @@ PublicCoin::PublicCoin(const Params* p):
 	}
 };
 
-PublicCoin::PublicCoin(const Params* p, const Bignum& coin, const CoinDenomination d):
+PublicCoin::PublicCoin(const Params* p, const CBigNum& coin, const CoinDenomination d):
 	params(p), value(coin), denomination(d) {
 	if(this->params->initialized == false) {
 		throw std::invalid_argument("Params are not initialized");
@@ -39,7 +28,7 @@ bool PublicCoin::operator!=(const PublicCoin& rhs) const {
 	return !(*this == rhs);
 }
 
-const Bignum& PublicCoin::getValue() const {
+const CBigNum& PublicCoin::getValue() const {
 	return this->value;
 }
 
@@ -74,11 +63,11 @@ PrivateCoin::PrivateCoin(const Params* p, const CoinDenomination denomination): 
  *
  * @return the coins serial number
  */
-const Bignum& PrivateCoin::getSerialNumber() const {
+const CBigNum& PrivateCoin::getSerialNumber() const {
 	return this->serialNumber;
 }
 
-const Bignum& PrivateCoin::getRandomness() const {
+const CBigNum& PrivateCoin::getRandomness() const {
 	return this->randomness;
 }
 
@@ -89,7 +78,7 @@ void PrivateCoin::mintCoin(const CoinDenomination denomination) {
 
 		// Generate a random serial number in the range 0...{q-1} where
 		// "q" is the order of the commitment group.
-		Bignum s = Bignum::randBignum(this->params->coinCommitmentGroup.groupOrder);
+		CBigNum s = CBigNum::randBignum(this->params->coinCommitmentGroup.groupOrder);
 
 		// Generate a Pedersen commitment to the serial number "s"
 		Commitment coin(&params->coinCommitmentGroup, s);
@@ -119,14 +108,14 @@ void PrivateCoin::mintCoinFast(const CoinDenomination denomination) {
 	
 	// Generate a random serial number in the range 0...{q-1} where
 	// "q" is the order of the commitment group.
-	Bignum s = Bignum::randBignum(this->params->coinCommitmentGroup.groupOrder);
+	CBigNum s = CBigNum::randBignum(this->params->coinCommitmentGroup.groupOrder);
 	
 	// Generate a random number "r" in the range 0...{q-1}
-	Bignum r = Bignum::randBignum(this->params->coinCommitmentGroup.groupOrder);
+	CBigNum r = CBigNum::randBignum(this->params->coinCommitmentGroup.groupOrder);
 	
 	// Manually compute a Pedersen commitment to the serial number "s" under randomness "r"
 	// C = g^s * h^r mod p
-	Bignum commitmentValue = this->params->coinCommitmentGroup.g.pow_mod(s, this->params->coinCommitmentGroup.modulus).mul_mod(this->params->coinCommitmentGroup.h.pow_mod(r, this->params->coinCommitmentGroup.modulus), this->params->coinCommitmentGroup.modulus);
+	CBigNum commitmentValue = this->params->coinCommitmentGroup.g.pow_mod(s, this->params->coinCommitmentGroup.modulus).mul_mod(this->params->coinCommitmentGroup.h.pow_mod(r, this->params->coinCommitmentGroup.modulus), this->params->coinCommitmentGroup.modulus);
 	
 	// Repeat this process up to MAX_COINMINT_ATTEMPTS times until
 	// we obtain a prime number
@@ -147,7 +136,7 @@ void PrivateCoin::mintCoinFast(const CoinDenomination denomination) {
 		}
 		
 		// Generate a new random "r_delta" in 0...{q-1}
-		Bignum r_delta = Bignum::randBignum(this->params->coinCommitmentGroup.groupOrder);
+		CBigNum r_delta = CBigNum::randBignum(this->params->coinCommitmentGroup.groupOrder);
 
 		// The commitment was not prime. Increment "r" and recalculate "C":
 		// r = r + r_delta mod q

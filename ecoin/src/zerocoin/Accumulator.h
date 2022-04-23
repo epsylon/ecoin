@@ -1,15 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
- * @file       Accumulator.h
- *
- * @brief      Accumulator and AccumulatorWitness classes for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #ifndef ACCUMULATOR_H_
 #define ACCUMULATOR_H_
 
@@ -62,9 +52,9 @@ public:
 	const CoinDenomination getDenomination() const;
 	/** Get the accumulator result
 	 *
-	 * @return a Bignum containing the result.
+	 * @return a CBigNum containing the result.
 	 */
-	const Bignum& getValue() const;
+	const CBigNum& getValue() const;
 
 
 	// /**
@@ -74,7 +64,7 @@ public:
 	//  * @param b the value to set the accumulator to.
 	//  * @throw  A ZerocoinException if the accumulator value is invalid.
 	//  */
-	// void setValue(Bignum &b); // shouldn't this be a constructor?
+	// void setValue(CBigNum &b); // shouldn't this be a constructor?
 
 	/** Used to accumulate a coin
 	 *
@@ -91,7 +81,7 @@ public:
 	)
 private:
 	const AccumulatorAndProofParams* params;
-	Bignum value;
+	CBigNum value;
 	// Denomination is stored as an INT because storing
 	// and enum raises amigiuities in the serialize code //FIXME if possible
 	int denomination;
@@ -124,7 +114,7 @@ public:
 	 *
 	 * @return the value of the witness
 	 */
-	const Bignum& getValue() const;
+	const CBigNum& getValue() const;
 
 	/** Checks that this is a witness to the accumulation of coin
 	 * @param a             the accumulator we are checking against.

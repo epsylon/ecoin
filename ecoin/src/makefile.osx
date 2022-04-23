@@ -1,7 +1,4 @@
-# ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-# -*- mode: Makefile; -*-
-# Mac OS X makefile for ecoin
-# Originally by Laszlo Hanyecz (solar@heliacal.net)
+# ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 CXX=llvm-g++
 DEPSDIR=/opt/local

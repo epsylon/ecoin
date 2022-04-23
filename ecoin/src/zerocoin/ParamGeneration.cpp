@@ -1,14 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/// \file       ParamGeneration.cpp
-///
-/// \brief      Parameter manipulation routines for the Zerocoin cryptographic
-///             components.
-///
-/// \author     Ian Miers, Christina Garman and Matthew Green
-/// \date       June 2013
-///
-/// \copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-/// \license    This project is released under the MIT license.
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <string>
 #include "Zerocoin.h"
@@ -17,26 +7,8 @@ using namespace std;
 
 namespace libzerocoin {
 
-/// \brief Fill in a set of Zerocoin parameters from a modulus "N".
-/// \param N                A trusted RSA modulus
-/// \param aux              An optional auxiliary string used in derivation
-/// \param securityLevel    A security level
-///
-/// \throws         ZerocoinException if the process fails
-///
-/// Fills in a ZC_Params data structure deterministically from
-/// a trustworthy RSA modulus "N", which is provided as a Bignum.
-///
-/// Note: this routine makes the fundamental assumption that "N"
-/// encodes a valid RSA-style modulus of the form "e1*e2" for some
-/// unknown safe primes "e1" and "e2". These factors must not
-/// be known to any party, or the security of Zerocoin is
-/// compromised. The integer "N" must be a MINIMUM of 1023
-/// in length, and 3072 bits is strongly recommended.
-///
-
 void
-CalculateParams(Params &params, Bignum N, string aux, uint32_t securityLevel)
+CalculateParams(Params &params, CBigNum N, string aux, uint32_t securityLevel)
 {
 	params.initialized = false;
 	params.accumulatorParams.initialized = false;
@@ -85,25 +57,25 @@ CalculateParams(Params &params, Bignum N, string aux, uint32_t securityLevel)
 	uint32_t resultCtr;
 	params.accumulatorParams.accumulatorQRNCommitmentGroup.g = generateIntegerFromSeed(NLen - 1,
 	        calculateSeed(N, aux, securityLevel, STRING_QRNCOMMIT_GROUPG),
-	        &resultCtr).pow_mod(Bignum(2), N);
+	        &resultCtr).pow_mod(CBigNum(2), N);
 	params.accumulatorParams.accumulatorQRNCommitmentGroup.h = generateIntegerFromSeed(NLen - 1,
 	        calculateSeed(N, aux, securityLevel, STRING_QRNCOMMIT_GROUPG),
-	        &resultCtr).pow_mod(Bignum(2), N);
+	        &resultCtr).pow_mod(CBigNum(2), N);
 
 	// Calculate the accumulator base, which we calculate as "u = C**2 mod N"
 	// where C is an arbitrary value. In the unlikely case that "u = 1" we increment
 	// "C" and repeat.
-	Bignum constant(ACCUMULATOR_BASE_CONSTANT);
-	params.accumulatorParams.accumulatorBase = Bignum(1);
+	CBigNum constant(ACCUMULATOR_BASE_CONSTANT);
+	params.accumulatorParams.accumulatorBase = CBigNum(1);
 	for (uint32_t count = 0; count < MAX_ACCUMGEN_ATTEMPTS && params.accumulatorParams.accumulatorBase.isOne(); count++) {
-		params.accumulatorParams.accumulatorBase = constant.pow_mod(Bignum(2), params.accumulatorParams.accumulatorModulus);
+		params.accumulatorParams.accumulatorBase = constant.pow_mod(CBigNum(2), params.accumulatorParams.accumulatorModulus);
 	}
 
 	// Compute the accumulator range. The upper range is the largest possible coin commitment value.
 	// The lower range is sqrt(upper range) + 1. Since OpenSSL doesn't have
 	// a square root function we use a slightly higher approximation.
 	params.accumulatorParams.maxCoinValue = params.coinCommitmentGroup.modulus;
-	params.accumulatorParams.minCoinValue = Bignum(2).pow((params.coinCommitmentGroup.modulus.bitSize() / 2) + 3);
+	params.accumulatorParams.minCoinValue = CBigNum(2).pow((params.coinCommitmentGroup.modulus.bitSize() / 2) + 3);
 
 	// If all went well, mark params as successfully initialized.
 	params.accumulatorParams.initialized = true;
@@ -113,7 +85,7 @@ CalculateParams(Params &params, Bignum N, string aux, uint32_t securityLevel)
 }
 
 /// \brief Format a seed string by hashing several values.
-/// \param N                A Bignum
+/// \param N                A CBigNum
 /// \param aux              An auxiliary string
 /// \param securityLevel    The security level in bits
 /// \param groupName        A group description string
@@ -145,7 +117,7 @@ calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, string label,
 }
 
 /// \brief Format a seed string by hashing several values.
-/// \param N                A Bignum
+/// \param N                A CBigNum
 /// \param aux              An auxiliary string
 /// \param securityLevel    The security level in bits
 /// \param groupName        A group description string
@@ -154,7 +126,7 @@ calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, string label,
 /// Returns the hash of the value.
 
 uint256
-calculateSeed(Bignum modulus, string auxString, uint32_t securityLevel, string groupName)
+calculateSeed(CBigNum modulus, string auxString, uint32_t securityLevel, string groupName)
 {
 	CHashWriter hasher(0,0);
 	uint256     hash;
@@ -244,15 +216,15 @@ IntegerGroupParams
 deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
 {
 	IntegerGroupParams result;
-	Bignum p;
-	Bignum q;
+	CBigNum p;
+	CBigNum q;
 	uint256 pSeed, qSeed;
 
 	// Calculate "p" and "q" and "domain_parameter_seed" from the
 	// "seed" buffer above, using the procedure described in NIST
 	// FIPS 186-3, Appendix A.1.2.
-	calculateGroupModulusAndOrder(seed, pLen, qLen, &(result.modulus),
-	                              &(result.groupOrder), &pSeed, &qSeed);
+	calculateGroupModulusAndOrder(seed, pLen, qLen, result.modulus,
+	                              result.groupOrder, &pSeed, &qSeed);
 
 	// Calculate the generators "g", "h" using the process described in
 	// NIST FIPS 186-3, Appendix A.2.3. This algorithm takes ("p", "q",
@@ -268,8 +240,8 @@ deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
 	        !(result.groupOrder.isPrime()) ||                       // order is prime
 	        !((result.g.pow_mod(result.groupOrder, result.modulus)).isOne()) || // g^order mod modulus = 1
 	        !((result.h.pow_mod(result.groupOrder, result.modulus)).isOne()) || // h^order mod modulus = 1
-	        ((result.g.pow_mod(Bignum(100), result.modulus)).isOne()) ||        // g^100 mod modulus != 1
-	        ((result.h.pow_mod(Bignum(100), result.modulus)).isOne()) ||        // h^100 mod modulus != 1
+	        ((result.g.pow_mod(CBigNum(100), result.modulus)).isOne()) ||        // g^100 mod modulus != 1
+	        ((result.h.pow_mod(CBigNum(100), result.modulus)).isOne()) ||        // h^100 mod modulus != 1
 	        result.g == result.h ||                                 // g != h
 	        result.g.isOne()) {                                     // g != 1
 		// If any of the above tests fail, throw an exception
@@ -287,7 +259,7 @@ deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
 /// a field "F_p".
 
 IntegerGroupParams
-deriveIntegerGroupFromOrder(Bignum &groupOrder)
+deriveIntegerGroupFromOrder(CBigNum &groupOrder)
 {
 	IntegerGroupParams result;
 
@@ -298,7 +270,7 @@ deriveIntegerGroupFromOrder(Bignum &groupOrder)
 	// "p" is prime and i is a counter starting at 1.
 	for (uint32_t i = 1; i < NUM_SCHNORRGEN_ATTEMPTS; i++) {
 		// Set modulus equal to "groupOrder * 2 * i"
-		result.modulus = (result.groupOrder * Bignum(i*2)) + Bignum(1);
+		result.modulus = (result.groupOrder * CBigNum(i*2)) + CBigNum(1);
 
 		// Test the result for primality
 		// TODO: This is a probabilistic routine and thus not the right choice
@@ -321,8 +293,8 @@ deriveIntegerGroupFromOrder(Bignum &groupOrder)
 			        !(result.groupOrder.isPrime()) ||                       // order is prime
 			        !((result.g.pow_mod(result.groupOrder, result.modulus)).isOne()) || // g^order mod modulus = 1
 			        !((result.h.pow_mod(result.groupOrder, result.modulus)).isOne()) || // h^order mod modulus = 1
-			        ((result.g.pow_mod(Bignum(100), result.modulus)).isOne()) ||        // g^100 mod modulus != 1
-			        ((result.h.pow_mod(Bignum(100), result.modulus)).isOne()) ||        // h^100 mod modulus != 1
+			        ((result.g.pow_mod(CBigNum(100), result.modulus)).isOne()) ||        // g^100 mod modulus != 1
+			        ((result.h.pow_mod(CBigNum(100), result.modulus)).isOne()) ||        // h^100 mod modulus != 1
 			        result.g == result.h ||                                 // g != h
 			        result.g.isOne()) {                                     // g != 1
 				// If any of the above tests fail, throw an exception
@@ -350,9 +322,8 @@ deriveIntegerGroupFromOrder(Bignum &groupOrder)
 /// algorithms described in FIPS 186-3 Appendix A.1.2 to calculate
 /// primes "p" and "q".
 
-void
-calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
-                              Bignum *resultModulus, Bignum *resultGroupOrder,
+void calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
+                              CBigNum &resultModulus, CBigNum &resultGroupOrder,
                               uint256 *resultPseed, uint256 *resultQseed)
 {
 	// Verify that the seed length is >= qLen
@@ -370,60 +341,60 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
 	// Result is the value "resultGroupOrder", "qseed" and "qgen_counter".
 	uint256     qseed;
 	uint32_t    qgen_counter;
-	*resultGroupOrder = generateRandomPrime(qLen, seed, &qseed, &qgen_counter);
+	resultGroupOrder = generateRandomPrime(qLen, seed, &qseed, &qgen_counter);
 
 	// Using ⎡pLen / 2 + 1⎤ as the length and qseed as the input_seed, use the random prime
 	// routine to obtain p0 , pseed, and pgen_counter. We pass exceptions upward.
 	uint32_t    p0len = ceil((pLen / 2.0) + 1);
 	uint256     pseed;
 	uint32_t    pgen_counter;
-	Bignum p0 = generateRandomPrime(p0len, qseed, &pseed, &pgen_counter);
+	CBigNum p0 = generateRandomPrime(p0len, qseed, &pseed, &pgen_counter);
 
 	// Set x = 0, old_counter = pgen_counter
 	uint32_t    old_counter = pgen_counter;
 
 	// Generate a random integer "x" of pLen bits
 	uint32_t iterations;
-	Bignum x = generateIntegerFromSeed(pLen, pseed, &iterations);
+	CBigNum x = generateIntegerFromSeed(pLen, pseed, &iterations);
 	pseed += (iterations + 1);
 
 	// Set x = 2^{pLen−1} + (x mod 2^{pLen–1}).
-	Bignum powerOfTwo = Bignum(2).pow(pLen-1);
+	CBigNum powerOfTwo = CBigNum(2).pow(pLen-1);
 	x = powerOfTwo + (x % powerOfTwo);
 
 	// t = ⎡x / (2 * resultGroupOrder * p0)⎤.
 	// TODO: we don't have a ceiling function
-	Bignum t = x / (Bignum(2) * (*resultGroupOrder) * p0);
+	CBigNum t = x / (CBigNum(2) * resultGroupOrder * p0);
 
 	// Now loop until we find a valid prime "p" or we fail due to
 	// pgen_counter exceeding ((4*pLen) + old_counter).
 	for ( ; pgen_counter <= ((4*pLen) + old_counter) ; pgen_counter++) {
 		// If (2 * t * resultGroupOrder * p0 + 1) > 2^{pLen}, then
 		// t = ⎡2^{pLen−1} / (2 * resultGroupOrder * p0)⎤.
-		powerOfTwo = Bignum(2).pow(pLen);
-		Bignum prod = (Bignum(2) * t * (*resultGroupOrder) * p0) + Bignum(1);
+		powerOfTwo = CBigNum(2).pow(pLen);
+		CBigNum prod = (CBigNum(2) * t * resultGroupOrder * p0) + CBigNum(1);
 		if (prod > powerOfTwo) {
 			// TODO: implement a ceil function
-			t = Bignum(2).pow(pLen-1) / (Bignum(2) * (*resultGroupOrder) * p0);
+			t = CBigNum(2).pow(pLen-1) / (CBigNum(2) * resultGroupOrder * p0);
 		}
 
 		// Compute a candidate prime resultModulus = 2tqp0 + 1.
-		*resultModulus = (Bignum(2) * t * (*resultGroupOrder) * p0) + Bignum(1);
+		resultModulus = (CBigNum(2) * t * resultGroupOrder * p0) + CBigNum(1);
 
 		// Verify that resultModulus is prime. First generate a pseudorandom integer "a".
-		Bignum a = generateIntegerFromSeed(pLen, pseed, &iterations);
+		CBigNum a = generateIntegerFromSeed(pLen, pseed, &iterations);
 		pseed += iterations + 1;
 
 		// Set a = 2 + (a mod (resultModulus–3)).
-		a = Bignum(2) + (a % ((*resultModulus) - Bignum(3)));
+		a = CBigNum(2) + (a % (resultModulus - CBigNum(3)));
 
 		// Set z = a^{2 * t * resultGroupOrder} mod resultModulus
-		Bignum z = a.pow_mod(Bignum(2) * t * (*resultGroupOrder), (*resultModulus));
+		CBigNum z = a.pow_mod(CBigNum(2) * t * resultGroupOrder, resultModulus);
 
 		// If GCD(z–1, resultModulus) == 1 AND (z^{p0} mod resultModulus == 1)
 		// then we have found our result. Return.
-		if ((resultModulus->gcd(z - Bignum(1))).isOne() &&
-		        (z.pow_mod(p0, (*resultModulus))).isOne()) {
+		if ((resultModulus.gcd(z - CBigNum(1))).isOne() &&
+		        (z.pow_mod(p0, resultModulus)).isOne()) {
 			// Success! Return the seeds and primes.
 			*resultPseed = pseed;
 			*resultQseed = qseed;
@@ -431,7 +402,7 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
 		}
 
 		// This prime did not work out. Increment "t" and try again.
-		t = t + Bignum(1);
+		t = t + CBigNum(1);
 	} // loop continues until pgen_counter exceeds a limit
 
 	// We reach this point only if we exceeded our maximum iteration count.
@@ -452,10 +423,10 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
 /// Generates a random group generator deterministically as a function of (seed,pSeed,qSeed)
 /// Uses the algorithm described in FIPS 186-3 Appendix A.2.3.
 
-Bignum
-calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, Bignum modulus, Bignum groupOrder, uint32_t index)
+CBigNum
+calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, CBigNum modulus, CBigNum groupOrder, uint32_t index)
 {
-	Bignum result;
+	CBigNum result;
 
 	// Verify that 0 <= index < 256
 	if (index > 255) {
@@ -463,13 +434,13 @@ calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, Bignum modul
 	}
 
 	// Compute e = (modulus - 1) / groupOrder
-	Bignum e = (modulus - Bignum(1)) / groupOrder;
+	CBigNum e = (modulus - CBigNum(1)) / groupOrder;
 
 	// Loop until we find a generator
 	for (uint32_t count = 1; count < MAX_GENERATOR_ATTEMPTS; count++) {
 		// hash = Hash(seed || pSeed || qSeed || “ggen” || index || count
 		uint256 hash = calculateGeneratorSeed(seed, pSeed, qSeed, "ggen", index, count);
-		Bignum W(hash);
+		CBigNum W(hash);
 
 		// Compute result = W^e mod p
 		result = W.pow_mod(e, modulus);
@@ -496,7 +467,7 @@ calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, Bignum modul
 /// seed. Uses the Shawe-Taylor algorithm as described in FIPS 186-3
 /// Appendix C.6. This is a recursive function.
 
-Bignum
+CBigNum
 generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
                     uint32_t *prime_gen_counter)
 {
@@ -507,7 +478,7 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 
 	// If primeBitLen < 33 bits, perform the base case.
 	if (primeBitLen < 33) {
-		Bignum result(0);
+		CBigNum result(0);
 
 		// Set prime_seed = in_seed, prime_gen_counter = 0.
 		uint256     prime_seed = in_seed;
@@ -518,7 +489,7 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 
 			// Generate a pseudorandom integer "c" of length primeBitLength bits
 			uint32_t iteration_count;
-			Bignum c = generateIntegerFromSeed(primeBitLen, prime_seed, &iteration_count);
+			CBigNum c = generateIntegerFromSeed(primeBitLen, prime_seed, &iteration_count);
 #ifdef ZEROCOIN_DEBUG
 			cout << "generateRandomPrime: primeBitLen = " << primeBitLen << endl;
 			cout << "Generated c = " << c << endl;
@@ -538,7 +509,7 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 			// Perform trial division on this (relatively small) integer to determine if "intc"
 			// is prime. If so, return success.
 			if (primalityTestByTrialDivision(intc)) {
-				// Return "intc" converted back into a Bignum and "prime_seed". We also updated
+				// Return "intc" converted back into a CBigNum and "prime_seed". We also updated
 				// the variable "prime_gen_counter" in previous statements.
 				result = intc;
 				*out_seed = prime_seed;
@@ -558,53 +529,53 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 	else {
 		// Recurse to find a new random prime of roughly half the size
 		uint32_t newLength = ceil((double)primeBitLen / 2.0) + 1;
-		Bignum c0 = generateRandomPrime(newLength, in_seed, out_seed, prime_gen_counter);
+		CBigNum c0 = generateRandomPrime(newLength, in_seed, out_seed, prime_gen_counter);
 
 		// Generate a random integer "x" of primeBitLen bits using the output
 		// of the previous call.
 		uint32_t numIterations;
-		Bignum x = generateIntegerFromSeed(primeBitLen, *out_seed, &numIterations);
+		CBigNum x = generateIntegerFromSeed(primeBitLen, *out_seed, &numIterations);
 		(*out_seed) += numIterations + 1;
 
 		// Compute "t" = ⎡x / (2 * c0⎤
 		// TODO no Ceiling call
-		Bignum t = x / (Bignum(2) * c0);
+		CBigNum t = x / (CBigNum(2) * c0);
 
 		// Repeat the following procedure until we find a prime (or time out)
 		for (uint32_t testNum = 0; testNum < MAX_PRIMEGEN_ATTEMPTS; testNum++) {
 
 			// If ((2 * t * c0) + 1 > 2^{primeBitLen}),
 			// then t = ⎡2^{primeBitLen} – 1 / (2 * c0)⎤.
-			if ((Bignum(2) * t * c0) > (Bignum(2).pow(Bignum(primeBitLen)))) {
-				t = ((Bignum(2).pow(Bignum(primeBitLen))) - Bignum(1)) / (Bignum(2) * c0);
+			if ((CBigNum(2) * t * c0) > (CBigNum(2).pow(CBigNum(primeBitLen)))) {
+				t = ((CBigNum(2).pow(CBigNum(primeBitLen))) - CBigNum(1)) / (CBigNum(2) * c0);
 			}
 
 			// Set c = (2 * t * c0) + 1
-			Bignum c = (Bignum(2) * t * c0) + Bignum(1);
+			CBigNum c = (CBigNum(2) * t * c0) + CBigNum(1);
 
 			// Increment prime_gen_counter
 			(*prime_gen_counter)++;
 
 			// Test "c" for primality as follows:
 			// 1. First pick an integer "a" in between 2 and (c - 2)
-			Bignum a = generateIntegerFromSeed(c.bitSize(), (*out_seed), &numIterations);
-			a = Bignum(2) + (a % (c - Bignum(3)));
+			CBigNum a = generateIntegerFromSeed(c.bitSize(), (*out_seed), &numIterations);
+			a = CBigNum(2) + (a % (c - CBigNum(3)));
 			(*out_seed) += (numIterations + 1);
 
 			// 2. Compute "z" = a^{2*t} mod c
-			Bignum z = a.pow_mod(Bignum(2) * t, c);
+			CBigNum z = a.pow_mod(CBigNum(2) * t, c);
 
 			// 3. Check if "c" is prime.
 			//    Specifically, verify that gcd((z-1), c) == 1 AND (z^c0 mod c) == 1
 			// If so we return "c" as our result.
-			if (c.gcd(z - Bignum(1)).isOne() && z.pow_mod(c0, c).isOne()) {
+			if (c.gcd(z - CBigNum(1)).isOne() && z.pow_mod(c0, c).isOne()) {
 				// Return "c", out_seed and prime_gen_counter
 				// (the latter two of which were already updated)
 				return c;
 			}
 
 			// 4. If the test did not succeed, increment "t" and loop
-			t = t + Bignum(1);
+			t = t + CBigNum(1);
 		} // end of test loop
 	}
 
@@ -613,10 +584,10 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 	throw ZerocoinException("Unable to generate random prime (too many tests)");
 }
 
-Bignum
+CBigNum
 generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
 {
-	Bignum      result(0);
+	CBigNum      result(0);
 	uint32_t    iterations = ceil((double)numBits / (double)HASH_OUTPUT_BITS);
 
 #ifdef ZEROCOIN_DEBUG
@@ -627,10 +598,10 @@ generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
 	// Loop "iterations" times filling up the value "result" with random bits
 	for (uint32_t count = 0; count < iterations; count++) {
 		// result += ( H(pseed + count) * 2^{count * p0len} )
-		result += Bignum(calculateHash(seed + count)) * Bignum(2).pow(count * HASH_OUTPUT_BITS);
+		result += CBigNum(calculateHash(seed + count)) * CBigNum(2).pow(count * HASH_OUTPUT_BITS);
 	}
 
-	result = Bignum(2).pow(numBits - 1) + (result % (Bignum(2).pow(numBits - 1)));
+	result = CBigNum(2).pow(numBits - 1) + (result % (CBigNum(2).pow(numBits - 1)));
 
 	// Return the number of iterations and the result
 	*numIterations = iterations;
@@ -646,8 +617,7 @@ generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
 bool
 primalityTestByTrialDivision(uint32_t candidate)
 {
-	// TODO: HACK HACK WRONG WRONG
-	Bignum canBignum(candidate);
+	CBigNum canBignum(candidate);
 
 	return canBignum.isPrime();
 }

@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include <boost/assign/list_of.hpp>
 #include "base58.h"
 #include "ecoinrpc.h"
@@ -304,20 +305,20 @@ Value decodescript(const Array& params, bool fHelp)
             "decodescript <hex string>\n"
             "Decode a hex-encoded script.");
 
-    RPCTypeCheck(params, list_of(str_type));
+//    RPCTypeCheck(params, list_of(str_type));
 
-    Object r;
-    CScript script;
-    if (params[0].get_str().size() > 0){
-        vector<unsigned char> scriptData(ParseHexV(params[0], "argument"));
-        script = CScript(scriptData.begin(), scriptData.end());
-    } else {
-        // Empty scripts are valid
-    }
-    ScriptPubKeyToJSON(script, r, false);
+//    Object r;
+//    CScript script;
+//    if (params[0].get_str().size() > 0){
+//        vector<unsigned char> scriptData(ParseHex(params[0], "argument"));
+//        script = CScript(scriptData.begin(), scriptData.end());
+//    } else {
+//        // Empty scripts are valid
+//    }
+//    ScriptPubKeyToJSON(script, r, false);
 
-    r.push_back(Pair("p2sh", CEcoinAddress(script.GetID()).ToString()));
-    return r;
+//    r.push_back(Pair("p2sh", CEcoinAddress(script.GetID()).ToString()));
+//    return r;
 }
 
 Value signrawtransaction(const Array& params, bool fHelp)

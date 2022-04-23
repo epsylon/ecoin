@@ -1,14 +1,4 @@
-/**
- * @file       Commitment.cpp
- *
- * @brief      Commitment and CommitmentProof classes for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <stdlib.h>
 #include "Zerocoin.h"
@@ -17,21 +7,21 @@ namespace libzerocoin {
 
 //Commitment class
 Commitment::Commitment::Commitment(const IntegerGroupParams* p,
-                                   const Bignum& value): params(p), contents(value) {
-	this->randomness = Bignum::randBignum(params->groupOrder);
+                                   const CBigNum& value): params(p), contents(value) {
+	this->randomness = CBigNum::randBignum(params->groupOrder);
 	this->commitmentValue = (params->g.pow_mod(this->contents, params->modulus).mul_mod(
 	                         params->h.pow_mod(this->randomness, params->modulus), params->modulus));
 }
 
-const Bignum& Commitment::getCommitmentValue() const {
+const CBigNum& Commitment::getCommitmentValue() const {
 	return this->commitmentValue;
 }
 
-const Bignum& Commitment::getRandomness() const {
+const CBigNum& Commitment::getRandomness() const {
 	return this->randomness;
 }
 
-const Bignum& Commitment::getContents() const {
+const CBigNum& Commitment::getContents() const {
 	return this->contents;
 }
 
@@ -43,7 +33,7 @@ CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams*
         const IntegerGroupParams* bParams, const Commitment& a, const Commitment& b):
 	ap(aParams),bp(bParams)
 {
-	Bignum r1, r2, r3;
+	CBigNum r1, r2, r3;
 
 	// First: make sure that the two commitments have the
 	// same contents.
@@ -59,11 +49,11 @@ CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams*
 	uint32_t randomSize = COMMITMENT_EQUALITY_CHALLENGE_SIZE + COMMITMENT_EQUALITY_SECMARGIN +
 	                      std::max(std::max(this->ap->modulus.bitSize(), this->bp->modulus.bitSize()),
 	                               std::max(this->ap->groupOrder.bitSize(), this->bp->groupOrder.bitSize()));
-	Bignum maxRange = (Bignum(2).pow(randomSize) - Bignum(1));
+	CBigNum maxRange = (CBigNum(2).pow(randomSize) - CBigNum(1));
 
-	r1 = Bignum::randBignum(maxRange);
-	r2 = Bignum::randBignum(maxRange);
-	r3 = Bignum::randBignum(maxRange);
+	r1 = CBigNum::randBignum(maxRange);
+	r2 = CBigNum::randBignum(maxRange);
+	r3 = CBigNum::randBignum(maxRange);
 
 	// Generate two random, ephemeral commitments "T1, T2"
 	// of the form:
@@ -71,8 +61,8 @@ CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams*
 	// T2 = g2^r1 * h2^r3 mod p2
 	//
 	// Where (g1, h1, p1) are from "aParams" and (g2, h2, p2) are from "bParams".
-	Bignum T1 = this->ap->g.pow_mod(r1, this->ap->modulus).mul_mod((this->ap->h.pow_mod(r2, this->ap->modulus)), this->ap->modulus);
-	Bignum T2 = this->bp->g.pow_mod(r1, this->bp->modulus).mul_mod((this->bp->h.pow_mod(r3, this->bp->modulus)), this->bp->modulus);
+	CBigNum T1 = this->ap->g.pow_mod(r1, this->ap->modulus).mul_mod((this->ap->h.pow_mod(r2, this->ap->modulus)), this->ap->modulus);
+	CBigNum T2 = this->bp->g.pow_mod(r1, this->bp->modulus).mul_mod((this->bp->h.pow_mod(r3, this->bp->modulus)), this->bp->modulus);
 
 	// Now hash commitment "A" with commitment "B" as well as the
 	// parameters and the two ephemeral commitments "T1, T2" we just generated
@@ -96,7 +86,7 @@ CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams*
 	// are stored in member variables.
 }
 
-bool CommitmentProofOfKnowledge::Verify(const Bignum& A, const Bignum& B) const
+bool CommitmentProofOfKnowledge::Verify(const CBigNum& A, const CBigNum& B) const
 {
 	// Compute the maximum range of S1, S2, S3 and verify that the given values are
 	// in a correct range. This might be an unnecessary check.
@@ -107,27 +97,27 @@ bool CommitmentProofOfKnowledge::Verify(const Bignum& A, const Bignum& B) const
 	if ((uint32_t)this->S1.bitSize() > maxSize ||
 	        (uint32_t)this->S2.bitSize() > maxSize ||
 	        (uint32_t)this->S3.bitSize() > maxSize ||
-	        this->S1 < Bignum(0) ||
-	        this->S2 < Bignum(0) ||
-	        this->S3 < Bignum(0) ||
-	        this->challenge < Bignum(0) ||
-	        this->challenge > (Bignum(2).pow(COMMITMENT_EQUALITY_CHALLENGE_SIZE) - Bignum(1))) {
+	        this->S1 < CBigNum(0) ||
+	        this->S2 < CBigNum(0) ||
+	        this->S3 < CBigNum(0) ||
+	        this->challenge < CBigNum(0) ||
+	        this->challenge > (CBigNum(2).pow(COMMITMENT_EQUALITY_CHALLENGE_SIZE) - CBigNum(1))) {
 		// Invalid inputs. Reject.
 		return false;
 	}
 
 	// Compute T1 = g1^S1 * h1^S2 * inverse(A^{challenge}) mod p1
-	Bignum T1 = A.pow_mod(this->challenge, ap->modulus).inverse(ap->modulus).mul_mod(
+	CBigNum T1 = A.pow_mod(this->challenge, ap->modulus).inverse(ap->modulus).mul_mod(
 	                (ap->g.pow_mod(S1, ap->modulus).mul_mod(ap->h.pow_mod(S2, ap->modulus), ap->modulus)),
 	                ap->modulus);
 
 	// Compute T2 = g2^S1 * h2^S3 * inverse(B^{challenge}) mod p2
-	Bignum T2 = B.pow_mod(this->challenge, bp->modulus).inverse(bp->modulus).mul_mod(
+	CBigNum T2 = B.pow_mod(this->challenge, bp->modulus).inverse(bp->modulus).mul_mod(
 	                (bp->g.pow_mod(S1, bp->modulus).mul_mod(bp->h.pow_mod(S3, bp->modulus), bp->modulus)),
 	                bp->modulus);
 
 	// Hash T1 and T2 along with all of the public parameters
-	Bignum computedChallenge = calculateChallenge(A, B, T1, T2);
+	CBigNum computedChallenge = calculateChallenge(A, B, T1, T2);
 
 	// Return success if the computed challenge matches the incoming challenge
 	if(computedChallenge == this->challenge) {
@@ -138,7 +128,7 @@ bool CommitmentProofOfKnowledge::Verify(const Bignum& A, const Bignum& B) const
 	return false;
 }
 
-const Bignum CommitmentProofOfKnowledge::calculateChallenge(const Bignum& a, const Bignum& b, const Bignum &commitOne, const Bignum &commitTwo) const {
+const CBigNum CommitmentProofOfKnowledge::calculateChallenge(const CBigNum& a, const CBigNum& b, const CBigNum &commitOne, const CBigNum &commitTwo) const {
 	CHashWriter hasher(0,0);
 
 	// Hash together the following elements:
@@ -163,10 +153,10 @@ const Bignum CommitmentProofOfKnowledge::calculateChallenge(const Bignum& a, con
 	hasher << std::string("||");
 	hasher << *(this->bp);
 
-	// Convert the SHA256 result into a Bignum
+	// Convert the SHA256 result into a CBigNum
 	// Note that if we ever change the size of the hash function we will have
 	// to update COMMITMENT_EQUALITY_CHALLENGE_SIZE appropriately!
-	return Bignum(hasher.GetHash());
+	return CBigNum(hasher.GetHash());
 }
 
 } /* namespace libzerocoin */

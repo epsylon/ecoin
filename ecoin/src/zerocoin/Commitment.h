@@ -1,14 +1,4 @@
-/**
- * @file       Commitment.h
- *
- * @brief      Commitment and CommitmentProof classes for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef COMMITMENT_H_
 #define COMMITMENT_H_
@@ -36,15 +26,15 @@ public:
 	 * @param p the group parameters for the coin
 	 * @param value the value to commit to
 	 */
-	Commitment(const IntegerGroupParams* p, const Bignum& value);
-	const Bignum& getCommitmentValue() const;
-	const Bignum& getRandomness() const;
-	const Bignum& getContents() const;
+	Commitment(const IntegerGroupParams* p, const CBigNum& value);
+	const CBigNum& getCommitmentValue() const;
+	const CBigNum& getRandomness() const;
+	const CBigNum& getContents() const;
 private:
 	const IntegerGroupParams *params;
-	Bignum commitmentValue;
-	Bignum randomness;
-	const Bignum contents;
+	CBigNum commitmentValue;
+	CBigNum randomness;
+	const CBigNum contents;
 	IMPLEMENT_SERIALIZE
 	(
 	    READWRITE(commitmentValue);
@@ -75,7 +65,7 @@ public:
 		strm >> *this;
 	}
 
-	const Bignum calculateChallenge(const Bignum& a, const Bignum& b, const Bignum &commitOne, const Bignum &commitTwo) const;
+	const CBigNum calculateChallenge(const CBigNum& a, const CBigNum& b, const CBigNum &commitOne, const CBigNum &commitTwo) const;
 
 	/**Verifies the proof
 	 *
@@ -87,7 +77,7 @@ public:
 	 * @param B value of commitment two
 	 * @return
 	 */
-	bool Verify(const Bignum& A, const Bignum& B) const;
+	bool Verify(const CBigNum& A, const CBigNum& B) const;
 	IMPLEMENT_SERIALIZE
 	(
 	    READWRITE(S1);
@@ -98,7 +88,7 @@ public:
 private:
 	const IntegerGroupParams *ap, *bp;
 
-	Bignum S1, S2, S3, challenge;
+	CBigNum S1, S2, S3, challenge;
 };
 
 } /* namespace libzerocoin */

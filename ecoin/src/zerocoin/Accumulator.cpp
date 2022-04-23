@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
- * @file       Accumulator.cpp
- *
- * @brief      Accumulator and AccumulatorWitness classes for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <sstream>
 #include "Zerocoin.h"
@@ -64,7 +53,7 @@ const CoinDenomination Accumulator::getDenomination() const {
 	return static_cast<CoinDenomination> (this->denomination);
 }
 
-const Bignum& Accumulator::getValue() const {
+const CBigNum& Accumulator::getValue() const {
 	return this->value;
 }
 
@@ -88,7 +77,7 @@ void AccumulatorWitness::AddElement(const PublicCoin& c) {
 	}
 }
 
-const Bignum& AccumulatorWitness::getValue() const {
+const CBigNum& AccumulatorWitness::getValue() const {
 	return this->witness.getValue();
 }
 

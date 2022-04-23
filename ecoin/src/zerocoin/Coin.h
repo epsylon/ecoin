@@ -1,15 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/**
- * @file       Coin.h
- *
- * @brief      PublicCoin and PrivateCoin classes for the Zerocoin library.
- *
- * @author     Ian Miers, Christina Garman and Matthew Green
- * @date       June 2013
- *
- * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
- * @license    This project is released under the MIT license.
- **/
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef COIN_H_
 #define COIN_H_
@@ -48,8 +37,8 @@ public:
 	 * @param coin the value of the commitment.
 	 * @param denomination The denomination of the coin. Defaults to ZQ_PEDERSEN
 	 */
-	PublicCoin( const Params* p, const Bignum& coin, const CoinDenomination d = ZQ_PEDERSEN);
-	const Bignum& getValue() const;
+	PublicCoin( const Params* p, const CBigNum& coin, const CoinDenomination d = ZQ_PEDERSEN);
+	const CBigNum& getValue() const;
 	const CoinDenomination getDenomination() const;
 	bool operator==(const PublicCoin& rhs) const;
 	bool operator!=(const PublicCoin& rhs) const;
@@ -66,7 +55,7 @@ public:
 	)
 private:
 	const Params* params;
-	Bignum value;
+	CBigNum value;
 	// Denomination is stored as an INT because storing
 	// and enum raises amigiuities in the serialize code //FIXME if possible
 	int denomination;
@@ -91,8 +80,8 @@ public:
 	}
 	PrivateCoin(const Params* p,const CoinDenomination denomination = ZQ_PEDERSEN);
 	const PublicCoin& getPublicCoin() const;
-	const Bignum& getSerialNumber() const;
-	const Bignum& getRandomness() const;
+	const CBigNum& getSerialNumber() const;
+	const CBigNum& getRandomness() const;
 
 	IMPLEMENT_SERIALIZE
 	(
@@ -103,8 +92,8 @@ public:
 private:
 	const Params* params;
 	PublicCoin publicCoin;
-	Bignum randomness;
-	Bignum serialNumber;
+	CBigNum randomness;
+	CBigNum serialNumber;
 
 	/**
 	 * @brief Mint a new coin.

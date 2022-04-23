@@ -1,20 +1,11 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
-/// \file       ParamGeneration.h
-///
-/// \brief      Parameter generation routines for Zerocoin.
-///
-/// \author     Ian Miers, Christina Garman and Matthew Green
-/// \date       June 2013
-///
-/// \copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
-/// \license    This project is released under the MIT license.
+// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef PARAMGENERATION_H_
 #define PARAMGENERATION_H_
 
 namespace libzerocoin {
 
-void CalculateParams(Params &params, Bignum N, std::string aux, uint32_t securityLevel);
+void CalculateParams(Params &params, CBigNum N, std::string aux, uint32_t securityLevel);
 void calculateGroupParamLengths(uint32_t maxPLen, uint32_t securityLevel,
                                 uint32_t *pLen, uint32_t *qLen);
 
@@ -33,20 +24,20 @@ void calculateGroupParamLengths(uint32_t maxPLen, uint32_t securityLevel,
 
 // Prototypes
 bool                primalityTestByTrialDivision(uint32_t candidate);
-uint256             calculateSeed(Bignum modulus, std::string auxString, uint32_t securityLevel, std::string groupName);
+uint256             calculateSeed(CBigNum modulus, std::string auxString, uint32_t securityLevel, std::string groupName);
 uint256             calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, std::string label, uint32_t index, uint32_t count);
 
 uint256             calculateHash(uint256 input);
 IntegerGroupParams  deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen);
-IntegerGroupParams  deriveIntegerGroupFromOrder(Bignum &groupOrder);
+IntegerGroupParams  deriveIntegerGroupFromOrder(CBigNum &groupOrder);
 void                calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
-        Bignum *resultModulus, Bignum *resultGroupOrder,
+        CBigNum &resultModulus, CBigNum &resultGroupOrder,
         uint256 *resultPseed, uint256 *resultQseed);
-Bignum              calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, Bignum modulus,
-        Bignum groupOrder, uint32_t index);
-Bignum              generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
+CBigNum              calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, CBigNum modulus,
+        CBigNum groupOrder, uint32_t index);
+CBigNum              generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
                                         uint32_t *prime_gen_counter);
-Bignum              generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations);
+CBigNum              generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations);
 bool                primalityTestByTrialDivision(uint32_t candidate);
 
 }/* namespace libzerocoin */
