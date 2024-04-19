@@ -11,9 +11,11 @@
 
 #### Description:
 
- [ECOin](https://ecoin.03c8.net) is a P2P crypto-currency with the goal of providing a long-term energy-efficient digital economy strategy.
+ [ECOin](https://ecoin.03c8.net) is a P2P crypto-currency with the goal of providing **a long-term energy-efficient digital economy strategy**.
 
- It uses -[SCRYPT algorithm](https://en.wikipedia.org/wiki/Scrypt)- and implements 3 different mining systems: 
+ It uses -[SCRYPT algorithm](https://en.wikipedia.org/wiki/Scrypt)- and implements 3 different mining systems.
+ 
+ **It is the only crypto in the market that implements such a sophisticated mining system**:
 
  + [Proof-Of-Work](https://en.wikipedia.org/wiki/Proof_of_work)
  + [Proof-Of-Stake](https://en.wikipedia.org/wiki/Proof_of_stake) 
@@ -21,7 +23,7 @@
 
  There is no maximum number of coins, through the estimated coinbase size will be roughly [225 million ECO].
 
-#### Languages:
+ Supported languages:
 
  + English
  + Russian
@@ -36,9 +38,17 @@
 
 ----------
 
-####  Blockchain Explorer:   
+####  Blockchain:   
 
  + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
+ 
+ ----------
+
+#### Implementations:
+
+ This crypto-currency is part of the project: [SolarNET.HuB (SNH)](https://solarnethub.com/).
+
+ It allows the [inhabitants](https://solarnethub.com/socialnet/overview) of the [kit](https://solarnethub.com/kit/overview) to access a **totally sustainable market ecosystem**, through the [mining system with solar panels](https://solarnethub.com/kit/hardware).
 
 ----------
 
