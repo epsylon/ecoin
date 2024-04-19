@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "transactiondesc.h"
 #include "guiutil.h"
 #include "ecoinunits.h"
@@ -7,6 +8,8 @@
 #include "txdb.h"
 #include "ui_interface.h"
 #include "base58.h"
+#include <QString>
+#include <QUrl>
 
 QString TransactionDesc::FormatTxStatus(const CWalletTx& wtx)
 {

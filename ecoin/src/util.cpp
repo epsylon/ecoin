@@ -23,6 +23,11 @@ namespace boost {
 #include <openssl/rand.h>
 #include <stdarg.h>
 
+#include <boost/bind/bind.hpp>
+#include <boost/bind/placeholders.hpp>
+
+using namespace boost::placeholders;
+
 #ifdef WIN32
 #ifdef _MSC_VER
 #pragma warning(disable:4786)

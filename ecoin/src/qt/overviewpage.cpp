@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "overviewpage.h"
 #include "ui_overviewpage.h"
 #include "walletmodel.h"
@@ -10,6 +11,10 @@
 #include "guiconstants.h"
 #include <QAbstractItemDelegate>
 #include <QPainter>
+#include <QVariant>
+#include <QDateTime>
+
+using namespace Qt;
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 3
@@ -44,7 +49,7 @@ public:
         bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
         QVariant value = index.data(Qt::ForegroundRole);
         QColor foreground = option.palette.color(QPalette::Text);
-        if(qVariantCanConvert<QColor>(value))
+        if (value.canConvert<QColor>())
         {
             foreground = qvariant_cast<QColor>(value);
         }

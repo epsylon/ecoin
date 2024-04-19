@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "addressbookpage.h"
 #include "ui_addressbookpage.h"
 #include "addresstablemodel.h"
@@ -11,6 +12,8 @@
 #include <QClipboard>
 #include <QMessageBox>
 #include <QMenu>
+#include <QString>
+#include <QUrl>
 
 #ifdef USE_QRCODE
 #include "qrcodedialog.h"
@@ -133,7 +136,7 @@ void AddressBookPage::setModel(AddressTableModel *model)
     // Set column widths
     ui->tableView->horizontalHeader()->resizeSection(
             AddressTableModel::Address, 320);
-    ui->tableView->horizontalHeader()->setResizeMode(
+    ui->tableView->horizontalHeader()->setSectionResizeMode(
             AddressTableModel::Label, QHeaderView::Stretch);
 
     connect(ui->tableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),

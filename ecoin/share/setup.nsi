@@ -1,5 +1,5 @@
 
-# ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+# ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 Name Ecoin
 
@@ -8,9 +8,9 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 0.0.2
+!define VERSION 0.0.3
 !define COMPANY "Ecoin project"
-!define URL https://03c8.net
+!define URL https://ecoin.03c8.net
 
 # MUI Symbol Definitions
 !define MUI_ICON "../share/pixmaps/ecoin.ico"
@@ -48,13 +48,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile ecoin-0.0.2-win32-setup.exe
+OutFile ecoin-0.0.3-win32-setup.exe
 InstallDir $PROGRAMFILES\Ecoin
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 0.0.2.1
+VIProductVersion 0.0.3.1
 VIAddVersionKey ProductName Ecoin
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"

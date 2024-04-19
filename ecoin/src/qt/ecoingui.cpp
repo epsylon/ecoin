@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "ecoingui.h"
 #include "transactiontablemodel.h"
 #include "addressbookpage.h"
@@ -49,6 +50,8 @@
 #include <QUrl>
 #include <QStyle>
 #include <iostream>
+#include <QMimeData>
+#include <QStandardPaths>
 
 extern CWallet* pwalletMain;
 extern int64 nLastCoinStakeSearchInterval;
@@ -821,7 +824,7 @@ void EcoinGUI::encryptWallet(bool status)
 
 void EcoinGUI::backupWallet()
 {
-    QString saveDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    QString saveDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     QString filename = QFileDialog::getSaveFileName(this, tr("Backup Wallet"), saveDir, tr("Wallet Data (*.dat)"));
     if(!filename.isEmpty()) {
         if(!walletModel->backupWallet(filename)) {

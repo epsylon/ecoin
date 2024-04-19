@@ -7,12 +7,6 @@
 
  + https://ecoin.03c8.net
 
-####  Blockchain Explorer:   
-
- + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
-
-![c](https://ecoin.03c8.net/ecoin/ecoin-blockexplorer.png)
-
 ----------
 
 #### Description:
@@ -23,7 +17,7 @@
 
  + [Proof-Of-Work](https://en.wikipedia.org/wiki/Proof_of_work)
  + [Proof-Of-Stake](https://en.wikipedia.org/wiki/Proof_of_stake) 
- + [Proof-Of-Transaction](https://cryptoticker.io/en/proof-transaction/)
+ + [Proof-Of-Transaction](https://cryptoticker.io/en/proof-transaction)
 
  There is no maximum number of coins, through the estimated coinbase size will be roughly [225 million ECO].
 
@@ -39,6 +33,12 @@
  + Italian
  + Portuguese
  + Chinese
+
+----------
+
+####  Blockchain Explorer:   
+
+ + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
 
 ----------
 
@@ -88,4 +88,8 @@ Debug Console:
 Mining:
 
 ![c](https://ecoin.03c8.net/ecoin/ecoin_mining_zoom.png)
+
+BlockExplorer:
+
+![c](https://ecoin.03c8.net/ecoin/ecoin-blockexplorer.png)
 

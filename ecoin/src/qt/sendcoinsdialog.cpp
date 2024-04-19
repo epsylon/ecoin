@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "sendcoinsdialog.h"
 #include "ui_sendcoinsdialog.h"
 #include "init.h"
@@ -18,6 +19,8 @@
 #include <QTextDocument>
 #include <QScrollBar>
 #include <QClipboard>
+#include <QString>
+#include <QUrl>
 
 SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     QDialog(parent),
@@ -142,7 +145,7 @@ void SendCoinsDialog::on_sendButton_clicked()
     QStringList formatted;
     foreach(const SendCoinsRecipient &rcp, recipients)
     {
-        formatted.append(tr("<b>%1</b> to %2 (%3)").arg(EcoinUnits::formatWithUnit(EcoinUnits::ECO, rcp.amount), Qt::escape(rcp.label), rcp.address));
+    formatted.append(tr("<b>%1</b> to %2 (%3)").arg(EcoinUnits::formatWithUnit(EcoinUnits::ECO, rcp.amount), rcp.label.toHtmlEscaped(), rcp.address));
     }
 
     fNewRecipientAllowed = false;

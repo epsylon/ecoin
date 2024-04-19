@@ -1,5 +1,5 @@
 
-ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 ===============================
 # SOURCES for ECOin (MacOS X) #
@@ -53,7 +53,7 @@ All of the commands should be executed in Terminal.app
      An executable named 'ecoind' will be built.
 
 ===============================
-# Qt4 GUI for ECOin (MacOS X) #
+# Qt5 GUI for ECOin (MacOS X) #
 ===============================
 
 (1.) Download and install MacPorts from: http://www.macports.org/
@@ -61,7 +61,7 @@ All of the commands should be executed in Terminal.app
 (2.) Execute the following commands in a terminal to get the dependencies:
 
         sudo port selfupdate
-        sudo port install qt4-mac qt4-creator-mac boost db53 miniupnpc
+        sudo port install qt5-mac qt5-creator-mac boost db53 miniupnpc
 
 (3.) Open the .pro file in Qt Creator (with Desktop kit) and build as normal (cmd-B)
 

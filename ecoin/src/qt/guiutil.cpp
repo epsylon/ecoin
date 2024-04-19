@@ -1,4 +1,5 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #include "guiutil.h"
 #include "ecoinaddressvalidator.h"
 #include "walletmodel.h"
@@ -11,7 +12,6 @@
 #include <QFont>
 #include <QLineEdit>
 #include <QUrl>
-#include <QTextDocument> // For Qt::escape
 #include <QAbstractItemView>
 #include <QApplication>
 #include <QClipboard>
@@ -20,30 +20,21 @@
 #include <QThread>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QtGlobal>
+#include <QToolTip>
 
 #ifdef WIN32
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif
-#define _WIN32_WINNT 0x0501
-#ifdef _WIN32_IE
-#undef _WIN32_IE
-#endif
-#define _WIN32_IE 0x0501
-#define WIN32_LEAN_AND_MEAN 1
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include "shlwapi.h"
-#include "shlobj.h"
-#include "shellapi.h"
+#include <windows.h>
+#include <shlobj.h>
 #endif
 
 namespace GUIUtil {
 
-QString dateTimeStr(const QDateTime &date)
+QString dateTimeStr(const QDateTime &datetime)
 {
-    return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
+    return datetime.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + datetime.toString("hh:mm");
 }
 
 QString dateTimeStr(qint64 nTime)
@@ -83,8 +74,8 @@ bool parseEcoinURI(const QUrl &uri, SendCoinsRecipient *out)
     SendCoinsRecipient rv;
     rv.address = uri.path();
     rv.amount = 0;
-    QList<QPair<QString, QString> > items = uri.queryItems();
-    for (QList<QPair<QString, QString> >::iterator i = items.begin(); i != items.end(); i++)
+    QList<QPair<QString, QString>> items = QUrlQuery(uri).queryItems();
+    for (QList<QPair<QString, QString>>::iterator i = items.begin(); i != items.end(); i++)
     {
         bool fShouldReturnFalse = false;
         if (i->first.startsWith("req-"))
@@ -132,7 +123,7 @@ bool parseEcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString HtmlEscape(const QString& str, bool fMultiLine)
 {
-    QString escaped = Qt::escape(str);
+    QString escaped = str.toHtmlEscaped();
     if(fMultiLine)
     {
         escaped = escaped.replace("\n", "<br>\n");
@@ -143,6 +134,31 @@ QString HtmlEscape(const QString& str, bool fMultiLine)
 QString HtmlEscape(const std::string& str, bool fMultiLine)
 {
     return HtmlEscape(QString::fromStdString(str), fMultiLine);
+}
+
+ToolTipToRichTextFilter::ToolTipToRichTextFilter(int threshold, QObject *parent) :
+    QObject(parent),
+    size_threshold(threshold)
+{
+    // Constructor implementation
+}
+
+bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)
+{
+    if(evt->type() == QEvent::ToolTipChange)
+    {
+        QWidget *widget = static_cast<QWidget*>(obj);
+        QString tooltip = widget->toolTip();
+        if(tooltip.size() > size_threshold && !tooltip.startsWith("<qt>") && !QToolTip::isVisible())
+        {
+            // Prefix <qt/> to make sure Qt detects this as rich text
+            // Escape the current message as HTML and replace \n by <br>
+            tooltip = "<qt>" + HtmlEscape(tooltip, true) + "</qt>";
+            widget->setToolTip(tooltip);
+            return true;
+        }
+    }
+    return QObject::eventFilter(obj, evt);
 }
 
 void copyEntryData(QAbstractItemView *view, int column, int role)
@@ -167,7 +183,7 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
     QString myDir;
     if(dir.isEmpty()) // Default to user documents location
     {
-        myDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+        myDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     }
     else
     {
@@ -239,30 +255,6 @@ void openDebugLogfile()
     /* Open debug.log with the associated application */
     if (boost::filesystem::exists(pathDebug))
         QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(pathDebug.string())));
-}
-
-ToolTipToRichTextFilter::ToolTipToRichTextFilter(int size_threshold, QObject *parent) :
-    QObject(parent), size_threshold(size_threshold)
-{
-
-}
-
-bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)
-{
-    if(evt->type() == QEvent::ToolTipChange)
-    {
-        QWidget *widget = static_cast<QWidget*>(obj);
-        QString tooltip = widget->toolTip();
-        if(tooltip.size() > size_threshold && !tooltip.startsWith("<qt>") && !Qt::mightBeRichText(tooltip))
-        {
-            // Prefix <qt/> to make sure Qt detects this as rich text
-            // Escape the current message as HTML and replace \n by <br>
-            tooltip = "<qt>" + HtmlEscape(tooltip, true) + "<qt/>";
-            widget->setToolTip(tooltip);
-            return true;
-        }
-    }
-    return QObject::eventFilter(obj, evt);
 }
 
 #ifdef WIN32

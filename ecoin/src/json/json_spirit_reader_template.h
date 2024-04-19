@@ -1,10 +1,13 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+
 #ifndef JSON_SPIRIT_READER_TEMPLATE
 #define JSON_SPIRIT_READER_TEMPLATE
 
 #include "json_spirit_value.h"
 #include "json_spirit_error_position.h"
-#include <boost/bind.hpp>
+#include <boost/bind/bind.hpp>
+using namespace boost::placeholders;
+
 #include <boost/function.hpp>
 #include <boost/version.hpp>
 

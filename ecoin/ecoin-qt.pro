@@ -1,9 +1,8 @@
-
-# ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+# ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 TEMPLATE = app
 TARGET = ecoin-qt
-VERSION = 0.0.3
+VERSION = 0.0.4
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -11,6 +10,17 @@ CONFIG += thread
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
+QT += core gui widgets
+QT_NO_DEFAULT_CODEC = 1
+
+QMAKE_CXXFLAGS_WARN_ON = -Wno-unused-parameter -Wno-deprecated-declarations -Wno-stringop-overread -Wno-return-type
+
+# Disable stack-protector warnings
+QMAKE_CXXFLAGS += -Wno-stack-protector
+
+# Extra security measures for Windows
+win32:QMAKE_LFLAGS += -Wl,--dynamicbase -Wl,--nxcompat
+win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
@@ -128,8 +138,6 @@ contains(USE_O3, 1) {
     QMAKE_CXXFLAGS += -msse2
     QMAKE_CFLAGS += -msse2
 }
-
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
 
 # Input
 DEPENDPATH += src src/json src/qt

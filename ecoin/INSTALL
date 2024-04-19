@@ -1,5 +1,5 @@
 
-ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 ===================================================
 # BUILDS - ECOlogical P2P Crypto-Currency (ECOin) #
@@ -13,7 +13,7 @@ cd ecoin/
 
   + GNU/Linux:
 
-	/usr/lib/x86_64-linux-gnu/qt4/bin/qmake USE_UPNP=0 USE_IPV6=0 -o Makefile ecoin-qt.pro
+	/usr/lib/x86_64-linux-gnu/qt5/bin/qmake USE_UPNP=- USE_IPV6=- -o Makefile ecoin-qt.pro
 
 ================
 + Build leveldb:
@@ -43,8 +43,7 @@ See doc/build-*.txt for detailed instructions on building /ecoin-qt/ on differen
 
   + GNU/Linux:
 
-	cd ..
-	qmake USE_UPNP=- (or USE_UPNP=0)
+	qmake USE_UPNP=-
 	make
 
         ./ecoin-qt
@@ -58,7 +57,7 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
   + GNU/Linux:
 
 	cd src/
-	make -f makefile.linux USE_UPNP=- (or USE_UPNP=0)
+	make -f makefile.linux USE_UPNP=-
 	strip ecoind
 
         ./ecoind
@@ -72,8 +71,9 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
      - File: /home/$USER/.ecoin/ecoin.conf # chmod 600 ecoin.conf
 
         rpcuser=ecoinrpc
-        rpcpassword=YourPassWord2021 # use lowercase, upper case and numbers
+        rpcpassword=<YourPassWord2024> # use lowercase, upper case and numbers
         rpcallowip=127.0.0.1
+        rpcallowip=<YourPrivateIP> # ex: 10.0.0.5
         noirc=1
         listen=1
         server=1
