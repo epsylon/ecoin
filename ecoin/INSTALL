@@ -43,7 +43,7 @@ See doc/build-*.txt for detailed instructions on building /ecoin-qt/ on differen
 
   + GNU/Linux:
 
-	qmake USE_UPNP=-
+	qmake USE_UPNP=- USE_IPV6=-
 	make
 
         ./ecoin-qt
@@ -57,10 +57,23 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
   + GNU/Linux:
 
 	cd src/
-	make -f makefile.linux USE_UPNP=-
+	make -f makefile.linux USE_UPNP=- USE_IPV6=-
 	strip ecoind
 
         ./ecoind
+        
+===============
++ Build Miner:
+===============
+
+See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
+
+  + GNU/Linux:
+
+	cd miner/
+	sh build.sh
+	
+        ./cpuminer
 
 ==========================
 + Configuration (Example):
@@ -73,24 +86,14 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
         rpcuser=ecoinrpc
         rpcpassword=<YourPassWord2024> # use lowercase, upper case and numbers
         rpcallowip=127.0.0.1
-        rpcallowip=<YourPrivateIP> # ex: 10.0.0.5
+        testnet=0
         noirc=1
         listen=1
         server=1
         daemon=1
-        testnet=0
 	addnode = 46.163.118.220 # 03c8.net (turina.space)
 
      ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
-
-====================
-+ Testnet (Running):
-====================
-
-  + GNU/Linux:
-
-     cd src/
-     ./ecoind -testnet
 
 ====================
 + Ports (Listening):
@@ -98,9 +101,7 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
 
   + Default P2P Port: 7408
 
-  + Default RPC Port (main): 7474
-
-  + Default RPC Port (testnet): 17474
+  + Default RPC Port (mainnet): 7474
 
 ===================================================
 

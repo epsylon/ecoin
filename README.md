@@ -3,7 +3,7 @@
 
 ----------
 
-####  Project Website:   
+#### Project Website:   
 
  + https://ecoin.03c8.net
 
@@ -21,7 +21,11 @@
  + [Proof-Of-Stake](https://en.wikipedia.org/wiki/Proof_of_stake) 
  + [Proof-Of-Transaction](https://cryptoticker.io/en/proof-transaction)
 
- There is no maximum number of coins, through the estimated coinbase size will be roughly [225 million ECO].
+ The estimated coinbase size will be roughly [225 million ECO].
+ 
+----------
+
+#### Translations:
 
  Supported languages:
 
@@ -35,21 +39,37 @@
  + Italian
  + Portuguese
  + Chinese
-
-----------
-
-####  Blockchain:   
-
- + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
  
- ----------
+----------
 
 #### Implementations:
 
  This crypto-currency is part of the project: [SolarNET.HuB (SNH)](https://solarnethub.com/).
 
  It allows the [inhabitants](https://solarnethub.com/socialnet/overview) of the [kit](https://solarnethub.com/kit/overview) to access a **totally sustainable market ecosystem**, through the [mining system with solar panels](https://solarnethub.com/kit/hardware).
+ 
+----------
 
+#### Blockchain:   
+
+ + The [blockchain](https://en.wikipedia.org/wiki/Blockchain) with the transactions is publicly accessible from the url: [https://ecoin.03c8.net/blockexplorer](https://ecoin.03c8.net/blockexplorer)
+
+----------
+
+#### Mining:   
+ 
+  + The [mining](https://en.wikipedia.org/wiki/Bitcoin_protocol#Mining) process based on the [Proof-Of-Work](https://en.wikipedia.org/wiki/Proof_of_work) for ECOin is done via the **ecoin-miner** tool. See [MINING](./ecoin/doc/MINING.txt) for more details.
+  
+----------
+
+#### Rewards:
+
+  + Proof-Of-Work Mining (POW) Rewards (halving every 262,800 blocks).
+  + Proof-Of-Stake Mining (POS): Variable interest based on coin age.
+  + Proof-Of-Transaction Mining (POT): Mining by matching address segment to block hash (on tansactions greater than 500 coins), 50% of the block subsidy.
+
+ See [REWARDS](./ecoin/doc/REWARDS.txt) for more details.
+ 
 ----------
 
 #### Building:
@@ -77,7 +97,7 @@
 
 ----------
 
-####  Screenshots:
+#### Screenshots:
 
 Digital currency used in Mr. Robot:
 

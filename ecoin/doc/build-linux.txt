@@ -47,7 +47,7 @@ All of the commands should be executed in a shell.
 (2.) Now you should be able to build ecoind:
 
 	cd src/
-	make -f makefile.linux
+	make -f makefile.linux USE_UPNP=- USE_IPV6=-
 	strip ecoind
 
      An executable named 'ecoind' will be built.
@@ -65,10 +65,25 @@ All of the commands should be executed in a shell.
 
 (2.) Then execute the following:
 
-        qmake
+        qmake USE_UPNP=- USE_IPV6=-
         make
 
      An executable named 'ecoin-qt' will be built.
+     
+     
+------------------------------   
+==============================================
++ CPU Solo-Mining for ECOin (Unix/GNU-Linux) #
+==============================================
+
+See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
+
+  + GNU/Linux:
+
+	cd miner/
+	sh build.sh
+	
+     An executable named 'cpuminer' will be built.
 
 ======================================
 
