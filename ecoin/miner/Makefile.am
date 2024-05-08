@@ -170,3 +170,4 @@ cpuminer-neoscrypt.o: neoscrypt.c
 
 
 endif
+

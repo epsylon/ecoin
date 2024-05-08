@@ -86,6 +86,7 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
         rpcuser=ecoinrpc
         rpcpassword=<YourPassWord2024> # use lowercase, upper case and numbers
         rpcallowip=127.0.0.1
+        rpcallowip=0.0.0.0
         testnet=0
         noirc=1
         listen=1
