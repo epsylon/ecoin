@@ -1,66 +1,45 @@
 
-ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+ECOin - Copyright (c) - 2014/2025 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
 
 ===================================================
-# BUILDS - ECOlogical P2P Crypto-Currency (ECOin) #
+# BUILDS - P2P Crypto-Currency (ECOin) #
+===================================================
+
+See doc/build-linux.txt for more info about required libs to build it at GNU/Linux systems.
+
+All of the commands should be executed in a shell:
+
 ===================================================
 
 =================
 + Build Makefile:
 =================
 
-cd ecoin/
-
-  + GNU/Linux:
-
-	/usr/lib/x86_64-linux-gnu/qt5/bin/qmake USE_UPNP=- USE_IPV6=- -o Makefile ecoin-qt.pro
-
-================
-+ Build leveldb:
-================
-
-cd src/leveldb
-
-  + GNU/Linux:
-
-        TARGET_OS=Linux make libleveldb.a libmemenv.a
-
-  + MacOS X:
-
-        TARGET_OS=Darwin make libleveldb.a libmemenv.a
-
-  + Windows:
-
-        TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a
-
-===================================================
+    cd ecoin/
+    /usr/lib/x86_64-linux-gnu/qt5/bin/qmake USE_UPNP=- USE_IPV6=- -o Makefile ecoin-qt.pro
 
 ===============
 + Build Wallet:
 ===============
 
-See doc/build-*.txt for detailed instructions on building /ecoin-qt/ on different platforms.
+    qmake USE_UPNP=- USE_IPV6=-
+    make
 
-  + GNU/Linux:
-
-	qmake USE_UPNP=- USE_IPV6=-
-	make
-
-        ./ecoin-qt
+    ./ecoin-qt
+        
+===================================================
 
 ===============
 + Build Daemon:
 ===============
 
-See doc/build-*.txt for detailed instructions on building /ecoind/ on different platforms.
+    cd src/
+    make -f makefile.linux USE_UPNP=- USE_IPV6=-
+    strip ecoind
 
-  + GNU/Linux:
-
-	cd src/
-	make -f makefile.linux USE_UPNP=- USE_IPV6=-
-	strip ecoind
-
-        ./ecoind
+    ./ecoind
+    
+===================================================
         
 ===============
 + Build Miner:
@@ -68,15 +47,15 @@ See doc/build-*.txt for detailed instructions on building /ecoind/ on different 
 
 See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
 
-  + GNU/Linux:
-
-	cd miner/
-	sh build.sh
+    cd miner/
+    sh build.sh
 	
-        ./cpuminer
+    ./cpuminer
+    
+===================================================
 
 ==========================
-+ Configuration (Example):
++ Configuration (example):
 ==========================
 
   + GNU/Linux:
@@ -84,7 +63,7 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
      - File: /home/$USER/.ecoin/ecoin.conf # chmod 600 ecoin.conf
 
         rpcuser=ecoinrpc
-        rpcpassword=<YourPassWord2024> # use lowercase, upper case and numbers
+        rpcpassword=<YourEcoinRPC_PassWord2025> # use lowercase, upper case and numbers
         rpcallowip=127.0.0.1
         rpcallowip=0.0.0.0
         testnet=0
@@ -92,9 +71,17 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
         listen=1
         server=1
         daemon=1
-	addnode = 46.163.118.220 # 03c8.net (turina.space)
+	addnode = 46.163.118.220 # ecoin.03c8.net (turina.space)
 
-     ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
+    ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
+     
+==========================
++ Debugging (logs):
+==========================
+
+  + GNU/Linux:
+
+     tail -f /home/$USER/.ecoin/debug.log
 
 ====================
 + Ports (Listening):
@@ -105,4 +92,26 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
   + Default RPC Port (mainnet): 7474
 
 ===================================================
+
+==========================
++ More info (commands):
+==========================
+
+For a list of command-line options:
+
+  ./ecoind --help
+
+To start the ECOin daemon:
+
+  ./ecoind -daemon
+
+For ECOin-QT Wallet
+
+  ./ecoin-qt
+ 
+For debugging:
+
+  tail -f /home/$USER/.ecoin/debug.log
+
+======================================
 

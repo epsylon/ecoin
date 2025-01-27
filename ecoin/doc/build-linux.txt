@@ -1,9 +1,11 @@
 
-ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+ECOin - Copyright (c) - 2014/2025 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
 
-======================================
-# SOURCES for ECOin (Unix/GNU-Linux) #
-======================================
+===========================================
+# SOURCES for P2P Crypto-Currency (ECOin) #
+===========================================
+
+Testing machine is: Debian GNU/Linux 12 (bookworm) (x86_64).
 
 All of the commands should be executed in a shell.
 
@@ -13,7 +15,7 @@ All of the commands should be executed in a shell.
 
   + Official:
 
-	git clone http://code.03c8.net:3000/epsylon/ecoin
+	git clone http://code.03c8.net/epsylon/ecoin
 
   + Mirror:
 
@@ -21,24 +23,18 @@ All of the commands should be executed in a shell.
 
 ------------------------------
 
-==============================================
-# Daemon -ecoind- for ECOin (Unix/GNU-Linux) #
-==============================================
+===================================================
+# SERVER -ecoind- for P2P Crypto-Currency (ECOin) #
+===================================================
+
+(0.) Version libraries:
+
+    - Libboost -> 1.74.0.3 (https://www.boost.org/users/history/version_1_74_0.html)
+    - LibSSL -> 3.0.15 (https://debian.pkgs.org/12/debian-main-amd64/libssl3_3.0.15-1~deb12u1_amd64.deb.html)
 
 (1.) Install dependencies:
 
- Library       Purpose           Description
- -------       -------           -----------
- libssl-dev    SSL Support       Secure communications - development libraries
- libssl1.1     SSL Support       Secure Sockets Layer toolkit - shared libraries
- libdb5.3      Berkeley DB       Blockchain & wallet storage
- libboost      Boost             C++ Library
- miniupnpc     UPnP Support      Optional firewall-jumping support
- libqrencode   QRCode generation Optional QRCode generation
-
-    + From Debian/Ubuntu:
-  
-        sudo apt-get install build-essential libssl-dev libssl1.1 libdb5.3-dev libdb5.3++-dev libboost-all-dev miniupnpc libminiupnpc-dev
+    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev libboost-all-dev
 
         + Optionally install qrencode (and set USE_QRCODE=1):
 
@@ -46,35 +42,46 @@ All of the commands should be executed in a shell.
 
 (2.) Now you should be able to build ecoind:
 
-	cd src/
-	make -f makefile.linux USE_UPNP=- USE_IPV6=-
-	strip ecoind
+    cd src/
+    make -f makefile.linux USE_UPNP=- USE_IPV6=-
+    strip ecoind
 
-     An executable named 'ecoind' will be built.
+    An executable named 'ecoind' will be built.
+    
+    Now you can launch: ./ecoind to run your ECOin server.
 
 ------------------------------
 
-======================================
-# Qt5 GUI for ECOin (Unix/GNU-Linux) #
-======================================
+============================================
+# WALLET for P2P Crypto-Currency (ECOin)  #
+============================================
 
-(1.) First, make sure that the required packages for Qt5 development of your distribution are installed, for Debian and Ubuntu these are:
+(0.) Version libraries:
 
-        sudo apt-get install qt5-qmake qtbase5-dev build-essential libboost-dev libboost-system-dev miniupnpc libminiupnpc-dev \
-             libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libssl-dev libssl1.1 libdb5.3++-dev
+    - Libboost -> 1.74.0.3 (https://www.boost.org/users/history/version_1_74_0.html)
+    - LibSSL -> 3.0.15 (https://debian.pkgs.org/12/debian-main-amd64/libssl3_3.0.15-1~deb12u1_amd64.deb.html)
+
+(1.) First, make sure that the required packages for Qt5 development (an the others required for building the daemon) are installed:
+
+    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev libboost-all-dev
+        
+        + Optionally install qrencode (and set USE_QRCODE=1):
+
+       	    sudo apt-get install libqrencode-dev
 
 (2.) Then execute the following:
 
-        qmake USE_UPNP=- USE_IPV6=-
-        make
+    qmake USE_UPNP=- USE_IPV6=-
+    make
 
-     An executable named 'ecoin-qt' will be built.
-     
-     
+    An executable named 'ecoin-qt' will be built.
+    
+    Now you can launch: ./ecoin-qt to run your ECOin wallet/GUI.
+       
 ------------------------------   
-==============================================
-+ CPU Solo-Mining for ECOin (Unix/GNU-Linux) #
-==============================================
+========================================
++ CPU MINER for ECOin (Unix/GNU-Linux) #
+========================================
 
 See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
 
@@ -83,7 +90,9 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
 	cd miner/
 	sh build.sh
 	
-     An executable named 'cpuminer' will be built.
+    An executable named 'cpuminer' will be built.
+     
+    Now you can launch: ./cpuminer to run your ECOin PoW miner.
 
 ======================================
 
@@ -98,6 +107,10 @@ To start the ECOin daemon:
 For ECOin-QT Wallet
 
   ./ecoin-qt
+ 
+For debugging:
+
+  tail -f /home/$USER/.ecoin/debug.log
 
 ======================================
 
