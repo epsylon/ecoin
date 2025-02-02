@@ -519,9 +519,7 @@ bool ClientAllowed(const boost::asio::ip::address& address)
             return ClientAllowed(boost::asio::ip::address_v4(ntohl(ipv4_address)));
         }
     }
-    if (address == boost::asio::ip::address_v4::loopback() ||
-        address == boost::asio::ip::address_v6::loopback() ||
-        address.is_v4())
+    else if (address.is_v4())
     {
         const boost::asio::ip::address_v4& ipv4_address = address.to_v4();
         unsigned int address_int = (ipv4_address.to_bytes()[0] << 24) |
