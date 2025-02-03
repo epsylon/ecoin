@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2025 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "init.h"
 #include "util.h"
@@ -9,6 +9,7 @@
 #include "db.h"
 
 #undef printf
+#include <boost/asio.hpp>
 #include <boost/asio/ip/v6_only.hpp>
 #include <boost/bind/bind.hpp>
 using namespace boost::placeholders;
@@ -22,16 +23,7 @@ using namespace boost::placeholders;
 #include <boost/asio/ssl.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/asio/ip/address_v4.hpp>
-#include <boost/asio/ip/address_v6.hpp>
-#include <iostream>
-#include <array>
 #include <list>
-
-#include <boost/asio/ip/address.hpp>
-#include <boost/asio.hpp>
-#include <vector>
-#include <string>
 
 #define printf OutputDebugStringF
 
@@ -509,39 +501,22 @@ void ErrorReply(std::ostream& stream, const Object& objError, const Value& id)
 
 bool ClientAllowed(const boost::asio::ip::address& address)
 {
-    if (address.is_v6())
-    {
-        const boost::asio::ip::address_v6& ipv6_address = address.to_v6();
-        if (ipv6_address.is_v4_mapped())
-        {
-            const std::array<unsigned char, 16>& bytes = ipv6_address.to_bytes();
-            unsigned int ipv4_address = (bytes[12] << 24) | (bytes[13] << 16) | (bytes[14] << 8) | bytes[15];
-            return ClientAllowed(boost::asio::ip::address_v4(ntohl(ipv4_address)));
-        }
-    }
-    else if (address.is_v4())
-    {
-        const boost::asio::ip::address_v4& ipv4_address = address.to_v4();
-        unsigned int address_int = (ipv4_address.to_bytes()[0] << 24) |
-                                   (ipv4_address.to_bytes()[1] << 16) |
-                                   (ipv4_address.to_bytes()[2] << 8) |
-                                   ipv4_address.to_bytes()[3];
-        if ((address_int & 0xff000000) == 0x7f000000)
-        {
-            return true;
-        }
-    }
-    const std::string strAddress = address.to_string();
-    const std::vector<std::string>& vAllow = mapMultiArgs["-rpcallowip"];
+    if (address.is_v6()
+     && (address.to_v6().is_v4_compatible()
+      || address.to_v6().is_v4_mapped()))
+        return ClientAllowed(address.to_v6().to_v4());
 
-    for (const auto& strAllow : vAllow)
-    {
+    if (address == asio::ip::address_v4::loopback()
+     || address == asio::ip::address_v6::loopback()
+     || (address.is_v4()
+      && (address.to_v4().to_ulong() & 0xff000000) == 0x7f000000))
+        return true;
+
+    const string strAddress = address.to_string();
+    const vector<string>& vAllow = mapMultiArgs["-rpcallowip"];
+    BOOST_FOREACH(string strAllow, vAllow)
         if (WildcardMatch(strAddress, strAllow))
-        {
             return true;
-        }
-    }
-
     return false;
 }
 
@@ -572,24 +547,21 @@ public:
         if (fUseSSL) return asio::write(stream, asio::buffer(s, n));
         return asio::write(stream.next_layer(), asio::buffer(s, n));
     }
-
     bool connect(const std::string& server, const std::string& port)
     {
         ip::tcp::resolver resolver(GetIOService(stream));
-        ip::tcp::resolver::results_type endpoints = resolver.resolve(server, port);
-        boost::system::error_code error;
-
-        for (auto endpoint = endpoints.begin(); endpoint != endpoints.end(); ++endpoint)
+        ip::tcp::resolver::query query(server.c_str(), port.c_str());
+        ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+        ip::tcp::resolver::iterator end;
+        boost::system::error_code error = asio::error::host_not_found;
+        while (error && endpoint_iterator != end)
         {
             stream.lowest_layer().close();
-            stream.lowest_layer().connect(*endpoint, error);
-
-            if (!error)
-            {
-                return true;
-            }
+            stream.lowest_layer().connect(*endpoint_iterator++, error);
         }
-        return false;
+        if (error)
+            return false;
+        return true;
     }
 
 private:
@@ -613,7 +585,7 @@ class AcceptedConnectionImpl : public AcceptedConnection
 {
 public:
     AcceptedConnectionImpl(
-            asio::io_context& io_service,
+            asio::io_service& io_service,
             ssl::context &context,
             bool fUseSSL) :
         sslStream(io_service, context),
@@ -757,7 +729,9 @@ void ThreadRPCServer2(void* parg)
 
     const bool fUseSSL = GetBoolArg("-rpcssl");
 
-    asio::io_context io_service;
+    asio::io_service io_service;
+
+    //ssl::context context(io_service, ssl::context::no_sslv2);
     ssl::context context(ssl::context::sslv23);
 
     if (fUseSSL)
@@ -765,12 +739,12 @@ void ThreadRPCServer2(void* parg)
         context.set_options(ssl::context::no_sslv2);
 
         boost::filesystem::path pathCertFile(GetArg("-rpcsslcertificatechainfile", "server.cert"));
-        if (!pathCertFile.is_absolute()) pathCertFile = boost::filesystem::path(GetDataDir()) / pathCertFile;
+        if (!pathCertFile.is_complete()) pathCertFile = boost::filesystem::path(GetDataDir()) / pathCertFile;
         if (boost::filesystem::exists(pathCertFile)) context.use_certificate_chain_file(pathCertFile.string());
         else printf("ThreadRPCServer ERROR: missing server certificate file %s\n", pathCertFile.string().c_str());
 
         boost::filesystem::path pathPKFile(GetArg("-rpcsslprivatekeyfile", "server.pem"));
-        if (!pathPKFile.is_absolute()) pathPKFile = boost::filesystem::path(GetDataDir()) / pathPKFile;
+        if (!pathPKFile.is_complete()) pathPKFile = boost::filesystem::path(GetDataDir()) / pathPKFile;
         if (boost::filesystem::exists(pathPKFile)) context.use_private_key_file(pathPKFile.string(), ssl::context::pem);
         else printf("ThreadRPCServer ERROR: missing server private key file %s\n", pathPKFile.string().c_str());
 
@@ -796,7 +770,7 @@ void ThreadRPCServer2(void* parg)
         acceptor->set_option(boost::asio::ip::v6_only(loopback), v6_only_error);
 
         acceptor->bind(endpoint);
-        acceptor->listen(512);
+        acceptor->listen(socket_base::max_connections);
 
         RPCListen(acceptor, context, fUseSSL);
         StopRequests.connect(signals2::slot<void ()>(
@@ -820,7 +794,7 @@ void ThreadRPCServer2(void* parg)
             acceptor->open(endpoint.protocol());
             acceptor->set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
             acceptor->bind(endpoint);
-            acceptor->listen(512);
+            acceptor->listen(socket_base::max_connections);
 
             RPCListen(acceptor, context, fUseSSL);
             StopRequests.connect(signals2::slot<void ()>(
@@ -1047,7 +1021,8 @@ Object CallRPC(const string& strMethod, const Array& params)
                 GetConfigFile().string().c_str()));
 
     bool fUseSSL = GetBoolArg("-rpcssl");
-    asio::io_context io_service;
+    asio::io_service io_service;
+    //ssl::context context(io_service, ssl::context::sslv23);
     ssl::context context(ssl::context::sslv23);
     context.set_options(ssl::context::no_sslv2);
     asio::ssl::stream<asio::ip::tcp::socket> sslStream(io_service, context);

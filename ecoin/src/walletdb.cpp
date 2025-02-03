@@ -1,10 +1,9 @@
-// ECOin - Copyright (c) - 2014/2025 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
+// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "walletdb.h"
 #include "wallet.h"
 #include <boost/version.hpp>
 #include <boost/filesystem.hpp>
-namespace fs = boost::filesystem;
 
 using namespace std;
 using namespace boost;
@@ -583,7 +582,7 @@ void ThreadFlushWalletDB(void* parg)
     }
 }
 
-bool BackupWallet(const CWallet& wallet, const std::string& strDest)
+bool BackupWallet(const CWallet& wallet, const string& strDest)
 {
     if (!wallet.fFileBacked)
         return false;
@@ -599,20 +598,20 @@ bool BackupWallet(const CWallet& wallet, const std::string& strDest)
                 bitdb.mapFileUseCount.erase(wallet.strWalletFile);
 
                 // Copy wallet.dat
-                fs::path pathSrc = GetDataDir() / wallet.strWalletFile;
-                fs::path pathDest(strDest);
-                if (fs::is_directory(pathDest))
+                boost::filesystem::path pathSrc = GetDataDir() / wallet.strWalletFile;
+                boost::filesystem::path pathDest(strDest);
+                if (boost::filesystem::is_directory(pathDest))
                     pathDest /= wallet.strWalletFile;
 
                 try {
 #if BOOST_VERSION >= 104000
-                    fs::copy_file(pathSrc, pathDest, fs::copy_options::overwrite_existing);
+                    boost::filesystem::copy_file(pathSrc, pathDest, boost::filesystem::copy_option::overwrite_if_exists);
 #else
-                    fs::copy_file(pathSrc, pathDest);
+                    boost::filesystem::copy_file(pathSrc, pathDest);
 #endif
                     printf("copied wallet.dat to %s\n", pathDest.string().c_str());
                     return true;
-                } catch(const fs::filesystem_error &e) {
+                } catch(const boost::filesystem::filesystem_error &e) {
                     printf("error copying wallet.dat to %s - %s\n", pathDest.string().c_str(), e.what());
                     return false;
                 }

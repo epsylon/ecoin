@@ -29,12 +29,11 @@ All of the commands should be executed in a shell.
 
 (0.) Version libraries:
 
-    - Libboost -> 1.74.0.3 (https://www.boost.org/users/history/version_1_74_0.html)
-    - LibSSL -> 3.0.15 (https://debian.pkgs.org/12/debian-main-amd64/libssl3_3.0.15-1~deb12u1_amd64.deb.html)
+    - Libboost -> source code 1.68 provided at: src/boost_1_68_0
 
 (1.) Install dependencies:
 
-    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev libboost-all-dev
+    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev
 
         + Optionally install qrencode (and set USE_QRCODE=1):
 
@@ -58,12 +57,11 @@ All of the commands should be executed in a shell.
 
 (0.) Version libraries:
 
-    - Libboost -> 1.74.0.3 (https://www.boost.org/users/history/version_1_74_0.html)
-    - LibSSL -> 3.0.15 (https://debian.pkgs.org/12/debian-main-amd64/libssl3_3.0.15-1~deb12u1_amd64.deb.html)
+    - Libboost -> source code 1.68 provided at: src/boost_1_68_0
 
 (1.) First, make sure that the required packages for Qt5 development (an the others required for building the daemon) are installed:
 
-    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev libboost-all-dev
+    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev
         
         + Optionally install qrencode (and set USE_QRCODE=1):
 

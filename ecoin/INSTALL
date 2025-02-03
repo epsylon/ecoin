@@ -71,7 +71,7 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
         listen=1
         server=1
         daemon=1
-	addnode = 46.163.118.220 # ecoin.03c8.net (turina.space)
+	addnode=46.163.118.220 # ecoin.03c8.net (turina.space)
 
     ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
      

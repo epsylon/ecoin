@@ -1,4 +1,4 @@
-# ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+# ECOin - Copyright (c) - 2014/2025 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
 
 TEMPLATE = app
 TARGET = ecoin-qt
