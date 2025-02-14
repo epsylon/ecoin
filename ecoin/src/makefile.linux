@@ -6,9 +6,10 @@ USE_IPV6:=0
 LINK:=$(CXX)
 ARCH:=$(system lscpu | head -n 1 | awk '{print $2}')
 
-BOOST_DIR := $(CURDIR)/src/boost_1_68_0
-BOOST_INCLUDE_PATH := $(BOOST_DIR)/include
-BOOST_LIB_PATH := $(BOOST_DIR)/lib
+BOOST_DIR := $(CURDIR)/boost_1_68_0
+BOOST_INCLUDE_PATH := $(BOOST_DIR)
+BOOST_BUILD_PATH := $(BOOST_DIR)/build
+BOOST_LIB_PATH := $(BOOST_BUILD_PATH)/lib
 
 DEFS=-DBOOST_SPIRIT_THREADSAFE
 
@@ -152,7 +153,12 @@ OBJS= \
     obj/zerocoin/SpendMetaData.o \
     obj/zerocoin/ZeroTest.o
 
-all: ecoind
+all: boost ecoind 
+
+boost:
+ifeq (,$(wildcard $(BOOST_DIR)/b2))
+	cd $(BOOST_DIR) && ./bootstrap.sh --prefix=$(BOOST_BUILD_PATH) && ./b2 && ./b2 install
+endif
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
@@ -193,7 +199,7 @@ obj/zerocoin/%.o: zerocoin/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-ecoind: $(OBJS:obj/%=obj/%)
+ecoind: $(OBJS:obj/%=obj/%) 
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 clean:
@@ -203,5 +209,11 @@ clean:
 	-rm -f obj/*.P
 	-rm -f obj/zerocoin/*.P
 	-rm -f obj/build.h
+	-rm -f $(BOOST_BUILD_PATH)
+	-rm -f $(BOOST_DIR)/b2
+	-rm -f $(BOOST_DIR)/bin.v2
+	-rm -f $(BOOST_DIR)/project-config.jam
+	-rm -f $(BOOST_DIR)/stage
+
 
 FORCE:

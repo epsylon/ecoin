@@ -15,7 +15,7 @@ All of the commands should be executed in a shell.
 
   + Official:
 
-	git clone http://code.03c8.net/epsylon/ecoin
+	git clone https://code.03c8.net/epsylon/ecoin
 
   + Mirror:
 
@@ -30,6 +30,7 @@ All of the commands should be executed in a shell.
 (0.) Version libraries:
 
     - Libboost -> source code 1.68 provided at: src/boost_1_68_0
+    *IMPORTANT*: This version of boost requires python 2.7 for successful build.    Make sure you have that python version available before, or the build will fail (e.g. by using pyenv to install it).
 
 (1.) Install dependencies:
 
@@ -48,6 +49,10 @@ All of the commands should be executed in a shell.
     An executable named 'ecoind' will be built.
     
     Now you can launch: ./ecoind to run your ECOin server.
+    *IMPORTANT NOTE*:
+    Currently (and as long as this software only supports boost_1.68.0), launch ecoind like this: 
+    `LD_LIBRARY_PATH=./boost_1_68_0/build/lib/ ./ecoind`
+    Alternatively, copy the libraries built during make from boost_1_68_0/build/lib to the system library folder (e.g. /lib/x86_64-linux-gnu)
 
 ------------------------------
 
