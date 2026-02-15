@@ -1,17 +1,17 @@
 
-ECOin - Copyright (c) - 2014/2025 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
+ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
 
 ===========================================
 # SOURCES for P2P Crypto-Currency (ECOin) #
 ===========================================
 
-Testing machine is: Debian GNU/Linux 12 (bookworm) (x86_64).
+Tested on: Debian GNU/Linux 12+ (bookworm/trixie) (x86_64 and aarch64).
 
 All of the commands should be executed in a shell.
 
 ------------------------------
 
-(0.) Clone the github tree to get the source code:
+(0.) Clone the source code:
 
   + Official:
 
@@ -27,13 +27,18 @@ All of the commands should be executed in a shell.
 # SERVER -ecoind- for P2P Crypto-Currency (ECOin) #
 ===================================================
 
-(0.) Version libraries:
+(0.) Bundled libraries (no install needed):
 
-    - Libboost -> source code 1.68 provided at: src/boost_1_68_0
+    - Libboost 1.68 -> provided at: src/boost_1_68_0/
+    - LevelDB       -> provided at: src/leveldb/
 
 (1.) Install dependencies:
 
-    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev
+    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev
+
+        + Optionally install UPnP support:
+
+            sudo apt-get install miniupnpc libminiupnpc-dev
 
         + Optionally install qrencode (and set USE_QRCODE=1):
 
@@ -46,7 +51,7 @@ All of the commands should be executed in a shell.
     strip ecoind
 
     An executable named 'ecoind' will be built.
-    
+
     Now you can launch: ./ecoind to run your ECOin server.
 
 ------------------------------
@@ -55,14 +60,19 @@ All of the commands should be executed in a shell.
 # WALLET for P2P Crypto-Currency (ECOin)  #
 ============================================
 
-(0.) Version libraries:
+(0.) Bundled libraries (no install needed):
 
-    - Libboost -> source code 1.68 provided at: src/boost_1_68_0
+    - Libboost 1.68 -> provided at: src/boost_1_68_0/
+    - LevelDB       -> provided at: src/leveldb/
 
-(1.) First, make sure that the required packages for Qt5 development (an the others required for building the daemon) are installed:
+(1.) Install dependencies (daemon deps + Qt5):
 
-    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev
-        
+    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev
+
+        + Optionally install UPnP support:
+
+            sudo apt-get install miniupnpc libminiupnpc-dev
+
         + Optionally install qrencode (and set USE_QRCODE=1):
 
        	    sudo apt-get install libqrencode-dev
@@ -71,12 +81,13 @@ All of the commands should be executed in a shell.
 
     qmake USE_UPNP=- USE_IPV6=-
     make
+    strip ecoin-qt
 
     An executable named 'ecoin-qt' will be built.
-    
+
     Now you can launch: ./ecoin-qt to run your ECOin wallet/GUI.
-       
-------------------------------   
+
+------------------------------
 ========================================
 + CPU MINER for ECOin (Unix/GNU-Linux) #
 ========================================
@@ -87,10 +98,54 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
 
 	cd miner/
 	sh build.sh
-	
+
     An executable named 'cpuminer' will be built.
-     
+
     Now you can launch: ./cpuminer to run your ECOin PoW miner.
+
+------------------------------
+
+==================================================
+# CROSS-COMPILE ARM64 (aarch64) - ecoind server #
+==================================================
+
+(1.) Install cross-compilation toolchain:
+
+    sudo apt-get install g++-aarch64-linux-gnu gcc-aarch64-linux-gnu
+
+(2.) Install ARM64 target libraries (via multiarch):
+
+    sudo dpkg --add-architecture arm64
+    sudo apt-get update
+    sudo apt-get install libssl-dev:arm64 libdb5.3-dev:arm64 libdb5.3++-dev:arm64
+
+    Note: If multiarch is not available, you will need to cross-compile
+    OpenSSL and Berkeley DB manually for aarch64.
+
+(3.) Clean and cross-compile LevelDB:
+
+    cd src/leveldb/
+    make clean
+    CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ make libleveldb.a libmemenv.a
+    cd ..
+
+(4.) Bootstrap Boost 1.68 for ARM64:
+
+    cd boost_1_68_0/
+    ./bootstrap.sh --with-libraries=system,filesystem,program_options,thread,chrono
+    echo "using gcc : arm : aarch64-linux-gnu-g++ ;" > user-config.jam
+    ./b2 --user-config=user-config.jam toolset=gcc-arm link=static threading=multi \
+         --with-system --with-filesystem --with-program_options --with-thread --with-chrono
+    cd ..
+
+(5.) Cross-compile ecoind:
+
+    make -f makefile.linux CXX=aarch64-linux-gnu-g++ CC=aarch64-linux-gnu-gcc \
+         LINK=aarch64-linux-gnu-g++ USE_UPNP=- USE_IPV6=-
+    aarch64-linux-gnu-strip ecoind
+
+    Verify with: file ecoind
+    Expected output: ELF 64-bit LSB executable, ARM aarch64, ...
 
 ======================================
 
@@ -102,13 +157,12 @@ To start the ECOin daemon:
 
   ./ecoind -daemon
 
-For ECOin-QT Wallet
+For ECOin-QT Wallet:
 
   ./ecoin-qt
- 
+
 For debugging:
 
   tail -f /home/$USER/.ecoin/debug.log
 
 ======================================
-

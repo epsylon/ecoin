@@ -1,0 +1,93 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.obj
+
+# Binaries
+ecoin/ecoin-qt
+ecoin/src/ecoind
+ecoin/miner/cpuminer
+
+# Build directories
+ecoin/build/
+
+# Qt generated
+ecoin/qrc_ecoin.cpp
+ecoin/ecoin-qt.new
+ecoin/Makefile
+ecoin/.qmake.stash
+
+# Packaging intermediates
+packages/ecoin_*/
+packages/*.idsig
+packages/*.keystore
+packages/*-debug.apk
+
+# Miner build artifacts
+ecoin/miner/.deps/
+ecoin/miner/algo/.deps/
+ecoin/miner/algo/.dirstamp
+ecoin/miner/algo/*.o
+ecoin/miner/asm/.deps/
+ecoin/miner/asm/.dirstamp
+ecoin/miner/asm/*.o
+ecoin/miner/compat/.deps/
+ecoin/miner/compat/Makefile
+ecoin/miner/compat/Makefile.in
+ecoin/miner/compat/jansson/.deps/
+ecoin/miner/compat/jansson/Makefile
+ecoin/miner/compat/jansson/Makefile.in
+ecoin/miner/compat/jansson/*.o
+ecoin/miner/crypto/.deps/
+ecoin/miner/crypto/.dirstamp
+ecoin/miner/crypto/*.o
+ecoin/miner/lyra2/.deps/
+ecoin/miner/lyra2/.dirstamp
+ecoin/miner/lyra2/*.o
+ecoin/miner/sha3/.deps/
+ecoin/miner/sha3/.dirstamp
+ecoin/miner/sha3/*.o
+ecoin/miner/yescrypt/.deps/
+ecoin/miner/yescrypt/.dirstamp
+ecoin/miner/yescrypt/*.o
+ecoin/miner/cpuminer-*.o
+ecoin/miner/Makefile
+ecoin/miner/Makefile.in
+ecoin/miner/aclocal.m4
+ecoin/miner/autom4te.cache/
+ecoin/miner/config.log
+ecoin/miner/config.status
+ecoin/miner/configure
+ecoin/miner/compile
+ecoin/miner/config.guess
+ecoin/miner/config.sub
+ecoin/miner/cpuminer-config.h
+ecoin/miner/cpuminer-config.h.in
+ecoin/miner/depcomp
+ecoin/miner/install-sh
+ecoin/miner/missing
+ecoin/miner/stamp-h1
+ecoin/miner/gmon.out
+
+# Boost build artifacts
+ecoin/src/boost_1_68_0/b2
+ecoin/src/boost_1_68_0/bjam
+ecoin/src/boost_1_68_0/bin.v2/
+ecoin/src/boost_1_68_0/bootstrap.log
+ecoin/src/boost_1_68_0/project-config.jam
+ecoin/src/boost_1_68_0/user-config*.jam
+ecoin/src/boost_1_68_0/tools/build/src/engine/bin.*/
+ecoin/src/boost_1_68_0/tools/build/src/engine/bootstrap/
+
+# Precompiled libs (platform-specific)
+ecoin/src/leveldb/libleveldb.a.*
+ecoin/src/leveldb/libmemenv.a.*
+
+# Logs
+aqtinstall.log
+*.log
+
+# Compiled locale files
+*.qm

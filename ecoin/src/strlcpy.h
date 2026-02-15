@@ -21,6 +21,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Modern glibc (2.38+) provides strlcpy/strlcat natively.
+// Only define our own if the system does not provide them.
+#if defined(__GLIBC__) && defined(__GLIBC_MINOR__) && (__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 38))
+// strlcpy and strlcat provided by system glibc
+#else
+
 /*
  * Copy src to string dst of size siz.  At most siz-1 characters
  * will be copied.  Always NUL terminates (unless siz == 0).
@@ -89,4 +95,6 @@ inline size_t strlcat(char *dst, const char *src, size_t siz)
 
     return(dlen + (s - src)); /* count does not include NUL */
 }
-#endif
+
+#endif // glibc version check
+#endif // ECOIN_STRLCPY_H

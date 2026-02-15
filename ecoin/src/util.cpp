@@ -1029,7 +1029,7 @@ void LogStackTrace() {
     printf("\n\n******* exception encountered *******\n");
     if (fileout)
     {
-#ifndef WIN32
+#if !defined(WIN32) && !defined(ANDROID) && !defined(__ANDROID__)
         void* pszBuffer[32];
         size_t size;
         size = backtrace(pszBuffer, 32);
