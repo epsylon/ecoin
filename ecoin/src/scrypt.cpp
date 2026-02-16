@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -137,13 +137,13 @@ uint256 scrypt(const void* data, size_t datalen, const void* salt, size_t saltle
 
 uint256 scrypt_hash(const void* input, size_t inputlen)
 {
-    unsigned char scratchpad[SCRYPT_BUFFER_SIZE];
+    static thread_local unsigned char scratchpad[SCRYPT_BUFFER_SIZE];
     return scrypt_nosalt(input, inputlen, scratchpad);
 }
 
 uint256 scrypt_salted_hash(const void* input, size_t inputlen, const void* salt, size_t saltlen)
 {
-    unsigned char scratchpad[SCRYPT_BUFFER_SIZE];
+    static thread_local unsigned char scratchpad[SCRYPT_BUFFER_SIZE];
     return scrypt(input, inputlen, salt, saltlen, scratchpad);
 }
 
@@ -163,7 +163,7 @@ uint256 scrypt_salted_multiround_hash(const void* input, size_t inputlen, const 
 
 uint256 scrypt_blockhash(const void* input)
 {
-    unsigned char scratchpad[SCRYPT_BUFFER_SIZE];
+    static thread_local unsigned char scratchpad[SCRYPT_BUFFER_SIZE];
     return scrypt_nosalt(input, 80, scratchpad);
 }
 

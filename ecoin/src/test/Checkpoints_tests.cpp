@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 // Unit tests for block-chain checkpoints
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/test/unit_test.hpp>

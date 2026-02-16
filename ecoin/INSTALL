@@ -5,60 +5,28 @@ ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://ecoin.03
 # BUILDS - P2P Crypto-Currency (ECOin) #
 ===================================================
 
-See doc/build-linux.txt for more info about required libs to build on GNU/Linux systems.
+See doc/build-linux.txt for more info about required libs to build it at GNU/Linux systems.
 
-All of the commands should be executed in a shell.
-
-===================================================
-
-==================
-+ Requirements:
-==================
-
-  + Core (ecoind):
-
-    build-essential g++ libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev
-    libleveldb-dev
-
-  + Wallet GUI (ecoin-qt):
-
-    All of the above, plus:
-    qt5-qmake qtbase5-dev
-
-  + Optional:
-
-    miniupnpc libminiupnpc-dev   (UPnP support)
-    libqrencode-dev              (QR code support)
-
-  + Bundled (no install needed):
-
-    Boost 1.68    -> provided at src/boost_1_68_0/
-    LevelDB       -> provided at src/leveldb/
+All of the commands should be executed in a shell:
 
 ===================================================
+
+=================
++ Build Makefile:
+=================
+
+    cd ecoin/
+    /usr/lib/x86_64-linux-gnu/qt5/bin/qmake USE_UPNP=- USE_IPV6=- -o Makefile ecoin-qt.pro
 
 ===============
 + Build Wallet:
 ===============
 
-    cd ecoin/
     qmake USE_UPNP=- USE_IPV6=-
     make
-    strip ecoin-qt
 
     ./ecoin-qt
-
-  Note: To generate the Makefile explicitly:
-
-    /usr/lib/x86_64-linux-gnu/qt5/bin/qmake USE_UPNP=- USE_IPV6=- -o Makefile ecoin-qt.pro
-
-  Optional flags:
-
-    USE_QRCODE=1    Enable QR code support (requires libqrencode)
-    USE_UPNP=1      Enable UPnP support (requires miniupnpc)
-    USE_IPV6=1      Enable IPv6 support
-    RELEASE=1       Static linking for release builds
-
+        
 ===================================================
 
 ===============
@@ -70,9 +38,9 @@ All of the commands should be executed in a shell.
     strip ecoind
 
     ./ecoind
-
+    
 ===================================================
-
+        
 ===============
 + Build Miner:
 ===============
@@ -81,40 +49,20 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
 
     cd miner/
     sh build.sh
-
+	
     ./cpuminer
-
+    
 ===================================================
 
-==============================
-+ Cross-compile ARM64 Daemon:
-==============================
+=================================
++ Quick Sync (bootstrap.dat):
+=================================
 
-  (1) Install cross-compilation toolchain:
+  Download bootstrap.dat for faster initial sync:
 
-    sudo apt-get install g++-aarch64-linux-gnu gcc-aarch64-linux-gnu
+    wget https://ecoin.03c8.net/ecoin/bootstrap.dat -P /home/$USER/.ecoin/
 
-  (2) Cross-compile LevelDB:
-
-    cd src/leveldb/
-    CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ make clean && \
-    CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ make libleveldb.a libmemenv.a
-    cd ..
-
-  (3) Bootstrap Boost 1.68 for ARM64:
-
-    cd boost_1_68_0/
-    ./bootstrap.sh --with-libraries=system,filesystem,program_options,thread,chrono
-    echo "using gcc : arm : aarch64-linux-gnu-g++ ;" > user-config.jam
-    ./b2 --user-config=user-config.jam toolset=gcc-arm link=static threading=multi \
-         --with-system --with-filesystem --with-program_options --with-thread --with-chrono
-    cd ..
-
-  (4) Cross-compile ecoind:
-
-    make -f makefile.linux CXX=aarch64-linux-gnu-g++ CC=aarch64-linux-gnu-gcc \
-         LINK=aarch64-linux-gnu-g++ USE_UPNP=- USE_IPV6=-
-    aarch64-linux-gnu-strip ecoind
+  The file will be automatically imported and renamed to bootstrap.dat.old on first start.
 
 ===================================================
 
@@ -122,22 +70,33 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
 + Configuration (example):
 ==========================
 
+  Download a working ecoin.conf:
+
+    wget https://ecoin.03c8.net/ecoin/ecoin.conf -P /home/$USER/.ecoin/
+    chmod 600 /home/$USER/.ecoin/ecoin.conf
+
   + GNU/Linux:
 
      - File: /home/$USER/.ecoin/ecoin.conf # chmod 600 ecoin.conf
 
         rpcuser=ecoinrpc
-        rpcpassword=<YourEcoinRPC_PassWord2025>
+        rpcpassword=<YourEcoinRPC_PassWord2026>
         rpcallowip=127.0.0.1
-        testnet=0
-        noirc=1
         listen=1
         server=1
         daemon=1
+        staking=1
         addnode=46.163.118.220
+        addnode=193.180.212.80
+        addnode=82.223.99.61
+        addnode=79.112.28.209
+        addnode=79.112.91.131
+        addnode=193.180.212.112
+        addnode=193.180.212.105
+        addnode=193.180.212.108
 
-    ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf
-
+    ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
+     
 ==========================
 + Debugging (logs):
 ==========================
@@ -168,28 +127,13 @@ To start the ECOin daemon:
 
   ./ecoind -daemon
 
-For ECOin-QT Wallet:
+For ECOin-QT Wallet
 
   ./ecoin-qt
-
+ 
 For debugging:
 
   tail -f /home/$USER/.ecoin/debug.log
 
-===================================================
+======================================
 
-==========================
-+ Pre-built Packages:
-==========================
-
-  Pre-built .deb packages are available for:
-
-  + AMD64 (x86_64): ecoin-qt (wallet) + ecoind (daemon)
-  + ARM64 (aarch64): ecoind (daemon)
-
-  Install with:
-
-    sudo dpkg -i ecoin_0.0.4_<arch>.deb
-    sudo apt-get -f install   # resolve dependencies if needed
-
-===================================================

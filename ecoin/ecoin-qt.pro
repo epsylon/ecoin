@@ -2,7 +2,7 @@
 
 TEMPLATE = app
 TARGET = ecoin-qt
-VERSION = 0.0.4
+VERSION = 0.7.5.7
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -13,7 +13,7 @@ UI_DIR = build
 QT += core gui widgets
 QT_NO_DEFAULT_CODEC = 1
 
-QMAKE_CXXFLAGS_WARN_ON = -Wno-unused-parameter -Wno-deprecated-declarations -Wno-stringop-overread -Wno-return-type
+QMAKE_CXXFLAGS_WARN_ON = -Wno-unused-parameter -Wno-deprecated-declarations -Wno-stringop-overread
 
 # Disable stack-protector warnings
 QMAKE_CXXFLAGS += -Wno-stack-protector
@@ -33,13 +33,8 @@ contains(RELEASE, 1) {
     }
 }
 
-!win32 {
-# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
-QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
-# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
-}
+QMAKE_CXXFLAGS *= -fstack-protector-strong --param ssp-buffer-size=1
+QMAKE_LFLAGS *= -fstack-protector-strong --param ssp-buffer-size=1
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
 win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
 win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
@@ -188,7 +183,6 @@ HEADERS += src/qt/ecoingui.h \
     src/walletdb.h \
     src/script.h \
     src/init.h \
-    src/irc.h \
     src/mruset.h \
     src/json/json_spirit_writer_template.h \
     src/json/json_spirit_writer.h \
@@ -255,7 +249,6 @@ SOURCES += src/qt/ecoin.cpp src/qt/ecoingui.cpp \
     src/miner.cpp \
     src/init.cpp \
     src/net.cpp \
-    src/irc.cpp \
     src/checkpoints.cpp \
     src/addrman.cpp \
     src/db.cpp \

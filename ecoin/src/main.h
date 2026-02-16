@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef ECOIN_MAIN_H
 #define ECOIN_MAIN_H
@@ -37,6 +37,19 @@ static const int64 MAX_MINT_PROOF_OF_STAKE = 1 * COIN;
 static const int64 MIN_TXOUT_AMOUNT = MIN_TX_FEE;
 static const unsigned int ENTROPY_SWITCH_TIME = 1420070399; // Dec 31 2014, 23:59:59 PM GMT
 static const unsigned int FORK_FINAL = 1397936903;
+static const int POT_FIX_HEIGHT = 11000;
+
+struct PoTParams {
+    int64 nValueThreshold;
+    unsigned int nVoutSizeThreshold;
+    unsigned int nSmallMaxVouts;
+    unsigned int nLargeMaxVouts;
+    bool fSmallUseV2;
+};
+
+PoTParams GetPoTParams(unsigned int nHeight);
+bool ScanBlockForPoTMatch(const CBlock& block, const uint256& hashLastBlock,
+    const PoTParams& params, bool fFixMatch, bool& fMatch, CEcoinAddress& addrMatch);
 
 string SearchTerm(const char *chAddress);
 string SearchTermV2(const char *chAddress);
@@ -1099,11 +1112,6 @@ public:
         return (pnext || this == pindexBest);
     }
 
-    bool CheckIndex() const
-    {
-        return true;
-    }
-
     enum { nMedianTimeSpan=11 };
 
     int64 GetMedianTimePast() const
@@ -1118,18 +1126,6 @@ public:
 
         std::sort(pbegin, pend);
         return pbegin[(pend - pbegin)/2];
-    }
-
-    int64 GetMedianTime() const
-    {
-        const CBlockIndex* pindex = this;
-        for (int i = 0; i < nMedianTimeSpan/2; i++)
-        {
-            if (!pindex->pnext)
-                return GetBlockTime();
-            pindex = pindex->pnext;
-        }
-        return pindex->GetMedianTimePast();
     }
 
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,

@@ -1,6 +1,7 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <string.h>
+#include <openssl/crypto.h>
 #include "pbkdf2.h"
 
 static inline uint32_t
@@ -136,6 +137,6 @@ PBKDF2_SHA256(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
     }
 
     /* Clean PShctx, since we never called _Final on it. */
-    memset(&PShctx, 0, sizeof(HMAC_SHA256_CTX));
+    OPENSSL_cleanse(&PShctx, sizeof(HMAC_SHA256_CTX));
 }
 

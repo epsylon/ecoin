@@ -1,6 +1,5 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
-#include "irc.h"
 #include "db.h"
 #include "net.h"
 #include "init.h"
@@ -132,8 +131,11 @@ CAddress GetLocalAddress(const CNetAddr *paddrPeer)
 bool RecvLine(SOCKET hSocket, string& strLine)
 {
     strLine = "";
+    int64 nDeadline = GetTime() + 60;
     while (true)
     {
+        if (GetTime() > nDeadline)
+            return false;
         char c;
         int nBytes = recv(hSocket, &c, 1, 0);
         if (nBytes > 0)
@@ -337,23 +339,27 @@ bool GetMyExternalIP(CNetAddr& ipRet)
     const char* pszGet;
     const char* pszKeyword;
 
-    for (int nLookup = 0; nLookup <= 1; nLookup++)
+    for (int nLookup = 1; nLookup >= 0; nLookup--)
     for (int nHost = 1; nHost <= 2; nHost++)
     {
         if (nHost == 1)
         {
-            addrConnect = CService("131.186.113.70",80); // checkip.dyndns.org:80 (11/01/2021)
-
             if (nLookup == 1)
             {
                 CService addrIP("checkip.dyndns.org", 80, true);
                 if (addrIP.IsValid())
                     addrConnect = addrIP;
+                else
+                    continue;
+            }
+            else
+            {
+                continue;
             }
 
             pszGet = "GET / HTTP/1.1\r\n"
                      "Host: checkip.dyndns.org\r\n"
-                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
+                     "User-Agent: ECOin\r\n"
                      "Connection: close\r\n"
                      "\r\n";
 
@@ -361,22 +367,26 @@ bool GetMyExternalIP(CNetAddr& ipRet)
         }
         else if (nHost == 2)
         {
-            addrConnect = CService("104.18.59.232", 443); // www.showmyip.com:443 (11/01/2021)
-
             if (nLookup == 1)
             {
-                CService addrIP("www.showmyip.com", 443, true);
+                CService addrIP("api.ipify.org", 80, true);
                 if (addrIP.IsValid())
                     addrConnect = addrIP;
+                else
+                    continue;
+            }
+            else
+            {
+                continue;
             }
 
-            pszGet = "GET /simple/ HTTP/1.1\r\n"
-                     "Host: www.showmyip.com\r\n"
-                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
+            pszGet = "GET /?format=text HTTP/1.1\r\n"
+                     "Host: api.ipify.org\r\n"
+                     "User-Agent: ECOin\r\n"
                      "Connection: close\r\n"
                      "\r\n";
 
-            pszKeyword = NULL; // Returns just IP address
+            pszKeyword = NULL;
         }
 
         if (GetMyExternalIP2(addrConnect, pszGet, pszKeyword, ipRet))
@@ -1053,9 +1063,136 @@ void MapPort()
 #endif
 
 // DNS seeds
-static const char *strDNSSeed[][2] = {
-    {"ecoinseed.03c8.net", "dnsecoin.03c8.net"},
+static const unsigned short nDNSSeedPort = 53;
+
+struct DNSSeed {
+    const char *name;
+    const char *host;
 };
+
+static const DNSSeed vDNSSeeds[] = {
+    {"ecoinseed.03c8.net", "ecoinseed.03c8.net"},
+};
+
+static bool EncodeDNSName(unsigned char *buf, int bufLen, const char *name, int &outLen)
+{
+    outLen = 0;
+    const char *p = name;
+    while (*p)
+    {
+        const char *dot = strchr(p, '.');
+        int labelLen = dot ? (int)(dot - p) : (int)strlen(p);
+        if (labelLen > 63 || outLen + 1 + labelLen >= bufLen)
+            return false;
+        buf[outLen++] = (unsigned char)labelLen;
+        memcpy(buf + outLen, p, labelLen);
+        outLen += labelLen;
+        p += labelLen;
+        if (*p == '.') p++;
+    }
+    if (outLen + 1 >= bufLen)
+        return false;
+    buf[outLen++] = 0;
+    return true;
+}
+
+static int SkipDNSName(const unsigned char *buf, int bufLen, int pos)
+{
+    while (pos < bufLen)
+    {
+        unsigned char c = buf[pos];
+        if (c == 0) return pos + 1;
+        if ((c & 0xC0) == 0xC0) return pos + 2;
+        pos += 1 + c;
+    }
+    return -1;
+}
+
+static bool LookupDNSSeedPort(const char *seedHost, unsigned short nPort, std::vector<CNetAddr> &vAddr)
+{
+    std::vector<CNetAddr> vSeedIP;
+    if (!LookupHost(seedHost, vSeedIP, 1, true) || vSeedIP.empty())
+    {
+        printf("LookupDNSSeedPort: cannot resolve seeder host %s\n", seedHost);
+        return false;
+    }
+
+    struct sockaddr_in seedAddr;
+    memset(&seedAddr, 0, sizeof(seedAddr));
+    seedAddr.sin_family = AF_INET;
+    seedAddr.sin_port = htons(nPort);
+
+    struct in_addr inaddr;
+    if (!vSeedIP[0].GetInAddr(&inaddr))
+    {
+        printf("LookupDNSSeedPort: seeder %s has no IPv4 address\n", seedHost);
+        return false;
+    }
+    seedAddr.sin_addr = inaddr;
+
+    unsigned char query[512];
+    memset(query, 0, sizeof(query));
+    unsigned short txid = (unsigned short)(GetRand(0xFFFF));
+    query[0] = (txid >> 8) & 0xFF;
+    query[1] = txid & 0xFF;
+    query[2] = 0x01; query[3] = 0x00;
+    query[4] = 0x00; query[5] = 0x01;
+    int nameLen = 0;
+    if (!EncodeDNSName(query + 12, (int)sizeof(query) - 14, seedHost, nameLen))
+        return false;
+    int qEnd = 12 + nameLen;
+    query[qEnd]   = 0x00; query[qEnd+1] = 0x01;
+    query[qEnd+2] = 0x00; query[qEnd+3] = 0x01;
+    int queryLen = qEnd + 4;
+
+    SOCKET sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    if (sock == INVALID_SOCKET)
+        return false;
+
+    struct timeval tv;
+    tv.tv_sec = 5;
+    tv.tv_usec = 0;
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv));
+
+    bool fResult = false;
+    if (sendto(sock, (const char*)query, queryLen, 0, (struct sockaddr*)&seedAddr, sizeof(seedAddr)) == queryLen)
+    {
+        unsigned char resp[4096];
+        int nRecv = recvfrom(sock, (char*)resp, sizeof(resp), 0, NULL, NULL);
+        if (nRecv > 12)
+        {
+            unsigned short anCount = ((unsigned short)resp[6] << 8) | resp[7];
+            int pos = 12;
+            pos = SkipDNSName(resp, nRecv, pos);
+            if (pos > 0) pos += 4;
+
+            for (unsigned short i = 0; i < anCount && pos > 0 && pos < nRecv; i++)
+            {
+                pos = SkipDNSName(resp, nRecv, pos);
+                if (pos < 0 || pos + 10 > nRecv) break;
+                unsigned short rType  = ((unsigned short)resp[pos] << 8) | resp[pos+1];
+                unsigned short rdLen  = ((unsigned short)resp[pos+8] << 8) | resp[pos+9];
+                pos += 10;
+                if (rType == 1 && rdLen == 4 && pos + 4 <= nRecv)
+                {
+                    struct in_addr ip4;
+                    memcpy(&ip4, resp + pos, 4);
+                    vAddr.push_back(CNetAddr(ip4));
+                    fResult = true;
+                }
+                pos += rdLen;
+            }
+        }
+    }
+    closesocket(sock);
+
+    if (fResult)
+        printf("LookupDNSSeedPort: %s:%u returned %d addresses\n", seedHost, nPort, (int)vAddr.size());
+    else
+        printf("LookupDNSSeedPort: %s:%u query failed\n", seedHost, nPort);
+
+    return fResult;
+}
 
 void ThreadDNSAddressSeed(void* parg)
 {
@@ -1087,24 +1224,30 @@ void ThreadDNSAddressSeed2(void* parg)
     {
         printf("Loading addresses from DNS seeds (could take a while)\n");
 
-        for (unsigned int seed_idx = 0; seed_idx < ARRAYLEN(strDNSSeed); seed_idx++) {
+        for (unsigned int seed_idx = 0; seed_idx < ARRAYLEN(vDNSSeeds); seed_idx++) {
             if (HaveNameProxy()) {
-                AddOneShot(strDNSSeed[seed_idx][1]);
+                AddOneShot(vDNSSeeds[seed_idx].host);
             } else {
                 vector<CNetAddr> vaddr;
                 vector<CAddress> vAdd;
-                if (LookupHost(strDNSSeed[seed_idx][1], vaddr))
+
+                bool fFound = LookupDNSSeedPort(vDNSSeeds[seed_idx].host, nDNSSeedPort, vaddr);
+
+                if (!fFound)
                 {
-                    BOOST_FOREACH(CNetAddr& ip, vaddr)
-                    {
-                        int nOneDay = 24*3600;
-                        CAddress addr = CAddress(CService(ip, GetDefaultPort()));
-                        addr.nTime = GetTime() - 3*nOneDay - GetRand(4*nOneDay); // use a random age between 3 and 7 days old
-                        vAdd.push_back(addr);
-                        found++;
-                    }
+                    printf("DNS seed port %u failed, falling back to standard DNS for %s\n", nDNSSeedPort, vDNSSeeds[seed_idx].host);
+                    LookupHost(vDNSSeeds[seed_idx].host, vaddr);
                 }
-                addrman.Add(vAdd, CNetAddr(strDNSSeed[seed_idx][0], true));
+
+                BOOST_FOREACH(CNetAddr& ip, vaddr)
+                {
+                    int nOneDay = 24*3600;
+                    CAddress addr = CAddress(CService(ip, GetDefaultPort()));
+                    addr.nTime = GetTime() - 3*nOneDay - GetRand(4*nOneDay);
+                    vAdd.push_back(addr);
+                    found++;
+                }
+                addrman.Add(vAdd, CNetAddr(vDNSSeeds[seed_idx].name, true));
             }
         }
     }
@@ -1114,7 +1257,8 @@ void ThreadDNSAddressSeed2(void* parg)
 
 unsigned int pnSeed[] =
 {
-    0x36CBF4AA, 0x36CBF41B,
+    0xDC76A32E, 0x50D4B4C1, 0x3D63DF52, 0xD11C704F,
+    0x835B704F, 0x70D4B4C1, 0x69D4B4C1, 0x6CD4B4C1,
 };
 
 void DumpAddresses()
@@ -1705,10 +1849,6 @@ void StartNode(void* parg)
     // Map ports with UPnP
     if (fUseUPnP)
         MapPort();
-
-    // Get addresses from IRC and advertise ours
-    if (!NewThread(ThreadIRCSeed, NULL))
-        printf("Error: NewThread(ThreadIRCSeed) failed\n");
 
     // Send and receive from sockets, accept connections
     if (!NewThread(ThreadSocketHandler, NULL))

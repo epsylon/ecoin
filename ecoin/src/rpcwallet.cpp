@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "wallet.h"
 #include "walletdb.h"
@@ -837,19 +837,7 @@ Value addredeemscript(const Array& params, bool fHelp)
         throw runtime_error(msg);
     }
 
-//    string strAccount;
-//    if (params.size() > 1)
-//        strAccount = AccountFromValue(params[1]);
-
-    // Construct using pay-to-script-hash:
-    //vector<unsigned char> innerData = ParseHexV(params[0], "redeemScript");
-    //vector<unsigned char> innerData = ParseHex(params[0], "redeemScript");
-    //CScript inner(innerData.begin(), innerData.end());
-    //CScriptID innerID = inner.GetID();
-    //pwalletMain->AddCScript(inner);
-
-    //pwalletMain->SetAddressBookName(innerID, strAccount);
-    //return CEcoinAddress(innerID).ToString();
+    throw runtime_error("Not implemented");
 }
 
 struct tallyitem

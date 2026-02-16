@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/foreach.hpp>
@@ -13,7 +13,9 @@ namespace Checkpoints
 
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0, std::make_pair(hashGenesisBlock, 1610833657) )
+        ( 0,     std::make_pair(hashGenesisBlock, 1610833657) )
+        ( 5000,  std::make_pair(uint256("0x954c8ec4a89ba0d1c88ad5be0d135231b3808288098a98876cf50bd407298479"), 1740236667u) )
+        ( 10000, std::make_pair(uint256("0x15c75213288609b82cda1200528219f4c65cf89109e3aea6977a02b7b02f9c90"), 1769800237u) )
     ;
 
     static MapCheckpoints mapCheckpointsTestnet =

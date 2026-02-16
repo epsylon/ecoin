@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include <map>
 
@@ -236,9 +236,9 @@ CSecret CKey::GetSecret(bool &fCompressed) const
     CSecret vchRet;
     vchRet.resize(32);
     const BIGNUM *bn = EC_KEY_get0_private_key(pkey);
-    int nBytes = BN_num_bytes(bn);
     if (bn == NULL)
         throw key_error("CKey::GetSecret() : EC_KEY_get0_private_key failed");
+    int nBytes = BN_num_bytes(bn);
     int n=BN_bn2bin(bn,&vchRet[32 - nBytes]);
     if (n != nBytes)
         throw key_error("CKey::GetSecret(): BN_bn2bin failed");
@@ -376,6 +376,7 @@ bool CKey::SetCompactSignature(uint256 hash, const std::vector<unsigned char>& v
         ECDSA_SIG_free(sig);
         return true;
     }
+    ECDSA_SIG_free(sig);
     return false;
 }
 

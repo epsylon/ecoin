@@ -1,10 +1,11 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef ECOIN_ALLOCATORS_H
 #define ECOIN_ALLOCATORS_H
 
 #include <string.h>
 #include <string>
+#include <openssl/crypto.h>
 #include <boost/thread/mutex.hpp>
 #include <map>
 #ifdef WIN32
@@ -173,7 +174,7 @@ struct secure_allocator : public std::allocator<T>
     {
         if (p != NULL)
         {
-            memset(p, 0, sizeof(T) * n);
+            OPENSSL_cleanse(p, sizeof(T) * n);
             LockedPageManager::instance.UnlockRange(p, sizeof(T) * n);
         }
         std::allocator<T>::deallocate(p, n);
@@ -202,7 +203,7 @@ struct zero_after_free_allocator : public std::allocator<T>
     void deallocate(T* p, std::size_t n)
     {
         if (p != NULL)
-            memset(p, 0, sizeof(T) * n);
+            OPENSSL_cleanse(p, sizeof(T) * n);
         std::allocator<T>::deallocate(p, n);
     }
 };

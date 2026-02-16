@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "main.h"
 #include "db.h"
@@ -9,6 +9,8 @@
 
 using namespace json_spirit;
 using namespace std;
+
+static CCriticalSection cs_getwork;
 
 extern unsigned int nStakeTargetSpacing;
 
@@ -127,6 +129,8 @@ Value getworkex(const Array& params, bool fHelp)
     static mapNewBlock_t mapNewBlock;
     static vector<CBlock*> vNewBlock;
     static CReserveKey reservekey(pwalletMain);
+
+    LOCK(cs_getwork);
 
     if (params.size() == 0)
     {
@@ -255,9 +259,11 @@ Value getwork(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Ecoin is downloading blocks...");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
-    static mapNewBlock_t mapNewBlock;    // FIXME: thread safety
+    static mapNewBlock_t mapNewBlock;
     static vector<CBlock*> vNewBlock;
     static CReserveKey reservekey(pwalletMain);
+
+    LOCK(cs_getwork);
 
     if (params.size() == 0)
     {

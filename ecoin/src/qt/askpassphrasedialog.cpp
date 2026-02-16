@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2021 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 #include "askpassphrasedialog.h"
 #include "ui_askpassphrasedialog.h"
 #include "guiconstants.h"
@@ -184,9 +184,24 @@ void AskPassphraseDialog::accept()
         }
         break;
     }
+    secureClearPassFields();
 }
 
-void AskPassphraseDialog::textChanged()
+void AskPassphraseDialog::reject()
+{
+    secureClearPassFields();
+    QDialog::reject();
+}
+
+void AskPassphraseDialog::secureClearPassFields()
+{
+    ui->passEdit1->setText(QString(" ").repeated(ui->passEdit1->text().size()));
+    ui->passEdit2->setText(QString(" ").repeated(ui->passEdit2->text().size()));
+    ui->passEdit3->setText(QString(" ").repeated(ui->passEdit3->text().size()));
+    ui->passEdit1->clear();
+    ui->passEdit2->clear();
+    ui->passEdit3->clear();
+}
 {
     // Validate input, set Ok button to enabled when acceptable
     bool acceptable = false;

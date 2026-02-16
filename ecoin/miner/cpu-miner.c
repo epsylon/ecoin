@@ -3528,10 +3528,11 @@ int main(int argc, char *argv[]) {
 	}
 
 	if (!rpc_userpass) {
-		rpc_userpass = (char*) malloc(strlen(rpc_user) + strlen(rpc_pass) + 2);
+		size_t len = strlen(rpc_user) + strlen(rpc_pass) + 2;
+		rpc_userpass = (char*) malloc(len);
 		if (!rpc_userpass)
 			return 1;
-		sprintf(rpc_userpass, "%s:%s", rpc_user, rpc_pass);
+		snprintf(rpc_userpass, len, "%s:%s", rpc_user, rpc_pass);
 	}
 
 	pthread_mutex_init(&stats_lock, NULL);

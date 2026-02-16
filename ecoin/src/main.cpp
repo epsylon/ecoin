@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "alert.h"
 #include "checkpoints.h"
@@ -251,18 +251,12 @@ bool CTransaction::IsStandard() const
             return false;
         if (!txin.scriptSig.IsPushOnly())
             return false;
-        //if (fEnforceCanonical && !txin.scriptSig.HasCanonicalPushes()) {
-	//	    return false;
-        //		}
     }
     BOOST_FOREACH(const CTxOut& txout, vout) {
         if (!::IsStandard(txout.scriptPubKey))
             return false;
         if (txout.nValue == 0)
             return false;
-        //if (fEnforceCanonical && !txout.scriptPubKey.HasCanonicalPushes()) {
-	//	    return false;
-        //              }
     }
     return true;
 }
@@ -826,12 +820,7 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
 
 CBigNum inline GetProofOfStakeLimit(int nHeight, unsigned int nTime)
 {
-    if(fTestNet) // separate proof of stake target limit for testnet
-        return bnProofOfStakeLimit;
-    else
-        return bnProofOfStakeLimit;
-
-    return bnProofOfWorkLimit; // return bnProofOfWorkLimit of none matched
+    return bnProofOfStakeLimit;
 }
 
 int static StartDigging(unsigned int seed, int minreward, int maxreward)
@@ -850,7 +839,6 @@ int64 GetProofOfWorkReward(unsigned int nHeight, uint256 hashSeed)
 		int nBlockValue = 0;
 		int nMaxSubsidy = 5000;
 		int nMinSubsidy = 500;
-		int nFlatSubsidy = 5000;
 
         // doubled the reward to compensate for 2 minute blocks
 		if (nHeight > 3295 && nHeight < 22001)
@@ -1408,31 +1396,111 @@ string SearchTerm(const char *chAddress)
 
 bool fAddrMiner (const char *chHash, const char *chTerm)
 {
-  for (int i = 0; i < strlen(chHash); ++i)
+  int nHashLen = strlen(chHash);
+  int nTermLen = strlen(chTerm);
+  for (int i = 0; i <= nHashLen - nTermLen; ++i)
   {
-    if (strncmp (&chHash[i], chTerm, strlen(chTerm)) == 0)
+    if (strncmp (&chHash[i], chTerm, nTermLen) == 0)
       return true;
   }
   return false;
 }
 
+PoTParams GetPoTParams(unsigned int nHeight)
+{
+    PoTParams params;
+    if (nHeight > 57000)
+    {
+        params.nValueThreshold = 1;
+        params.nVoutSizeThreshold = 3;
+        params.nSmallMaxVouts = 99999;
+        params.nLargeMaxVouts = 10;
+        params.fSmallUseV2 = true;
+    }
+    else if (nHeight > 22000)
+    {
+        params.nValueThreshold = 500;
+        params.nVoutSizeThreshold = 10;
+        params.nSmallMaxVouts = 99999;
+        params.nLargeMaxVouts = 5;
+        params.fSmallUseV2 = false;
+    }
+    else
+    {
+        params.nValueThreshold = 500;
+        params.nVoutSizeThreshold = 99999;
+        params.nSmallMaxVouts = 99999;
+        params.nLargeMaxVouts = 99999;
+        params.fSmallUseV2 = false;
+    }
+    return params;
+}
+
+bool ScanBlockForPoTMatch(const CBlock& block, const uint256& hashLastBlock,
+    const PoTParams& params, bool fFixMatch, bool& fMatch, CEcoinAddress& addrMatch)
+{
+    std::string strHash = hashLastBlock.GetHex();
+
+    BOOST_FOREACH(const CTransaction& tx, block.vtx)
+    {
+        bool fSmallTx = (tx.vout.size() <= params.nVoutSizeThreshold);
+        unsigned int nMaxVouts = fSmallTx ? params.nSmallMaxVouts : params.nLargeMaxVouts;
+        bool fUseV2 = fSmallTx && params.fSmallUseV2;
+
+        if (nMaxVouts > tx.vout.size())
+            nMaxVouts = tx.vout.size();
+
+        for (unsigned int i = 0; i < nMaxVouts; i++)
+        {
+            const CTxOut& txout = tx.vout[i];
+
+            if (txout.nValue / 1000000 > params.nValueThreshold)
+            {
+                txnouttype type;
+                vector<CTxDestination> vAddresses;
+                int nRequired;
+                ExtractDestinations(txout.scriptPubKey, type, vAddresses, nRequired);
+
+                BOOST_FOREACH(const CTxDestination& addr, vAddresses)
+                {
+                    std::string strAddress = CEcoinAddress(addr).ToString();
+                    const char* pszAddress = strAddress.c_str();
+                    CScript addrHex = CScript() << vector<unsigned char>(
+                        (const unsigned char*)pszAddress,
+                        (const unsigned char*)pszAddress + strlen(pszAddress));
+                    string strSearch = fUseV2
+                        ? SearchTermV2(addrHex.ToString().c_str())
+                        : SearchTerm(addrHex.ToString().c_str());
+
+                    if (fAddrMiner(strHash.c_str(), strSearch.c_str()))
+                    {
+                        addrMatch = CEcoinAddress(addr);
+                        fMatch = true;
+                    }
+                    else if (!fFixMatch)
+                    {
+                        fMatch = false;
+                    }
+                }
+            }
+        }
+    }
+
+    return fMatch;
+}
+
 bool CheckProofOfTxSearch(std::vector<boost::tuple<unsigned int, int64, CEcoinAddress> > vATrans)
 {
-
 	unsigned int nBlockHeight;
 	bool fMatch = false;
-
-	// Values the should be
 	bool fCalcMatch = false;
 	int64 nCalcValue;
 	CEcoinAddress addrCalcMatch;
 
-	// Values in proposed block
     bool fActMatch = false;
     int64 nActValue;
     CEcoinAddress addrActMatch;
 
-	// Get values from transaction record
 	if (vATrans.size() > 1)
 	{
 		boost::tuple<unsigned int, int64, CEcoinAddress> tATrans = vATrans[1];
@@ -1458,200 +1526,27 @@ bool CheckProofOfTxSearch(std::vector<boost::tuple<unsigned int, int64, CEcoinAd
 	CMerkleTx txGen(block.vtx[0]);
 	txGen.SetMerkleBranch(&block);
 	nCalcValue = (GetProofOfWorkReward(nBlockHeight+1, hashLastBlock));
+	bool fFixMatch = ((int)(nBlockHeight + 1) > POT_FIX_HEIGHT);
 
 	if (!fMatch && nBlockHeight+1 > 57000 && block.vtx.size() <= 20)
 	{
-        BOOST_FOREACH (const CTransaction& tx, block.vtx)
-		{
-			if (tx.vout.size() <= 3)
-			{
-		        for (unsigned int i = 0; i < tx.vout.size(); i++)
-		        {
-			        const CTxOut& txout = tx.vout[i];
-
-			        if (txout.nValue / 1000000 > 1)
-			        {
-			            txnouttype type;
-			            vector<CTxDestination> vAddresses;
-			            int nRequired;
-			            ExtractDestinations(txout.scriptPubKey, type, vAddresses, nRequired);
-
-			            BOOST_FOREACH(const CTxDestination& addr, vAddresses)
-			            {
-				            const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
-				            CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-				            string strSearch = SearchTermV2(addrHex.ToString().c_str());
-
-				            if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
-			 	            {
-						        addrCalcMatch = CEcoinAddress(addr);
-					            fCalcMatch = true;
-					            fMatch = true;
-					        }
-				            else
-				            {
-						        fCalcMatch = false;
-						        fMatch = false;
-					        }
-			            }
-		            }
-		        }
-		    }
-		    else
-		    {
-				unsigned int iv = 0;
-				if (tx.vout.size() > 10)
-				    iv = 10;
-				else
-				    iv = tx.vout.size();
-
-		        for (unsigned int i = 0; i < iv; i++)
-		        {
-			        const CTxOut& txout = tx.vout[i];
-
-			        if (txout.nValue / 1000000 > 1)
-			        {
-			            txnouttype type;
-			            vector<CTxDestination> vAddresses;
-			            int nRequired;
-			            ExtractDestinations(txout.scriptPubKey, type, vAddresses, nRequired);
-
-			            BOOST_FOREACH(const CTxDestination& addr, vAddresses)
-			            {
-				            const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
-				            CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-				            string strSearch = SearchTerm(addrHex.ToString().c_str());
-
-				            if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
-			 	            {
-						        addrCalcMatch = CEcoinAddress(addr);
-					            fCalcMatch = true;
-					            fMatch = true;
-					        }
-				            else
-				            {
-						        fCalcMatch = false;
-						        fMatch = false;
-					        }
-			            }
-		            }
-		        }
-			}
-        }
+	    PoTParams params = GetPoTParams(nBlockHeight+1);
+	    ScanBlockForPoTMatch(block, hashLastBlock, params, fFixMatch, fMatch, addrCalcMatch);
+	    fCalcMatch = fMatch;
 	}
 
 	if (!fMatch && block.vtx.size() < 11 && nBlockHeight+1 > 22000 && nBlockHeight+1 <= 57000)
 	{
-        BOOST_FOREACH (const CTransaction& tx, block.vtx)
-		{
-			if (tx.vout.size() < 11)
-			{
-		        for (unsigned int i = 0; i < tx.vout.size(); i++)
-		        {
-			        const CTxOut& txout = tx.vout[i];
-
-			        if (txout.nValue / 1000000 > 500)
-			        {
-			            txnouttype type;
-			            vector<CTxDestination> vAddresses;
-			            int nRequired;
-			            ExtractDestinations(txout.scriptPubKey, type, vAddresses, nRequired);
-
-			            BOOST_FOREACH(const CTxDestination& addr, vAddresses)
-			            {
-				            const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
-				            CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-				            string strSearch = SearchTerm(addrHex.ToString().c_str());
-
-				            if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
-			 	            {
-						        addrCalcMatch = CEcoinAddress(addr);
-					            fCalcMatch = true;
-					            fMatch = true;
-					        }
-				            else
-				            {
-						        fCalcMatch = false;
-						        fMatch = false;
-					        }
-			            }
-		            }
-		        }
-		    }
-		    else
-		    {
-		        for (unsigned int i = 0; i < 5; i++)
-		        {
-			        const CTxOut& txout = tx.vout[i];
-
-			        if (txout.nValue / 1000000 > 500)
-			        {
-			            txnouttype type;
-			            vector<CTxDestination> vAddresses;
-			            int nRequired;
-			            ExtractDestinations(txout.scriptPubKey, type, vAddresses, nRequired);
-
-			            BOOST_FOREACH(const CTxDestination& addr, vAddresses)
-			            {
-				            const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
-				            CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-				            string strSearch = SearchTerm(addrHex.ToString().c_str());
-
-				            if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
-			 	            {
-						        addrCalcMatch = CEcoinAddress(addr);
-					            fCalcMatch = true;
-					            fMatch = true;
-					        }
-				            else
-				            {
-						        fCalcMatch = false;
-						        fMatch = false;
-					        }
-			            }
-		            }
-		        }
-			}
-        }
+	    PoTParams params = GetPoTParams(nBlockHeight+1);
+	    ScanBlockForPoTMatch(block, hashLastBlock, params, fFixMatch, fMatch, addrCalcMatch);
+	    fCalcMatch = fMatch;
 	}
 
 	if (!fMatch && nBlockHeight+1 < 22001 && nBlockHeight > 0)
 	{
-        BOOST_FOREACH (const CTransaction& tx, block.vtx)
-        {
-
-            for (unsigned int i = 0; i < tx.vout.size(); i++)
-            {
-	            const CTxOut& txout = tx.vout[i];
-
-	            if (txout.nValue / 1000000 > 500)
-	            {
-	                txnouttype type;
-	                vector<CTxDestination> vAddresses;
-	                int nRequired;
-	                ExtractDestinations(txout.scriptPubKey, type, vAddresses, nRequired);
-
-	                BOOST_FOREACH(const CTxDestination& addr, vAddresses)
-	                {
-		                const char* pszAddress = CEcoinAddress(addr).ToString().c_str();
-		                CScript addrHex = CScript() << vector<unsigned char>((const unsigned char*)pszAddress, (const unsigned char*)pszAddress + strlen(pszAddress));
-		                string strSearch = SearchTerm(addrHex.ToString().c_str());
-
-		                if (fAddrMiner(hashLastBlock.GetHex().c_str(), strSearch.c_str()))
-	 	                {
-				            addrCalcMatch = CEcoinAddress(addr);
-			                fCalcMatch = true;
-			                fMatch = true;
-			            }
-		                else
-		                {
-				            fCalcMatch = false;
-				            fMatch = false;
-			            }
-	                }
-                }
-            }
-        }
+	    PoTParams params = GetPoTParams(nBlockHeight+1);
+	    ScanBlockForPoTMatch(block, hashLastBlock, params, fFixMatch, fMatch, addrCalcMatch);
+	    fCalcMatch = fMatch;
 	}
 
     if (nBlockHeight > 0)
@@ -1806,7 +1701,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 	if (vtx[0].GetValueOut() > nReward)
 	    return DoS(50, error("ConnectBlock() : coinbase reward exceeded (actual=%" PRI64d" vs calculated=%" PRI64d") at Height=%d", vtx[0].GetValueOut(), nReward, pindex->pprev->nHeight+1));
 
-	if (vtx[0].vout.size() > 1)
+	if (vtx[0].vout.size() > 1 && fDebug)
 	    printf("ACCEPTED: proof-of-transaction block at height %d\n", pindex->pprev->nHeight+1);
 
     if (pindex->pprev->nHeight+1 > 57000 && !pindex->IsProofOfStake() && !pindex->pprev->IsProofOfStake() && vtx.size() <= 20) // epsylon
@@ -1829,7 +1724,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
 	    if (!CheckProofOfTxSearch(vTrans))
 	    {
-	         return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", desination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
+	         return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", destination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
 	    }
     }
     else if (pindex->pprev->nHeight+1 > 22000 && pindex->pprev->nHeight+1 <= 57000 && !pindex->IsProofOfStake() && !pindex->pprev->IsProofOfStake() && vtx.size() < 11)
@@ -1852,7 +1747,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
 	    if (!CheckProofOfTxSearch(vTrans))
 	    {
-	         return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", desination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
+	         return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", destination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
 	    }
     }
     else if (pindex->pprev->nHeight+1 > 12400 && pindex->pprev->nHeight+1 < 22001 && !pindex->IsProofOfStake() && !pindex->pprev->IsProofOfStake() && (pindex->GetBlockTime() - pindex->pprev->GetBlockTime()) < 300 && vtx.size() < 6)
@@ -1875,7 +1770,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
 	    if (!CheckProofOfTxSearch(vTrans))
 	    {
-	         return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", desination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
+	         return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", destination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
 	    }
     }
     else if (pindex->pprev->nHeight+1 <= 12400 && !pindex->IsProofOfStake() && !pindex->pprev->IsProofOfStake())
@@ -1898,7 +1793,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
         if (!CheckProofOfTxSearch(vTrans))
 		{
-		    return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", desination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
+		    return DoS(50, error("CheckCoinbaseTx() : calculated coinbase %" PRI64d", destination, or address do not match the actual block %d\n", nReward, pindex->pprev->nHeight+1));
 	    }
 	}
 
@@ -2819,28 +2714,18 @@ FILE* AppendBlockFile(unsigned int& nFileRet)
 
 bool LoadBlockIndex(bool fAllowNew)
 {
-    CBigNum bnTrustedModulus;
-
     if (fTestNet)
     {
         pchMessageStart[0] = 0xcd;
         pchMessageStart[1] = 0xf2;
         pchMessageStart[2] = 0xc0;
         pchMessageStart[3] = 0xef;
-        bnTrustedModulus.SetHex("b64b2ad9835da7afca61e781990f33024800e9f08cdcf2fe43a2c18e2bd5cc9fd7685826b41c1ee5e027160b6391312078be3e839ddf14f02340b97070117c3c8092da4086341d243778923cd285dbf5644a80dffdc430b36ae67368a9cd8751a5ae06f8a57c651bc3cc55caebd807dc6d0edb84c42e928c6e8f58a77b94b4989af32ea8425488c4deac50674f8a03d7c3e20c17f3972695022d1133b974fd0ea577833b0c5b9cf999b1d444d11d775a4ab8432e88361acb588475bd6bbcb496adf3f84c72bf70052b9665f264c7778c8f093c5e35a09ded8b476d7a257858a67e0b364c119f662e3ce3571ca0abe8b11c67cb8981882734098452ebb08092549");
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 16 bits PoW target limit for testnet
         nStakeMinAge = 1 * 60 * 60; // test net min age is 2 hours
         nModifierInterval = 20 * 60; // test modifier interval is 20 minutes
         nCoinbaseMaturity = 10; // test maturity is 10 blocks
         nStakeTargetSpacing = 1 * 30; // test block spacing is 1 minutes
     }
-    else
-    {
-		bnTrustedModulus.SetHex("9ff28c9cb5039df509a37260e10ae66ef880a538824de54e78051eed6a95ceb0509dd160eb77ec47279453c3b2e58f1ac25a607277d403e05a8ae5e8e4c8365fa3eec911f9a1e0a4ad58bc4c5a3531c5632e13a94526851c618f59715842c56b31af96b973a7c0bae154cddd8f67985783f299616d588f7fe1942d3f2a766711b8690cc3a225d52d93130594e130a17e51602eda21a03dc955075b6fa20f3d4e25a91d32b0aef75d8ca05802fa159f94b9b0f2e385744bc6105b744727ea063b59e8cf838fcf5dcd31d399919db49cd1c73ea9bff02be4e92c3766b65219ae79ee2bb61441d4362c8251d2f2d97314c7e56a40e21b13fa5016e16482065bd797960a04069b97b23bcbe699e78e87fec1d8ea1f035e0ac643bb5a873ed0a2282ccfa31b5fd464264a793025e8357841596e4d995d95092980b73616345d37acb9284344cf862dc5c5729f32abc46e96603e1d3ff5263fc7d02b2eb62d35dc4b3b958d5b3e4bbd3884a5a112903552354a400db24fc60e2a4fb35eb151f8b57cd8dde7b68c1bfe2755f05c4af071c1f15d58b59d56761a72b03277e03d75156733b19bcdf2b62cd58e56e7f774c22856f8ece7c6e49445e481f29b265390e785e7857046d45a671b9a435642cfa445c47d8e8e2212fe3073bd86577e0083be490db1cf4a14095dc958eab7b4ca3c45c900bb68c9928d41859a70ad602fcc7c4309");
-    }
-
-    // Set up the Zerocoin Params object
-    ZCParams = new libzerocoin::Params(bnTrustedModulus);
 
     // Load block index
     CTxDB txdb("cr+");

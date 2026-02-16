@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2024 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "init.h"
 #include "util.h"
@@ -736,7 +736,7 @@ void ThreadRPCServer2(void* parg)
 
     if (fUseSSL)
     {
-        context.set_options(ssl::context::no_sslv2);
+        context.set_options(ssl::context::no_sslv2 | ssl::context::no_sslv3 | ssl::context::no_tlsv1 | ssl::context::no_tlsv1_1);
 
         boost::filesystem::path pathCertFile(GetArg("-rpcsslcertificatechainfile", "server.cert"));
         if (!pathCertFile.is_complete()) pathCertFile = boost::filesystem::path(GetDataDir()) / pathCertFile;
@@ -748,7 +748,7 @@ void ThreadRPCServer2(void* parg)
         if (boost::filesystem::exists(pathPKFile)) context.use_private_key_file(pathPKFile.string(), ssl::context::pem);
         else printf("ThreadRPCServer ERROR: missing server private key file %s\n", pathPKFile.string().c_str());
 
-        string strCiphers = GetArg("-rpcsslciphers", "TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH");
+        string strCiphers = GetArg("-rpcsslciphers", "TLSv1.2+HIGH:!aNULL:!eNULL:!3DES:!RC4:!MD5:@STRENGTH");
         //SSL_CTX_set_cipher_list(context.impl(), strCiphers.c_str());
         SSL_CTX_set_cipher_list(context.native_handle(), strCiphers.c_str());
     }
@@ -885,6 +885,9 @@ static Object JSONRPCExecOne(const Value& req)
 
 static string JSONRPCExecBatch(const Array& vReq)
 {
+    if (vReq.size() > 100)
+        throw JSONRPCError(RPC_INVALID_REQUEST, "Batch too large (max 100)");
+
     Array ret;
     for (unsigned int reqIdx = 0; reqIdx < vReq.size(); reqIdx++)
         ret.push_back(JSONRPCExecOne(vReq[reqIdx]));
@@ -1024,7 +1027,7 @@ Object CallRPC(const string& strMethod, const Array& params)
     asio::io_service io_service;
     //ssl::context context(io_service, ssl::context::sslv23);
     ssl::context context(ssl::context::sslv23);
-    context.set_options(ssl::context::no_sslv2);
+    context.set_options(ssl::context::no_sslv2 | ssl::context::no_sslv3 | ssl::context::no_tlsv1 | ssl::context::no_tlsv1_1);
     asio::ssl::stream<asio::ip::tcp::socket> sslStream(io_service, context);
     SSLIOStreamDevice<asio::ip::tcp> d(sslStream, fUseSSL);
     iostreams::stream< SSLIOStreamDevice<asio::ip::tcp> > stream(d);

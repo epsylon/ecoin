@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #ifndef __CRYPTER_H__
 #define __CRYPTER_H__
@@ -8,6 +8,7 @@
 #include "serialize.h"
 
 #include <cstring>
+#include <openssl/crypto.h>
 
 const unsigned int WALLET_CRYPTO_KEY_SIZE = 32;
 const unsigned int WALLET_CRYPTO_SALT_SIZE = 8;
@@ -53,7 +54,7 @@ public:
     {
         // 25000 rounds is just under 0.1 seconds on a 1.86 GHz Pentium M
         // ie slightly lower than the lowest hardware we need bother supporting
-        nDeriveIterations = 25000;
+        nDeriveIterations = 100000;
         nDerivationMethod = 0;
         vchOtherDerivationParameters = std::vector<unsigned char>(0);
     }
@@ -77,8 +78,8 @@ public:
 
     void CleanKey()
     {
-        std::memset(&chKey, 0, sizeof chKey);
-        std::memset(&chIV, 0, sizeof chIV);
+        OPENSSL_cleanse(&chKey, sizeof chKey);
+        OPENSSL_cleanse(&chIV, sizeof chIV);
         fKeySet = false;
     }
 

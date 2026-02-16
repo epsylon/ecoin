@@ -68,7 +68,7 @@ LIBS+= \
     # If a stack buffer if overflowed, it writes over the canary number and then on return
     # when that number is checked, it won't be the same and the program will exit with
     # a "Stack smashing detected" error instead of being exploited.
-    HARDENING+=-fstack-protector-all -Wstack-protector
+    HARDENING+=-fstack-protector-strong -Wstack-protector
 
     # Make some important things such as the global offset table read only as soon as
     # the dynamic linker is finished building it. This will prevent overwriting of addresses
@@ -78,10 +78,8 @@ LIBS+= \
     # Build position independent code to take advantage of Address Space Layout Randomization
     # offered by some kernels.
     # see doc/build-unix.txt for more information.
-    ifdef PIE
-        HARDENING+=-fPIE
-        LDHARDENING+=-pie
-    endif
+    HARDENING+=-fPIE
+    LDHARDENING+=-pie
 
     # -D_FORTIFY_SOURCE=2 does some checking for potentially exploitable code patterns in
     # the source such overflowing a statically defined buffer.
@@ -100,7 +98,7 @@ endif
 # CXXFLAGS can be specified on the make command line, so we use xCXXFLAGS that only
 # adds some defaults in front. Unfortunately, CXXFLAGS=... $(CXXFLAGS) does not work.
 xCXXFLAGS=-O2 $(EXT_OPTIONS) -pthread -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter \
-    $(DEBUGFLAGS) $(DEFS) $(HARDENING) $(CXXFLAGS) -Wno-deprecated-declarations -Wno-stringop-overread -Wno-return-type
+    $(DEBUGFLAGS) $(DEFS) $(HARDENING) $(CXXFLAGS) -Wno-deprecated-declarations -Wno-stringop-overread
 
 # LDFLAGS can be specified on the make command line, so we use xLDFLAGS that only
 # adds some defaults in front. Unfortunately, LDFLAGS=... $(LDFLAGS) does not work.
@@ -116,7 +114,6 @@ OBJS= \
     obj/key.o \
     obj/db.o \
     obj/init.o \
-    obj/irc.o \
     obj/keystore.o \
     obj/miner.o \
     obj/main.o \

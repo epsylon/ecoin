@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "irc.h"
 #include "net.h"
@@ -206,11 +206,7 @@ void ThreadIRCSeed2(void* parg)
 
     while (!fShutdown)
     {
-        CService addrConnect("162.213.39.42", 6697); // irc.freenode.net (10/01/2021)
-
-        CService addrIRC("irc.freenode.net", 6697, true);
-        if (addrIRC.IsValid())
-            addrConnect = addrIRC;
+        CService addrConnect("irc.libera.chat", 6697, true);
 
         SOCKET hSocket;
         if (!ConnectSocket(addrConnect, hSocket))

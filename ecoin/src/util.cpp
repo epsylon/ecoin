@@ -1,4 +1,4 @@
-// ECOin - Copyright (c) - 2014/2022 - GPLv3 - epsylon@riseup.net (https://03c8.net)
+// ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net)
 
 #include "util.h"
 #include "sync.h"
@@ -1029,7 +1029,7 @@ void LogStackTrace() {
     printf("\n\n******* exception encountered *******\n");
     if (fileout)
     {
-#if !defined(WIN32) && !defined(ANDROID) && !defined(__ANDROID__)
+#ifndef WIN32
         void* pszBuffer[32];
         size_t size;
         size = backtrace(pszBuffer, 32);
