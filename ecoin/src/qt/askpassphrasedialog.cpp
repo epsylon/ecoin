@@ -202,6 +202,7 @@ void AskPassphraseDialog::secureClearPassFields()
     ui->passEdit2->clear();
     ui->passEdit3->clear();
 }
+void AskPassphraseDialog::textChanged()                                                                 
 {
     // Validate input, set Ok button to enabled when acceptable
     bool acceptable = false;
