@@ -143,12 +143,12 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     if (!key.SignCompact(Hash(ss.begin(), ss.end()), vchSig))
     {
         ui->statusLabel_SM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_SM->setText(QString("<nobr>") + tr("Message signing failed.") + QString("</nobr>"));
+        ui->statusLabel_SM->setText(tr("Message signing failed."));
         return;
     }
 
     ui->statusLabel_SM->setStyleSheet("QLabel { color: green; }");
-    ui->statusLabel_SM->setText(QString("<nobr>") + tr("Message signed.") + QString("</nobr>"));
+    ui->statusLabel_SM->setText(QString(tr("Message signed.")));
 
     ui->signatureOut_SM->setText(QString::fromStdString(EncodeBase64(&vchSig[0], vchSig.size())));
 }
@@ -227,12 +227,12 @@ void SignVerifyMessageDialog::on_verifyMessageButton_VM_clicked()
     if (!(CEcoinAddress(key.GetPubKey().GetID()) == addr))
     {
         ui->statusLabel_VM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_VM->setText(QString("<nobr>") + tr("Message verification failed.") + QString("</nobr>"));
+        ui->statusLabel_VM->setText(tr("Message verification failed."));
         return;
     }
 
     ui->statusLabel_VM->setStyleSheet("QLabel { color: green; }");
-    ui->statusLabel_VM->setText(QString("<nobr>") + tr("Message verified.") + QString("</nobr>"));
+    ui->statusLabel_VM->setText(tr("Message verified."));
 }
 
 void SignVerifyMessageDialog::on_clearButton_VM_clicked()

@@ -131,6 +131,7 @@ noirc=1
 listen=1
 server=1
 daemon=1
+staking=1
 addnode=46.163.118.220
 ```
 
@@ -156,7 +157,7 @@ Solo mining with the built-in CPU miner:
 
 # Terminal 2: Start miner
 cd miner/ && sh build.sh
-./cpuminer -o http://127.0.0.1:7474 -O ecoinrpc:<password> --coinbase-addr=<YOUR_ECOIN_ADDRESS>
+./cpuminer -o http://127.0.0.1:7474 -O ecoinrpc:<password> --coinbase-addr=<YOUR_ECOIN_ADDRESS> -a scrypt
 ```
 
 See [MINING](./ecoin/doc/MINING.txt) and [REWARDS](./ecoin/doc/REWARDS.txt) for details.
@@ -217,4 +218,4 @@ ECOin is free software released under the [GNU General Public License v3.0](http
 | Currency | Address |
 | -------- | ------- |
 | Bitcoin | `19aXfJtoYJUoXEZtjNwsah2JKN9CK5Pcjw` |
-| ECOin | `ETsRCBzaMawx3isvb5svX7tAukLdUFHKze` |
+| ECOin | `EUrsdYnwfCcmtTVyiMruo31PD7zWUtgdft` |

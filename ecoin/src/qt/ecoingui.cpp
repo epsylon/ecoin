@@ -502,7 +502,7 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBar->setVisible(true);
         }
 
-        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
+        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done)...").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
     }
     else
     {
@@ -510,7 +510,7 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBarLabel->setVisible(false);
 
         progressBar->setVisible(false);
-        tooltip = tr("Downloaded %1 blocks of transaction history.").arg(count);
+        tooltip = tr("Downloaded %1 blocks of transaction history...").arg(count);
     }
 
     // Override progressBarLabel text and hide progress bar, when we have warnings to display
@@ -550,14 +550,14 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     // Set icon state: spinning if catching up, tick otherwise
     if(secs < 90*60 && count >= nTotalBlocks)
     {
-        tooltip = tr("Up to date") + QString(".<br>") + tooltip;
+        tooltip = tr("Up to date... ") + tooltip;
         labelBlocksIcon->setPixmap(QIcon(":/icons/synced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
 
         overviewPage->showOutOfSyncWarning(false);
     }
     else
     {
-        tooltip = tr("Catching up...") + QString("<br>") + tooltip;
+        tooltip = tr("Catching up... ") + tooltip;
         labelBlocksIcon->setMovie(syncIconMovie);
         syncIconMovie->start();
 
@@ -566,12 +566,8 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
     if(!text.isEmpty())
     {
-        tooltip += QString("<br>");
-        tooltip += tr("Last received block was generated %1.").arg(text);
+        tooltip += tr(" Last received block was generated %1.").arg(text);
     }
-
-    // Don't word-wrap this (fixed-width) tooltip
-    tooltip = QString("<nobr>") + tooltip + QString("</nobr>");
 
     labelBlocksIcon->setToolTip(tooltip);
     progressBarLabel->setToolTip(tooltip);
@@ -911,7 +907,7 @@ void EcoinGUI::updateStakingIcon()
         }
 
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelStakingIcon->setToolTip(tr("Staking.<br>Your weight is %1<br>Network weight is %2<br>Expected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
+        labelStakingIcon->setToolTip(tr("Staking.Your weight is %1.Network weight is %2.Expected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
     }
     else
     {

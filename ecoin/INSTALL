@@ -60,7 +60,12 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
 
   Download bootstrap.dat for faster initial sync:
 
-    wget https://ecoin.03c8.net/ecoin/bootstrap.dat -P /home/$USER/.ecoin/
+    - File: wget https://ecoin.03c8.net/ecoin/bootstrap.dat -P /home/$USER/.ecoin/
+    
+    - Tools:
+    
+        cd tools
+        bash load_bootstrap.sh
 
   The file will be automatically imported and renamed to bootstrap.dat.old on first start.
 
@@ -87,15 +92,13 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
         daemon=1
         staking=1
         addnode=46.163.118.220
-        addnode=193.180.212.80
-        addnode=82.223.99.61
-        addnode=79.112.28.209
-        addnode=79.112.91.131
-        addnode=193.180.212.112
-        addnode=193.180.212.105
-        addnode=193.180.212.108
 
-    ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf 
+    ./ecoind -conf=/home/$USER/.ecoin/ecoin.conf    
+    
+     - Tools: 
+     
+        cd tools
+        bash set_config.sh
      
 ==========================
 + Debugging (logs):

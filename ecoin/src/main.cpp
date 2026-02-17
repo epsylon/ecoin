@@ -1658,7 +1658,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 	if (vtx[0].vout.size() > 1 && fDebug)
 	    printf("ACCEPTED: proof-of-transaction block at height %d\n", pindex->pprev->nHeight+1);
 
-    if (pindex->pprev->nHeight+1 > 57000 && !pindex->IsProofOfStake() && !pindex->pprev->IsProofOfStake() && vtx.size() <= 20) // epsylon
+    if (pindex->pprev->nHeight+1 > 57000 && !pindex->IsProofOfStake() && !pindex->pprev->IsProofOfStake() && vtx.size() <= 20)
     {
         std::vector < boost::tuple<unsigned int, int64, CEcoinAddress> > vTrans;
 	    for(unsigned int i = 0; i < vtx[0].vout.size(); i++)

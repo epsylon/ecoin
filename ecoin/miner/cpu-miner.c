@@ -3451,10 +3451,10 @@ static void show_credits()
 {
 	printf("** cpuminer (ECOIN) by psy (03c8.net): **\n");
 	printf("BTC donation address: 19aXfJtoYJUoXEZtjNwsah2JKN9CK5Pcjw (psy)\n");
-	printf("ECO donation address: ETsRCBzaMawx3isvb5svX7tAukLdUFHKze (ECOin)\n\n");
+	printf("ECO donation address: EUrsdYnwfCcmtTVyiMruo31PD7zWUtgdft (ECOin)\n\n");
 	printf("** usage: **\n");
 	printf("1) ./ecoin-qt -server\n");
-	printf("2) ./cpuminer -o http://0.0.0.0:7474 -O <rpcuser>:<rpcpassword> --coinbase-addr=<YOUR_ECOIN_ADDRESS>\n\n");
+	printf("2) ./cpuminer -o http://0.0.0.0:7474 -O <rpcuser>:<rpcpassword> --coinbase-addr=<YOUR_ECOIN_ADDRESS> -a scrypt\n\n");
 }
 
 void get_defconfig_path(char *out, size_t bufsize, char *argv0);

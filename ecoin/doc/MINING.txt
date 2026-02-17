@@ -10,8 +10,8 @@ ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://03c8.net
       cd miner/
       sh build.sh
 
-         1) ./ecoin-qt
-         2) ./cpuminer -o http://0.0.0.0:7474 -O <rpcuser>:<rpcpassword> --coinbase-addr=<YOUR_ECOIN_ADDRESS>
+         1) ./ecoin-qt -server
+         2) ./cpuminer -o http://0.0.0.0:7474 -O <rpcuser>:<rpcpassword> --coinbase-addr=<YOUR_ECOIN_ADDRESS> -a scrypt
 
 ===================================================
 
