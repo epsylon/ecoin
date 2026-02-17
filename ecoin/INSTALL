@@ -48,7 +48,7 @@ All of the commands should be executed in a shell:
 See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
 
     cd miner/
-    sh build.sh
+    bash build.sh
 	
     ./cpuminer
     

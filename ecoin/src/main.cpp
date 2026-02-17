@@ -832,53 +832,7 @@ int static StartDigging(unsigned int seed, int minreward, int maxreward)
 
 int64 GetProofOfWorkReward(unsigned int nHeight, uint256 hashSeed)
 {
-		int64 nSubsidy = 0;
-		std::string strHash = hashSeed.ToString().substr(6,7);
-		const char* chSeed = strHash.c_str();
-		long lSeed = ConvertLong(chSeed);
-		int nBlockValue = 0;
-		int nMaxSubsidy = 5000;
-		int nMinSubsidy = 500;
-
-        // doubled the reward to compensate for 2 minute blocks
-		if (nHeight > 3295 && nHeight < 22001)
-		{
-		    nMaxSubsidy = nMaxSubsidy*2;
-		    nMinSubsidy = nMinSubsidy*2;
-	    }
-
-        // the random reward era,
-		if (nHeight <= 22000)
-		{
-			nBlockValue = StartDigging(lSeed, nMinSubsidy, nMaxSubsidy);
-			return nBlockValue * COIN;
-		}
-
-	    if (nHeight > 22000 && nHeight <= 34750)
-		{
-			nSubsidy = 5000;
-			return nSubsidy * COIN;
-		}
-
-		if (nHeight > 34750 && nHeight <= 70037)
-	    {
-			nSubsidy = 2500;
-
-			unsigned int nHeightTemp = nHeight - 34750;
-			nSubsidy >>= (nHeightTemp / 5040);
-			return nSubsidy * COIN;
-		}
-
-		if (nHeight > 70037)
-	    {
-            nSubsidy = 20;
-
-            unsigned int nHeightTemp = nHeight - 70037;
-			nSubsidy >>= (nHeightTemp / 262800);
-			return nSubsidy * COIN;
-		}
-
-     	return nSubsidy * COIN;
+	return 100 * COIN;
 }
 
 int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTime, bool bCoinYearOnly)

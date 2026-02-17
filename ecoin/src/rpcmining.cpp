@@ -60,7 +60,7 @@ Value getmininginfo(const Array& params, bool fHelp)
 
     obj.push_back(Pair("blockvalue",    (uint64_t)GetProofOfWorkReward(GetLastBlockIndex(pindexBest, false)->nHeight+1, GetLastBlockIndex(pindexBest, false)->GetBlockHash())));
     //obj.push_back(Pair("netmhashps",     GetPoWMHashPS()));
-    obj.push_back(Pair("netmhashps",     GetRandHash));
+    obj.push_back(Pair("netmhashps", GetRandHash));
 
     obj.push_back(Pair("netstakeweight", GetPoSKernelPS()));
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
