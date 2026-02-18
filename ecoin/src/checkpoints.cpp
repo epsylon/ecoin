@@ -22,6 +22,10 @@ namespace Checkpoints
             uint256("0x000000421df98ce281d0beb2601a597818579bb049037cadb04640906c88d912"),
             1771355708
         ) )
+        ( 800, std::make_pair(
+            uint256("0x00000142a15d159741bdda3eb11ab2286a1851258715cf01c09894ba480a3aca"),
+            1771415774
+        ) )
     ;
 
     static MapCheckpoints mapCheckpointsTestnet =
