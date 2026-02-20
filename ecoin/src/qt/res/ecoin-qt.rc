@@ -22,7 +22,7 @@ BEGIN
             VALUE "FileDescription",    "Ecoin-Qt (OSS GUI client for Ecoin)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "ecoin-qt"
-            VALUE "LegalCopyright",     "2014-2021 The Ecoin developers"
+            VALUE "LegalCopyright",     "2014-2026 The Ecoin developers"
             VALUE "LegalTrademarks1",   "Distributed under the GPLv3 software license"
             VALUE "OriginalFilename",   "ecoin-qt.exe"
             VALUE "ProductName",        "Ecoin-Qt"

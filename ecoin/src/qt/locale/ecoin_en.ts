@@ -15,8 +15,8 @@
     </message>
     <message>
         <location line="+41"/>
-        <source>Copyright © 2014-2021 The Ecoin developers</source>
-        <translation>Copyright © 2014-2021 The Ecoin developers</translation>
+        <source>Copyright © 2014-2026 The Ecoin developers</source>
+        <translation>Copyright © 2014-2026 The Ecoin developers</translation>
     </message>
     <message>
         <location line="+13"/>

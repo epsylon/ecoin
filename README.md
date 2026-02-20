@@ -1,6 +1,6 @@
 # ECOin
 
-![ECOin](ecoin/src/qt/res/icons/ecoin.png)
+![ECOin](https://ecoin.03c8.net/ecoin/ecoin-logo.jpg)
 
 **P2P Ecological Crypto-Currency** — A long-term energy-efficient digital economy strategy
 
@@ -198,6 +198,10 @@ Mining:
 Block Explorer:
 
 ![Block Explorer](https://ecoin.03c8.net/ecoin/ecoin-blockexplorer.png)
+
+Android (APK):
+
+![Android](https://ecoin.03c8.net/ecoin/ecoin-android.png)
 
 ----------
 

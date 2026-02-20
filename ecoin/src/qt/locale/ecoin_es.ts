@@ -12,7 +12,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copyright © 2014-2021 The Ecoin developers</source>
+        <source>Copyright © 2014-2026 The Ecoin developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
