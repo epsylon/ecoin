@@ -32,7 +32,7 @@ namespace Checkpoints
         ) )
         ( 2600, std::make_pair(
             uint256("0x0000008fc75adbd309e4757c901572fda9699f4a34433ced95115d17f8e5585e"),
-            1772309777,
+            1772309777
         ) )
     ;
 
