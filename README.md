@@ -83,29 +83,6 @@ ECOin wallet is available in 10 languages:
 
 ECOin builds on GNU/Linux, Windows (MinGW), and macOS. See [INSTALL](./ecoin/INSTALL) for detailed instructions.
 
-### Quick Start (Debian/Ubuntu)
-
-```bash
-# Install dependencies
-sudo apt-get install build-essential libssl-dev libdb5.3-dev libdb5.3++-dev \
-  libleveldb-dev qt5-qmake qtbase5-dev
-
-# Clone
-git clone https://github.com/epsylon/ecoin
-cd ecoin/ecoin/
-
-# Build Wallet (GUI)
-qmake USE_UPNP=- USE_IPV6=-
-make
-./ecoin-qt
-
-# Build Daemon (headless server)
-cd src/
-make -f makefile.linux USE_UPNP=- USE_IPV6=-
-strip ecoind
-./ecoind
-```
-
 ### Pre-built Packages
 
 Pre-built `.deb` packages are available for:
@@ -152,7 +129,7 @@ Solo mining with the built-in CPU miner:
 
 ```bash
 # Terminal 1: Start wallet or daemon
-./ecoin-qt
+./ecoin-qt -server
 # or: ./ecoind -daemon
 
 # Terminal 2: Start miner

@@ -11,16 +11,11 @@ All of the commands should be executed in a shell:
 
 ===================================================
 
-=================
-+ Build Makefile:
-=================
-
-    cd ecoin/
-    /usr/lib/x86_64-linux-gnu/qt5/bin/qmake USE_UPNP=- USE_IPV6=- -o Makefile ecoin-qt.pro
-
 ===============
 + Build Wallet:
 ===============
+
+    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libboost-all-dev libleveldb-dev miniupnpc libminiupnpc-dev
 
     qmake USE_UPNP=- USE_IPV6=-
     make
@@ -33,6 +28,8 @@ All of the commands should be executed in a shell:
 + Build Daemon:
 ===============
 
+    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libboost-all-dev libleveldb-dev miniupnpc libminiupnpc-dev
+    
     cd src/
     make -f makefile.linux USE_UPNP=- USE_IPV6=-
     strip ecoind
@@ -40,18 +37,16 @@ All of the commands should be executed in a shell:
     ./ecoind
     
 ===================================================
-        
+
 ===============
-+ Build Miner:
++ Packages:
 ===============
 
-See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
+  cd packages/
 
-    cd miner/
-    bash build.sh
-	
-    ./cpuminer
-    
+    - APK (wallet): ecoin-wallet-v0.7.5.7.apk
+    - AMD64 (wallet + daemon): sudo dpkg -i ecoin_0.0.4-1_amd64.deb
+
 ===================================================
 
 =================================
@@ -99,23 +94,20 @@ See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on differe
      
         cd tools
         bash set_config.sh
+        
+===================================================
+        
+===============
++ Build Miner:
+===============
+
+See doc/MINING.txt for detailed instructions on running /ecoin-miner/ on different platforms.
+
+    cd miner/
+    bash build.sh
+	
+    ./cpuminer
      
-==========================
-+ Debugging (logs):
-==========================
-
-  + GNU/Linux:
-
-     tail -f /home/$USER/.ecoin/debug.log
-
-====================
-+ Ports (Listening):
-====================
-
-  + Default P2P Port: 7408
-
-  + Default RPC Port (mainnet): 7474
-
 ===================================================
 
 ==========================

@@ -33,7 +33,7 @@ All of the commands should be executed in a shell.
 
 (1.) Install dependencies:
 
-    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev
+    sudo apt-get install build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libboost-all-dev libleveldb-dev miniupnpc libminiupnpc-dev
 
         + Optionally install qrencode (and set USE_QRCODE=1):
 
@@ -61,7 +61,7 @@ All of the commands should be executed in a shell.
 
 (1.) First, make sure that the required packages for Qt5 development (an the others required for building the daemon) are installed:
 
-    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libleveldb-dev miniupnpc libminiupnpc-dev
+    sudo apt-get install qt5-qmake qtbase5-dev build-essential libssl-dev libssl3 libdb5.3-dev libdb5.3++-dev libboost-all-dev libleveldb-dev miniupnpc libminiupnpc-dev
         
         + Optionally install qrencode (and set USE_QRCODE=1):
 
