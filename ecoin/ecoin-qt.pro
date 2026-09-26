@@ -2,7 +2,7 @@
 
 TEMPLATE = app
 TARGET = ecoin-qt
-VERSION = 0.7.5.7
+VERSION = 0.7.5.8
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -415,7 +415,13 @@ LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
+BOOST_SYSTEM_LIB = -lboost_system$$BOOST_LIB_SUFFIX
+unix:!macx {
+    !system(echo \'int main(){}\' | $$QMAKE_CXX -x c++ - $$BOOST_SYSTEM_LIB -o /dev/null > /dev/null 2>&1) {
+        BOOST_SYSTEM_LIB =
+    }
+}
+LIBS += $$BOOST_SYSTEM_LIB -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
 windows:LIBS += -lboost_chrono$$BOOST_LIB_SUFFIX
 
 contains(RELEASE, 1) {

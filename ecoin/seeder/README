@@ -1,0 +1,103 @@
+ECOin - Copyright (c) - 2014/2026 - GPLv3 - epsylon@riseup.net (https://ecoin.03c8.net)
+
+===================================================
+# DNS SEEDER for P2P Crypto-Currency (ECOin) #
+===================================================
+
+The seeder is a crawler for the ECOin network that exposes a list of reliable
+nodes through a built-in DNS server. A wallet starting with no known peers asks
+this DNS seed for addresses, so it can join the network without anyone handing
+it an IP by hand.
+
+Features:
+
+    - regularly revisits known nodes to check their availability
+    - bans nodes after enough failures, or bad behaviour
+    - only serves nodes on the P2P port, with NODE_NETWORK, a protocol version
+      of at least 70007 and a block height above the floor set in db.h
+    - keeps statistics over windows of 2 hours, 8 hours, 1 day, 1 week and
+      1 month, to base decisions on
+    - very low memory (a few tens of megabytes) and cpu requirements
+    - crawlers run in parallel (96 threads by default)
+
+===================================================
+
+(0.) Requirements:
+
+    - g++, OpenSSL (-lcrypto) and the Boost headers
+
+    sudo apt-get install build-essential libssl-dev libboost-all-dev
+
+(1.) Build and run:
+
+    See HOWTO.
+
+===================================================
+
++ How the DNS seed is reached:
+
+The seed hostname must be delegated to the machine running the seeder, which
+answers DNS queries for it directly. For ecoinseed.03c8.net the NS record points
+to the server itself:
+
+    $ dig -t NS ecoinseed.03c8.net
+
+    ;; ANSWER SECTION
+    ecoinseed.03c8.net.   86400    IN   NS   ecoinseed.03c8.net.
+
+A query then travels like this:
+
+    1. the wallet asks its own DNS server for ecoinseed.03c8.net
+    2. that server walks up the chain looking for who is authoritative
+    3. the authoritative server for 03c8.net answers that the seed host itself
+       is the nameserver for that name
+    4. the query reaches this machine on port 53
+    5. the seeder answers with a set of node addresses
+
+Note that ECOin wallets do not rely on the resolver alone: the client sends its
+query straight to port 53 of the host the seed name resolves to, and only falls
+back to a plain lookup if that fails. So the seeder has to be reachable on port
+53 from the internet, UDP and TCP.
+
+DNS changes may take a few hours to propagate. Provide an e-mail address with -m
+if you want the DNS server to report SOA records.
+
+===================================================
+
++ Running as non-root:
+
+Binding port 53 normally needs root. Two ways around it:
+
+    sudo setcap cap_net_bind_service=+eip /path/to/dnsseed
+
+or a redirect to an unprivileged port, running the seeder with -p 5353:
+
+    sudo iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5353
+
+===================================================
+
++ ECOin network parameters:
+
+These have to match the wallet or no node will ever answer the crawler:
+
+    magic (mainnet)    cf d1 e8 ea      protocol.cpp   <- src/main.cpp
+    magic (testnet)    cd f2 c0 ef      main.cpp       <- src/main.cpp
+    P2P port           7408 / 17408     protocol.h     <- src/protocol.h
+    protocol version   70009            serialize.h    <- src/version.h
+    minimum version    70007            db.h           <- src/version.h
+    bootstrap nodes    mainnet_seeds    main.cpp
+    minimum height     GetRequireHeight db.h
+
+Two traps when adapting this crawler from another coin:
+
+    - ECOin serializes network addresses inside the version message WITH their
+      4-byte timestamp, because the initial stream version is 70007 and
+      CADDR_TIME_VERSION is 70000. A crawler that sends the shorter Bitcoin-style
+      addresses is silently ignored by every node, and never validates a single
+      one of them.
+
+    - GetRequireHeight() rejects nodes below a fixed block height. A value
+      inherited from another chain rejects the whole network. Raise it as the
+      chain grows, the same way checkpoints are updated.
+
+===================================================

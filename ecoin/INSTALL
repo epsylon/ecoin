@@ -44,7 +44,7 @@ All of the commands should be executed in a shell:
 
   cd packages/
 
-    - APK (wallet): ecoin-wallet-v0.7.5.7.apk
+    - APK (wallet): ecoin-wallet-v0.7.5.8.apk
     - AMD64 (wallet + daemon): sudo dpkg -i ecoin_0.0.4-1_amd64.deb
 
 ===================================================
@@ -97,6 +97,19 @@ All of the commands should be executed in a shell:
         
 ===================================================
         
+===============
++ Build DNS Seeder:
+===============
+
+See seeder/HOWTO for running it as a service and for the network parameters it has to match.
+
+    cd seeder/
+    make
+
+    sudo ./dnsseed -p 53 -h <seed.host> -n <seed.host> -m <mail@address>
+
+===================================================
+
 ===============
 + Build Miner:
 ===============

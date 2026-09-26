@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include "allocators.h" /* for SecureString */
+#include <boost/signals2/connection.hpp>
 
 class OptionsModel;
 class AddressTableModel;
@@ -145,6 +146,10 @@ private:
     int cachedNumBlocks;
 
     QTimer *pollTimer;
+
+    boost::signals2::connection connNotifyStatusChanged;
+    boost::signals2::connection connNotifyAddressBookChanged;
+    boost::signals2::connection connNotifyTransactionChanged;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();

@@ -131,7 +131,7 @@
              <cursorShape>IBeamCursor</cursorShape>
             </property>
             <property name="toolTip">
-             <string>Total of coins that was staked, and do not yet count toward the current balance</string>
+             <string>Coins in staking, not counted in the balance yet</string>
             </property>
             <property name="text">
              <string notr="true">0 ECO</string>
@@ -160,7 +160,7 @@
              <cursorShape>IBeamCursor</cursorShape>
             </property>
             <property name="toolTip">
-             <string>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</string>
+             <string>Unconfirmed transactions, not counted in the balance yet</string>
             </property>
             <property name="text">
              <string notr="true">0 ECO</string>
@@ -206,7 +206,7 @@
           <item row="4" column="1">
            <widget class="QLabel" name="labelNumTransactions">
             <property name="toolTip">
-             <string>Total number of transactions in wallet</string>
+             <string>Transactions in wallet</string>
             </property>
             <property name="text">
              <string notr="true">0</string>

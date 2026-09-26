@@ -29,7 +29,7 @@ All of the commands should be executed in a shell.
 
 (0.) Version libraries:
 
-    - Libboost -> source code 1.68 provided at: src/boost_1_68_0
+    - Libboost -> system libraries (any version >= 1.44)
 
 (1.) Install dependencies:
 
@@ -57,7 +57,7 @@ All of the commands should be executed in a shell.
 
 (0.) Version libraries:
 
-    - Libboost -> source code 1.68 provided at: src/boost_1_68_0
+    - Libboost -> system libraries (any version >= 1.44)
 
 (1.) First, make sure that the required packages for Qt5 development (an the others required for building the daemon) are installed:
 

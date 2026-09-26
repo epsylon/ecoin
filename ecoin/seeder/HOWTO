@@ -1,0 +1,64 @@
+ECOin - DNS seeder for the ECOin network (crawler + authoritative DNS server)
+
+===================================================
+
++ Build:
+
+    make
+
+  Requires g++ and libssl-dev (-lcrypto).
+
+===================================================
+
++ Run:
+
+    sudo ./dnsseed -p 53 -h ecoinseed.03c8.net -n ecoinseed.03c8.net -m solarnethub@riseup.net
+
+  Port 53 needs root. The hostname given with -h must resolve to this machine,
+  and UDP+TCP port 53 must be open in the firewall.
+
+  State is kept in dnsseed.dat next to the binary. A readable snapshot of every
+  known node (good flag, last success, height, services, version) is written to
+  dnsseed.dump.
+
+  Starting from an empty dnsseed.dat the crawler bootstraps from the addresses in
+  mainnet_seeds (main.cpp) and discovers the rest of the network from there.
+
+===================================================
+
++ Run as a service (systemd):
+
+    /etc/systemd/system/ecoin-seeder.service
+
+        [Unit]
+        Description=ECOin DNS seeder
+        After=network-online.target
+
+        [Service]
+        WorkingDirectory=/opt/ecoin-seeder
+        ExecStart=/opt/ecoin-seeder/dnsseed -p 53 -h ecoinseed.03c8.net -n ecoinseed.03c8.net -m solarnethub@riseup.net
+        Restart=always
+        RestartSec=10
+
+        [Install]
+        WantedBy=multi-user.target
+
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now ecoin-seeder
+
+===================================================
+
++ Check that it works:
+
+    dig @127.0.0.1 +short ecoinseed.03c8.net A
+
+  It must answer with several node addresses. An empty answer means no node has
+  passed validation yet: give the crawler a few minutes and check dnsseed.dump.
+
+===================================================
+
++ Network parameters:
+
+  See README. They have to match the wallet or no node will answer the crawler.
+
+===================================================

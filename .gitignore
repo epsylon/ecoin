@@ -9,6 +9,7 @@
 ecoin/ecoin-qt
 ecoin/src/ecoind
 ecoin/miner/cpuminer
+ecoin/seeder/dnsseed
 
 # Build directories
 ecoin/build/
@@ -71,19 +72,15 @@ ecoin/miner/missing
 ecoin/miner/stamp-h1
 ecoin/miner/gmon.out
 
-# Boost build artifacts
-ecoin/src/boost_1_68_0/b2
-ecoin/src/boost_1_68_0/bjam
-ecoin/src/boost_1_68_0/bin.v2/
-ecoin/src/boost_1_68_0/bootstrap.log
-ecoin/src/boost_1_68_0/project-config.jam
-ecoin/src/boost_1_68_0/user-config*.jam
-ecoin/src/boost_1_68_0/tools/build/src/engine/bin.*/
-ecoin/src/boost_1_68_0/tools/build/src/engine/bootstrap/
-
 # Precompiled libs (platform-specific)
 ecoin/src/leveldb/libleveldb.a.*
 ecoin/src/leveldb/libmemenv.a.*
+
+# Seeder runtime data
+ecoin/seeder/dnsseed.dat
+ecoin/seeder/dnsseed.dat.new
+ecoin/seeder/dnsseed.dump
+ecoin/seeder/dnsstats.log
 
 # Logs
 aqtinstall.log

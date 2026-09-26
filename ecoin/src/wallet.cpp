@@ -1196,7 +1196,8 @@ bool CWallet::SelectCoinsMinConf(int64 nTargetValue, unsigned int nSpendTime, in
     vector<pair<int64, pair<const CWalletTx*,unsigned int> > > vValue;
     int64 nTotalLower = 0;
 
-    random_shuffle(vCoins.begin(), vCoins.end(), GetRandInt);
+    for (int i = (int)vCoins.size() - 1; i > 0; i--)
+        std::swap(vCoins[i], vCoins[GetRandInt(i + 1)]);
 
     BOOST_FOREACH(COutput output, vCoins)
     {

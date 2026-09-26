@@ -36,7 +36,7 @@ ECOin includes [Zerocoin](https://en.wikipedia.org/wiki/Zerocoin_protocol) priva
 | **P2P Port**      | 7408                             |
 | **RPC Port**      | 7474                             |
 | **Privacy**       | Zerocoin protocol                |
-| **DNS Seed**      | ecoinseed.03c8.net:5353          |
+| **DNS Seed**      | ecoinseed.03c8.net               |
 
 ----------
 
@@ -151,34 +151,6 @@ Within the ecosystem, ECOin enables:
 - **Solar Mining** — PoW mining powered by solar panels via the [SNH-KIT](https://wiki.solarnethub.com/kit/hardware)
 - **P2P Marketplace** — Exchange goods and services priced in ECO
 - **Governance** — Voting and participation in the 9-House governance system
-
-----------
-
-## Screenshots
-
-Wallet:
-
-![Wallet](https://ecoin.03c8.net/ecoin/ecoin_wallet_zoom.png)
-
-Settings:
-
-![Settings](https://ecoin.03c8.net/ecoin/ecoin_settings_zoom.png)
-
-Debug Console:
-
-![Debug Console](https://ecoin.03c8.net/ecoin/ecoin_debug_zoom.png)
-
-Mining:
-
-![Mining](https://ecoin.03c8.net/ecoin/ecoin_mining_zoom.png)
-
-Block Explorer:
-
-![Block Explorer](https://ecoin.03c8.net/ecoin/ecoin-blockexplorer.png)
-
-Android (APK):
-
-![Android](https://ecoin.03c8.net/ecoin/ecoin-android.png)
 
 ----------
 

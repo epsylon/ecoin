@@ -470,7 +470,7 @@ void EcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Ecoin network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s)", "", count));
 }
 
 void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -502,7 +502,7 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBar->setVisible(true);
         }
 
-        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done)...").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
+        tooltip = tr("%1 of %2 blocks (%3%)").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
     }
     else
     {
@@ -510,7 +510,7 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBarLabel->setVisible(false);
 
         progressBar->setVisible(false);
-        tooltip = tr("Downloaded %1 blocks of transaction history...").arg(count);
+        tooltip = tr("%1 blocks").arg(count);
     }
 
     // Override progressBarLabel text and hide progress bar, when we have warnings to display
@@ -550,14 +550,14 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     // Set icon state: spinning if catching up, tick otherwise
     if(secs < 90*60 && count >= nTotalBlocks)
     {
-        tooltip = tr("Up to date... ") + tooltip;
+        tooltip = tr("Up to date...") + QString("\n") + tooltip;
         labelBlocksIcon->setPixmap(QIcon(":/icons/synced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
 
         overviewPage->showOutOfSyncWarning(false);
     }
     else
     {
-        tooltip = tr("Catching up... ") + tooltip;
+        tooltip = tr("Catching up...") + QString("\n") + tooltip;
         labelBlocksIcon->setMovie(syncIconMovie);
         syncIconMovie->start();
 
@@ -566,7 +566,7 @@ void EcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
     if(!text.isEmpty())
     {
-        tooltip += tr(" Last received block was generated %1.").arg(text);
+        tooltip += QString("\n") + tr("Last block: %1").arg(text);
     }
 
     labelBlocksIcon->setToolTip(tooltip);
@@ -907,7 +907,7 @@ void EcoinGUI::updateStakingIcon()
         }
 
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelStakingIcon->setToolTip(tr("Staking.Your weight is %1.Network weight is %2.Expected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
+        labelStakingIcon->setToolTip(tr("Staking...\nWeight: %1\nNetwork weight: %2\nExpected reward: %3").arg(nWeight).arg(nNetworkWeight).arg(text));
     }
     else
     {

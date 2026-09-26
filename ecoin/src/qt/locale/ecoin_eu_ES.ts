@@ -5,19 +5,19 @@
     <name>AboutDialog</name>
     <message>
         <source>About Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin-i buruz</translation>
     </message>
     <message>
         <source>&lt;b&gt;Ecoin&lt;/b&gt; version</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ecoin&lt;/b&gt; bertsioa</translation>
     </message>
     <message>
         <source>Copyright © 2014-2026 The Ecoin developers</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright © 2014-2026 Ecoin garatzaileak</translation>
     </message>
     <message>
         <source>This is an experimental software distributed under the GPLv3 license.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hau software esperimentala da, GPLv3 lizentziapean banatua.</translation>
     </message>
 </context>
 <context>
@@ -40,67 +40,67 @@
     </message>
     <message>
         <source>Address Book</source>
-        <translation type="unfinished"></translation>
+        <translation>Helbide-liburua</translation>
     </message>
     <message>
         <source>These are your Ecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauek dira ordainketak jasotzeko zure Ecoin helbideak. Bidaltzaile bakoitzari desberdin bat eman diezaiokezu, nork ordaintzen dizun jakiteko.</translation>
     </message>
     <message>
         <source>Double-click to edit address or label</source>
-        <translation type="unfinished"></translation>
+        <translation>Egin klik bikoitza helbidea edo etiketa editatzeko</translation>
     </message>
     <message>
         <source>&amp;New Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Helbide &amp;berria</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopiatu helbidea</translation>
     </message>
     <message>
         <source>Show &amp;QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi &amp;QR kodea</translation>
     </message>
     <message>
         <source>Sign a message to prove you own a Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinatu mezu bat Ecoin helbide baten jabea zarela frogatzeko</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinatu &amp;mezua</translation>
     </message>
     <message>
         <source>Verify a message to ensure it was signed with a specified Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>Egiaztatu mezu bat Ecoin helbide zehatz batekin sinatu dela ziurtatzeko</translation>
     </message>
     <message>
         <source>&amp;Verify Message</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Egiaztatu mezua</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezabatu zerrendatik hautatutako helbidea</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu &amp;etiketa</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editatu</translation>
     </message>
     <message>
         <source>Export Address Book Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Esportatu helbide-liburuaren datuak</translation>
     </message>
     <message>
         <source>Error exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea esportatzean</translation>
     </message>
     <message>
         <source>Could not write to file %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da %1 fitxategian idatzi.</translation>
     </message>
 </context>
 <context>
@@ -194,137 +194,50 @@
     </message>
     <message>
         <source>Passphrase Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasaesaldiaren elkarrizketa-koadroa</translation>
     </message>
     <message>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistemaren kontua arriskuan badago diru-bidalketa arruntak desgaitzeko balio du. Ez du benetako segurtasunik ematen.</translation>
     </message>
     <message>
         <source>For staking only</source>
-        <translation type="unfinished"></translation>
+        <translation>Stakingerako soilik</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu diru-zorroaren pasaesaldi berria.&lt;br/&gt;Erabili &lt;b&gt;10 karaktere ausazko edo gehiagoko&lt;/b&gt; pasaesaldi bat, edo &lt;b&gt;zortzi hitz edo gehiagokoa&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: zure diru-zorroa zifratu eta pasaesaldia galtzen baduzu, &lt;b&gt;ZURE TXANPON GUZTIAK GALDUKO DITUZU&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziur zaude zure diru-zorroa zifratu nahi duzula?</translation>
     </message>
     <message>
         <source>Ecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin itxi egingo da orain zifratze-prozesua amaitzeko. Gogoratu diru-zorroa zifratzeak ez dituela zure txanponak erabat babesten zure ordenagailua kutsatzen duen malwarearen lapurretatik.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation type="unfinished"></translation>
+        <translation>GARRANTZITSUA: diru-zorroaren fitxategiaren aurreko babeskopia guztiak sortu berri den fitxategi zifratuarekin ordeztu behar dira. Segurtasun arrazoiengatik, zifratu gabeko diru-zorroaren aurreko babeskopiak alferrikakoak izango dira diru-zorro zifratu berria erabiltzen hasi bezain laster.</translation>
     </message>
     <message>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroaren pasaesaldia ondo aldatu da.</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>BitcoinGUI</name>
-    <message>
-        <source>Synchronizing with network...</source>
-        <translation type="vanished">Sarearekin sinkronizatzen...</translation>
-    </message>
-    <message>
-        <source>&amp;Overview</source>
-        <translation type="vanished">&amp;Gainbegiratu</translation>
-    </message>
-    <message>
-        <source>Show general overview of wallet</source>
-        <translation type="vanished">Ikusi zorroaren begirada orokorra</translation>
-    </message>
-    <message>
-        <source>&amp;Transactions</source>
-        <translation type="vanished">&amp;Transakzioak</translation>
-    </message>
-    <message>
-        <source>Browse transaction history</source>
-        <translation type="vanished">Ikusi transakzioen historia</translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation type="vanished">Irten</translation>
-    </message>
-    <message>
-        <source>Quit application</source>
-        <translation type="vanished">Irten aplikaziotik</translation>
-    </message>
-    <message>
-        <source>About &amp;Qt</source>
-        <translation type="vanished">&amp;Qt-ari buruz</translation>
-    </message>
-    <message>
-        <source>Show information about Qt</source>
-        <translation type="vanished">Erakutsi Bitcoin-i buruzko informazioa</translation>
-    </message>
-    <message>
-        <source>&amp;Options...</source>
-        <translation type="vanished">&amp;Aukerak...</translation>
-    </message>
-    <message>
-        <source>Change the passphrase used for wallet encryption</source>
-        <translation type="vanished">Aldatu zorroa enkriptatzeko erabilitako pasahitza</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="vanished">&amp;Artxiboa</translation>
-    </message>
-    <message>
-        <source>&amp;Settings</source>
-        <translation type="vanished">&amp;Ezarpenak</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="vanished">&amp;Laguntza</translation>
-    </message>
-    <message>
-        <source>Tabs toolbar</source>
-        <translation type="vanished">Fitxen tresna-barra</translation>
-    </message>
-    <message>
-        <source>Up to date</source>
-        <translation type="vanished">Egunean</translation>
-    </message>
-    <message>
-        <source>Catching up...</source>
-        <translation type="vanished">Eguneratzen...</translation>
-    </message>
-    <message>
-        <source>Sent transaction</source>
-        <translation type="vanished">Bidalitako transakzioa</translation>
-    </message>
-    <message>
-        <source>Incoming transaction</source>
-        <translation type="vanished">Sarrerako transakzioa</translation>
-    </message>
-    <message>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation type="vanished">Zorroa &lt;b&gt;enkriptatuta&lt;/b&gt; eta &lt;b&gt;desblokeatuta&lt;/b&gt; dago une honetan</translation>
-    </message>
-    <message>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation type="vanished">Zorroa &lt;b&gt;enkriptatuta&lt;/b&gt; eta &lt;b&gt;blokeatuta&lt;/b&gt; dago une honetan</translation>
+        <translation>Abisua: Blok Maius tekla aktibatuta dago!</translation>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
     <message>
         <source>Network Alert</source>
-        <translation type="unfinished"></translation>
+        <translation>Sare-abisua</translation>
     </message>
 </context>
 <context>
@@ -355,59 +268,59 @@
     </message>
     <message>
         <source>Coin Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Txanponen kontrola</translation>
     </message>
     <message>
         <source>Quantity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopurua:</translation>
     </message>
     <message>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <source>Bytes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Byteak:</translation>
     </message>
     <message>
         <source>0.00 ECO</source>
-        <translation type="unfinished"></translation>
+        <translation>0,00 ECO</translation>
     </message>
     <message>
         <source>Priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehentasuna:</translation>
     </message>
     <message>
         <source>Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komisioa:</translation>
     </message>
     <message>
         <source>Low Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Irteera baxua:</translation>
     </message>
     <message>
         <source>no</source>
-        <translation type="unfinished"></translation>
+        <translation>ez</translation>
     </message>
     <message>
         <source>After Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komisioaren ondoren:</translation>
     </message>
     <message>
         <source>Change:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bueltak:</translation>
     </message>
     <message>
         <source>(un)select all</source>
-        <translation type="unfinished"></translation>
+        <translation>hautatu edo desautatu dena</translation>
     </message>
     <message>
         <source>Tree mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuhaitz modua</translation>
     </message>
     <message>
         <source>List mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Zerrenda modua</translation>
     </message>
     <message>
         <source>Label</source>
@@ -419,87 +332,87 @@
     </message>
     <message>
         <source>Confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrespenak</translation>
     </message>
     <message>
         <source>Confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Berretsita</translation>
     </message>
     <message>
         <source>Priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehentasuna</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu zenbatekoa</translation>
     </message>
     <message>
         <source>Copy transaction ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu transakzioaren IDa</translation>
     </message>
     <message>
         <source>Copy quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu kopurua</translation>
     </message>
     <message>
         <source>Copy fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu komisioa</translation>
     </message>
     <message>
         <source>Copy after fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu komisioaren ondorengoa</translation>
     </message>
     <message>
         <source>Copy bytes</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu byteak</translation>
     </message>
     <message>
         <source>Copy priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu lehentasuna</translation>
     </message>
     <message>
         <source>Copy low output</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu irteera baxua</translation>
     </message>
     <message>
         <source>Copy change</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu bueltak</translation>
     </message>
     <message>
         <source>highest</source>
-        <translation type="unfinished"></translation>
+        <translation>altuena</translation>
     </message>
     <message>
         <source>high</source>
-        <translation type="unfinished"></translation>
+        <translation>altua</translation>
     </message>
     <message>
         <source>medium-high</source>
-        <translation type="unfinished"></translation>
+        <translation>ertain-altua</translation>
     </message>
     <message>
         <source>medium</source>
-        <translation type="unfinished"></translation>
+        <translation>ertaina</translation>
     </message>
     <message>
         <source>low-medium</source>
-        <translation type="unfinished"></translation>
+        <translation>ertain-baxua</translation>
     </message>
     <message>
         <source>low</source>
-        <translation type="unfinished"></translation>
+        <translation>baxua</translation>
     </message>
     <message>
         <source>lowest</source>
-        <translation type="unfinished"></translation>
+        <translation>baxuena</translation>
     </message>
     <message>
         <source>DUST</source>
-        <translation type="unfinished"></translation>
+        <translation>HAUTSA</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation type="unfinished"></translation>
+        <translation>bai</translation>
     </message>
     <message>
         <source>This label turns red, if the transaction size is bigger than 10000 bytes.
@@ -507,7 +420,11 @@
  This means a fee of at least %1 per kb is required.
 
  Can vary +/- 1 Byte per input.</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketa hau gorri jartzen da transakzioaren tamaina 10000 byte baino handiagoa bada.
+
+ Horrek gutxienez %1eko komisioa eskatzen du kb-ko.
+
+ Sarrera bakoitzeko +/- byte 1 alda daiteke.</translation>
     </message>
     <message>
         <source>Transactions with higher priority get more likely into a block.
@@ -515,7 +432,11 @@
 This label turns red, if the priority is smaller than &quot;medium&quot;.
 
  This means a fee of at least %1 per kb is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehentasun handiagoko transakzioek errazago sartzen dira bloke batean.
+
+Etiketa hau gorri jartzen da lehentasuna &quot;ertaina&quot; baino txikiagoa bada.
+
+ Horrek gutxienez %1eko komisioa eskatzen du kb-ko.</translation>
     </message>
     <message>
         <source>This label turns red, if any recipient receives an amount smaller than %1.
@@ -523,36 +444,42 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
  This means a fee of at least %2 is required. 
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketa hau gorri jartzen da hartzaileren batek %1 baino zenbateko txikiagoa jasotzen badu.
+
+ Horrek gutxienez %2ko komisioa eskatzen du. 
+
+ Gutxieneko birbidalketa-komisioaren 0,546 aldiz baino txikiagoak diren zenbatekoak HAUTSA gisa erakusten dira.</translation>
     </message>
     <message>
         <source>This label turns red, if the change is smaller than %1.
 
  This means a fee of at least %2 is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketa hau gorri jartzen da bueltak %1 baino txikiagoak badira.
+
+ Horrek gutxienez %2ko komisioa eskatzen du.</translation>
     </message>
     <message>
         <source>change from %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1(e)tik bueltak (%2)</translation>
     </message>
     <message>
         <source>(change)</source>
-        <translation type="unfinished"></translation>
+        <translation>(bueltak)</translation>
     </message>
 </context>
 <context>
     <name>EcoinGUI</name>
     <message>
         <source>A fatal error occurred. Ecoin can no longer continue safely and will quit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore larri bat gertatu da. Ecoin ezin da modu seguruan jarraitu eta itxi egingo da.</translation>
     </message>
     <message>
         <source>Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin</translation>
     </message>
     <message>
         <source>Wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroa</translation>
     </message>
     <message>
         <source>&amp;Overview</source>
@@ -564,19 +491,19 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>&amp;Send coins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bidali txanponak</translation>
     </message>
     <message>
         <source>Send coins to a Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidali txanponak Ecoin helbide batera</translation>
     </message>
     <message>
         <source>&amp;Receive coins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Jaso txanponak</translation>
     </message>
     <message>
         <source>Show the list of addresses for receiving payments</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi ordainketak jasotzeko helbideen zerrenda</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -588,11 +515,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>&amp;Address Book</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Helbide-liburua</translation>
     </message>
     <message>
         <source>Edit the list of stored addresses and labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Editatu gordetako helbide eta etiketen zerrenda</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -604,11 +531,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>&amp;About Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin-i &amp;buruz</translation>
     </message>
     <message>
         <source>Show information about Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi Ecoin-i buruzko informazioa</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
@@ -616,31 +543,31 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>Modify configuration options for Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldatu Ecoin-en konfigurazio-aukerak</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Erakutsi / Ezkutatu</translation>
     </message>
     <message>
         <source>&amp;Encrypt Wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zifratu diru-zorroa...</translation>
     </message>
     <message>
         <source>Encrypt or decrypt wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Zifratu edo deszifratu diru-zorroa</translation>
     </message>
     <message>
         <source>&amp;Backup Wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroaren &amp;babeskopia...</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
-        <translation type="unfinished"></translation>
+        <translation>Gorde diru-zorroaren kopia beste kokaleku batean</translation>
     </message>
     <message>
         <source>&amp;Change Passphrase...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aldatu pasaesaldia...</translation>
     </message>
     <message>
         <source>Change the passphrase used for wallet encryption</source>
@@ -648,35 +575,35 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>&amp;Unlock Wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Desblokeatu diru-zorroa...</translation>
     </message>
     <message>
         <source>Unlock wallet for staking</source>
-        <translation type="unfinished"></translation>
+        <translation>Desblokeatu diru-zorroa stakingerako</translation>
     </message>
     <message>
         <source>Sign &amp;message...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinatu &amp;mezua...</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Egiaztatu mezua...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Esportatu...</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Esportatu uneko fitxako datuak fitxategi batera</translation>
     </message>
     <message>
         <source>&amp;Debug window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Arazketa-leihoa</translation>
     </message>
     <message>
         <source>Open debugging and diagnostic console</source>
-        <translation type="unfinished"></translation>
+        <translation>Ireki arazketa eta diagnostiko kontsola</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -696,7 +623,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>Actions toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekintzen tresna-barra</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -704,14 +631,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <source>Ecoin client</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n active connection(s) to Ecoin network</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation>Ecoin bezeroa</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -719,66 +639,50 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message numerus="yes">
         <source>~%n block(s) remaining</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>~%n bloke falta da</numerusform>
+            <numerusform>~%n bloke falta dira</numerusform>
         </translation>
-    </message>
-    <message>
-        <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Downloaded %1 blocks of transaction history.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <source>%n second(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>duela segundo %n</numerusform>
+            <numerusform>duela %n segundo</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n minute(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>duela minutu %n</numerusform>
+            <numerusform>duela %n minutu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>duela ordu %n</numerusform>
+            <numerusform>duela %n ordu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n day(s) ago</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>duela egun %n</numerusform>
+            <numerusform>duela %n egun</numerusform>
         </translation>
-    </message>
-    <message>
-        <source>Up to date</source>
-        <translation type="unfinished">Egunean</translation>
     </message>
     <message>
         <source>Catching up...</source>
         <translation type="unfinished">Eguneratzen...</translation>
     </message>
     <message>
-        <source>Last received block was generated %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation type="unfinished"></translation>
+        <translation>Transakzio honek tamaina-muga gainditzen du. Hala ere, %1eko komisio bat ordainduz bidal dezakezu; zure transakzioa prozesatzen duten nodoetara doa eta sarea mantentzen laguntzen du. Komisioa ordaindu nahi duzu?</translation>
     </message>
     <message>
         <source>Confirm transaction fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Berretsi transakzioaren komisioa</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -794,15 +698,19 @@ Amount: %2
 Type: %3
 Address: %4
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Data: %1
+Zenbatekoa: %2
+Mota: %3
+Helbidea: %4
+</translation>
     </message>
     <message>
         <source>URI handling</source>
-        <translation type="unfinished"></translation>
+        <translation>URIen kudeaketa</translation>
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid Ecoin address or malformed URI parameters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da URIa aztertu! Baliogabeko Ecoin helbide bat edo gaizki osatutako parametroak izan daitezke arrazoia.</translation>
     </message>
     <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
@@ -814,71 +722,97 @@ Address: %4
     </message>
     <message>
         <source>Backup Wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroaren babeskopia</translation>
     </message>
     <message>
         <source>Wallet Data (*.dat)</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroaren datuak (*.dat)</translation>
     </message>
     <message>
         <source>Backup Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Babeskopiak huts egin du</translation>
     </message>
     <message>
         <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore bat gertatu da diru-zorroaren datuak kokaleku berrian gordetzean.</translation>
     </message>
     <message numerus="yes">
         <source>%n second(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>segundo %n</numerusform>
+            <numerusform>%n segundo</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n minute(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>minutu %n</numerusform>
+            <numerusform>%n minutu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>ordu %n</numerusform>
+            <numerusform>%n ordu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>egun %n</numerusform>
+            <numerusform>%n egun</numerusform>
         </translation>
     </message>
     <message>
-        <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not staking because wallet is locked</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da stakingik egiten diru-zorroa blokeatuta dagoelako</translation>
     </message>
     <message>
         <source>Not staking because wallet is offline</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da stakingik egiten diru-zorroa lineaz kanpo dagoelako</translation>
     </message>
     <message>
         <source>Not staking because wallet is syncing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da stakingik egiten diru-zorroa sinkronizatzen ari delako</translation>
     </message>
     <message>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez da stakingik egiten txanpon helduak ez dituzulako</translation>
     </message>
     <message>
         <source>Not staking</source>
-        <translation type="unfinished"></translation>
+        <translation>Stakingik ez</translation>
+    </message>
+    <message>
+        <source>Staking...
+Weight: %1
+Network weight: %2
+Expected reward: %3</source>
+        <translation>Staking...
+Pisua: %1
+Sarearen pisua: %2
+Usteko saria: %3</translation>
+    </message>
+    <message>
+        <source>%1 of %2 blocks (%3%)</source>
+        <translation>%2tik %1 bloke (%3%)</translation>
+    </message>
+    <message>
+        <source>%1 blocks</source>
+        <translation>%1 bloke</translation>
+    </message>
+    <message>
+        <source>Last block: %1</source>
+        <translation>Azken blokea: %1</translation>
+    </message>
+    <message>
+        <source>Up to date...</source>
+        <translation>Eguneratuta...</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n active connection(s)</source>
+        <translation><numerusform>konexio aktibo %n</numerusform><numerusform>%n konexio aktibo</numerusform></translation>
     </message>
 </context>
 <context>
@@ -925,50 +859,50 @@ Address: %4
     </message>
     <message>
         <source>The label associated with this address book entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Helbide-liburuko sarrera honi lotutako etiketa</translation>
     </message>
     <message>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation type="unfinished"></translation>
+        <translation>Helbide-liburuko sarrera honi lotutako helbidea. Bidaltzeko helbideetan bakarrik alda daiteke.</translation>
     </message>
     <message>
         <source>The entered address &quot;%1&quot; is not a valid Ecoin address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartutako &quot;%1&quot; helbidea ez da baliozko Ecoin helbide bat.</translation>
     </message>
 </context>
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
         <source>Ecoin-Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin-Qt</translation>
     </message>
     <message>
         <source>version</source>
-        <translation type="unfinished"></translation>
+        <translation>bertsioa</translation>
     </message>
     <message>
         <source>Usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabilera:</translation>
     </message>
     <message>
         <source>command-line options</source>
-        <translation type="unfinished"></translation>
+        <translation>komando-lerroko aukerak</translation>
     </message>
     <message>
         <source>UI options</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfazearen aukerak</translation>
     </message>
     <message>
         <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri hizkuntza, adibidez &quot;de_DE&quot; (lehenetsia: sistemarena)</translation>
     </message>
     <message>
         <source>Start minimized</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasi ikonotuta</translation>
     </message>
     <message>
         <source>Show splash screen on startup (default: 1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi hasierako pantaila abiaraztean (lehenetsia: 1)</translation>
     </message>
 </context>
 <context>
@@ -979,159 +913,159 @@ Address: %4
     </message>
     <message>
         <source>&amp;Main</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nagusia</translation>
     </message>
     <message>
         <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukerako komisioa kB-ko, zure transakzioak azkar prozesatzen laguntzen duena. Transakzio gehienek 1 kB hartzen dute. 0,01 gomendatzen da.</translation>
     </message>
     <message>
         <source>Pay transaction &amp;fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordaindu transakzioaren &amp;komisioa</translation>
     </message>
     <message>
         <source>Automatically start Ecoin after logging in to the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abiarazi Ecoin automatikoki sisteman saioa hastean.</translation>
     </message>
     <message>
         <source>&amp;Start Ecoin on system login</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abiarazi Ecoin sisteman saioa hastean</translation>
     </message>
     <message>
         <source>Detach block and address databases at shutdown. This means they can be moved to another data directory, but it slows down shutdown. The wallet is always detached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Askatu blokeen eta helbideen datu-baseak ixtean. Horrela beste datu-direktorio batera eraman daitezke, baina ixtea motelagoa da. Diru-zorroa beti askatzen da.</translation>
     </message>
     <message>
         <source>&amp;Detach databases at shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Askatu datu-baseak ixtean</translation>
     </message>
     <message>
         <source>&amp;Network</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sarea</translation>
     </message>
     <message>
         <source>Automatically open the Ecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ireki automatikoki Ecoin bezeroaren ataka bideratzailean. Zure bideratzaileak UPnP onartzen badu eta gaituta badago bakarrik funtzionatzen du.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
-        <translation type="unfinished"></translation>
+        <translation>Esleitu ataka &amp;UPnP bidez</translation>
     </message>
     <message>
         <source>Connect to the Ecoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu Ecoin sarera SOCKS proxy baten bidez (adibidez, Tor bidez konektatzean).</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Konektatu SOCKS proxy baten bidez:</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxyaren &amp;IPa:</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. 127.0.0.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxyaren IP helbidea (adib. 127.0.0.1)</translation>
     </message>
     <message>
         <source>&amp;Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ataka:</translation>
     </message>
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxyaren ataka (adib. 9050)</translation>
     </message>
     <message>
         <source>SOCKS &amp;Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>SOCKS &amp;bertsioa:</translation>
     </message>
     <message>
         <source>SOCKS version of the proxy (e.g. 5)</source>
-        <translation type="unfinished"></translation>
+        <translation>Proxyaren SOCKS bertsioa (adib. 5)</translation>
     </message>
     <message>
         <source>&amp;Window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Leihoa</translation>
     </message>
     <message>
         <source>Show only a tray icon after minimizing the window.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi erretiluko ikonoa soilik leihoa ikonotu ondoren.</translation>
     </message>
     <message>
         <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ikonotu erretilura, ataza-barrara beharrean</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikonotu aplikaziotik irten beharrean leihoa ixtean. Aukera hau gaituta dagoenean, aplikazioa menuko Irten hautatzean bakarrik itxiko da.</translation>
     </message>
     <message>
         <source>M&amp;inimize on close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ikonotu ixtean</translation>
     </message>
     <message>
         <source>&amp;Display</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bistaratzea</translation>
     </message>
     <message>
         <source>User Interface &amp;language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfazearen &amp;hizkuntza:</translation>
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting Ecoin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hemen ezar daiteke interfazearen hizkuntza. Aldaketak Ecoin berrabiarazi ondoren izango du eragina.</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbatekoak erakusteko &amp;unitatea:</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukeratu interfazean eta txanponak bidaltzean erakutsiko den azpiunitate lehenetsia.</translation>
     </message>
     <message>
         <source>Whether to show Ecoin addresses in the transaction list or not.</source>
-        <translation type="unfinished"></translation>
+        <translation>Transakzioen zerrendan Ecoin helbideak erakutsi ala ez.</translation>
     </message>
     <message>
         <source>&amp;Display addresses in transaction list</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Erakutsi helbideak transakzioen zerrendan</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
-        <translation type="unfinished"></translation>
+        <translation>Txanponen kontrol-funtzioak erakutsi ala ez.</translation>
     </message>
     <message>
         <source>Display coin &amp;control features (experts only!)</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi txanponen &amp;kontrol-funtzioak (adituentzat soilik!)</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ados</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Utzi</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;plikatu</translation>
     </message>
     <message>
         <source>default</source>
-        <translation type="unfinished"></translation>
+        <translation>lehenetsia</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua</translation>
     </message>
     <message>
         <source>This setting will take effect after restarting Ecoin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarpen honek Ecoin berrabiarazi ondoren izango du eragina.</translation>
     </message>
     <message>
         <source>The supplied proxy address is invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Emandako proxy helbidea ez da baliozkoa.</translation>
     </message>
 </context>
 <context>
@@ -1142,11 +1076,11 @@ Address: %4
     </message>
     <message>
         <source>Wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroa</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Ecoin network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsitako informazioa zaharkituta egon daiteke. Zure diru-zorroa automatikoki sinkronizatzen da Ecoin sarearekin konexioa ezarri ondoren, baina prozesu hori ez da oraindik amaitu.</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -1154,69 +1088,62 @@ Address: %4
     </message>
     <message>
         <source>Your current balance</source>
-        <translation type="unfinished"></translation>
+        <translation>Zure uneko saldoa</translation>
     </message>
     <message>
         <source>Stake:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total of coins that was staked, and do not yet count toward the current balance</source>
-        <translation type="unfinished"></translation>
+        <translation>Stakingean:</translation>
     </message>
     <message>
         <source>Unconfirmed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation type="unfinished"></translation>
+        <translation>Berretsi gabe:</translation>
     </message>
     <message>
         <source>Immature:</source>
-        <translation type="unfinished"></translation>
+        <translation>Heldu gabe:</translation>
     </message>
     <message>
         <source>Mined balance that has not yet matured</source>
-        <translation type="unfinished"></translation>
+        <translation>Oraindik heldu ez den meatzaritzako saldoa</translation>
     </message>
     <message>
         <source>Number of transactions:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total number of transactions in wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Transakzio kopurua:</translation>
     </message>
     <message>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Azken transakzioak&lt;/b&gt;</translation>
     </message>
     <message>
         <source>out of sync</source>
-        <translation type="unfinished"></translation>
+        <translation>sinkronizatu gabe</translation>
     </message>
-</context>
-<context>
-    <name>QObject</name>
     <message>
-        <source>Amount</source>
-        <translation type="vanished">Kopurua</translation>
+        <source>Coins in staking, not counted in the balance yet</source>
+        <translation>Stakingeko txanponak, oraindik saldoan zenbatu gabe</translation>
+    </message>
+    <message>
+        <source>Unconfirmed transactions, not counted in the balance yet</source>
+        <translation>Berretsi gabeko transakzioak, oraindik saldoan zenbatu gabe</translation>
+    </message>
+    <message>
+        <source>Transactions in wallet</source>
+        <translation>Diru-zorroko transakzioak</translation>
     </message>
 </context>
 <context>
     <name>QRCodeDialog</name>
     <message>
         <source>QR Code Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>QR kodearen elkarrizketa-koadroa</translation>
     </message>
     <message>
         <source>Request Payment</source>
-        <translation type="unfinished"></translation>
+        <translation>Eskatu ordainketa</translation>
     </message>
     <message>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiketa:</translation>
     </message>
     <message>
         <source>Message:</source>
@@ -1228,183 +1155,138 @@ Address: %4
     </message>
     <message>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gorde honela...</translation>
     </message>
     <message>
         <source>Error encoding URI into QR Code.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea URIa QR kodean kodetzean.</translation>
     </message>
     <message>
         <source>The entered amount is invalid, please check.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartutako zenbatekoa ez da baliozkoa, egiaztatu.</translation>
     </message>
     <message>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortutako URIa luzeegia da, saiatu etiketaren edo mezuaren testua laburtzen.</translation>
     </message>
     <message>
         <source>Save QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Gorde QR kodea</translation>
     </message>
     <message>
         <source>PNG Images (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG irudiak (*.png)</translation>
     </message>
 </context>
 <context>
     <name>RPCConsole</name>
     <message>
         <source>Ecoin - Debug window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin - Arazketa-leihoa</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Informazioa</translation>
     </message>
     <message>
         <source>Ecoin Core</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin nukleoa</translation>
     </message>
     <message>
         <source>Client name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeroaren izena</translation>
     </message>
     <message>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>E/E</translation>
     </message>
     <message>
         <source>Client version</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeroaren bertsioa</translation>
     </message>
     <message>
         <source>Using OpenSSL version</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabiltzen ari den OpenSSL bertsioa</translation>
     </message>
     <message>
         <source>Build date</source>
-        <translation type="unfinished"></translation>
+        <translation>Konpilazio-data</translation>
     </message>
     <message>
         <source>Startup time</source>
-        <translation type="unfinished"></translation>
+        <translation>Abiaraztean ordua</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarea</translation>
     </message>
     <message>
         <source>Number of connections</source>
-        <translation type="unfinished"></translation>
+        <translation>Konexio kopurua</translation>
     </message>
     <message>
         <source>On testnet</source>
-        <translation type="unfinished"></translation>
+        <translation>Proba-sarean</translation>
     </message>
     <message>
         <source>Block chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeen katea</translation>
     </message>
     <message>
         <source>Current number of blocks</source>
-        <translation type="unfinished"></translation>
+        <translation>Uneko bloke kopurua</translation>
     </message>
     <message>
         <source>Estimated total blocks</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloke guztien zenbatetsia</translation>
     </message>
     <message>
         <source>Last block time</source>
-        <translation type="unfinished"></translation>
+        <translation>Azken blokearen ordua</translation>
     </message>
     <message>
         <source>Debug log file</source>
-        <translation type="unfinished"></translation>
+        <translation>Arazketa-erregistroaren fitxategia</translation>
     </message>
     <message>
         <source>Open the Ecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ireki uneko datu-direktorioko Ecoin-en arazketa-erregistroaren fitxategia. Handia bada, segundo batzuk behar ditzake.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ireki</translation>
     </message>
     <message>
         <source>Command-line options</source>
-        <translation type="unfinished"></translation>
+        <translation>Komando-lerroko aukerak</translation>
     </message>
     <message>
         <source>Show the Ecoin-Qt help message to get a list with possible Ecoin command-line options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi Ecoin-Qt-ren laguntza-mezua, komando-lerroko aukera erabilgarrien zerrenda lortzeko.</translation>
     </message>
     <message>
         <source>&amp;Show</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Erakutsi</translation>
     </message>
     <message>
         <source>&amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kontsola</translation>
     </message>
     <message>
         <source>Clear console</source>
-        <translation type="unfinished"></translation>
+        <translation>Garbitu kontsola</translation>
     </message>
     <message>
         <source>Welcome to the Ecoin RPC console.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongi etorri Ecoin-en RPC kontsolara.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabili gora eta beherako geziak historian nabigatzeko, eta &lt;b&gt;Ctrl-L&lt;/b&gt; pantaila garbitzeko.</translation>
     </message>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ReceiveCoinsDialog</name>
-    <message>
-        <source>&amp;Label:</source>
-        <translation type="vanished">&amp;Etiketa:</translation>
-    </message>
-    <message>
-        <source>Copy label</source>
-        <translation type="vanished">Kopiatu etiketa</translation>
-    </message>
-</context>
-<context>
-    <name>ReceiveRequestDialog</name>
-    <message>
-        <source>Address</source>
-        <translation type="vanished">Helbidea</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation type="vanished">Kopurua</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation type="vanished">Etiketa</translation>
-    </message>
-</context>
-<context>
-    <name>RecentRequestsTableModel</name>
-    <message>
-        <source>Date</source>
-        <translation type="vanished">Data</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation type="vanished">Etiketa</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation type="vanished">Kopurua</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation type="vanished">(etiketarik ez)</translation>
+        <translation>Idatzi &lt;b&gt;help&lt;/b&gt; eskuragarri dauden komandoen ikuspegi orokorra ikusteko.</translation>
     </message>
 </context>
 <context>
@@ -1443,167 +1325,167 @@ Address: %4
     </message>
     <message>
         <source>Coin Control Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Txanponen kontrol-funtzioak</translation>
     </message>
     <message>
         <source>Inputs...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarrerak...</translation>
     </message>
     <message>
         <source>automatically selected</source>
-        <translation type="unfinished"></translation>
+        <translation>automatikoki hautatuta</translation>
     </message>
     <message>
         <source>Insufficient funds!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez dago funts nahikorik!</translation>
     </message>
     <message>
         <source>Quantity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopurua:</translation>
     </message>
     <message>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <source>Bytes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Byteak:</translation>
     </message>
     <message>
         <source>0.00 ECO</source>
-        <translation type="unfinished"></translation>
+        <translation>0,00 ECO</translation>
     </message>
     <message>
         <source>Priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehentasuna:</translation>
     </message>
     <message>
         <source>medium</source>
-        <translation type="unfinished"></translation>
+        <translation>ertaina</translation>
     </message>
     <message>
         <source>Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komisioa:</translation>
     </message>
     <message>
         <source>Low Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Irteera baxua:</translation>
     </message>
     <message>
         <source>no</source>
-        <translation type="unfinished"></translation>
+        <translation>ez</translation>
     </message>
     <message>
         <source>After Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komisioaren ondoren:</translation>
     </message>
     <message>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Bueltak</translation>
     </message>
     <message>
         <source>custom change address</source>
-        <translation type="unfinished"></translation>
+        <translation>bueltetarako helbide pertsonalizatua</translation>
     </message>
     <message>
         <source>Add &amp;Recipient</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehitu &amp;hartzailea</translation>
     </message>
     <message>
         <source>Remove all transaction fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Kendu transakzioaren eremu guztiak</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Garbitu &amp;dena</translation>
     </message>
     <message>
         <source>123.456 ECO</source>
-        <translation type="unfinished"></translation>
+        <translation>123,456 ECO</translation>
     </message>
     <message>
         <source>S&amp;end</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bidali</translation>
     </message>
     <message>
         <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu Ecoin helbide bat (adib. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <source>Copy quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu kopurua</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu zenbatekoa</translation>
     </message>
     <message>
         <source>Copy fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu komisioa</translation>
     </message>
     <message>
         <source>Copy after fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu komisioaren ondorengoa</translation>
     </message>
     <message>
         <source>Copy bytes</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu byteak</translation>
     </message>
     <message>
         <source>Copy priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu lehentasuna</translation>
     </message>
     <message>
         <source>Copy low output</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu irteera baxua</translation>
     </message>
     <message>
         <source>Copy change</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu bueltak</translation>
     </message>
     <message>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;%1&lt;/b&gt; %2(e)ra (%3)</translation>
     </message>
     <message>
         <source>Are you sure you want to send %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziur zaude %1 bidali nahi duzula?</translation>
     </message>
     <message>
         <source> and </source>
-        <translation type="unfinished"></translation>
+        <translation> eta </translation>
     </message>
     <message>
         <source>The recipient address is not valid, please recheck.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hartzailearen helbidea ez da baliozkoa, berrikusi ezazu.</translation>
     </message>
     <message>
         <source>The amount exceeds your balance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbatekoak zure saldoa gainditzen du.</translation>
     </message>
     <message>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation type="unfinished"></translation>
+        <translation>Guztizkoak zure saldoa gainditzen du %1eko komisioa barne hartuta.</translation>
     </message>
     <message>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Helbide bikoiztua aurkitu da. Bidalketa bakoitzean behin bakarrik bidal daiteke helbide bakoitzera.</translation>
     </message>
     <message>
         <source>Error: Transaction creation failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: ezin izan da transakzioa sortu.</translation>
     </message>
     <message>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: transakzioa baztertu da. Zure diru-zorroko txanpon batzuk jada gastatuta badaude gerta daiteke, adibidez wallet.dat kopia bat erabili baduzu eta han gastatu badira hemen markatu gabe.</translation>
     </message>
     <message>
         <source>WARNING: Invalid Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>ABISUA: baliogabeko Ecoin helbidea</translation>
     </message>
     <message>
         <source>WARNING: unknown change address</source>
-        <translation type="unfinished"></translation>
+        <translation>ABISUA: bueltetarako helbide ezezaguna</translation>
     </message>
 </context>
 <context>
@@ -1637,28 +1519,24 @@ Address: %4
         <translation>Alt+P</translation>
     </message>
     <message>
-        <source>Message:</source>
-        <translation type="vanished">Mezua</translation>
-    </message>
-    <message>
         <source>Form</source>
         <translation type="unfinished">Inprimakia</translation>
     </message>
     <message>
         <source>The address to send the payment to  (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordainketa bidaltzeko helbidea (adib. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <source>Choose address from address book</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukeratu helbidea helbide-liburutik</translation>
     </message>
     <message>
         <source>Remove this recipient</source>
-        <translation type="unfinished"></translation>
+        <translation>Kendu hartzaile hau</translation>
     </message>
     <message>
         <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu Ecoin helbide bat (adib. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
 </context>
 <context>
@@ -1677,130 +1555,123 @@ Address: %4
     </message>
     <message>
         <source>Signatures - Sign / Verify a Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinadurak - Sinatu / egiaztatu mezu bat</translation>
     </message>
     <message>
         <source>&amp;Sign Message</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sinatu mezua</translation>
     </message>
     <message>
         <source>You can sign messages with your addresses to prove you own them. Be careful not to sign anything vague, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezuak zure helbideekin sina ditzakezu zureak direla frogatzeko. Kontuz ibili ezer lausorik ez sinatzeko: phishing erasoek zure nortasuna lagatzera bultza zaitzakete. Sinatu ados zauden adierazpen zehatzak bakarrik.</translation>
     </message>
     <message>
         <source>The address to sign the message with (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezua sinatzeko helbidea (adib. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <source>Choose an address from the address book</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukeratu helbide bat helbide-liburutik</translation>
     </message>
     <message>
         <source>Enter the message you want to sign here</source>
-        <translation type="unfinished"></translation>
+        <translation>Idatzi hemen sinatu nahi duzun mezua</translation>
     </message>
     <message>
         <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu uneko sinadura sistemaren arbelera</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinatu mezua Ecoin helbide hau zurea dela frogatzeko</translation>
     </message>
     <message>
         <source>Reset all sign message fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrezarri mezua sinatzeko eremu guztiak</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Garbitu &amp;dena</translation>
     </message>
     <message>
         <source>&amp;Verify Message</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Egiaztatu mezua</translation>
     </message>
     <message>
         <source>Enter the signing address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu behean sinatzailearen helbidea, mezua (kopiatu zehatz-mehatz lerro-jauziak, zuriuneak, tabuladoreak eta abar) eta sinadura mezua egiaztatzeko. Kontuz ibili sinadurari sinatutako mezuak dioena baino gehiago ez egozteko, bitartekari-eraso batek engaina ez zaitzan.</translation>
     </message>
     <message>
         <source>The address the message was signed with (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezua sinatzeko erabilitako helbidea (adib. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>Egiaztatu mezua adierazitako Ecoin helbidearekin sinatu dela ziurtatzeko</translation>
     </message>
     <message>
         <source>Reset all verify message fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Berrezarri mezua egiaztatzeko eremu guztiak</translation>
     </message>
     <message>
         <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu Ecoin helbide bat (adib. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Egin klik &quot;Sinatu mezua&quot; botoian sinadura sortzeko</translation>
     </message>
     <message>
         <source>Enter Ecoin signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu Ecoin sinadura</translation>
     </message>
     <message>
         <source>The entered address is invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartutako helbidea ez da baliozkoa.</translation>
     </message>
     <message>
         <source>Please check the address and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Egiaztatu helbidea eta saiatu berriro.</translation>
     </message>
     <message>
         <source>The entered address does not refer to a key.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartutako helbideak ez du gakorik.</translation>
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroaren desblokeoa bertan behera utzi da.</translation>
     </message>
     <message>
         <source>Private key for the entered address is not available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartutako helbidearen gako pribatua ez dago erabilgarri.</translation>
     </message>
     <message>
         <source>Message signing failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezua sinatzeak huts egin du.</translation>
     </message>
     <message>
         <source>Message signed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezua sinatuta.</translation>
     </message>
     <message>
         <source>The signature could not be decoded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da sinadura deskodetu.</translation>
     </message>
     <message>
         <source>Please check the signature and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Egiaztatu sinadura eta saiatu berriro.</translation>
     </message>
     <message>
         <source>The signature did not match the message digest.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinadura ez dator bat mezuaren laburpenarekin.</translation>
     </message>
     <message>
         <source>Message verification failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezua egiaztatzeak huts egin du.</translation>
     </message>
     <message>
         <source>Message verified.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SplashScreen</name>
-    <message>
-        <source>[testnet]</source>
-        <translation type="vanished">[testnet]</translation>
+        <translation>Mezua egiaztatuta.</translation>
     </message>
 </context>
 <context>
@@ -1835,112 +1706,112 @@ Address: %4
     </message>
     <message numerus="yes">
         <source>Open for %n block(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Ireki %n blokez</numerusform>
+            <numerusform>Ireki %n blokez</numerusform>
         </translation>
     </message>
     <message>
         <source>%1/offline</source>
-        <translation type="unfinished"></translation>
+        <translation>%1/lineaz kanpo</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Egoera</translation>
     </message>
     <message numerus="yes">
         <source>, broadcast through %n node(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>, nodo %n bidez hedatua</numerusform>
+            <numerusform>, %n nodo bidez hedatua</numerusform>
         </translation>
     </message>
     <message>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Jatorria</translation>
     </message>
     <message>
         <source>Generated</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortua</translation>
     </message>
     <message>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Nondik</translation>
     </message>
     <message>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Nora</translation>
     </message>
     <message>
         <source>own address</source>
-        <translation type="unfinished"></translation>
+        <translation>norberaren helbidea</translation>
     </message>
     <message>
         <source>label</source>
-        <translation type="unfinished"></translation>
+        <translation>etiketa</translation>
     </message>
     <message>
         <source>Credit</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarrera</translation>
     </message>
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>bloke %n barru heltzen da</numerusform>
+            <numerusform>%n bloke barru heltzen da</numerusform>
         </translation>
     </message>
     <message>
         <source>not accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>onartu gabe</translation>
     </message>
     <message>
         <source>Debit</source>
-        <translation type="unfinished"></translation>
+        <translation>Irteera</translation>
     </message>
     <message>
         <source>Transaction fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Transakzioaren komisioa</translation>
     </message>
     <message>
         <source>Net amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbateko garbia</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezua</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Iruzkina</translation>
     </message>
     <message>
         <source>Transaction ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Transakzioaren IDa</translation>
     </message>
     <message>
         <source>Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortutako txanponek 520 bloke heldu behar dute gastatu ahal izateko. Bloke hau sortu zenuenean, sarera hedatu zen kateari gehitzeko. Katean sartzea lortzen ez badu, egoera &quot;onartu gabe&quot; bihurtuko da eta ezingo da gastatu. Beste nodo batek zurea baino segundo gutxi batzuk lehenago bloke bat sortzen badu gerta daiteke.</translation>
     </message>
     <message>
         <source>Debug information</source>
-        <translation type="unfinished"></translation>
+        <translation>Arazketa-informazioa</translation>
     </message>
     <message>
         <source>Transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Transakzioa</translation>
     </message>
     <message>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarrerak</translation>
     </message>
     <message>
         <source>true</source>
-        <translation type="unfinished"></translation>
+        <translation>egia</translation>
     </message>
     <message>
         <source>false</source>
-        <translation type="unfinished"></translation>
+        <translation>faltsua</translation>
     </message>
 </context>
 <context>
@@ -2030,29 +1901,29 @@ Address: %4
     </message>
     <message numerus="yes">
         <source>Open for %n block(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Ireki %n blokez</numerusform>
+            <numerusform>Ireki %n blokez</numerusform>
         </translation>
     </message>
     <message>
         <source>Offline (%1 confirmations)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineaz kanpo (%1 berrespen)</translation>
     </message>
     <message>
         <source>Unconfirmed (%1 of %2 confirmations)</source>
-        <translation type="unfinished"></translation>
+        <translation>Berretsi gabe (%2tik %1 berrespen)</translation>
     </message>
     <message numerus="yes">
         <source>Mined balance will be available when it matures in %n more block(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Meatzaritzako saldoa erabilgarri egongo da %n bloketan heltzen denean</numerusform>
+            <numerusform>Meatzaritzako saldoa erabilgarri egongo da %n bloketan heltzen denean</numerusform>
         </translation>
     </message>
     <message>
         <source>Received from</source>
-        <translation type="unfinished"></translation>
+        <translation>Nork bidalia</translation>
     </message>
 </context>
 <context>
@@ -2143,27 +2014,27 @@ Address: %4
     </message>
     <message>
         <source>Copy amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu zenbatekoa</translation>
     </message>
     <message>
         <source>Copy transaction ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu transakzioaren IDa</translation>
     </message>
     <message>
         <source>Edit label</source>
-        <translation type="unfinished"></translation>
+        <translation>Editatu etiketa</translation>
     </message>
     <message>
         <source>Show transaction details</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi transakzioaren xehetasunak</translation>
     </message>
     <message>
         <source>Export Transaction Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Esportatu transakzioen datuak</translation>
     </message>
     <message>
         <source>Confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Berretsita</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -2171,53 +2042,30 @@ Address: %4
     </message>
     <message>
         <source>ID</source>
-        <translation type="unfinished"></translation>
+        <translation>IDa</translation>
     </message>
     <message>
         <source>Error exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea esportatzean</translation>
     </message>
     <message>
         <source>Could not write to file %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da %1 fitxategian idatzi.</translation>
     </message>
     <message>
         <source>Range:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitartea:</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>hona</translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <source>Send Coins</source>
-        <translation type="vanished">Bidali txanponak</translation>
-    </message>
-    <message>
         <source>Sending...</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>bitcoin-core</name>
-    <message>
-        <source>Options:</source>
-        <translation type="vanished">Aukerak</translation>
-    </message>
-    <message>
-        <source>This help message</source>
-        <translation type="vanished">Laguntza mezu hau</translation>
-    </message>
-    <message>
-        <source>Rescanning...</source>
-        <translation type="vanished">Birbilatzen...</translation>
-    </message>
-    <message>
-        <source>Done loading</source>
-        <translation type="vanished">Zamaketa amaitua</translation>
+        <translation>Bidaltzen...</translation>
     </message>
 </context>
 <context>
@@ -2231,153 +2079,162 @@ rpcpassword=%s
 (you do not need to remember this password)
 If the file does not exist, create it with owner-readable-only file permissions.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>%s, rpcpassword bat ezarri behar duzu konfigurazio-fitxategian:
+ %s
+Ondorengo ausazko pasahitza erabiltzea gomendatzen da:
+rpcuser=ecoinrpc
+rpcpassword=%s
+(ez duzu pasahitz hau gogoratu behar)
+Fitxategia ez badago, sortu ezazu jabeak bakarrik irakurtzeko baimenekin.
+</translation>
     </message>
     <message>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation type="unfinished"></translation>
+        <translation>Onartutako zifratzeak (lehenetsia: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
     </message>
     <message>
         <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore bat gertatu da %u RPC ataka IPv4-n entzuteko prestatzean: %s</translation>
     </message>
     <message>
         <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore bat gertatu da %u RPC ataka IPv6-n entzuteko prestatzean; IPv4-ra jotzen da: %s</translation>
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s.  Ecoin is probably already running.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da %s datu-direktorioa blokeatu. Ecoin ziurrenik martxan dago jada.</translation>
     </message>
     <message>
         <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation type="unfinished"></translation>
+        <translation>Askatu blokeen eta helbideen datu-baseak. Ixteko denbora luzatzen du (lehenetsia: 0)</translation>
     </message>
     <message>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea %s datu-basearen ingurunea hasieratzean! Berreskuratzeko, EGIN DIREKTORIO HORREN KOPIA eta gero ezabatu bertako guztia wallet.dat izan ezik.</translation>
     </message>
     <message>
         <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: transakzioa baztertu da. Zure diru-zorroko txanpon batzuk jada gastatuta badaude gerta daiteke, adibidez wallet.dat kopia bat erabili baduzu eta han gastatu badira hemen markatu gabe.</translation>
     </message>
     <message>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: transakzio honek gutxienez %s komisioa behar du bere zenbatekoagatik, konplexutasunagatik edo duela gutxi jasotako funtsak erabiltzeagatik</translation>
     </message>
     <message>
         <source>Error: Wallet unlocked for block minting only, unable to create transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: diru-zorroa blokeak sortzeko soilik dago desblokeatuta, ezin da transakzioa sortu.</translation>
     </message>
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation type="unfinished"></translation>
+        <translation>Exekutatu komando bat blokerik onena aldatzean (%s blokearen hash-arekin ordezten da)</translation>
     </message>
     <message>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 7474 or testnet: 17474)</source>
-        <translation type="unfinished"></translation>
+        <translation>Entzun JSON-RPC konexioak &lt;ataka&gt;-n (lehenetsia: 7474 edo proba-sarean: 17474)</translation>
     </message>
     <message>
         <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaizki portatzen diren kideei berriro konektatzea eragozten zaien segundoak (lehenetsia: 86400)</translation>
     </message>
     <message>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri lehentasun handiko edo komisio baxuko transakzioen gehieneko tamaina bytetan (lehenetsia: 27000)</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer. Ecoin is probably already running.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da %s helbidera lotu ordenagailu honetan. Ecoin ziurrenik martxan dago jada.</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: -paytxfee oso altu ezarrita dago! Hori da transakzio bat bidaltzean ordainduko duzun komisioa.</translation>
     </message>
     <message>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Ecoin will not work properly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: egiaztatu zure ordenagailuaren data eta ordua zuzenak direla! Erlojua gaizki badago, Ecoin-ek ez du behar bezala funtzionatuko.</translation>
     </message>
     <message>
         <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: errorea wallet.dat irakurtzean! Gako guztiak ondo irakurri dira, baina transakzioen datuak edo helbide-liburuko sarrerak falta edo okerrak izan daitezke.</translation>
     </message>
     <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: wallet.dat hondatuta zegoen eta datuak berreskuratu dira! Jatorrizko wallet.dat wallet.{timestamp}.bak gisa gorde da %s-n; zure saldoa edo transakzioak zuzenak ez badira, leheneratu babeskopia bat.</translation>
     </message>
     <message>
         <source>You must set rpcpassword=&lt;password&gt; in the configuration file:
 %s
 If the file does not exist, create it with owner-readable-only file permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>rpcpassword=&lt;pasahitza&gt; ezarri behar duzu konfigurazio-fitxategian:
+%s
+Fitxategia ez badago, sortu ezazu jabeak bakarrik irakurtzeko baimenekin.</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Onartu komando-lerroko eta JSON-RPC komandoak</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
-        <translation type="unfinished"></translation>
+        <translation>Onartu kanpoko konexioak (lehenetsia: 1 -proxy edo -connect erabiltzen ez bada)</translation>
     </message>
     <message>
         <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehitu konektatzeko nodo bat eta saiatu konexioa irekita mantentzen</translation>
     </message>
     <message>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Baimendu DNS kontsultak -addnode, -seednode eta -connect aukeretarako</translation>
     </message>
     <message>
         <source>Allow JSON-RPC connections from specified IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Baimendu JSON-RPC konexioak adierazitako IP helbidetik</translation>
     </message>
     <message>
         <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation type="unfinished"></translation>
+        <translation>Saiatu gako pribatuak hondatutako wallet.dat batetik berreskuratzen</translation>
     </message>
     <message>
         <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"></translation>
+        <translation>Lotu adierazitako helbidera. Erabili [ostalaria]:ataka notazioa IPv6-rako</translation>
     </message>
     <message>
         <source>Block creation options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeak sortzeko aukerak:</translation>
     </message>
     <message>
         <source>Cannot downgrade wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da diru-zorroa bertsio zaharrago batera itzuli</translation>
     </message>
     <message>
         <source>Cannot initialize keypool</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da gako-erreserba hasieratu</translation>
     </message>
     <message>
         <source>Cannot resolve -bind address: &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da -bind helbidea ebatzi: &quot;%s&quot;</translation>
     </message>
     <message>
         <source>Cannot resolve -externalip address: &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da -externalip helbidea ebatzi: &quot;%s&quot;</translation>
     </message>
     <message>
         <source>Cannot write default address</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da helbide lehenetsia idatzi</translation>
     </message>
     <message>
         <source>Connect only to the specified node(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu adierazitako nodoetara soilik</translation>
     </message>
     <message>
         <source>Connect through socks proxy</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu socks proxy baten bidez</translation>
     </message>
     <message>
         <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu nodo batera kideen helbideak eskuratzeko eta deskonektatu</translation>
     </message>
     <message>
         <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aurkitu norberaren IP helbidea (lehenetsia: 1 entzuten denean eta -externalip gabe)</translation>
     </message>
     <message>
         <source>Done loading</source>
@@ -2385,143 +2242,143 @@ If the file does not exist, create it with owner-readable-only file permissions.
     </message>
     <message>
         <source>Error loading blkindex.dat</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea blkindex.dat kargatzean</translation>
     </message>
     <message>
         <source>Error loading wallet.dat</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea wallet.dat kargatzean</translation>
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet corrupted</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea wallet.dat kargatzean: diru-zorroa hondatuta dago</translation>
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea wallet.dat kargatzean: diru-zorroak Ecoin-en bertsio berriago bat behar du</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea</translation>
     </message>
     <message>
         <source>Error: Transaction creation failed  </source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: ezin izan da transakzioa sortu</translation>
     </message>
     <message>
         <source>Error: Wallet locked, unable to create transaction  </source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: diru-zorroa blokeatuta dago, ezin da transakzioa sortu</translation>
     </message>
     <message>
         <source>Error: could not start node</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea: ezin izan da nodoa abiarazi</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da inongo atakatan entzun. Erabili -listen=0 hori nahi baduzu.</translation>
     </message>
     <message>
         <source>Fee per KB to add to transactions you send</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidaltzen dituzun transakzioei gehitzen zaien KB bakoitzeko komisioa</translation>
     </message>
     <message>
         <source>Find peers using DNS lookup (default: 0)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu kideak DNS kontsulten bidez (lehenetsia: 0)</translation>
     </message>
     <message>
         <source>Find peers using internet relay chat (default: 1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilatu kideak IRC bidez (lehenetsia: 1)</translation>
     </message>
     <message>
         <source>Get help for a command</source>
-        <translation type="unfinished"></translation>
+        <translation>Lortu komando baten laguntza</translation>
     </message>
     <message>
         <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbat bloke egiaztatu abiaraztean (lehenetsia: 2500, 0 = guztiak)</translation>
     </message>
     <message>
         <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeen egiaztapenaren zehaztasun maila (0-6, lehenetsia: 1)</translation>
     </message>
     <message>
         <source>Importing blockchain data file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeen katearen datu-fitxategia inportatzen.</translation>
     </message>
     <message>
         <source>Importing bootstrap blockchain data file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeen katearen bootstrap datu-fitxategia inportatzen.</translation>
     </message>
     <message>
         <source>Imports blocks from external blk000?.dat file</source>
-        <translation type="unfinished"></translation>
+        <translation>Inportatu blokeak kanpoko blk000?.dat fitxategi batetik</translation>
     </message>
     <message>
         <source>Insufficient funds</source>
-        <translation type="unfinished"></translation>
+        <translation>Ez dago funts nahikorik</translation>
     </message>
     <message>
         <source>Invalid -proxy address: &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Baliogabeko -proxy helbidea: &quot;%s&quot;</translation>
     </message>
     <message>
         <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Baliogabeko -tor helbidea: &quot;%s&quot;</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbateko baliogabea -paytxfee=&lt;zenbatekoa&gt; aukerarako: &quot;%s&quot;</translation>
     </message>
     <message>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbateko baliogabea -reservebalance=&lt;zenbatekoa&gt; aukerarako</translation>
     </message>
     <message>
         <source>Invalid amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Zenbateko baliogabea</translation>
     </message>
     <message>
         <source>List commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Zerrendatu komandoak</translation>
     </message>
     <message>
         <source>Listen for connections on &lt;port&gt; (default: 7408 or testnet: 17408)</source>
-        <translation type="unfinished"></translation>
+        <translation>Entzun konexioak &lt;ataka&gt;-n (lehenetsia: 7408 edo proba-sarean: 17408)</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
-        <translation type="unfinished"></translation>
+        <translation>Helbideak kargatzen...</translation>
     </message>
     <message>
         <source>Loading block index...</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeen indizea kargatzen...</translation>
     </message>
     <message>
         <source>Loading wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroa kargatzen...</translation>
     </message>
     <message>
         <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantendu gehienez &lt;n&gt; konexio kideekin (lehenetsia: 125)</translation>
     </message>
     <message>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Konexio bakoitzeko gehieneko jasotze-bufferra, &lt;n&gt;*1000 byte (lehenetsia: 5000)</translation>
     </message>
     <message>
         <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Konexio bakoitzeko gehieneko bidaltze-bufferra, &lt;n&gt;*1000 byte (lehenetsia: 1000)</translation>
     </message>
     <message>
         <source>Ecoin version</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin bertsioa</translation>
     </message>
     <message>
         <source>Ecoin</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecoin</translation>
     </message>
     <message>
         <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
-        <translation type="unfinished"></translation>
+        <translation>Konektatu &lt;net&gt; sareko nodoetara soilik (IPv4, IPv6 edo Tor)</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -2529,23 +2386,23 @@ If the file does not exist, create it with owner-readable-only file permissions.
     </message>
     <message>
         <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi arazketa-informazio gehigarria. Beste -debug* aukera guztiak barne hartzen ditu</translation>
     </message>
     <message>
         <source>Output extra network debugging information</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi sareari buruzko arazketa-informazio gehigarria</translation>
     </message>
     <message>
         <source>Password for JSON-RPC connections</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON-RPC konexioetarako pasahitza</translation>
     </message>
     <message>
         <source>Prepend debug output with timestamp</source>
-        <translation type="unfinished"></translation>
+        <translation>Jarri denbora-marka arazketa-irteeraren aurretik</translation>
     </message>
     <message>
         <source>Rescan the block chain for missing wallet transactions</source>
-        <translation type="unfinished"></translation>
+        <translation>Berraztertu blokeen katea diru-zorroko falta diren transakzioen bila</translation>
     </message>
     <message>
         <source>Rescanning...</source>
@@ -2553,87 +2410,87 @@ If the file does not exist, create it with owner-readable-only file permissions.
     </message>
     <message>
         <source>Run in the background as a daemon and accept commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Exekutatu bigarren planoan deabru gisa eta onartu komandoak</translation>
     </message>
     <message>
         <source>SSL options: (see the Ecoin Wiki for SSL setup instructions)</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL aukerak: (ikusi Ecoin-en wikia SSL konfiguratzeko argibideetarako)</translation>
     </message>
     <message>
         <source>Select the version of socks proxy to use (4-5, default: 5)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aukeratu erabiliko den socks proxy bertsioa (4-5, lehenetsia: 5)</translation>
     </message>
     <message>
         <source>Send command to -server or ecoind</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidali komando bat -server edo ecoind-era</translation>
     </message>
     <message>
         <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidali komandoak &lt;ip&gt; helbidean exekutatzen ari den nodora (lehenetsia: 127.0.0.1)</translation>
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidali arrasto eta arazketa informazioa kontsolara, debug.log fitxategira beharrean</translation>
     </message>
     <message>
         <source>Send trace/debug info to debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidali arrasto eta arazketa informazioa araztaileari</translation>
     </message>
     <message>
         <source>Sending...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidaltzen...</translation>
     </message>
     <message>
         <source>Server certificate file (default: server.cert)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zerbitzariaren ziurtagiri-fitxategia (lehenetsia: server.cert)</translation>
     </message>
     <message>
         <source>Server private key (default: server.pem)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zerbitzariaren gako pribatua (lehenetsia: server.pem)</translation>
     </message>
     <message>
         <source>Set database cache size in megabytes (default: 25)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri datu-basearen cachearen tamaina megabytetan (lehenetsia: 25)</translation>
     </message>
     <message>
         <source>Set database disk log size in megabytes (default: 100)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri datu-basearen diskoko erregistroaren tamaina megabytetan (lehenetsia: 100)</translation>
     </message>
     <message>
         <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri gako-erreserbaren tamaina &lt;n&gt; balioan (lehenetsia: 100)</translation>
     </message>
     <message>
         <source>Set maximum block size in bytes (default: 250000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri blokearen gehieneko tamaina bytetan (lehenetsia: 250000)</translation>
     </message>
     <message>
         <source>Set minimum block size in bytes (default: 0)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri blokearen gutxieneko tamaina bytetan (lehenetsia: 0)</translation>
     </message>
     <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation type="unfinished"></translation>
+        <translation>Txikitu debug.log fitxategia bezeroa abiaraztean (lehenetsia: 1 -debug erabiltzen ez bada)</translation>
     </message>
     <message>
         <source>Specify configuration file (default: ecoin.conf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adierazi konfigurazio-fitxategia (lehenetsia: ecoin.conf)</translation>
     </message>
     <message>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adierazi konexioaren denbora-muga milisegundotan (lehenetsia: 5000)</translation>
     </message>
     <message>
         <source>Specify data directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Adierazi datu-direktorioa</translation>
     </message>
     <message>
         <source>Specify pid file (default: ecoind.pid)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adierazi pid fitxategia (lehenetsia: ecoind.pid)</translation>
     </message>
     <message>
         <source>Specify your own public address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adierazi zure helbide publikoa</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -2641,80 +2498,81 @@ If the file does not exist, create it with owner-readable-only file permissions.
     </message>
     <message>
         <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaizki portatzen diren kideak deskonektatzeko atalasea (lehenetsia: 100)</translation>
     </message>
     <message>
         <source>To use the %s option</source>
-        <translation type="unfinished"></translation>
+        <translation>%s aukera erabiltzeko</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da %s helbidera lotu ordenagailu honetan (bind-ek %d errorea itzuli du, %s)</translation>
     </message>
     <message>
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da kontrol-puntua sinatu, checkpointkey okerra?
+</translation>
     </message>
     <message>
         <source>Unknown -socks proxy version requested: %i</source>
-        <translation type="unfinished"></translation>
+        <translation>-socks proxy bertsio ezezaguna eskatu da: %i</translation>
     </message>
     <message>
         <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>-onlynet aukeran adierazitako sare ezezaguna: &quot;%s&quot;</translation>
     </message>
     <message>
         <source>Upgrade wallet to latest format</source>
-        <translation type="unfinished"></translation>
+        <translation>Eguneratu diru-zorroa azken formatura</translation>
     </message>
     <message>
         <source>Usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabilera:</translation>
     </message>
     <message>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabili OpenSSL (https) JSON-RPC konexioetarako</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabili UPnP entzuteko ataka esleitzeko (lehenetsia: 0)</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabili UPnP entzuteko ataka esleitzeko (lehenetsia: 1 entzuten denean)</translation>
     </message>
     <message>
         <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabili proxy bat tor-en zerbitzu ezkutuetara iristeko (lehenetsia: -proxy bera)</translation>
     </message>
     <message>
         <source>Use the test network</source>
-        <translation type="unfinished"></translation>
+        <translation>Erabili proba-sarea</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON-RPC konexioetarako erabiltzaile-izena</translation>
     </message>
     <message>
         <source>Verifying database integrity...</source>
-        <translation type="unfinished"></translation>
+        <translation>Datu-basearen osotasuna egiaztatzen...</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart Ecoin to complete</source>
-        <translation type="unfinished"></translation>
+        <translation>Diru-zorroa berridatzi behar izan da: berrabiarazi Ecoin amaitzeko</translation>
     </message>
     <message>
         <source>Warning: Disk space is low!</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: diskoan leku gutxi geratzen da!</translation>
     </message>
     <message>
         <source>Warning: This version is obsolete, upgrade required!</source>
-        <translation type="unfinished"></translation>
+        <translation>Abisua: bertsio hau zaharkituta dago, eguneratu behar da!</translation>
     </message>
     <message>
         <source>wallet.dat corrupt, salvage failed</source>
-        <translation type="unfinished"></translation>
+        <translation>wallet.dat hondatuta dago, berreskuratzeak huts egin du</translation>
     </message>
 </context>
 </TS>

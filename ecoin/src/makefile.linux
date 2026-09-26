@@ -6,11 +6,9 @@ USE_IPV6:=0
 LINK:=$(CXX)
 ARCH:=$(system lscpu | head -n 1 | awk '{print $2}')
 
-BOOST_DIR := $(CURDIR)/src/boost_1_68_0
-BOOST_INCLUDE_PATH := $(BOOST_DIR)/include
-BOOST_LIB_PATH := $(BOOST_DIR)/lib
-
 DEFS=-DBOOST_SPIRIT_THREADSAFE
+
+BOOST_SYSTEM_LIB := $(shell echo 'int main(){}' | $(CXX) -x c++ - -lboost_system$(BOOST_LIB_SUFFIX) -o /dev/null > /dev/null 2>&1 && echo -l boost_system$(BOOST_LIB_SUFFIX))
 
 DEFS += $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
 LIBS = $(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
@@ -27,7 +25,7 @@ endif
 # for boost 1.37, add -mt to the boost libraries
 LIBS += \
  -Wl,-B$(LMODE) \
-   -l boost_system$(BOOST_LIB_SUFFIX) \
+   $(BOOST_SYSTEM_LIB) \
    -l boost_filesystem$(BOOST_LIB_SUFFIX) \
    -l boost_program_options$(BOOST_LIB_SUFFIX) \
    -l boost_chrono$(BOOST_LIB_SUFFIX) \

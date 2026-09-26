@@ -21,21 +21,7 @@
     <message>
         <location line="+13"/>
         <source>This is an experimental software distributed under the GPLv3 license.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-This is experimental software.
-
-Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
-        <translation type="vanished">
-This is experimental software.
-
-Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</translation>
+        <translation>This is an experimental software distributed under the GPLv3 license.</translation>
     </message>
 </context>
 <context>
@@ -88,12 +74,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Sign &amp;Message</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete the currently selected address from the list</translation>
     </message>
     <message>
         <location line="-14"/>
@@ -111,7 +97,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>&amp;Delete</translation>
     </message>
     <message>
-        <location filename="../addressbookpage.cpp" line="+65"/>
+        <location filename="../addressbookpage.cpp" line="+67"/>
         <source>Copy &amp;Label</source>
         <translation>Copy &amp;Label</translation>
     </message>
@@ -184,12 +170,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+33"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>For staking only</source>
-        <translation type="unfinished"></translation>
+        <translation>For staking only</translation>
     </message>
     <message>
         <location filename="../askpassphrasedialog.cpp" line="+32"/>
@@ -249,16 +235,16 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+15"/>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation type="unfinished"></translation>
+        <translation>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+119"/>
         <location line="+18"/>
         <source>Warning: The Caps Lock key is on!</source>
         <translation>Warning: The Caps Lock key is on!</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-143"/>
         <location line="+60"/>
         <source>Wallet encrypted</source>
         <translation>Wallet encrypted</translation>
@@ -323,23 +309,23 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../forms/coincontroldialog.ui" line="+14"/>
         <source>Coin Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Coin Control</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Quantity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantity:</translation>
     </message>
     <message>
         <location line="+19"/>
         <location line="+32"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Bytes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bytes:</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -357,48 +343,48 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-191"/>
         <source>Priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Priority:</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fee:</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Low Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Low Output:</translation>
     </message>
     <message>
         <location line="+22"/>
         <location filename="../coincontroldialog.cpp" line="+490"/>
         <source>no</source>
-        <translation type="unfinished"></translation>
+        <translation>no</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>After Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>After Fee:</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Change:</source>
-        <translation type="unfinished"></translation>
+        <translation>Change:</translation>
     </message>
     <message>
         <location line="+69"/>
         <source>(un)select all</source>
-        <translation type="unfinished"></translation>
+        <translation>(un)select all</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Tree mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tree mode</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>List mode</source>
-        <translation type="unfinished"></translation>
+        <translation>List mode</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -423,7 +409,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+5"/>
         <source>Confirmations</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmations</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -433,7 +419,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+5"/>
         <source>Priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Priority</translation>
     </message>
     <message>
         <location filename="../coincontroldialog.cpp" line="-454"/>
@@ -459,82 +445,82 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+17"/>
         <source>Copy quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy quantity</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Copy fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy fee</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy after fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy after fee</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy bytes</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy bytes</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy priority</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy low output</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy low output</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy change</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy change</translation>
     </message>
     <message>
         <location line="+276"/>
         <source>highest</source>
-        <translation type="unfinished"></translation>
+        <translation>highest</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>high</source>
-        <translation type="unfinished"></translation>
+        <translation>high</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>medium-high</source>
-        <translation type="unfinished"></translation>
+        <translation>medium-high</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>medium</source>
-        <translation type="unfinished"></translation>
+        <translation>medium</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>low-medium</source>
-        <translation type="unfinished"></translation>
+        <translation>low-medium</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>low</source>
-        <translation type="unfinished"></translation>
+        <translation>low</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>lowest</source>
-        <translation type="unfinished"></translation>
+        <translation>lowest</translation>
     </message>
     <message>
         <location line="+142"/>
         <source>DUST</source>
-        <translation type="unfinished"></translation>
+        <translation>DUST</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>yes</source>
-        <translation type="unfinished"></translation>
+        <translation>yes</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -543,7 +529,11 @@ This product includes software developed by the OpenSSL Project for use in the O
  This means a fee of at least %1 per kb is required.
 
  Can vary +/- 1 Byte per input.</source>
-        <translation type="unfinished"></translation>
+        <translation>This label turns red, if the transaction size is bigger than 10000 bytes.
+
+ This means a fee of at least %1 per kb is required.
+
+ Can vary +/- 1 Byte per input.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -552,7 +542,11 @@ This product includes software developed by the OpenSSL Project for use in the O
 This label turns red, if the priority is smaller than &quot;medium&quot;.
 
  This means a fee of at least %1 per kb is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Transactions with higher priority get more likely into a block.
+
+This label turns red, if the priority is smaller than &quot;medium&quot;.
+
+ This means a fee of at least %1 per kb is required.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -561,14 +555,20 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
  This means a fee of at least %2 is required. 
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
-        <translation type="unfinished"></translation>
+        <translation>This label turns red, if any recipient receives an amount smaller than %1.
+
+ This means a fee of at least %2 is required. 
+
+ Amounts below 0.546 times the minimum relay fee are shown as DUST.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This label turns red, if the change is smaller than %1.
 
  This means a fee of at least %2 is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>This label turns red, if the change is smaller than %1.
+
+ This means a fee of at least %2 is required.</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -579,12 +579,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-9"/>
         <source>change from %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>change from %1 (%2)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>(change)</source>
-        <translation type="unfinished"></translation>
+        <translation>(change)</translation>
     </message>
 </context>
 <context>
@@ -660,14 +660,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Show information about Ecoin</translation>
     </message>
     <message>
-        <source>About &amp;Qt</source>
-        <translation type="vanished">About &amp;Qt</translation>
-    </message>
-    <message>
-        <source>Show information about Qt</source>
-        <translation type="vanished">Show information about Qt</translation>
-    </message>
-    <message>
         <location line="+2"/>
         <source>&amp;Options...</source>
         <translation>&amp;Options...</translation>
@@ -688,7 +680,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>&amp;Change Passphrase...</translation>
     </message>
     <message numerus="yes">
-        <location line="+243"/>
+        <location line="+217"/>
+        <source>%n active connection(s)</source>
+        <translation><numerusform>%n active connection</numerusform><numerusform>%n active connections</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+26"/>
         <source>~%n block(s) remaining</source>
         <translation>
             <numerusform>~%n block remaining</numerusform>
@@ -696,12 +693,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         </translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation>Downloaded %1 of %2 blocks of transaction history (%3% done).</translation>
-    </message>
-    <message>
-        <location line="-242"/>
+        <location line="-236"/>
         <source>&amp;Export...</source>
         <translation>&amp;Export...</translation>
     </message>
@@ -773,12 +765,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+8"/>
         <source>&amp;Unlock Wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Unlock Wallet...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unlock wallet for staking</source>
-        <translation type="unfinished"></translation>
+        <translation>Unlock wallet for staking</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -818,20 +810,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Ecoin client</translation>
     </message>
     <message numerus="yes">
-        <location line="+69"/>
-        <source>%n active connection(s) to Ecoin network</source>
-        <translation>
-            <numerusform>%n active connection to Ecoin network</numerusform>
-            <numerusform>%n active connections to Ecoin network</numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+40"/>
-        <source>Downloaded %1 blocks of transaction history.</source>
-        <translation>Downloaded %1 blocks of transaction history.</translation>
-    </message>
-    <message numerus="yes">
-        <location line="+22"/>
+        <location line="+131"/>
         <source>%n second(s) ago</source>
         <translation>
             <numerusform>%n second ago</numerusform>
@@ -863,24 +842,14 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         </translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Up to date</source>
-        <translation>Up to date</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+13"/>
         <source>Catching up...</source>
         <translation>Catching up...</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Last received block was generated %1.</source>
-        <translation>Last received block was generated %1.</translation>
-    </message>
-    <message>
-        <location line="+59"/>
+        <location line="+65"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation type="unfinished"></translation>
+        <translation>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -955,69 +924,95 @@ Address: %4
     <message numerus="yes">
         <location line="+67"/>
         <source>%n second(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n second(s)</numerusform>
+            <numerusform>%n second(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n minute(s)</numerusform>
+            <numerusform>%n minute(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n hour(s)</numerusform>
+            <numerusform>%n hour(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n day(s)</numerusform>
+            <numerusform>%n day(s)</numerusform>
         </translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>Not staking because wallet is locked</source>
-        <translation type="unfinished"></translation>
+        <translation>Not staking because wallet is locked</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation type="unfinished"></translation>
+        <translation>Not staking because wallet is offline</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation type="unfinished"></translation>
+        <translation>Not staking because wallet is syncing</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation type="unfinished"></translation>
+        <translation>Not staking because you don&apos;t have mature coins</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking</source>
-        <translation type="unfinished"></translation>
+        <translation>Not staking</translation>
     </message>
     <message>
-        <location filename="../ecoin.cpp" line="+106"/>
+        <location filename="../ecoin.cpp" line="+107"/>
         <source>A fatal error occurred. Ecoin can no longer continue safely and will quit.</source>
         <translation>A fatal error occurred. Ecoin can no longer continue safely and will quit.</translation>
+    </message>
+    <message>
+        <location filename="../ecoingui.cpp" line="-14"/>
+        <source>Staking...
+Weight: %1
+Network weight: %2
+Expected reward: %3</source>
+        <translation>Staking...
+Weight: %1
+Network weight: %2
+Expected reward: %3</translation>
+    </message>
+    <message>
+        <location line="-405"/>
+        <source>%1 of %2 blocks (%3%)</source>
+        <translation>%1 of %2 blocks (%3%)</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>%1 blocks</source>
+        <translation>%1 blocks</translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Up to date...</source>
+        <translation>Up to date...</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Last block: %1</source>
+        <translation>Last block: %1</translation>
     </message>
 </context>
 <context>
@@ -1091,7 +1086,7 @@ Address: %4
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+387"/>
+        <location filename="../guiutil.cpp" line="+401"/>
         <location line="+12"/>
         <source>Ecoin-Qt</source>
         <translation>Ecoin-Qt</translation>
@@ -1292,12 +1287,12 @@ Address: %4
     <message>
         <location line="+7"/>
         <source>Whether to show coin control features or not.</source>
-        <translation type="unfinished"></translation>
+        <translation>Whether to show coin control features or not.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Display coin &amp;control features (experts only!)</source>
-        <translation type="unfinished"></translation>
+        <translation>Display coin &amp;control features (experts only!)</translation>
     </message>
     <message>
         <location line="+71"/>
@@ -1361,7 +1356,17 @@ Address: %4
         <translation>Stake:</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+16"/>
+        <source>Coins in staking, not counted in the balance yet</source>
+        <translation>Coins in staking, not counted in the balance yet</translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Unconfirmed transactions, not counted in the balance yet</source>
+        <translation>Unconfirmed transactions, not counted in the balance yet</translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Number of transactions:</source>
         <translation>Number of transactions:</translation>
     </message>
@@ -1386,7 +1391,12 @@ Address: %4
         <translation>Mined balance that has not yet matured</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+20"/>
+        <source>Transactions in wallet</source>
+        <translation>Transactions in wallet</translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
         <translation>&lt;b&gt;Recent transactions&lt;/b&gt;</translation>
     </message>
@@ -1394,21 +1404,6 @@ Address: %4
         <location line="-147"/>
         <source>Your current balance</source>
         <translation>Your current balance</translation>
-    </message>
-    <message>
-        <location line="+58"/>
-        <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</translation>
-    </message>
-    <message>
-        <location line="-29"/>
-        <source>Total of coins that was staked, and do not yet count toward the current balance</source>
-        <translation>Total of coins that was staked, and do not yet count toward the current balance</translation>
-    </message>
-    <message>
-        <location line="+75"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>Total number of transactions in wallet</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+117"/>
@@ -1626,7 +1621,7 @@ Address: %4
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+180"/>
+        <location filename="../sendcoinsdialog.cpp" line="+182"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1639,38 +1634,38 @@ Address: %4
     <message>
         <location line="+76"/>
         <source>Coin Control Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Coin Control Features</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Inputs...</source>
-        <translation type="unfinished"></translation>
+        <translation>Inputs...</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>automatically selected</source>
-        <translation type="unfinished"></translation>
+        <translation>automatically selected</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Insufficient funds!</source>
-        <translation type="unfinished"></translation>
+        <translation>Insufficient funds!</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Quantity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantity:</translation>
     </message>
     <message>
         <location line="+22"/>
         <location line="+35"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Bytes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bytes:</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -1688,42 +1683,42 @@ Address: %4
     <message>
         <location line="-191"/>
         <source>Priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Priority:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>medium</source>
-        <translation type="unfinished"></translation>
+        <translation>medium</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fee:</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Low Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Low Output:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>no</source>
-        <translation type="unfinished"></translation>
+        <translation>no</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>After Fee:</source>
-        <translation type="unfinished"></translation>
+        <translation>After Fee:</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Change</translation>
     </message>
     <message>
         <location line="+50"/>
         <source>custom change address</source>
-        <translation type="unfinished"></translation>
+        <translation>custom change address</translation>
     </message>
     <message>
         <location line="+106"/>
@@ -1733,7 +1728,7 @@ Address: %4
     <message>
         <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation type="unfinished"></translation>
+        <translation>Add &amp;Recipient</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1763,7 +1758,7 @@ Address: %4
     <message>
         <location line="+3"/>
         <source>S&amp;end</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;end</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
@@ -1773,7 +1768,7 @@ Address: %4
     <message>
         <location line="+15"/>
         <source>Copy quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy quantity</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1783,32 +1778,32 @@ Address: %4
     <message>
         <location line="+1"/>
         <source>Copy fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy fee</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy after fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy after fee</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy bytes</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy bytes</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy priority</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy low output</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy low output</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy change</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy change</translation>
     </message>
     <message>
         <location line="+86"/>
@@ -1868,7 +1863,7 @@ Address: %4
     <message>
         <location line="+251"/>
         <source>WARNING: Invalid Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>WARNING: Invalid Ecoin address</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1878,7 +1873,7 @@ Address: %4
     <message>
         <location line="+4"/>
         <source>WARNING: unknown change address</source>
-        <translation type="unfinished"></translation>
+        <translation>WARNING: unknown change address</translation>
     </message>
 </context>
 <context>
@@ -1912,7 +1907,7 @@ Address: %4
     <message>
         <location line="+18"/>
         <source>The address to send the payment to  (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation type="unfinished"></translation>
+        <translation>The address to send the payment to  (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2128,7 +2123,7 @@ Address: %4
 <context>
     <name>TransactionDesc</name>
     <message>
-        <location filename="../transactiondesc.cpp" line="+18"/>
+        <location filename="../transactiondesc.cpp" line="+21"/>
         <source>Open until %1</source>
         <translation>Open until %1</translation>
     </message>
@@ -2266,10 +2261,6 @@ Address: %4
         <location line="+3"/>
         <source>Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
         <translation>Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</translation>
-    </message>
-    <message>
-        <source>Staked coins must wait 520 blocks before they can return to balance and be spent.  When you generated this proof-of-stake block, it was broadcast to the network to be added to the block chain.  If it fails to get into the chain, it will change to \&quot;not accepted\&quot; and not be a valid stake.  This may occasionally happen if another node generates a proof-of-stake block within a few seconds of yours.</source>
-        <translation type="obsolete">Staked coins must wait 520 blocks before they can return to balance and be spent.  When you generated this proof-of-stake block, it was broadcast to the network to be added to the block chain.  If it fails to get into the chain, it will change to \&quot;not accepted\&quot; and not be a valid stake.  This may occasionally happen if another node generates a proof-of-stake block within a few seconds of yours.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2452,7 +2443,7 @@ Address: %4
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+55"/>
+        <location filename="../transactionview.cpp" line="+57"/>
         <location line="+16"/>
         <source>All</source>
         <translation>All</translation>
@@ -2669,10 +2660,6 @@ Address: %4
         <translation>Specify pid file (default: ecoind.pid)</translation>
     </message>
     <message>
-        <source>Specify wallet file (within data directory)</source>
-        <translation type="obsolete">Specify wallet file (within data directory)</translation>
-    </message>
-    <message>
         <location line="-1"/>
         <source>Specify data directory</source>
         <translation>Specify data directory</translation>
@@ -2725,7 +2712,7 @@ Address: %4
     <message>
         <location line="-27"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>An error occurred while setting up the RPC port %u for listening on IPv4: %s</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2735,22 +2722,22 @@ Address: %4
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="unfinished"></translation>
+        <translation>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Error: Wallet unlocked for block minting only, unable to create transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error: Wallet unlocked for block minting only, unable to create transaction.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 7474 or testnet: 17474)</source>
-        <translation type="unfinished"></translation>
+        <translation>Listen for JSON-RPC connections on &lt;port&gt; (default: 7474 or testnet: 17474)</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -2760,12 +2747,12 @@ Address: %4
     <message>
         <location line="+23"/>
         <source>Error: Transaction creation failed  </source>
-        <translation type="unfinished"></translation>
+        <translation>Error: Transaction creation failed  </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Error: Wallet locked, unable to create transaction  </source>
-        <translation type="unfinished"></translation>
+        <translation>Error: Wallet locked, unable to create transaction  </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2775,12 +2762,12 @@ Address: %4
     <message>
         <location line="+5"/>
         <source>Importing blockchain data file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importing blockchain data file.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Importing bootstrap blockchain data file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importing bootstrap blockchain data file.</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -2800,12 +2787,12 @@ Address: %4
     <message>
         <location line="-52"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -2816,10 +2803,6 @@ Address: %4
         <location line="+5"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
         <translation>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</translation>
-    </message>
-    <message>
-        <source>Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="obsolete">Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2862,14 +2845,6 @@ Address: %4
         <translation>Failed to listen on any port. Use -listen=0 if you want this.</translation>
     </message>
     <message>
-        <source>Find peers using DNS lookup (default: 1)</source>
-        <translation type="obsolete">Find peers using DNS lookup (default: 1)</translation>
-    </message>
-    <message>
-        <source>Sync checkpoints policy (default: strict)</source>
-        <translation type="obsolete">Sync checkpoints policy (default: strict)</translation>
-    </message>
-    <message>
         <location line="+12"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
         <translation>Invalid -tor address: &apos;%s&apos;</translation>
@@ -2877,7 +2852,7 @@ Address: %4
     <message>
         <location line="+2"/>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Invalid amount for -reservebalance=&lt;amount&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2953,7 +2928,8 @@ Address: %4
         <location line="+8"/>
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to sign checkpoint, wrong checkpointkey?
+</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2978,7 +2954,7 @@ Address: %4
     <message>
         <location line="+1"/>
         <source>Verifying database integrity...</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifying database integrity...</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2993,7 +2969,7 @@ Address: %4
     <message>
         <location line="+1"/>
         <source>wallet.dat corrupt, salvage failed</source>
-        <translation type="unfinished"></translation>
+        <translation>wallet.dat corrupt, salvage failed</translation>
     </message>
     <message>
         <location line="-44"/>
@@ -3014,10 +2990,6 @@ Address: %4
         <location line="-95"/>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Execute command when the best block changes (%s in cmd is replaced by block hash)</translation>
-    </message>
-    <message>
-        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation type="obsolete">Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</translation>
     </message>
     <message>
         <location line="+119"/>
@@ -3073,10 +3045,6 @@ Address: %4
         <location line="+137"/>
         <source>This help message</source>
         <translation>This help message</translation>
-    </message>
-    <message>
-        <source>Wallet %s resides outside data directory %s.</source>
-        <translation type="obsolete">Wallet %s resides outside data directory %s.</translation>
     </message>
     <message>
         <location line="-129"/>

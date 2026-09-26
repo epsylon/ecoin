@@ -969,7 +969,11 @@ void ThreadMapPort2(void* parg)
     struct IGDdatas data;
     int r;
 
+#if MINIUPNPC_API_VERSION < 18
     r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr));
+#else
+    r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr), 0, 0);
+#endif
     if (r == 1)
     {
         if (fDiscover) {
@@ -1257,8 +1261,7 @@ void ThreadDNSAddressSeed2(void* parg)
 
 unsigned int pnSeed[] =
 {
-    0xDC76A32E, 0x50D4B4C1, 0x3D63DF52, 0xD11C704F,
-    0x835B704F, 0x70D4B4C1, 0x69D4B4C1, 0x6CD4B4C1,
+    0xDC76A32E,
 };
 
 void DumpAddresses()

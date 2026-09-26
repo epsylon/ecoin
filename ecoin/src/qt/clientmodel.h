@@ -3,6 +3,7 @@
 #define CLIENTMODEL_H
 
 #include <QObject>
+#include <boost/signals2/connection.hpp>
 
 class OptionsModel;
 class AddressTableModel;
@@ -51,6 +52,10 @@ private:
     int numBlocksAtStartup;
 
     QTimer *pollTimer;
+
+    boost::signals2::connection connNotifyBlocksChanged;
+    boost::signals2::connection connNotifyNumConnectionsChanged;
+    boost::signals2::connection connNotifyAlertChanged;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();

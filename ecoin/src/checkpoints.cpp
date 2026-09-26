@@ -34,6 +34,34 @@ namespace Checkpoints
             uint256("0x0000008fc75adbd309e4757c901572fda9699f4a34433ced95115d17f8e5585e"),
             1772309777
         ) )
+        ( 5000, std::make_pair(
+            uint256("0x00000174f5448e6799e56592304b2976423f97b04d50ef65632995c5384e2362"),
+            1776039650
+        ) )
+        ( 10000, std::make_pair(
+            uint256("0xe24f42bbf47586a6af28d44b0861fe690fe1a7e7bc4fc7b59de01b36d8add2ef"),
+            1778702800
+        ) )
+        ( 20000, std::make_pair(
+            uint256("0x62d6122592226be238c18fd9ee8f79daee91beb740708bfaa827d0e31ebce7f1"),
+            1782682374
+        ) )
+        ( 30000, std::make_pair(
+            uint256("0xca86d3dac6089d38155cc7e2abd30d417e2111a4881915835ca7130c02f3230e"),
+            1785734247
+        ) )
+        ( 40000, std::make_pair(
+            uint256("0xb1f6c9823aa7fcffcda8012c38bcfa965c6bf376f13b7c88da6b5cb295353360"),
+            1787182997
+        ) )
+        ( 45000, std::make_pair(
+            uint256("0xd6413f340d7ca299439da08451589b640fc803a9f5739b03a1e2356cf6dd534c"),
+            1788072542
+        ) )
+        ( 50000, std::make_pair(
+            uint256("0x8b345a5f5d1d330ff0b6683ece6675420ccaa3dc8e9218526ceea01f68472f86"),
+            1789337768
+        ) )
     ;
 
     static MapCheckpoints mapCheckpointsTestnet =

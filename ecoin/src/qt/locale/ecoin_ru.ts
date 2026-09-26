@@ -6,40 +6,22 @@
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Ecoin</source>
-        <translation>О Ecoin</translation>
+        <translation>О программе Ecoin</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&lt;b&gt;Ecoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Ecoin&lt;/b&gt; версия</translation>
+        <translation>Версия &lt;b&gt;Ecoin&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2014-2026 The Ecoin developers</source>
-        <translation type="unfinished">Все права защищены © 2009-2012 Разработчики Ecoin {2014-2026}</translation>
+        <translation>Copyright © 2014-2026 Разработчики Ecoin</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>This is an experimental software distributed under the GPLv3 license.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copyright © 2009-2012 The Ecoin developers</source>
-        <translation type="vanished">Все права защищены © 2009-2012 Разработчики Ecoin</translation>
-    </message>
-    <message>
-        <source>
-This is experimental software.
-
-Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
-        <translation type="vanished">
-Это экспериментальная программа.
-
-Распространяется на правах лицензии MIT/X11, см. файл license.txt или http://www.opensource.org/licenses/mit-license.php.
-
-Этот продукт включает ПО, разработанное OpenSSL Project для использования в OpenSSL Toolkit (http://www.openssl.org/) и криптографическое ПО, написанное Eric Young (eay@cryptsoft.com) и ПО для работы с UPnP, написанное Thomas Bernard.</translation>
+        <translation>Это экспериментальное программное обеспечение, распространяемое по лицензии GPLv3.</translation>
     </message>
 </context>
 <context>
@@ -115,7 +97,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="../addressbookpage.cpp" line="+65"/>
+        <location filename="../addressbookpage.cpp" line="+67"/>
         <source>Copy &amp;Label</source>
         <translation>Копировать &amp;метку</translation>
     </message>
@@ -188,12 +170,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+33"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation type="unfinished"></translation>
+        <translation>Служит для отключения простой отправки средств при компрометации учётной записи системы. Не обеспечивает настоящей безопасности.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>For staking only</source>
-        <translation type="unfinished"></translation>
+        <translation>Только для стейкинга</translation>
     </message>
     <message>
         <location filename="../askpassphrasedialog.cpp" line="+32"/>
@@ -256,13 +238,13 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>ВАЖНО: все предыдущие резервные копии вашего кошелька должны быть заменены новым зашифрованным файлом. В целях безопасности предыдущие резервные копии нешифрованного кошелька станут бесполезны, как только вы начнёте использовать новый шифрованный кошелёк.</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+119"/>
         <location line="+18"/>
         <source>Warning: The Caps Lock key is on!</source>
         <translation>Внимание: Caps Lock включен!</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-143"/>
         <location line="+60"/>
         <source>Wallet encrypted</source>
         <translation>Бумажник зашифрован</translation>
@@ -315,310 +297,11 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
-    <message>
-        <source>Sign &amp;message...</source>
-        <translation type="vanished">&amp;Подписать сообщение</translation>
-    </message>
-    <message>
-        <source>Synchronizing with network...</source>
-        <translation type="vanished">Синхронизация с сетью...</translation>
-    </message>
-    <message>
-        <source>&amp;Overview</source>
-        <translation type="vanished">О&amp;бзор</translation>
-    </message>
-    <message>
-        <source>Show general overview of wallet</source>
-        <translation type="vanished">Показать общий обзор действий с бумажником</translation>
-    </message>
-    <message>
-        <source>&amp;Transactions</source>
-        <translation type="vanished">&amp;Транзакции</translation>
-    </message>
-    <message>
-        <source>Browse transaction history</source>
-        <translation type="vanished">Показать историю транзакций</translation>
-    </message>
-    <message>
-        <source>&amp;Address Book</source>
-        <translation type="vanished">&amp;Адресная книга</translation>
-    </message>
-    <message>
-        <source>Edit the list of stored addresses and labels</source>
-        <translation type="vanished">Изменить список сохранённых адресов и меток к ним</translation>
-    </message>
-    <message>
-        <source>&amp;Receive coins</source>
-        <translation type="vanished">&amp;Получение монет</translation>
-    </message>
-    <message>
-        <source>Show the list of addresses for receiving payments</source>
-        <translation type="vanished">Показать список адресов для получения платежей</translation>
-    </message>
-    <message>
-        <source>&amp;Send coins</source>
-        <translation type="vanished">Отп&amp;равка монет</translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation type="vanished">В&amp;ыход</translation>
-    </message>
-    <message>
-        <source>Quit application</source>
-        <translation type="vanished">Закрыть приложение</translation>
-    </message>
-    <message>
-        <source>Show information about Ecoin</source>
-        <translation type="vanished">Показать информацию о Ecoin&apos;е</translation>
-    </message>
-    <message>
-        <source>About &amp;Qt</source>
-        <translation type="vanished">О &amp;Qt</translation>
-    </message>
-    <message>
-        <source>Show information about Qt</source>
-        <translation type="vanished">Показать информацию о Qt</translation>
-    </message>
-    <message>
-        <source>&amp;Options...</source>
-        <translation type="vanished">Оп&amp;ции...</translation>
-    </message>
-    <message>
-        <source>&amp;Encrypt Wallet...</source>
-        <translation type="vanished">&amp;Зашифровать бумажник</translation>
-    </message>
-    <message>
-        <source>&amp;Backup Wallet...</source>
-        <translation type="vanished">&amp;Сделать резервную копию бумажника</translation>
-    </message>
-    <message>
-        <source>&amp;Change Passphrase...</source>
-        <translation type="vanished">&amp;Изменить пароль</translation>
-    </message>
-    <message numerus="yes">
-        <source>~%n block(s) remaining</source>
-        <translation type="vanished">
-            <numerusform>остался ~%n блок</numerusform>
-            <numerusform>осталось ~%n блоков</numerusform>
-            <numerusform>осталось ~%n блоков</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation type="vanished">Загружено %1 из %2 блоков истории операций (%3% завершено).</translation>
-    </message>
-    <message>
-        <source>&amp;Export...</source>
-        <translation type="vanished">&amp;Экспорт...</translation>
-    </message>
-    <message>
-        <source>Send coins to a Ecoin address</source>
-        <translation type="vanished">Отправить монеты на указанный адрес Ecoin</translation>
-    </message>
-    <message>
-        <source>Modify configuration options for Ecoin</source>
-        <translation type="vanished">Изменить параметры конфигурации Ecoin</translation>
-    </message>
-    <message>
-        <source>Export the data in the current tab to a file</source>
-        <translation type="vanished">Экспортировать данные из вкладки в файл</translation>
-    </message>
-    <message>
-        <source>Encrypt or decrypt wallet</source>
-        <translation type="vanished">Зашифровать или расшифровать бумажник</translation>
-    </message>
-    <message>
-        <source>Backup wallet to another location</source>
-        <translation type="vanished">Сделать резервную копию бумажника в другом месте</translation>
-    </message>
-    <message>
-        <source>Change the passphrase used for wallet encryption</source>
-        <translation type="vanished">Изменить пароль шифрования бумажника</translation>
-    </message>
-    <message>
-        <source>&amp;Debug window</source>
-        <translation type="vanished">&amp;Окно отладки</translation>
-    </message>
-    <message>
-        <source>Open debugging and diagnostic console</source>
-        <translation type="vanished">Открыть консоль отладки и диагностики</translation>
-    </message>
-    <message>
-        <source>&amp;Verify message...</source>
-        <translation type="vanished">&amp;Проверить сообщение...</translation>
-    </message>
-    <message>
-        <source>Ecoin</source>
-        <translation type="vanished">Ecoin</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation type="vanished">Бумажник</translation>
-    </message>
-    <message>
-        <source>&amp;About Ecoin</source>
-        <translation type="vanished">&amp;О Ecoin</translation>
-    </message>
-    <message>
-        <source>&amp;Show / Hide</source>
-        <translation type="vanished">&amp;Показать / Скрыть</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="vanished">&amp;Файл</translation>
-    </message>
-    <message>
-        <source>&amp;Settings</source>
-        <translation type="vanished">&amp;Настройки</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="vanished">&amp;Помощь</translation>
-    </message>
-    <message>
-        <source>Tabs toolbar</source>
-        <translation type="vanished">Панель вкладок</translation>
-    </message>
-    <message>
-        <source>Actions toolbar</source>
-        <translation type="vanished">Панель действий</translation>
-    </message>
-    <message>
-        <source>[testnet]</source>
-        <translation type="vanished">[тестовая сеть]</translation>
-    </message>
-    <message>
-        <source>Ecoin client</source>
-        <translation type="vanished">Ecoin клиент</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n active connection(s) to Ecoin network</source>
-        <translation type="vanished">
-            <numerusform>%n активное соединение с сетью</numerusform>
-            <numerusform>%n активных соединений с сетью</numerusform>
-            <numerusform>%n активных соединений с сетью</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Downloaded %1 blocks of transaction history.</source>
-        <translation type="vanished">Загружено %1 блоков истории транзакций.</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n second(s) ago</source>
-        <translation type="vanished">
-            <numerusform>%n секунду назад</numerusform>
-            <numerusform>%n секунды назад</numerusform>
-            <numerusform>%n секунд назад</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%n minute(s) ago</source>
-        <translation type="vanished">
-            <numerusform>%n минуту назад</numerusform>
-            <numerusform>%n минуты назад</numerusform>
-            <numerusform>%n минут назад</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%n hour(s) ago</source>
-        <translation type="vanished">
-            <numerusform>%n час назад</numerusform>
-            <numerusform>%n часа назад</numerusform>
-            <numerusform>%n часов назад</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%n day(s) ago</source>
-        <translation type="vanished">
-            <numerusform>%n день назад</numerusform>
-            <numerusform>%n дня назад</numerusform>
-            <numerusform>%n дней назад</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Up to date</source>
-        <translation type="vanished">Синхронизировано</translation>
-    </message>
-    <message>
-        <source>Catching up...</source>
-        <translation type="vanished">Синхронизируется...</translation>
-    </message>
-    <message>
-        <source>Last received block was generated %1.</source>
-        <translation type="vanished">Последний полученный блок был сгенерирован %1.</translation>
-    </message>
-    <message>
-        <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation type="vanished">Данная транзакция превышает предельно допустимый размер.  Но Вы можете всё равно совершить её, добавив комиссию в %1, которая отправится тем узлам, которые обработают Вашу транзакцию, и поможет поддержать сеть.  Вы хотите добавить комиссию?</translation>
-    </message>
-    <message>
-        <source>Confirm transaction fee</source>
-        <translation type="vanished">Подтвердите комиссию</translation>
-    </message>
-    <message>
-        <source>Sent transaction</source>
-        <translation type="vanished">Исходящая транзакция</translation>
-    </message>
-    <message>
-        <source>Incoming transaction</source>
-        <translation type="vanished">Входящая транзакция</translation>
-    </message>
-    <message>
-        <source>Date: %1
-Amount: %2
-Type: %3
-Address: %4
-</source>
-        <translation type="vanished">Дата: %1
-Количество: %2
-Тип: %3
-Адрес: %4
-</translation>
-    </message>
-    <message>
-        <source>URI handling</source>
-        <translation type="vanished">Обработка URI</translation>
-    </message>
-    <message>
-        <source>URI can not be parsed! This can be caused by an invalid Ecoin address or malformed URI parameters.</source>
-        <translation type="vanished">Не удалось обработать URI! Это может быть связано с неверным адресом Ecoin или неправильными параметрами URI.</translation>
-    </message>
-    <message>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation type="vanished">Бумажник &lt;b&gt;зашифрован&lt;/b&gt; и в настоящее время &lt;b&gt;разблокирован&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation type="vanished">Бумажник &lt;b&gt;зашифрован&lt;/b&gt; и в настоящее время &lt;b&gt;заблокирован&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Backup Wallet</source>
-        <translation type="vanished">Сделать резервную копию бумажника</translation>
-    </message>
-    <message>
-        <source>Wallet Data (*.dat)</source>
-        <translation type="vanished">Данные бумажника (*.dat)</translation>
-    </message>
-    <message>
-        <source>Backup Failed</source>
-        <translation type="vanished">Резервное копирование не удалось</translation>
-    </message>
-    <message>
-        <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation type="vanished">При попытке сохранения данных бумажника в новое место произошла ошибка.</translation>
-    </message>
-    <message>
-        <source>A fatal error occurred. Ecoin can no longer continue safely and will quit.</source>
-        <translation type="vanished">Произошла неисправимая ошибка. Ecoin не может безопасно продолжать работу и будет закрыт.</translation>
-    </message>
-</context>
-<context>
     <name>ClientModel</name>
     <message>
         <location filename="../clientmodel.cpp" line="+86"/>
         <source>Network Alert</source>
-        <translation>Сетевая Тревога</translation>
+        <translation>Сетевое оповещение</translation>
     </message>
 </context>
 <context>
@@ -656,42 +339,42 @@ Address: %4
     <message>
         <location line="+278"/>
         <source>highest</source>
-        <translation type="unfinished"></translation>
+        <translation>наивысший</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>high</source>
-        <translation type="unfinished"></translation>
+        <translation>высокий</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>medium-high</source>
-        <translation type="unfinished"></translation>
+        <translation>выше среднего</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>medium</source>
-        <translation type="unfinished"></translation>
+        <translation>средний</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>low-medium</source>
-        <translation type="unfinished"></translation>
+        <translation>ниже среднего</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>low</source>
-        <translation type="unfinished"></translation>
+        <translation>низкий</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>lowest</source>
-        <translation type="unfinished"></translation>
+        <translation>наинизший</translation>
     </message>
     <message>
         <location line="+142"/>
         <source>DUST</source>
-        <translation type="unfinished"></translation>
+        <translation>ПЫЛЬ</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -700,7 +383,11 @@ Address: %4
  This means a fee of at least %1 per kb is required.
 
  Can vary +/- 1 Byte per input.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта метка становится красной, если размер транзакции превышает 10000 байт.
+
+ В этом случае требуется комиссия не менее %1 за кб.
+
+ Может отличаться на +/- 1 байт на каждый вход.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -709,7 +396,11 @@ Address: %4
 This label turns red, if the priority is smaller than &quot;medium&quot;.
 
  This means a fee of at least %1 per kb is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Транзакции с более высоким приоритетом с большей вероятностью попадают в блок.
+
+Эта метка становится красной, если приоритет ниже «среднего».
+
+ В этом случае требуется комиссия не менее %1 за кб.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -718,14 +409,20 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
  This means a fee of at least %2 is required. 
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта метка становится красной, если какой-либо получатель получает сумму меньше %1.
+
+ В этом случае требуется комиссия не менее %2. 
+
+ Суммы ниже 0,546 минимальной комиссии за ретрансляцию отображаются как ПЫЛЬ.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This label turns red, if the change is smaller than %1.
 
  This means a fee of at least %2 is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта метка становится красной, если сдача меньше %1.
+
+ В этом случае требуется комиссия не менее %2.</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -736,12 +433,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-9"/>
         <source>change from %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>сдача с %1 (%2)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>(change)</source>
-        <translation type="unfinished"></translation>
+        <translation>(сдача)</translation>
     </message>
     <message>
         <location line="-539"/>
@@ -762,7 +459,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+5"/>
         <source>Copy low output</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать малый выход</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -844,7 +541,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="-410"/>
         <location line="+32"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -852,7 +549,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+86"/>
         <location line="+38"/>
         <source>0.00 ECO</source>
-        <translation type="unfinished"></translation>
+        <translation>0,00 ECO</translation>
     </message>
     <message>
         <location line="+131"/>
@@ -893,7 +590,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>EcoinGUI</name>
     <message>
-        <location filename="../ecoin.cpp" line="+106"/>
+        <location filename="../ecoin.cpp" line="+107"/>
         <source>A fatal error occurred. Ecoin can no longer continue safely and will quit.</source>
         <translation type="unfinished">Произошла неисправимая ошибка. Ecoin не может безопасно продолжать работу и будет закрыт.</translation>
     </message>
@@ -1025,12 +722,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+1"/>
         <source>&amp;Unlock Wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Разблокировать кошелёк...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unlock wallet for staking</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокировать кошелёк для стейкинга</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1099,17 +796,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>Ecoin client</source>
         <translation type="unfinished">Ecoin клиент</translation>
     </message>
-    <message numerus="yes">
-        <location line="+69"/>
-        <source>%n active connection(s) to Ecoin network</source>
-        <translation type="unfinished">
-            <numerusform>%n активное соединение с сетью</numerusform>
-            <numerusform>%n активных соединений с сетью</numerusform>
-            <numerusform>%n активных соединений с сетью</numerusform>
-        </translation>
-    </message>
     <message>
-        <location line="+24"/>
+        <location line="+93"/>
         <source>Synchronizing with network...</source>
         <translation type="unfinished">Синхронизация с сетью...</translation>
     </message>
@@ -1122,18 +810,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
             <numerusform>осталось ~%n блоков</numerusform>
         </translation>
     </message>
-    <message>
-        <location line="+6"/>
-        <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation type="unfinished">Загружено %1 из %2 блоков истории операций (%3% завершено).</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Downloaded %1 blocks of transaction history.</source>
-        <translation type="unfinished">Загружено %1 блоков истории транзакций.</translation>
-    </message>
     <message numerus="yes">
-        <location line="+22"/>
+        <location line="+36"/>
         <source>%n second(s) ago</source>
         <translation type="unfinished">
             <numerusform>%n секунду назад</numerusform>
@@ -1169,22 +847,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         </translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Up to date</source>
-        <translation type="unfinished">Синхронизировано</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+13"/>
         <source>Catching up...</source>
         <translation type="unfinished">Синхронизируется...</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Last received block was generated %1.</source>
-        <translation type="unfinished">Последний полученный блок был сгенерирован %1.</translation>
-    </message>
-    <message>
-        <location line="+59"/>
+        <location line="+65"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
         <translation type="unfinished">Данная транзакция превышает предельно допустимый размер.  Но Вы можете всё равно совершить её, добавив комиссию в %1, которая отправится тем узлам, которые обработают Вашу транзакцию, и поможет поддержать сеть.  Вы хотите добавить комиссию?</translation>
     </message>
@@ -1261,68 +929,99 @@ Address: %4
     <message numerus="yes">
         <location line="+67"/>
         <source>%n second(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n секунда</numerusform>
+            <numerusform>%n секунды</numerusform>
+            <numerusform>%n секунд</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n минута</numerusform>
+            <numerusform>%n минуты</numerusform>
+            <numerusform>%n минут</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n час</numerusform>
+            <numerusform>%n часа</numerusform>
+            <numerusform>%n часов</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n день</numerusform>
+            <numerusform>%n дня</numerusform>
+            <numerusform>%n дней</numerusform>
         </translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>Not staking because wallet is locked</source>
-        <translation type="unfinished"></translation>
+        <translation>Стейкинг не выполняется: кошелёк заблокирован</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation type="unfinished"></translation>
+        <translation>Стейкинг не выполняется: кошелёк не в сети</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation type="unfinished"></translation>
+        <translation>Стейкинг не выполняется: кошелёк синхронизируется</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation type="unfinished"></translation>
+        <translation>Стейкинг не выполняется: нет созревших монет</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking</source>
-        <translation type="unfinished"></translation>
+        <translation>Стейкинг не выполняется</translation>
+    </message>
+    <message>
+        <location line="-14"/>
+        <source>Staking...
+Weight: %1
+Network weight: %2
+Expected reward: %3</source>
+        <translation>Стейкинг...
+Вес: %1
+Вес сети: %2
+Ожидаемая награда: %3</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-437"/>
+        <source>%n active connection(s)</source>
+        <translation><numerusform>%n активное подключение</numerusform><numerusform>%n активных подключения</numerusform><numerusform>%n активных подключений</numerusform></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>%1 of %2 blocks (%3%)</source>
+        <translation>%1 из %2 блоков (%3%)</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>%1 blocks</source>
+        <translation>%1 блоков</translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Up to date...</source>
+        <translation>Актуально...</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Last block: %1</source>
+        <translation>Последний блок: %1</translation>
     </message>
 </context>
 <context>
@@ -1340,7 +1039,7 @@ Address: %4
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation>Метка, связанная с данной записью</translation>
+        <translation>Метка, связанная с этой записью адресной книги</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1350,7 +1049,7 @@ Address: %4
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation>Адрес, связанный с данной записью.</translation>
+        <translation>Адрес, связанный с этой записью адресной книги. Его можно изменить только для адресов отправки.</translation>
     </message>
     <message>
         <location filename="../editaddressdialog.cpp" line="+20"/>
@@ -1396,7 +1095,7 @@ Address: %4
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+387"/>
+        <location filename="../guiutil.cpp" line="+401"/>
         <location line="+12"/>
         <source>Ecoin-Qt</source>
         <translation>Ecoin-Qt</translation>
@@ -1663,10 +1362,20 @@ Address: %4
     <message>
         <location line="+29"/>
         <source>Stake:</source>
-        <translation>Доля:</translation>
+        <translation>В стейкинге:</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+16"/>
+        <source>Coins in staking, not counted in the balance yet</source>
+        <translation>Монеты в стейкинге, ещё не учтены в балансе</translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Unconfirmed transactions, not counted in the balance yet</source>
+        <translation>Неподтверждённые транзакции, ещё не учтены в балансе</translation>
+    </message>
+    <message>
+        <location line="+39"/>
         <source>Number of transactions:</source>
         <translation>Количество транзакций:</translation>
     </message>
@@ -1683,15 +1392,20 @@ Address: %4
     <message>
         <location line="+136"/>
         <source>Immature:</source>
-        <translation>Незрелые:</translation>
+        <translation>Незрелый:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Mined balance that has not yet matured</source>
-        <translation>Баланс добытых монет, который ещё не созрел</translation>
+        <translation>Добытый баланс, который ещё не созрел</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+20"/>
+        <source>Transactions in wallet</source>
+        <translation>Транзакций в кошельке</translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
         <translation>&lt;b&gt;Последние транзакции&lt;/b&gt;</translation>
     </message>
@@ -1699,21 +1413,6 @@ Address: %4
         <location line="-147"/>
         <source>Your current balance</source>
         <translation>Ваш текущий баланс</translation>
-    </message>
-    <message>
-        <location line="+58"/>
-        <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Общая сумма всех транзакций, которые до сих пор не подтверждены, и до сих пор не учитываются в текущем балансе</translation>
-    </message>
-    <message>
-        <location line="-29"/>
-        <source>Total of coins that was staked, and do not yet count toward the current balance</source>
-        <translation>Общая сумма всех монет, используемых для Proof-of-Stake, и не учитывающихся на балансе</translation>
-    </message>
-    <message>
-        <location line="+75"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>Общее количество транзакций в Вашем бумажнике</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+117"/>
@@ -1757,17 +1456,17 @@ Address: %4
     <message>
         <location filename="../qrcodedialog.cpp" line="+60"/>
         <source>Error encoding URI into QR Code.</source>
-        <translation>Ошибка кодирования URI в QR-код</translation>
+        <translation>Ошибка кодирования URI в QR-код.</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>The entered amount is invalid, please check.</source>
-        <translation>Введено неверное количество, проверьте ещё раз.</translation>
+        <translation>Введённая сумма недействительна, проверьте её.</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>Получившийся URI слишком длинный, попробуйте сократить текст метки / сообщения.</translation>
+        <translation>Итоговый URI слишком длинный, попробуйте сократить текст метки или сообщения.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -1777,7 +1476,7 @@ Address: %4
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation>PNG Изображения (*.png)</translation>
+        <translation>Изображения PNG (*.png)</translation>
     </message>
 </context>
 <context>
@@ -1931,7 +1630,7 @@ Address: %4
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+180"/>
+        <location filename="../sendcoinsdialog.cpp" line="+182"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1947,7 +1646,7 @@ Address: %4
         <location line="+86"/>
         <location line="+32"/>
         <source>0.00 ECO</source>
-        <translation type="unfinished"></translation>
+        <translation>0,00 ECO</translation>
     </message>
     <message>
         <location line="+137"/>
@@ -1988,7 +1687,7 @@ Address: %4
         <location line="+22"/>
         <location line="+35"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location line="-19"/>
@@ -1998,16 +1697,12 @@ Address: %4
     <message>
         <location line="+51"/>
         <source>Amount:</source>
-        <translation type="unfinished"></translation>
+        <translation>Сумма:</translation>
     </message>
     <message>
         <location line="+433"/>
         <source>123.456 ECO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>0.00 BTC</source>
-        <translation type="obsolete">123.456 BTC {0.00 ?}</translation>
+        <translation>123,456 ECO</translation>
     </message>
     <message>
         <location line="-398"/>
@@ -2017,7 +1712,7 @@ Address: %4
     <message>
         <location line="+19"/>
         <source>medium</source>
-        <translation type="unfinished"></translation>
+        <translation>средний</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -2042,7 +1737,7 @@ Address: %4
     <message>
         <location line="+35"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Сдача</translation>
     </message>
     <message>
         <location line="+50"/>
@@ -2052,7 +1747,7 @@ Address: %4
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
         <source>Enter a Ecoin address (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation>Введите Ecoin-адрес (например EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
+        <translation>Введите адрес Ecoin (напр. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+129"/>
@@ -2068,10 +1763,6 @@ Address: %4
         <location line="+28"/>
         <source>Balance:</source>
         <translation>Баланс:</translation>
-    </message>
-    <message>
-        <source>123.456 BTC</source>
-        <translation type="vanished">123.456 BTC</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -2091,7 +1782,7 @@ Address: %4
     <message>
         <location line="+1"/>
         <source>Copy amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать сумму</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2116,7 +1807,7 @@ Address: %4
     <message>
         <location line="+1"/>
         <source>Copy low output</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать малый выход</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2181,7 +1872,7 @@ Address: %4
     <message>
         <location line="+251"/>
         <source>WARNING: Invalid Ecoin address</source>
-        <translation type="unfinished"></translation>
+        <translation>ВНИМАНИЕ: неверный адрес Ecoin</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -2191,7 +1882,7 @@ Address: %4
     <message>
         <location line="+4"/>
         <source>WARNING: unknown change address</source>
-        <translation type="unfinished"></translation>
+        <translation>ВНИМАНИЕ: неизвестный адрес для сдачи</translation>
     </message>
 </context>
 <context>
@@ -2225,12 +1916,12 @@ Address: %4
     <message>
         <location line="+18"/>
         <source>The address to send the payment to  (e.g. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</source>
-        <translation>Адрес получателя платежа (например EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
+        <translation>Адрес, на который отправляется платёж (напр. EJiA1K71didR1ovdVUtse1AJVWye2V1jeV)</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Выберите адрес из адресной книги</translation>
+        <translation>Выбрать адрес из адресной книги</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2441,7 +2132,7 @@ Address: %4
 <context>
     <name>TransactionDesc</name>
     <message>
-        <location filename="../transactiondesc.cpp" line="+18"/>
+        <location filename="../transactiondesc.cpp" line="+21"/>
         <source>Open until %1</source>
         <translation>Открыто до %1</translation>
     </message>
@@ -2584,10 +2275,6 @@ Address: %4
         <translation>Сгенерированные монеты должны подождать 520 блоков, прежде чем они могут быть потрачены. Когда Вы сгенерировали этот блок, он был отправлен в сеть для добавления в цепочку блоков. Если данная процедура не удастся, статус изменится на «не подтверждено», и монеты будут недействительны. Это иногда происходит в случае, если другой узел сгенерирует блок на несколько секунд раньше вас.</translation>
     </message>
     <message>
-        <source>Staked coins must wait 520 blocks before they can return to balance and be spent.  When you generated this proof-of-stake block, it was broadcast to the network to be added to the block chain.  If it fails to get into the chain, it will change to \&quot;not accepted\&quot; and not be a valid stake.  This may occasionally happen if another node generates a proof-of-stake block within a few seconds of yours.</source>
-        <translation type="obsolete">Использованные в Proof-of-Stake монеты должны подождать 520 блоков, прежде чем они вернутся на баланс и смогут быть потрачены. Когда вы сгенерировали этот proof-of-stake блок, он был отправлен в сеть для добавления в цепочку блоков. Если данная процедура не удается, статус изменится на \&quot;не подтверждени\&quot; и блок будет недействителен. Это иногда происходит в случае, если другой узел сгенерирует блок на несколько секунд раньше вас.</translation>
-    </message>
-    <message>
         <location line="+5"/>
         <source>Debug information</source>
         <translation>Отладочная информация</translation>
@@ -2680,7 +2367,7 @@ Address: %4
     <message>
         <location line="+3"/>
         <source>Offline (%1 confirmations)</source>
-        <translation>Оффлайн (%1 подтверждений)</translation>
+        <translation>Не в сети (%1 подтверждений)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2770,7 +2457,7 @@ Address: %4
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+55"/>
+        <location filename="../transactionview.cpp" line="+57"/>
         <location line="+16"/>
         <source>All</source>
         <translation>Все</translation>
@@ -2941,526 +2628,7 @@ Address: %4
     <message>
         <location filename="../walletmodel.cpp" line="+206"/>
         <source>Sending...</source>
-        <translation>Отправка....</translation>
-    </message>
-</context>
-<context>
-    <name>bitcoin-core</name>
-    <message>
-        <source>Ecoin version</source>
-        <translation type="vanished">Версия</translation>
-    </message>
-    <message>
-        <source>Usage:</source>
-        <translation type="vanished">Использование:</translation>
-    </message>
-    <message>
-        <source>Send command to -server or bitcoind</source>
-        <translation type="obsolete">Отправить команду на -server или bitcoind</translation>
-    </message>
-    <message>
-        <source>List commands</source>
-        <translation type="vanished">Список команд
-</translation>
-    </message>
-    <message>
-        <source>Get help for a command</source>
-        <translation type="vanished">Получить помощь по команде</translation>
-    </message>
-    <message>
-        <source>Options:</source>
-        <translation type="vanished">Опции:</translation>
-    </message>
-    <message>
-        <source>Specify configuration file (default: ecoin.conf)</source>
-        <translation type="vanished">Указать конфигурационный файл (по умолчанию: ecoin.conf)</translation>
-    </message>
-    <message>
-        <source>Specify pid file (default: ecoind.pid)</source>
-        <translation type="vanished">Указать pid-файл (по умолчанию: ecoin.pid)</translation>
-    </message>
-    <message>
-        <source>Specify wallet file (within data directory)</source>
-        <translation type="obsolete">Указать файл кошелька (в пределах DATA директории)</translation>
-    </message>
-    <message>
-        <source>Specify data directory</source>
-        <translation type="vanished">Укажите каталог данных</translation>
-    </message>
-    <message>
-        <source>Set database cache size in megabytes (default: 25)</source>
-        <translation type="vanished">Установить размер кэша базы данных в мегабайтах (по умолчанию: 25)</translation>
-    </message>
-    <message>
-        <source>Set database disk log size in megabytes (default: 100)</source>
-        <translation type="vanished">Установить размер лога базы данных в мегабайтах (по умолчанию: 100)</translation>
-    </message>
-    <message>
-        <source>Listen for connections on &lt;port&gt; (default: 7408 or testnet: 17408)</source>
-        <translation type="vanished">Принимать входящие подключения на &lt;port&gt; (по умолчанию: 7408 или 17408 в тестовой сети)</translation>
-    </message>
-    <message>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation type="vanished">Поддерживать не более &lt;n&gt; подключений к узлам (по умолчанию: 125)</translation>
-    </message>
-    <message>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation type="vanished">Подключиться к узлу, чтобы получить список адресов других участников и отключиться</translation>
-    </message>
-    <message>
-        <source>Specify your own public address</source>
-        <translation type="vanished">Укажите ваш собственный публичный адрес</translation>
-    </message>
-    <message>
-        <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="vanished">Привязаться (bind) к указанному адресу. Используйте запись вида [хост]:порт для IPv6</translation>
-    </message>
-    <message>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation type="vanished">Порог для отключения неправильно ведущих себя узлов (по умолчанию: 100)</translation>
-    </message>
-    <message>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation type="vanished">Число секунд блокирования неправильно ведущих себя узлов (по умолчанию: 86400)</translation>
-    </message>
-    <message>
-        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
-        <translation type="vanished">Произошла ошибка при открытии RPC-порта %u для прослушивания на IPv4: %s</translation>
-    </message>
-    <message>
-        <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
-        <translation type="vanished">Произошла ошибка при открытии на прослушивание IPv6 RCP-порта %u, возвращаемся к IPv4: %s</translation>
-    </message>
-    <message>
-        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation type="vanished">Отключить базы данных блоков и адресов. Увеличивает время завершения работы (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
-        <translation type="vanished">Ошибка инициализации окружения БД %s! Для восстановления СДЕЛАЙТЕ РЕЗЕРВНУЮ КОПИЮ этой директории, затем удалите из нее все, кроме wallet.dat.</translation>
-    </message>
-    <message>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 7474 or testnet: 17474)</source>
-        <translation type="vanished">Прослушивать подключения JSON-RPC на &lt;порту&gt; (по умолчанию: 7474 или для testnet: 17474)</translation>
-    </message>
-    <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation type="vanished">Внимание: ошибка чтения wallet.dat! Все ключи восстановлены, но записи в адресной книге и истории транзакций могут быть некорректными.</translation>
-    </message>
-    <message>
-        <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
-        <translation type="vanished">Внимание: wallet.dat был поврежден, данные восстановлены! Оригинальный wallet.dat сохранен как wallet.{timestamp}.bak в %s;, если ваши транзакции или баланс отображаются неправильно, следует восстановить его из данной копии.</translation>
-    </message>
-    <message>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation type="vanished">Принимать командную строку и команды JSON-RPC</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation type="vanished">Попытка восстановления ключей из поврежденного wallet.dat</translation>
-    </message>
-    <message>
-        <source>Find peers using DNS lookup (default: 0)</source>
-        <translation type="obsolete">Искать узлы с помощью DNS (по умолчанию: 1) {0)?}</translation>
-    </message>
-    <message>
-        <source>Importing blockchain data file.</source>
-        <translation type="vanished">Импортируется файл цепи блоков.</translation>
-    </message>
-    <message>
-        <source>Importing bootstrap blockchain data file.</source>
-        <translation type="vanished">Импортируется bootstrap-файл цепи блоков.</translation>
-    </message>
-    <message>
-        <source>Run in the background as a daemon and accept commands</source>
-        <translation type="vanished">Запускаться в фоне как демон и принимать команды</translation>
-    </message>
-    <message>
-        <source>Use the test network</source>
-        <translation type="vanished">Использовать тестовую сеть</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
-        <translation type="vanished">Принимать подключения извне (по умолчанию: 1, если не используется -proxy или -connect)</translation>
-    </message>
-    <message>
-        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="vanished">Ошибка: В транзакции отказано.  Такое может произойти, если некоторые монеты уже были потрачены, например, если Вы используете одну копию файла wallet.dat, а монеты были потрачены из другой копии, но не были отмечены как потраченные в этой.</translation>
-    </message>
-    <message>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="vanished">Ошибка: эта транзакция требует комиссию в размере как минимум %s из-за её объёма, сложности или использования недавно полученных средств  </translation>
-    </message>
-    <message>
-        <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation type="vanished">Максимальный размер высокоприоритетных/низкокомиссионных транзакций в байтах (по умолчанию: 27000)</translation>
-    </message>
-    <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation type="vanished">Внимание: установлено очень большое значение -paytxfee. Это комиссия, которую вы заплатите при проведении транзакции.</translation>
-    </message>
-    <message>
-        <source>Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="obsolete">Внимание: отображаемые транзакции могут быть некорректны! Вам или другим узлам, возможно, следует обновиться.</translation>
-    </message>
-    <message>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Ecoin will not work properly.</source>
-        <translation type="vanished">Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, Ecoin будет работать некорректно.</translation>
-    </message>
-    <message>
-        <source>Block creation options:</source>
-        <translation type="vanished">Параметры создания блоков:</translation>
-    </message>
-    <message>
-        <source>Connect only to the specified node(s)</source>
-        <translation type="vanished">Подключаться только к указанному узлу(ам)</translation>
-    </message>
-    <message>
-        <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
-        <translation type="vanished">Определить свой IP (по умолчанию: 1 при прослушивании и если не используется -externalip)</translation>
-    </message>
-    <message>
-        <source>Error: Transaction creation failed  </source>
-        <translation type="vanished">Ошибка: Создание транзакции не удалось  </translation>
-    </message>
-    <message>
-        <source>Error: Wallet locked, unable to create transaction  </source>
-        <translation type="vanished">Ошибка: бумажник заблокирован, невозможно создать транзакцию  </translation>
-    </message>
-    <message>
-        <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation type="vanished">Не удалось начать прослушивание на порту. Используйте -listen=0 если вас это устраивает.</translation>
-    </message>
-    <message>
-        <source>Find peers using DNS lookup (default: 1)</source>
-        <translation type="obsolete">Искать узлы с помощью DNS (по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Sync checkpoints policy (default: strict)</source>
-        <translation type="obsolete">Политика синхронизированных меток (по умолчанию: strict)</translation>
-    </message>
-    <message>
-        <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation type="vanished">Неверный адрес -tor: &apos;%s&apos;</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation type="vanished">Максимальный размер буфера приёма на соединение, &lt;n&gt;*1000 байт (по умолчанию: 5000)</translation>
-    </message>
-    <message>
-        <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation type="vanished">Максимальный размер буфера отправки на соединение, &lt;n&gt;*1000 байт (по умолчанию: 1000)</translation>
-    </message>
-    <message>
-        <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
-        <translation type="vanished">Подключаться только к узлам из сети &lt;net&gt; (IPv4, IPv6 или Tor)</translation>
-    </message>
-    <message>
-        <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation type="vanished">Выводить больше отладочной информации. Включает все остальные опции -debug*</translation>
-    </message>
-    <message>
-        <source>Output extra network debugging information</source>
-        <translation type="vanished">Выводить дополнительную сетевую отладочную информацию</translation>
-    </message>
-    <message>
-        <source>Prepend debug output with timestamp</source>
-        <translation type="vanished">Дописывать отметки времени к отладочному выводу</translation>
-    </message>
-    <message>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation type="vanished">
-Параметры SSL: (см. Bitcoin Wiki для инструкций по настройке SSL)</translation>
-    </message>
-    <message>
-        <source>Select the version of socks proxy to use (4-5, default: 5)</source>
-        <translation type="vanished">Выберите версию SOCKS-прокси (4-5, по умолчанию: 5)</translation>
-    </message>
-    <message>
-        <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation type="vanished">Выводить информацию трассировки/отладки на консоль вместо файла debug.log</translation>
-    </message>
-    <message>
-        <source>Send trace/debug info to debugger</source>
-        <translation type="vanished">Отправлять информацию трассировки/отладки в отладчик</translation>
-    </message>
-    <message>
-        <source>Set maximum block size in bytes (default: 250000)</source>
-        <translation type="vanished">Максимальный размер блока в байтах (по умолчанию: 250000)</translation>
-    </message>
-    <message>
-        <source>Set minimum block size in bytes (default: 0)</source>
-        <translation type="vanished">Минимальный размер блока в байтах (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation type="vanished">Сжимать файл debug.log при запуске клиента (по умолчанию: 1, если нет -debug)</translation>
-    </message>
-    <message>
-        <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation type="vanished">Таймаут соединения в миллисекундах (по умолчанию: 5000)</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation type="vanished">Использовать UPnP для проброса порта (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation type="vanished">Использовать UPnP для проброса порта (по умолчанию: 1, если используется прослушивание)</translation>
-    </message>
-    <message>
-        <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
-        <translation type="vanished">Использовать прокси для скрытых сервисов (по умолчанию: тот же, что и в -proxy)</translation>
-    </message>
-    <message>
-        <source>Username for JSON-RPC connections</source>
-        <translation type="vanished">Имя для подключений JSON-RPC</translation>
-    </message>
-    <message>
-        <source>Verifying database integrity...</source>
-        <translation type="vanished">Проверка целостности базы данных...</translation>
-    </message>
-    <message>
-        <source>Warning: Disk space is low!</source>
-        <translation type="vanished">Внимание: мало места на диске!</translation>
-    </message>
-    <message>
-        <source>Warning: This version is obsolete, upgrade required!</source>
-        <translation type="vanished">Внимание: эта версия устарела, требуется обновление!</translation>
-    </message>
-    <message>
-        <source>wallet.dat corrupt, salvage failed</source>
-        <translation type="vanished">wallet.dat поврежден, восстановление не удалось</translation>
-    </message>
-    <message>
-        <source>Password for JSON-RPC connections</source>
-        <translation type="vanished">Пароль для подключений JSON-RPC</translation>
-    </message>
-    <message>
-        <source>Allow JSON-RPC connections from specified IP address</source>
-        <translation type="vanished">Разрешить подключения JSON-RPC с указанного IP</translation>
-    </message>
-    <message>
-        <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
-        <translation type="vanished">Посылать команды узлу, запущенному на &lt;ip&gt; (по умолчанию: 127.0.0.1)</translation>
-    </message>
-    <message>
-        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation type="vanished">Выполнить команду, когда появляется новый блок (%s в команде заменяется на хэш блока)</translation>
-    </message>
-    <message>
-        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation type="obsolete">Выполнить команду, когда получена новая транзакция (%s в команде заменяется на ID транзакции)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation type="vanished">Обновить бумажник до последнего формата</translation>
-    </message>
-    <message>
-        <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation type="vanished">Установить размер запаса ключей в &lt;n&gt; (по умолчанию: 100)</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation type="vanished">Перепроверить цепь блоков на предмет отсутствующих в бумажнике транзакций</translation>
-    </message>
-    <message>
-        <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
-        <translation type="vanished">Сколько блоков проверять при запуске (по умолчанию: 2500, 0 = все)</translation>
-    </message>
-    <message>
-        <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation type="vanished">Насколько тщательно проверять блоки (0-6, по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Imports blocks from external blk000?.dat file</source>
-        <translation type="vanished">Импортировать блоки из внешнего файла blk000?.dat</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation type="vanished">Использовать OpenSSL (https) для подключений JSON-RPC</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: server.cert)</source>
-        <translation type="vanished">Файл серверного сертификата (по умолчанию: server.cert)</translation>
-    </message>
-    <message>
-        <source>Server private key (default: server.pem)</source>
-        <translation type="vanished">Приватный ключ сервера (по умолчанию: server.pem)</translation>
-    </message>
-    <message>
-        <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation type="vanished">Разрешённые алгоритмы (по умолчанию: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
-    </message>
-    <message>
-        <source>This help message</source>
-        <translation type="vanished">Эта справка</translation>
-    </message>
-    <message>
-        <source>Wallet %s resides outside data directory %s.</source>
-        <translation type="obsolete">Кошелек %s находится вне рабочей директории %s.</translation>
-    </message>
-    <message>
-        <source>Cannot obtain a lock on data directory %s.  Ecoin is probably already running.</source>
-        <translation type="vanished">Невозможно установить блокировку на рабочую директорию %s.  Возможно, бумажник уже запущен.</translation>
-    </message>
-    <message>
-        <source>Ecoin</source>
-        <translation type="vanished">Ecoin</translation>
-    </message>
-    <message>
-        <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
-        <translation type="vanished">Невозможно привязаться к %s на этом компьютере (bind вернул ошибку %d, %s)</translation>
-    </message>
-    <message>
-        <source>Connect through socks proxy</source>
-        <translation type="vanished">Подключаться через socks прокси</translation>
-    </message>
-    <message>
-        <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation type="vanished">Разрешить поиск в DNS для -addnode, -seednode и -connect</translation>
-    </message>
-    <message>
-        <source>Loading addresses...</source>
-        <translation type="vanished">Загрузка адресов...</translation>
-    </message>
-    <message>
-        <source>Error loading blkindex.dat</source>
-        <translation type="vanished">Ошибка чтения blkindex.dat</translation>
-    </message>
-    <message>
-        <source>Error loading wallet.dat: Wallet corrupted</source>
-        <translation type="vanished">Ошибка загрузки wallet.dat: Бумажник поврежден</translation>
-    </message>
-    <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Ecoin</source>
-        <translation type="vanished">Ошибка загрузки wallet.dat: бумажник требует более новую версию Ecoin</translation>
-    </message>
-    <message>
-        <source>Wallet needed to be rewritten: restart Ecoin to complete</source>
-        <translation type="vanished">Необходимо перезаписать бумажник, перезапустите Ecoin для завершения операции.</translation>
-    </message>
-    <message>
-        <source>Error loading wallet.dat</source>
-        <translation type="vanished">Ошибка при загрузке wallet.dat</translation>
-    </message>
-    <message>
-        <source>Invalid -proxy address: &apos;%s&apos;</source>
-        <translation type="vanished">Неверный адрес -proxy: &apos;%s&apos;</translation>
-    </message>
-    <message>
-        <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
-        <translation type="vanished">В параметре -onlynet указана неизвестная сеть: &apos;%s&apos;</translation>
-    </message>
-    <message>
-        <source>Unknown -socks proxy version requested: %i</source>
-        <translation type="vanished">В параметре -socks запрошена неизвестная версия: %i</translation>
-    </message>
-    <message>
-        <source>Cannot resolve -bind address: &apos;%s&apos;</source>
-        <translation type="vanished">Не удаётся разрешить адрес в параметре -bind: &apos;%s&apos;</translation>
-    </message>
-    <message>
-        <source>Cannot resolve -externalip address: &apos;%s&apos;</source>
-        <translation type="vanished">Не удаётся разрешить адрес в параметре -externalip: &apos;%s&apos;</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation type="vanished">Неверное количество в параметре -paytxfee=&lt;кол-во&gt;: &apos;%s&apos;</translation>
-    </message>
-    <message>
-        <source>Error: could not start node</source>
-        <translation type="vanished">Ошибка: не удалось запустить узел</translation>
-    </message>
-    <message>
-        <source>Sending...</source>
-        <translation type="vanished">Отправка...</translation>
-    </message>
-    <message>
-        <source>Invalid amount</source>
-        <translation type="vanished">Неверное количество</translation>
-    </message>
-    <message>
-        <source>Insufficient funds</source>
-        <translation type="vanished">Недостаточно монет</translation>
-    </message>
-    <message>
-        <source>Loading block index...</source>
-        <translation type="vanished">Загрузка индекса блоков...</translation>
-    </message>
-    <message>
-        <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation type="vanished">Добавить узел для подключения и пытаться поддерживать соединение открытым</translation>
-    </message>
-    <message>
-        <source>Unable to bind to %s on this computer. Ecoin is probably already running.</source>
-        <translation type="vanished">Невозможно привязаться к %s на этом компьютере.  Возможно, Ecoin уже работает.</translation>
-    </message>
-    <message>
-        <source>Find peers using internet relay chat (default: 1)</source>
-        <translation type="vanished">Найти участников через IRC (по умолчанию: 1)</translation>
-    </message>
-    <message>
-        <source>Fee per KB to add to transactions you send</source>
-        <translation type="vanished">Комиссия на килобайт, добавляемая к вашим транзакциям</translation>
-    </message>
-    <message>
-        <source>Loading wallet...</source>
-        <translation type="vanished">Загрузка бумажника...</translation>
-    </message>
-    <message>
-        <source>Cannot downgrade wallet</source>
-        <translation type="vanished">Не удаётся понизить версию бумажника</translation>
-    </message>
-    <message>
-        <source>Cannot initialize keypool</source>
-        <translation type="vanished">Не удаётся инициализировать массив ключей</translation>
-    </message>
-    <message>
-        <source>Cannot write default address</source>
-        <translation type="vanished">Не удаётся записать адрес по умолчанию</translation>
-    </message>
-    <message>
-        <source>Rescanning...</source>
-        <translation type="vanished">Сканирование...</translation>
-    </message>
-    <message>
-        <source>Done loading</source>
-        <translation type="vanished">Загрузка завершена</translation>
-    </message>
-    <message>
-        <source>To use the %s option</source>
-        <translation type="vanished">Чтобы использовать опцию %s</translation>
-    </message>
-    <message>
-        <source>%s, you must set a rpcpassword in the configuration file:
- %s
-It is recommended you use the following random password:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-If the file does not exist, create it with owner-readable-only file permissions.
-</source>
-        <translation type="vanished">%s, вы должны установить опцию rpcpassword в конфигурационном файле:
- %s
-Рекомендуется использовать следующий случайный пароль:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(вам не нужно запоминать этот пароль)
-Если файл не существует, создайте его и установите права доступа только для владельца.
-</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Ошибка</translation>
-    </message>
-    <message>
-        <source>You must set rpcpassword=&lt;password&gt; in the configuration file:
-%s
-If the file does not exist, create it with owner-readable-only file permissions.</source>
-        <translation type="vanished">Вы должны установить rpcpassword=&lt;password&gt; в конфигурационном файле:
-%s
-Если файл не существует, создайте его и установите права доступа только для владельца.</translation>
+        <translation>Отправка...</translation>
     </message>
 </context>
 <context>
@@ -3475,7 +2643,14 @@ rpcpassword=%s
 (you do not need to remember this password)
 If the file does not exist, create it with owner-readable-only file permissions.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>%s, необходимо задать rpcpassword в файле конфигурации:
+ %s
+Рекомендуется использовать следующий случайный пароль:
+rpcuser=ecoinrpc
+rpcpassword=%s
+(запоминать этот пароль не нужно)
+Если файла нет, создайте его с правами чтения только для владельца.
+</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3520,7 +2695,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+3"/>
         <source>Error: Wallet unlocked for block minting only, unable to create transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка: кошелёк разблокирован только для создания блоков, невозможно создать транзакцию.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3779,7 +2954,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверная сумма для -reservebalance=&lt;сумма&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3885,7 +3060,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>SSL options: (see the Ecoin Wiki for SSL setup instructions)</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры SSL: (инструкции по настройке SSL см. в вики Ecoin)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3895,7 +3070,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>Send command to -server or ecoind</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить команду в -server или ecoind</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3915,7 +3090,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+1"/>
         <source>Sending...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправка...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4006,7 +3181,8 @@ If the file does not exist, create it with owner-readable-only file permissions.
         <location line="+1"/>
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось подписать контрольную точку, неверный checkpointkey?
+</translation>
     </message>
     <message>
         <location line="+1"/>
